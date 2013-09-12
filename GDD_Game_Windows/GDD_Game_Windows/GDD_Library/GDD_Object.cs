@@ -34,14 +34,23 @@ namespace GDD_Library
         /// <summary>
         /// The velocity 
         /// </summary>
-        public GDD_Vector2F Velocity { get { return this._Velocity; } set { this._Velocity = value; } }
+        public GDD_Vector2F Velocity { get { return this._Velocity; } 
+            set { this._Velocity = value; } }
         private GDD_Vector2F _Velocity = new GDD_Vector2F(0f, 0f);
+
+        //A new to defin velocity
+        public GDD_Point2F Velocity2 { get; set; }
 
         /// <summary>
         /// The rotation
         /// </summary>
         public GDD_Vector2F Rotation { get { return this._Rotation; } set { this._Rotation = value; } }
         private GDD_Vector2F _Rotation = new GDD_Vector2F(180f, 0f);
+
+        /// <summary>
+        /// Wether the obj can leave the screen. If true; it will be removed from memory when it does
+        /// </summary>
+        public Boolean CanLeaveScene { get; set; }
 
         /// <summary>
         /// The object's current location
@@ -66,6 +75,11 @@ namespace GDD_Library
         /// </summary>
         public GDD_GravityType GravityType { get { return this._GravityType; } set { this._GravityType = value; } }
         private GDD_GravityType _GravityType = GDD_GravityType.Normal;
+
+        public override string ToString()
+        {
+            return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity.ToString() + " }";
+        }
     }
 
     public enum GDD_GravityType

@@ -41,7 +41,7 @@
             this.GDD_View1.graphicsTimer = gdD_Timer1;
             this.GDD_View1.Location = new System.Drawing.Point(0, 0);
             this.GDD_View1.Name = "GDD_View1";
-            this.GDD_View1.Size = new System.Drawing.Size(388, 762);
+            this.GDD_View1.Size = new System.Drawing.Size(584, 562);
             this.GDD_View1.TabIndex = 0;
             this.GDD_View1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 762);
+            this.ClientSize = new System.Drawing.Size(584, 562);
             this.Controls.Add(this.GDD_View1);
             this.Name = "Form1";
             this.Text = "Form1";

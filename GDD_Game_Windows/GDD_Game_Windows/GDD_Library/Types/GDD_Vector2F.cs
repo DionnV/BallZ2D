@@ -10,12 +10,12 @@ namespace GDD_Library
         /// <summary>
         /// The direction of the vector
         /// </summary>
-        public  float Direction;
+        public float Direction;
 
         /// <summary>
         /// The size of the vector
         /// </summary>
-        public  float Size;
+        public float Size;
 
         /// <summary>
         /// Creates a new instance of a vector
@@ -27,5 +27,15 @@ namespace GDD_Library
             this.Direction = Direction;
             this.Size = Size;
         }
+
+        /// <summary>
+        /// Converts this object to string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "{" + Direction.ToString() + " ; " + Size.ToString() + "}";
+        }
+
     }
 }

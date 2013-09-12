@@ -22,6 +22,7 @@ namespace GDD_Library
             graphicsTimer.TickCap = 60;
             graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);
             graphicsTimer.Start();
+            
         }
 
         ~GDD_View()
@@ -74,12 +75,13 @@ namespace GDD_Library
         protected override void OnPaint(PaintEventArgs e)
         {
             //Draw the realm
-            Repaint();
+            //Repaint();
         }
 
         protected void graphicsTimer_Tick(Object sender, EventArgs e)
         {
             Repaint();
+            Application.DoEvents(); 
         }
 
         private void Repaint()
@@ -103,34 +105,52 @@ namespace GDD_Library
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
 
             //Calculating some constatns
-            float Rad2Deg = 0.0174532925f;
+            float Deg2Rad = 0.0174532925f;
 
             //Looping each thing
             for (int i = 0; i < this.Scene.Objects.Count; i++)
             {
                 GDD_Object obj = this.Scene.Objects[i];
 
-                //Doing a calculation for when to 
-                float t = graphicsTimer.TickTime;
-                if (t == 0) { t = graphicsTimer.DesiredTickTime; }
-                float d = t / 1000;
+                if (obj.GravityType == GDD_GravityType.Normal)
+                {
 
-                //
-                float LongSize = (float)(Math.Sqrt(2d) * obj.Velocity.Size);
-                float Rotation = -obj.Velocity.Direction + 180f;
+                    //Doing a calculation for when to 
+                    float t = graphicsTimer.TickTime;
+                    if (t == 0) { t = graphicsTimer.DesiredTickTime; }
+                    float d = t / 1000;
 
-                //Calculating the 'end' value of th
-                GDD_Point2F end = new GDD_Point2F(Math.Sin(obj.Velocity.Direction * Rad2Deg) * obj.Velocity.Size, Math.Cos(obj.Velocity.Direction * Rad2Deg) * obj.Velocity.Size);
-               // end = new GDD_Point2F(end.x, obj.Velocity.Size + (9.81f * d));
+                    //
+                    float LongSize = (float)(Math.Sqrt(2d) * obj.Velocity.Size);
 
-                //Recalculating velocity
-                float s = (float)Math.Sqrt(end.x * end.x + end.y * end.y);
-                obj.Velocity = new GDD_Vector2F((float)Math.Asin(end.x / s) / Rad2Deg, s);
+                    //Applying angulair momentum
+                    obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction + (obj.Rotation.Size * 360f) * d, obj.Rotation.Size);
 
-                //A shortcut, but works for just gravity
-                //obj.Velocity = new GDD_Vector2F(0f, obj.Velocity.Size + 98.1f * d);
-                obj.Location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
-                obj.Shape.Draw(g);
+                    //Applying gravity
+                    obj.Velocity2 = new GDD_Point2F(obj.Velocity2.x, obj.Velocity2.y + (9.81f * d));
+
+                    //Determining the new delta distance
+                    GDD_Point2F end = new GDD_Point2F(obj.Velocity2.x, obj.Velocity2.y);
+
+                    //Determining the end location
+                    GDD_Point2F end_location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
+
+                    //Determining the the object will be out of the scene
+                    //if (end_location.x
+
+                    List<GDD_Object> Collisions = (from obj1 in this.Scene.Objects
+                            where GDD_Shape.Collides(obj.Shape, obj1.Shape) != null
+                            select obj1).ToList<GDD_Object>();
+
+                    if (Collisions.Count > 1)
+                    {
+                        MessageBox.Show("COLLISION");
+                    }
+
+                    //Adding the delta distance to the location
+                    obj.Location = end_location;
+                    obj.Shape.Draw(g);
+                }
             }
 
             //Creating own graphics

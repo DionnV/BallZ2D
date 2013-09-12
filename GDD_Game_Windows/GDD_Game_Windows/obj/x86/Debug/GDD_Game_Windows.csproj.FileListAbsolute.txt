@@ -7,3 +7,12 @@ d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Wi
 d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
 d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
 d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form1.resources
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resources
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
