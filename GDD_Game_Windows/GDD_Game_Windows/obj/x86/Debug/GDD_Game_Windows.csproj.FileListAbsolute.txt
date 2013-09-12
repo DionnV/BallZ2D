@@ -1,0 +1,9 @@
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form1.resources
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resources
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
+d:\documenten\documents\visual studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
