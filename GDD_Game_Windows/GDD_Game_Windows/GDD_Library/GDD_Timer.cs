@@ -133,8 +133,11 @@ namespace GDD_Library
                     }
 
                     //Forcing to redraw
-                    this.Tick(this, new EventArgs());
-                    this._TicksThisSecond++;
+                    if (this.Tick != null)
+                    {
+                        this.Tick(this, new EventArgs());
+                        this._TicksThisSecond++;
+                    }
                 }
                 Thread.Sleep(1); //so processor can rest for a while
             }
