@@ -31,6 +31,9 @@ namespace GDD_Library
         public GDD_Shape Shape { get { return this._Shape;} set { this._Shape = value; this._Shape.Owner = this; }}
         private GDD_Shape _Shape = new GDD_Square();
 
+
+        private static float RadConverter = 0.0174532925f;
+        
         /// <summary>
         /// The velocity 
         /// </summary>
@@ -56,7 +59,7 @@ namespace GDD_Library
                 else
                 {
                     
-                    dir = (float)Math.Atan(this.Velocity.y / this.Velocity.x) / 0.0174532925f;
+                    dir = (float)Math.Atan(this.Velocity.y / this.Velocity.x) / RadConverter;
 
                     if (Velocity.x < 0)
                     {
@@ -73,6 +76,24 @@ namespace GDD_Library
 
                 //Returning the vector
                 return new GDD_Vector2F((dir<0) ? (360f + dir):dir, size);
+
+            }
+
+            set
+            {
+                //Calculating this to DX and DY
+
+                float dx = (float)Math.Sin(value.Direction * RadConverter) * value.Size;
+                float dy = (float)Math.Cos(value.Direction * RadConverter) * value.Size;
+
+                if (value.Direction > 180f)
+                {
+                    this.Velocity = new GDD_Point2F(dy, dx);
+                }
+                else
+                {
+                    this.Velocity = new GDD_Point2F(dx, -dy);
+                }
 
             }
         }
@@ -101,6 +122,11 @@ namespace GDD_Library
         /// </summary>
         public GDD_Point2F Location { get { return this._Location; } set { this._Location = value; } }
         private GDD_Point2F _Location = new GDD_Point2F(0f, 0f);
+
+        /// <summary>
+        /// The desired location, for collision detection
+        /// </summary>
+        public GDD_Point2F Desired_Location { get; set; }
 
         /// <summary>
         /// The font color of the object

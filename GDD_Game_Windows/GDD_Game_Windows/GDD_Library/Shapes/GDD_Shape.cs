@@ -9,7 +9,7 @@ namespace GDD_Library
 {
     public abstract class GDD_Shape
     {
-       public abstract void Draw(Graphics G);
+        public abstract void Draw(Graphics G);
 
         /// <summary>
         /// The size of this Square
@@ -41,19 +41,19 @@ namespace GDD_Library
 
             //Calculating the euclidian distance
             double Distance = Math.Sqrt(
-                    Delta(circle1.Owner.Location.x, circle2.Owner.Location.x) * Delta(circle1.Owner.Location.x, circle2.Owner.Location.x) +
-                    Delta(circle1.Owner.Location.y, circle2.Owner.Location.y) * Delta(circle1.Owner.Location.y, circle2.Owner.Location.y));
+                    Delta(circle1.Owner.Desired_Location.x, circle2.Owner.Desired_Location.x) * Delta(circle1.Owner.Desired_Location.x, circle2.Owner.Desired_Location.x) +
+                    Delta(circle1.Owner.Desired_Location.y, circle2.Owner.Desired_Location.y) * Delta(circle1.Owner.Desired_Location.y, circle2.Owner.Desired_Location.y));
 
             //Doing some calculations
-            if (( Distance < ((circle1.Size + circle2.Size) / 2f)) && (circle1 != circle2))
+            if ((Distance < ((circle1.Size + circle2.Size) / 2f)) && (circle1 != circle2))
             {
                 //D is now the distance to the collision from the centre of gravity of Circle1
-                float f = circle1.Size / (circle1.Size + circle2.Size) ;
+                float f = circle1.Size / (circle1.Size + circle2.Size);
 
                 //Calculating the collision point
                 GDD_Point2F CollisionPoint = new GDD_Point2F(
-                    (circle2.Owner.Location.x - circle1.Owner.Location.x) * f,
-                    (circle2.Owner.Location.y - circle1.Owner.Location.y) * f);
+                    (circle2.Owner.Desired_Location.x - circle1.Owner.Desired_Location.x) * f,
+                    (circle2.Owner.Desired_Location.y - circle1.Owner.Desired_Location.y) * f);
 
                 //The collision angle that we'll calculate
                 float CollisionAngle;
@@ -66,15 +66,12 @@ namespace GDD_Library
                 {
                     CollisionAngle = 90f - CollisionAngle;
                 }
-                else 
+                else
                 {
                     CollisionAngle += 90f;
-<<<<<<< HEAD
                 }
-=======
-                }     
-                
-                 //Creating collisionInfo
+
+                //Creating collisionInfo
                 GDD_CollisionInfo result = new GDD_CollisionInfo();
 
                 //Filling data retarding obj1
@@ -83,7 +80,7 @@ namespace GDD_Library
 
                 //Filling data regarding obj2
                 result.obj2 = circle2.Owner;
-                result.obj2_CollisionAngle = Angle(CollisionAngle -180f);
+                result.obj2_CollisionAngle = Angle(CollisionAngle - 180f);
 
                 //We can now conclude the bounce angle
                 result.BounceAngle = Angle(CollisionAngle - 90f);
@@ -99,23 +96,24 @@ namespace GDD_Library
                 float Bounce_Max = result.BounceAngle_low + d;
 
                 //Caculating the new angle for obj1 
-                float obj1_newAngle = Bounce_Max - ((Bounce_Max - result.obj1.Velocity_Vector.Direction) * force1Ratio);
->>>>>>> c78fdf558350205016fe9ce89cc1b34af4454346
+                result.obj1_NewAngle = Bounce_Max - ((Bounce_Max - result.obj1.Velocity_Vector.Direction) * force1Ratio);
 
                 //D will hold the angle of impact for obj2
                 d = (float)DeltaAngle(result.BounceAngle, result.obj2.Velocity_Vector.Direction);
 
-<<<<<<< HEAD
-          
-=======
                 //The max bounce that can occur
-                Bounce_Max = result.BounceAngle_low - d;
->>>>>>> c78fdf558350205016fe9ce89cc1b34af4454346
+                if (result.BounceAngle < 90f || result.BounceAngle > 270f)
+                {
+                    Bounce_Max = result.BounceAngle_low + d;
+                }
+                else
+                {
+                    Bounce_Max = result.BounceAngle_low - d;
+                }
 
                 //Caculating the new angle for obj1 
-                float obj2_newAngle = Bounce_Max - ((Bounce_Max - result.obj2.Velocity_Vector.Direction) * (1f-force1Ratio));
+                result.obj2_NewAngle = Bounce_Max - ((Bounce_Max - result.obj2.Velocity_Vector.Direction) * (1f - force1Ratio));
 
-                
                 //Returning the Collision Info
                 return result;
             }
@@ -141,7 +139,7 @@ namespace GDD_Library
             return f;
         }
 
-         private static float Angle(float f)
+        private static float Angle(float f)
         {
             if (f < 0f)
             {

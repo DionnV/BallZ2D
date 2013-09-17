@@ -105,9 +105,7 @@ namespace GDD_Library
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
 
             //Calculating some constatns
-            //float Deg2Rad = 0.0174532925f;
-
-            List<GDD_Object> CollisionExceptions = new List<GDD_Object>();
+            float Deg2Rad = 0.0174532925f;
 
             //Looping each thing
             for (int i = 0; i < this.Scene.Objects.Count; i++)
@@ -135,59 +133,21 @@ namespace GDD_Library
                     GDD_Point2F end = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y);
 
                     //Determining the end location
-                    obj.Desired_Location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
+                    GDD_Point2F end_location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
 
                     //Calculating collisions
-                    /*List<GDD_CollisionInfo> Collisions = (from obj1 in this.Scene.Objects
+                    List<GDD_Object> Collisions = (from obj1 in this.Scene.Objects
                             where GDD_Shape.Collides(obj.Shape, obj1.Shape) != null
-                            select obj1).ToList<GDD_CollisionInfo>();*/
-
-                    //List of collision
-                    List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
-
-                    //Filing the list
-                    foreach (GDD_Object obj1 in this.Scene.Objects)
-                    {
-                        if (!CollisionExceptions.Contains(obj1))
-                        {
-                            //Calculating the collision
-                            GDD_CollisionInfo collision = GDD_Shape.Collides(obj.Shape, obj1.Shape);
-
-                            //Did we have a collision
-                            if (collision != null)
-                            {
-                                //Adding a collision
-                                Collisions.Add(collision);
-                            }
-                        }
-                    }
+                            select obj1).ToList<GDD_Object>();
 
                     //Checking for collisions
-                    if (Collisions.Count > 0)
+                    if (Collisions.Count > 1)
                     {
-                        //Looping each collision
-                        foreach (GDD_CollisionInfo collision in Collisions)
-                        {
-                            //Applying the new angles
-                            collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_NewAngle, collision.obj1.Velocity_Vector.Size);
-                            collision.obj2.Velocity_Vector = new GDD_Vector2F(collision.obj2_NewAngle, collision.obj2.Velocity_Vector.Size);
-
-                            //Determining the end location
-                            collision.obj1.Location = new GDD_Point2F(
-                                                                        collision.obj1.Location.x + collision.obj1.Velocity.x,
-                                                                        collision.obj1.Location.y + collision.obj1.Velocity.y);
-
-                            //Doesn't collide
-                            CollisionExceptions.Add(collision.obj2);
-                         }
-                    }
-                    else
-                    {
-                        //Adding the delta distance to the location, because we haven't colided
-                        obj.Location = obj.Desired_Location;
+                        MessageBox.Show("COLLISION");
                     }
 
-                    //Drawing
+                    //Adding the delta distance to the location
+                    obj.Location = end_location;
                     obj.Shape.Draw(g);
                 }
             }

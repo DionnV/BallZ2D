@@ -9,9 +9,11 @@ namespace GDD_Library
     {
         public GDD_Object obj1 { get; set; }
         public float obj1_CollisionAngle { get; set; }
+        public float obj1_NewAngle { get; set; }
  
         public GDD_Object obj2 { get; set; }
         public float obj2_CollisionAngle { get; set; }
+        public float obj2_NewAngle { get; set; }
 
         public float BounceAngle { get { return _BounceAngle; } set { this._BounceAngle = value; this.BounceAngle_low = (value > 180f) ? value - 180f : value; } }
         private float _BounceAngle;

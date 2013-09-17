@@ -35,19 +35,20 @@ namespace GDD_Game_Windows
             obj1.Velocity = new GDD_Point2F(5f, -5f);
 
             GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+            GDD_Object circle2 = new GDD_Object(new GDD_Circle());
             circle1.Location = new GDD_Point2F(0f, 150f);
             circle1.Shape.Size = 50f;
-            circle1.Mass = 25f;
+            circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 2f);
-            circle1.Velocity = new GDD_Point2F(10f, -2f);
+            circle1.Velocity = new GDD_Point2F(3f, -2f);
 
 
-            GDD_Object circle2 = new GDD_Object(new GDD_Circle());
+            
             circle2.Location = new GDD_Point2F(250f, 100f);
-            circle2.Shape.Size = 20f;
-            circle2.Mass = 1f;
+            circle2.Shape.Size = 50f;
+            circle2.Mass = 50f;
             circle2.Rotation = new GDD_Vector2F(0f, 2f);
-            circle2.Velocity = new GDD_Point2F(-5f, 0f);
+            circle2.Velocity = new GDD_Point2F(-3f, 0f);
 
             //Creating the scene and adding the square
             GDD_View1.graphicsTimer.Stop();
