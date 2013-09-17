@@ -86,11 +86,10 @@ namespace GDD_Library
                 else 
                 {
                     CollisionAngle += 90f;
-                }     
-                
-                 
+                }
 
 
+          
 
 
                 return new GDD_CollisionInfo() ;

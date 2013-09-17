@@ -105,7 +105,7 @@ namespace GDD_Library
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
 
             //Calculating some constatns
-            float Deg2Rad = 0.0174532925f;
+            //float Deg2Rad = 0.0174532925f;
 
             //Looping each thing
             for (int i = 0; i < this.Scene.Objects.Count; i++)
@@ -142,7 +142,7 @@ namespace GDD_Library
                             where GDD_Shape.Collides(obj.Shape, obj1.Shape) != null
                             select obj1).ToList<GDD_Object>();
 
-                    if (Collisions.Count > 1)
+                    if (Collisions.Count > 0)
                     {
                         MessageBox.Show("COLLISION");
                     }
