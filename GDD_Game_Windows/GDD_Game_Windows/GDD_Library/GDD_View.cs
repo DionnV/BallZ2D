@@ -121,28 +121,31 @@ namespace GDD_Library
                     float d = t / 1000;
 
                     //
-                    float LongSize = (float)(Math.Sqrt(2d) * obj.Velocity.Size);
+                    float LongSize = (float)(Math.Sqrt(2d) * obj.Velocity_Vector.Size);
 
                     //Applying angulair momentum
                     obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction + (obj.Rotation.Size * 360f) * d, obj.Rotation.Size);
 
                     //Applying gravity
-                    obj.Velocity2 = new GDD_Point2F(obj.Velocity2.x, obj.Velocity2.y + (9.81f * d));
+                    obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + (9.81f * d));
 
                     //Determining the new delta distance
-                    GDD_Point2F end = new GDD_Point2F(obj.Velocity2.x, obj.Velocity2.y);
+                    GDD_Point2F end = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y);
 
                     //Determining the end location
                     GDD_Point2F end_location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
 
-                    //Determining the the object will be out of the scene
-                    //if (end_location.x
-
+                    //Calculating collisions
                     List<GDD_Object> Collisions = (from obj1 in this.Scene.Objects
                             where GDD_Shape.Collides(obj.Shape, obj1.Shape) != null
                             select obj1).ToList<GDD_Object>();
 
+<<<<<<< HEAD
                     if (Collisions.Count > 0)
+=======
+                    //Checking for collisions
+                    if (Collisions.Count > 1)
+>>>>>>> c78fdf558350205016fe9ce89cc1b34af4454346
                     {
                         MessageBox.Show("COLLISION");
                     }

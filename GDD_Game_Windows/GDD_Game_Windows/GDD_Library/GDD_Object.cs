@@ -34,12 +34,56 @@ namespace GDD_Library
         /// <summary>
         /// The velocity 
         /// </summary>
-        public GDD_Vector2F Velocity { get { return this._Velocity; } 
-            set { this._Velocity = value; } }
-        private GDD_Vector2F _Velocity = new GDD_Vector2F(0f, 0f);
+        public GDD_Vector2F Velocity_Vector
+        {
+            get
+            {
+                //Defining dir
+                float dir = -1f;
 
-        //A new to defin velocity
-        public GDD_Point2F Velocity2 { get; set; }
+                //Calculating the Direction of the first object
+                if (this.Velocity.x == 0)
+                {
+                    if (Velocity.y > 0)
+                    {
+                        dir = 180f;
+                    }
+                    else
+                    {
+                        dir = 0f;
+                    }
+                }
+                else
+                {
+                    
+                    dir = (float)Math.Atan(this.Velocity.y / this.Velocity.x) / 0.0174532925f;
+
+                    if (Velocity.x < 0)
+                    {
+                        dir -= 90;
+                    }
+                    else
+                    {
+                        dir += 90;
+                    }  
+                }
+                
+                //Calculating the size
+                float size = (float)Math.Sqrt(this.Velocity.x * this.Velocity.x + this.Velocity.y * this.Velocity.y);
+
+                //Returning the vector
+                return new GDD_Vector2F((dir<0) ? (360f + dir):dir, size);
+
+            }
+        }
+
+        //Velocity defined as dX and dY
+        public GDD_Point2F Velocity { get; set; }
+
+        /// <summary>
+        /// The force (Mass * Speed)
+        /// </summary>
+        public float Force { get { return this.Mass * this.Velocity_Vector.Size; } }
 
         /// <summary>
         /// The rotation
@@ -78,7 +122,7 @@ namespace GDD_Library
 
         public override string ToString()
         {
-            return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity.ToString() + " }";
+            return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
         }
     }
 
