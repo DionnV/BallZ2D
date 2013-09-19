@@ -114,44 +114,36 @@ namespace GDD_Library
             {
                 GDD_Object obj = this.Scene.Objects[i];
 
+                //We only apply gravity when its gravity type is normal
                 if (obj.GravityType == GDD_GravityType.Normal)
                 {
-
                     //Doing a calculation for when to 
                     float t = graphicsTimer.TickTime;
                     if (t == 0) { t = graphicsTimer.DesiredTickTime; }
                     float d = t / 1000;
 
-                    //
-                    float LongSize = (float)(Math.Sqrt(2d) * obj.Velocity_Vector.Size);
-
                     //Applying angulair momentum
                     obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction + (obj.Rotation.Size * 360f) * d, obj.Rotation.Size);
 
                     //Applying gravity
-                    obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + (9.81f * d));
-
-                    //Determining the new delta distance
-                    GDD_Point2F end = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y);
+                    obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d));
+                    
 
                     //Determining the end location
-                    obj.Desired_Location = new GDD_Point2F(obj.Location.x + end.x, obj.Location.y + end.y);
-
-                    //Calculating collisions
-                    /*List<GDD_CollisionInfo> Collisions = (from obj1 in this.Scene.Objects
-                            where GDD_Shape.Collides(obj.Shape, obj1.Shape) != null
-                            select obj1).ToList<GDD_CollisionInfo>();*/
+                    obj.Desired_Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
 
                     //List of collision
                     List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
 
-                    //Filing the list
+                    //Filing the list of objects that we collide with
                     foreach (GDD_Object obj1 in this.Scene.Objects)
                     {
                         if (!CollisionExceptions.Contains(obj1))
                         {
                             //Calculating the collision
                             GDD_CollisionInfo collision = GDD_Shape.Collides(obj.Shape, obj1.Shape);
+
+
 
                             //Did we have a collision
                             if (collision != null)
@@ -168,16 +160,14 @@ namespace GDD_Library
                         //Looping each collision
                         foreach (GDD_CollisionInfo collision in Collisions)
                         {
-                            //Applying the new angles
-                            collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_NewAngle, collision.obj1.Velocity_Vector.Size);
-                            collision.obj2.Velocity_Vector = new GDD_Vector2F(collision.obj2_NewAngle, collision.obj2.Velocity_Vector.Size);
+                            //Applying the direction of the objection
+                            collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
+                            collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
 
                             //Determining the end location
-                            collision.obj1.Location = new GDD_Point2F(
-                                                                        collision.obj1.Location.x + collision.obj1.Velocity.x,
-                                                                        collision.obj1.Location.y + collision.obj1.Velocity.y);
+                            collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
 
-                            //Doesn't collide
+                            //We've collided, adding object 2 to the exceptions list
                             CollisionExceptions.Add(collision.obj2);
                          }
                     }
@@ -186,10 +176,10 @@ namespace GDD_Library
                         //Adding the delta distance to the location, because we haven't colided
                         obj.Location = obj.Desired_Location;
                     }
-
-                    //Drawing
-                    obj.Shape.Draw(g);
                 }
+
+                //Drawing
+                obj.Shape.Draw(g);
             }
 
             //Creating own graphics

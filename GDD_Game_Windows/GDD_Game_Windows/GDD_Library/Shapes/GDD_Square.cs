@@ -19,7 +19,7 @@ namespace GDD_Library.Shapes
             
             //A few constants that we calculate with
             float Rad2Deg = 0.0174532925f;
-            float LongSize = (float)(Math.Sqrt(2d) * this.Size);
+            float LongSize = (float)(Math.Sqrt(2d) * (this.Size * 0.5f));
             float Rotation = -Owner.Rotation.Direction + 180f;
 
             //Calculating 4 corners to start drawing from
@@ -35,7 +35,7 @@ namespace GDD_Library.Shapes
             G.DrawLine(Owner.FrontPen, Owner.Location.x + p4.x, Owner.Location.y + p4.y, Owner.Location.x + p1.x, Owner.Location.y + p1.y);
 
             //Calculating the end point for our direction line
-            GDD_Point2F end = new GDD_Point2F(Math.Sin(Rotation * Rad2Deg) * this.Size, Math.Cos(Rotation * Rad2Deg) * Size);
+            GDD_Point2F end = new GDD_Point2F(Math.Sin(Rotation * Rad2Deg) * (0.5f * Size), Math.Cos(Rotation * Rad2Deg) * (0.5f * Size));
 
             //Drawing a line to get its rotation better
             G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, Owner.Location.x + end.x, Owner.Location.y + end.y);

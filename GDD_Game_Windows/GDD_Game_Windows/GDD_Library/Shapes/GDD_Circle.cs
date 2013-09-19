@@ -31,6 +31,10 @@ namespace GDD_Library.Shapes
             G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, Owner.Location.x + end.x, Owner.Location.y + end.y);
         }
 
-
+        /// <summary>
+        /// The bounce rate, 0.8 default
+        /// </summary>
+        public float RestitutionRate { get { return this._RestitutionRate; } set { _RestitutionRate = value;  } }
+        private float _RestitutionRate = 0.6f;
     }
 }

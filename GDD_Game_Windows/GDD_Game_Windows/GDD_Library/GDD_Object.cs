@@ -31,9 +31,6 @@ namespace GDD_Library
         public GDD_Shape Shape { get { return this._Shape;} set { this._Shape = value; this._Shape.Owner = this; }}
         private GDD_Shape _Shape = new GDD_Square();
 
-
-        private static float RadConverter = 0.0174532925f;
-        
         /// <summary>
         /// The velocity 
         /// </summary>
@@ -41,65 +38,40 @@ namespace GDD_Library
         {
             get
             {
-                //Defining dir
-                float dir = -1f;
-
-                //Calculating the Direction of the first object
-                if (this.Velocity.x == 0)
-                {
-                    if (Velocity.y > 0)
-                    {
-                        dir = 180f;
-                    }
-                    else
-                    {
-                        dir = 0f;
-                    }
-                }
-                else
-                {
-                    
-                    dir = (float)Math.Atan(this.Velocity.y / this.Velocity.x) / RadConverter;
-
-                    if (Velocity.x < 0)
-                    {
-                        dir -= 90;
-                    }
-                    else
-                    {
-                        dir += 90;
-                    }  
-                }
-                
-                //Calculating the size
-                float size = (float)Math.Sqrt(this.Velocity.x * this.Velocity.x + this.Velocity.y * this.Velocity.y);
-
-                //Returning the vector
-                return new GDD_Vector2F((dir<0) ? (360f + dir):dir, size);
-
+                //Letting math do all the hard work
+                return GDD_Math.DXDYToVector(this.Velocity);
             }
-
             set
-            {
-                //Calculating this to DX and DY
-
-                float dx = (float)Math.Sin(value.Direction * RadConverter) * value.Size;
-                float dy = (float)Math.Cos(value.Direction * RadConverter) * value.Size;
-
-                if (value.Direction > 180f)
-                {
-                    this.Velocity = new GDD_Point2F(dy, dx);
-                }
-                else
-                {
-                    this.Velocity = new GDD_Point2F(dx, -dy);
-                }
-
+            {          
+                //Letting math do all the hard work
+                this.Velocity = GDD_Math.VectorToDXDY(value);      
             }
         }
 
         //Velocity defined as dX and dY
-        public GDD_Point2F Velocity { get; set; }
+        public GDD_Point2F Velocity
+        {
+            get
+            { 
+                return _Velocity; 
+            }
+            set 
+            {
+                this._Velocity = value;
+
+                if (this.Velocity_Vector.Size < 0.001f)
+                {
+                    this._Velocity = new GDD_Point2F(0f, 0f);
+                    this.GravityType = GDD_GravityType.Still;
+                }
+                
+                   
+                
+            }
+
+        }
+
+        private GDD_Point2F _Velocity = new GDD_Point2F(0f, 0f);
 
         /// <summary>
         /// The force (Mass * Speed)
@@ -143,7 +115,7 @@ namespace GDD_Library
         /// <summary>
         /// The gravity Type
         /// </summary>
-        public GDD_GravityType GravityType { get { return this._GravityType; } set { this._GravityType = value; } }
+        public GDD_GravityType GravityType { get { return this._GravityType; } set { this._GravityType = value; if (value == GDD_GravityType.Static) { this.Desired_Location = this.Location; } } }
         private GDD_GravityType _GravityType = GDD_GravityType.Normal;
 
         public override string ToString()
@@ -155,6 +127,7 @@ namespace GDD_Library
     public enum GDD_GravityType
     {
         Static,
-        Normal
+        Normal,
+        Still
     }
 }
