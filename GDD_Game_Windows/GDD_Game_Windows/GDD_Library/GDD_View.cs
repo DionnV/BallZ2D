@@ -136,8 +136,10 @@ namespace GDD_Library
                     List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
 
                     //Filing the list of objects that we collide with
-                    foreach (GDD_Object obj1 in this.Scene.Objects)
+                    for (int j = 0; j < this.Scene.Objects.Count; j++)
                     {
+                        GDD_Object obj1 = this.Scene.Objects[j];
+
                         if (!CollisionExceptions.Contains(obj1))
                         {
                             //Calculating the collision
@@ -164,10 +166,10 @@ namespace GDD_Library
                         if (Collisions.Count > 1)
                         {
                             //We're only colliding with the closest object - finding it
-                            for (int j = 0; i < Collisions.Count; i++)
+                            for (int j = 1; j < Collisions.Count; j++)
                             {
                                 //Calculating the new dst
-                                dst = (float)GDD_Math.EuclidianDistance(Collisions[j].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
+                                dst = (float)GDD_Math.EuclidianDistance(Collisions[j].obj1.Desired_Location, Collisions[j].obj2.Desired_Location);
 
                                 //Is it shorter?
                                 if (dst < shortest_dst)
@@ -215,16 +217,19 @@ namespace GDD_Library
                 //Drawing
                 obj.Shape.Draw(g);
             }
+            if (this != null)
+            {
 
-            //Creating own graphics
-            Graphics g2 = this.CreateGraphics();
+                //Creating own graphics
+                Graphics g2 = this.CreateGraphics();
 
-            //Drawing the bitmap onto us
-            g2.DrawImage(b, new Point(0, 0));
+                //Drawing the bitmap onto us
+                g2.DrawImage(b, new Point(0, 0));
 
-            g.Dispose();
-            g2.Dispose();
-            b.Dispose();
+                g.Dispose();
+                g2.Dispose();
+                b.Dispose();
+            }
 
         }
     }

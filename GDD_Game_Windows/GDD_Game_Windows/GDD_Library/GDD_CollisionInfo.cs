@@ -195,6 +195,8 @@ namespace GDD_Library
                 {
                     //With face
                     GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - corners[closest2].x, corners[closest].y - corners[closest2].y));
+                    
+                    //if (circle1.Owner.Desired_Location.x < square1.
                     result.BounceAngle = vec.Direction;
                 }      
 
@@ -230,21 +232,16 @@ namespace GDD_Library
 
 
                 //Calculating the angular momentum
-                result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, (pxs * 0.5f + DxDy.x * 0.5f + result.obj2.Rotation.Direction * 2f) / ((float)Math.PI * result.obj1.Shape.Size));
+                result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, (pxs * 0.5f + DxDy.x * 0.5f + result.obj2.Rotation.Direction) / ((float)Math.PI * result.obj1.Shape.Size));
 
-                
-                
-               
+                //Stopping the rotation if nessecary
                 if (Math.Abs(result.obj1_NewRotation.Size) < 0.02)
                 {
                     result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                 }
                 
-
                 //Adjusting the velocity
                 result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
-  
-
 
                 //Returning;
                 return result;
@@ -335,7 +332,7 @@ namespace GDD_Library
                     }
                     else
                     {
-                            obj1_NewVelocity = new GDD_Vector2F(BounceAngle_low - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);                                                    
+                         obj1_NewVelocity = new GDD_Vector2F(BounceAngle_low - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);                                                    
                     }
                 }
                 else

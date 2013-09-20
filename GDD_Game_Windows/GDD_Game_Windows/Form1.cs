@@ -27,34 +27,26 @@ namespace GDD_Game_Windows
 
 
             GDD_Object circle1 = new GDD_Object(new GDD_Circle());
-            GDD_Object circle2 = new GDD_Object(new GDD_Circle());
             
-            circle1.Location = new GDD_Point2F(10f, 100f);
+            circle1.Location = new GDD_Point2F(300f, 300f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(10f, 2f);
-            circle1.Velocity = new GDD_Point2F(8f, 0f);
+            circle1.Rotation = new GDD_Vector2F(0f, 5f);
+            circle1.Velocity = new GDD_Point2F(-45f, -1000f);
             
-            circle2.Location = new GDD_Point2F(100f, 300f);
-            circle2.Shape.Size = 50f;
-            circle2.Mass = 50f;
-            circle2.Rotation = new GDD_Vector2F(0f, 0f);
-            circle2.Velocity = new GDD_Point2F(0f, 0f);
-            circle2.GravityType = GDD_GravityType.Static;
-
-            float r = 0;
-
-            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + r,50f));
-
-            //Creating 6 boxes in a perfect line
-            for (int i = 0; i <7; i++)
+            for (int i = 0; i <32; i++)
             {
                 GDD_Object square1 = new GDD_Object(new GDD_Square());
 
-                square1.Location = new GDD_Point2F(0f + dxdy.x * i, 300f + dxdy.y * i);
+                float r = 250f;
+                float f = 360 / ((2f * r * (float)Math.PI)/50f);
+
+                GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(270f - f * i, 250f));
+
+                square1.Location = new GDD_Point2F(300f + dxdy.x, 300f + dxdy.y);
                 square1.Shape.Size = 50f;
                 square1.Mass = 50f;
-                square1.Rotation = new GDD_Vector2F(r, 0f);
+                square1.Rotation = new GDD_Vector2F(-f * i, 0f);
                 square1.Velocity = new GDD_Point2F(0f, 0f);
                 square1.GravityType = GDD_GravityType.Static;
                 GDD_View1.Scene.Objects.Add(square1);
@@ -62,27 +54,12 @@ namespace GDD_Game_Windows
             }
 
 
-            r = -10;
+          
 
-            dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + r, 50f));
-
-            //Creating 6 boxes in a perfect line
-            for (int i = 0; i < 8; i++)
-            {
-                GDD_Object square1 = new GDD_Object(new GDD_Square());
-
-                square1.Location = new GDD_Point2F(600f - dxdy.x * i, 400f - dxdy.y * i);
-                square1.Shape.Size = 50f;
-                square1.Mass = 50f;
-                square1.Rotation = new GDD_Vector2F(r, 0f);
-                square1.Velocity = new GDD_Point2F(0f, 0f);
-                square1.GravityType = GDD_GravityType.Static;
-                GDD_View1.Scene.Objects.Add(square1);
-
-            }
+            
+          
             //Adding the circles
             GDD_View1.Scene.Objects.Add(circle1);
-            GDD_View1.Scene.Objects.Add(circle2);
             GDD_View1.graphicsTimer.Start();
             
 
