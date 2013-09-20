@@ -27,6 +27,11 @@ namespace GDD_Library
         /// Have we come to rest
         /// </summary>
         public Boolean obj1_IsStill { get; set; }
+
+        /// <summary>
+        /// The rotation after the collision
+        /// </summary>
+        public GDD_Vector2F obj1_NewRotation { get; set; }
  
         /// <summary>
         /// The second GDD_Object that will colide
@@ -50,7 +55,7 @@ namespace GDD_Library
         private float _BounceAngle;
         public float BounceAngle_low { get; set; }
 
-        /// <summary>
+          /// <summary>
         /// Returns Info about a collision between GDD_Shapes
         /// </summary>
         /// <param name="circle1"></param>
@@ -60,7 +65,7 @@ namespace GDD_Library
         {
 
             //Calculating the euclidian distance
-            double Distance = EuclidianDistance(circle1.Owner.Desired_Location, circle2.Owner.Desired_Location);
+            double Distance = GDD_Math.EuclidianDistance(circle1.Owner.Desired_Location, circle2.Owner.Desired_Location);
 
             //Doing some calculations
             if ((Distance < ((circle1.Size + circle2.Size) / 2f)) && (circle1 != circle2))
@@ -84,11 +89,16 @@ namespace GDD_Library
                 //Checking if the Y Value has a big enough value
                 if (Math.Abs(DxDy.y) < 30.0d)
                 {
-                    DxDy.y = 0;
-                    result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
-                    result.obj1_IsStill = true;
+
+                    if (Math.Abs(DxDy.x) < 0.05d)
+                    {
+                        result.obj1_IsStill = true;
+                        DxDy.y = 0;
+                        result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
+                    }
                 }
 
+                //Collicing obj2
                 result.obj2VSBounceAngle();
 
                 //D will hold the angle of impact for obj2
@@ -130,7 +140,7 @@ namespace GDD_Library
             //Filling them
             for (int i = 0; i < 4; i++)
             {
-                corners.Add(new GDD_Point2F(Math.Sin((Rotation + Angle(45f + (90f * (float)i))) * Rad2Deg) * LongSize + x, Math.Cos((Rotation + Angle(45f + (90f * (float)i))) * Rad2Deg) * LongSize + y));
+                corners.Add(new GDD_Point2F(Math.Sin((Rotation + GDD_Math.Angle(45f + (90f * (float)i))) * Rad2Deg) * LongSize + x, Math.Cos((Rotation + GDD_Math.Angle(45f + (90f * (float)i))) * Rad2Deg) * LongSize + y));
             }
 
             int closest = 0;
@@ -138,7 +148,7 @@ namespace GDD_Library
             for (int i = 0; i < 4; i++)
             {
                 //Checking if we have a new closest
-                if (EuclidianDistance(corners[i], circle1.Owner.Desired_Location) < EuclidianDistance(corners[closest], circle1.Owner.Desired_Location))
+                if (GDD_Math.EuclidianDistance(corners[i], circle1.Owner.Desired_Location) < GDD_Math.EuclidianDistance(corners[closest], circle1.Owner.Desired_Location))
                 {
                     closest = i;
                 }
@@ -153,7 +163,7 @@ namespace GDD_Library
                 if (i != closest)
                 {
                     //Checking if we have a new closest
-                    if (EuclidianDistance(corners[i], circle1.Owner.Desired_Location) < EuclidianDistance(corners[closest2], circle1.Owner.Desired_Location))
+                    if (GDD_Math.EuclidianDistance(corners[i], circle1.Owner.Desired_Location) < GDD_Math.EuclidianDistance(corners[closest2], circle1.Owner.Desired_Location))
                     {
                         closest2 = i;
                     }
@@ -161,8 +171,8 @@ namespace GDD_Library
             }
 
             //Calculating the euclidian distances
-            float eud_corner = (float)EuclidianDistance(corners[closest], circle1.Owner.Desired_Location);
-            float eud_obj = (float)EuclidianDistance(circle1.Owner.Desired_Location, square1.Owner.Desired_Location);
+            float eud_corner = (float)GDD_Math.EuclidianDistance(corners[closest], circle1.Owner.Desired_Location);
+            float eud_obj = (float)GDD_Math.EuclidianDistance(circle1.Owner.Desired_Location, square1.Owner.Desired_Location);
 
 
             //Doing some calculations
@@ -186,35 +196,60 @@ namespace GDD_Library
                     //With face
                     GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - corners[closest2].x, corners[closest].y - corners[closest2].y));
                     result.BounceAngle = vec.Direction;
-                }
-                
-
-               
-               
+                }      
 
                 //Letting obj collide
                 result.obj1VSBounceAngle();
 
+                //Pixels per second
+                float pxs = (float)(result.obj1.Rotation.Size * Math.PI * result.obj1.Shape.Size);
+
                 //Checking if the vol
                 GDD_Point2F DxDy = GDD_Math.VectorToDXDY(result.obj1_NewVelocity);
+      
+                //Modifying dxdy
+                if (DxDy.x > 0)
+                {
+                    DxDy.x = DxDy.x + ((float)GDD_Math.Delta(DxDy.x, pxs) / 2f);
+                }
+                else
+                {
+                    DxDy.x = DxDy.x - ((float)GDD_Math.Delta(DxDy.x, pxs) / 2f);
+                
+                }
 
                 //Checking if the Y Value has a big enough value
                 if (Math.Abs(DxDy.y) < 30.0d)
                 {
-                    
-                    if (Math.Abs(DxDy.x) < 0.05d)
+                    if (Math.Abs(DxDy.x) < 0.5d)
                     {
                         result.obj1_IsStill = true;
                         DxDy.y = 0;
-                        result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
-
                     }
                 }
+
+
+                //Calculating the angular momentum
+                result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, (pxs * 0.5f + DxDy.x * 0.5f + result.obj2.Rotation.Direction * 2f) / ((float)Math.PI * result.obj1.Shape.Size));
+
+                
+                
+               
+                if (Math.Abs(result.obj1_NewRotation.Size) < 0.02)
+                {
+                    result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
+                }
+                
+
+                //Adjusting the velocity
+                result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
+  
+
 
                 //Returning;
                 return result;
 
-                    //circle1.Owner.Velocity_Vector = new GDD_Vector2F(,circle1.Owner.Velocity_Vector.Size);
+                //circle1.Owner.Velocity_Vector = new GDD_Vector2F(,circle1.Owner.Velocity_Vector.Size);
                 
             }
 
@@ -256,10 +291,10 @@ namespace GDD_Library
                 obj1_CollisionAngle = CollisionAngle;
 
                 //Filling data regarding obj2
-                obj2_CollisionAngle = Angle(CollisionAngle - 180f);
+                obj2_CollisionAngle = GDD_Math.Angle(CollisionAngle - 180f);
 
                 //We can now conclude the bounce angle
-                BounceAngle = Angle(CollisionAngle - 90f);
+                BounceAngle = GDD_Math.Angle(CollisionAngle - 90f);
             }
         }
 
@@ -276,10 +311,10 @@ namespace GDD_Library
             if (obj1.Shape is GDD_Circle)
             {
                 //D will hold the angle of impact for obj1
-                float d = (float)DeltaAngle(BounceAngle_low, obj1.Velocity_Vector.Direction);
+                float d = (float)GDD_Math.DeltaAngle(BounceAngle_low, obj1.Velocity_Vector.Direction);
 
                 //The max bounce that can occur
-                float Bounce_Max1 = Angle(BounceAngle + d);
+                float Bounce_Max1 = GDD_Math.Angle(BounceAngle + d);
 
                 //Checking for static and null objects
                 if ((obj2 == null) || (obj2.GravityType == GDD_GravityType.Static))
@@ -325,7 +360,7 @@ namespace GDD_Library
             if (obj2.Shape is GDD_Circle)
             {
                 //D will hold the angle of impact for obj1
-                float d = (float)DeltaAngle(BounceAngle, obj2.Velocity_Vector.Direction);
+                float d = (float)GDD_Math.DeltaAngle(BounceAngle, obj2.Velocity_Vector.Direction);
 
                 //The max bounce that can occur
                 /*float Bounce_Max1 = BounceAngle + d;
@@ -343,44 +378,7 @@ namespace GDD_Library
             }
         }
 
-        private static double EuclidianDistance(GDD_Point2F p1, GDD_Point2F p2)
-        {
-            return Math.Sqrt(
-                    Delta(p1.x, p2.x) * Delta(p1.x, p2.x) +
-                    Delta(p1.y, p2.y) * Delta(p1.y, p2.y));
-
-        }
-
-        private static double Delta(double d1, double d2)
-        {
-            return Math.Abs(d1 - d2);
-        }
-
-        private static float DeltaAngle(float f1, float f2)
-        {
-            float f = (float)Delta(f1, f2);
-
-            if (f > 180)
-            {
-                f = f - 180;
-            }
-
-            return f;
-        }
-
-        private static float Angle(float f)
-        {
-            if (f < 0f)
-            {
-                f = 360f + f;
-            }
-
-            if (f > 360f)
-            {
-                f = f - 360f;
-            }
-            return f;
-        }
+        
 
     }
 

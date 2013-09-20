@@ -155,12 +155,42 @@ namespace GDD_Library
                     //Checking for collisions
                     if (Collisions.Count > 0)
                     {
-                        //Looping each collision
-                        foreach (GDD_CollisionInfo collision in Collisions)
+                        //The shortest is by default index 0
+                        int shortest = 0;
+                        float shortest_dst = (float)GDD_Math.EuclidianDistance(Collisions[shortest].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
+                        float dst = 0f;
+
+                        //Checking if we have any more shorterr
+                        if (Collisions.Count > 1)
                         {
+                            //We're only colliding with the closest object - finding it
+                            for (int j = 0; i < Collisions.Count; i++)
+                            {
+                                //Calculating the new dst
+                                dst = (float)GDD_Math.EuclidianDistance(Collisions[j].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
+
+                                //Is it shorter?
+                                if (dst < shortest_dst)
+                                {
+                                    shortest = j;
+                                    shortest_dst = (float)GDD_Math.EuclidianDistance(Collisions[shortest].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
+                                }
+                            }
+                        }
+
+
+
+                        //Looping each collision
+                        //foreach (GDD_CollisionInfo collision in Collisions)
+                       // {
+                            GDD_CollisionInfo collision = Collisions[shortest];
+
                             //Applying the direction of the objection
                             collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
                             collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
+
+                            //Applying the new rotation
+                            collision.obj1.Rotation = collision.obj1_NewRotation;
 
                             //Determining the end location
                             collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
@@ -173,7 +203,7 @@ namespace GDD_Library
                             
                             //We've collided, adding object 2 to the exceptions list
                             CollisionExceptions.Add(collision.obj2);
-                         }
+                         //}
                     }
                     else
                     {
