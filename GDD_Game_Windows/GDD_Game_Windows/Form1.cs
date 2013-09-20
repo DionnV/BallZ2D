@@ -26,7 +26,15 @@ namespace GDD_Game_Windows
             GDD_Object square1 = new GDD_Object(new GDD_Square());
             GDD_Object square2 = new GDD_Object(new GDD_Square());
             GDD_Object square3 = new GDD_Object(new GDD_Square());
-            circle1.Location = new GDD_Point2F(100f, 0f);
+            GDD_Object line1 = new GDD_Object(new GDD_Line());
+
+            line1.Location = new GDD_Point2F(100f, 100f);
+            line1.Shape.Size = 200f;
+            line1.Rotation = new GDD_Vector2F(40f, 0f);
+            line1.Velocity = new GDD_Point2F(0f, 0f);
+            line1.GravityType = GDD_GravityType.Static;
+
+            circle1.Location = new GDD_Point2F(210f, 0f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
@@ -64,6 +72,7 @@ namespace GDD_Game_Windows
             GDD_View1.Scene.Objects.Add(circle2);
             GDD_View1.Scene.Objects.Add(square1);
             GDD_View1.Scene.Objects.Add(square2);
+            GDD_View1.Scene.Objects.Add(line1);
             GDD_View1.graphicsTimer.Start();
 
 

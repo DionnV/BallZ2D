@@ -189,6 +189,39 @@ namespace GDD_Library
             return null;
         }
 
+        public static GDD_CollisionInfo get(GDD_Circle circle1, GDD_Line line1)
+        {
+            //The end point of the line
+            GDD_Point2F line_end = new GDD_Point2F(line1.Owner.Location.x + line1.Owner.Shape.Size * Math.Sin(line1.Owner.Rotation.Direction * GDD_Math.RadConverter),
+                                                   line1.Owner.Location.y + line1.Owner.Shape.Size * Math.Cos(line1.Owner.Rotation.Direction * GDD_Math.RadConverter));
+
+            float start = (float)EuclidianDistance(line1.Owner.Location, circle1.Owner.Desired_Location);
+            float end = (float)EuclidianDistance(line_end, circle1.Owner.Desired_Location);
+            float both = start + end;
+            if (both - (circle1.Size / 2f) < line1.Owner.Shape.Size)
+            {
+                //Circle is in a place where he (or she) could collide
+                //Therefore
+                float dx = line_end.x - line1.Owner.Location.x;
+                float dy = line_end.y - line1.Owner.Location.y;
+                float slope1 = dy / dx;
+                float slope2 = -(dy / dx);
+                float b = circle1.Owner.Location.y - slope2 * circle1.Owner.Location.x;
+                
+
+                //We're colliding, therefore we fill the GDD_CollisionInfo
+                GDD_CollisionInfo result = new GDD_CollisionInfo();
+                result.obj1 = circle1.Owner;
+                result.obj2 = line1.Owner;
+
+                result.BounceAngle = line1.Owner.Velocity_Vector.Direction;
+                result.obj1VSBounceAngle();
+
+                return result;
+            }
+            return null;
+        }
+
 
         /// <summary>
         /// Calculates the bounce angle
