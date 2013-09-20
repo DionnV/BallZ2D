@@ -78,6 +78,17 @@ namespace GDD_Library
                 //Letting obj1 collide
                 result.obj1VSBounceAngle();
 
+                //Checking if the vol
+                GDD_Point2F DxDy = GDD_Math.VectorToDXDY(result.obj1_NewVelocity);
+
+                //Checking if the Y Value has a big enough value
+                if (Math.Abs(DxDy.y) < 30.0d)
+                {
+                    DxDy.y = 0;
+                    result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
+                    result.obj1_IsStill = true;
+                }
+
                 result.obj2VSBounceAngle();
 
                 //D will hold the angle of impact for obj2
@@ -149,20 +160,37 @@ namespace GDD_Library
                 }
             }
 
+            //Calculating the euclidian distances
+            float eud_corner = (float)EuclidianDistance(corners[closest], circle1.Owner.Desired_Location);
+            float eud_obj = (float)EuclidianDistance(circle1.Owner.Desired_Location, square1.Owner.Desired_Location);
+
 
             //Doing some calculations
-            if (((EuclidianDistance(corners[closest], circle1.Owner.Desired_Location) < (circle1.Size / 2f)) || (((circle1.Size + square1.Size) / 2f) > EuclidianDistance(circle1.Owner.Desired_Location, square1.Owner.Desired_Location))) && (circle1.Owner != square1.Owner))
+            if ((eud_corner < (circle1.Size / 2f) || (((circle1.Size + square1.Size) / 2f) > eud_obj)) && (circle1.Owner != square1.Owner))
             {
-                //We're colliding
-                GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - corners[closest2].x, corners[closest].y - corners[closest2].y));
-
                 //Making a collision info
                 GDD_CollisionInfo result = new GDD_CollisionInfo();
                 result.obj1 = circle1.Owner;
-                result.obj2 = square1.Owner;
+                result.obj2 = square1.Owner;     
 
-                //Setting bounce angle
-                result.BounceAngle = vec.Direction;
+                //Determining if we're colliding with a face or a point
+                
+                if (eud_obj > Math.Sqrt(Math.Pow((square1.Size / 2f) + (circle1.Size / 2f), 2) + Math.Pow(square1.Size / 2f, 2)))
+                {
+                    //With point
+                    GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - circle1.Owner.Location.x, corners[closest].y - circle1.Owner.Location.y));
+                    result.BounceAngle = vec.Direction - 90f;
+                }
+                else
+                {
+                    //With face
+                    GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - corners[closest2].x, corners[closest].y - corners[closest2].y));
+                    result.BounceAngle = vec.Direction;
+                }
+                
+
+               
+               
 
                 //Letting obj collide
                 result.obj1VSBounceAngle();
@@ -173,11 +201,15 @@ namespace GDD_Library
                 //Checking if the Y Value has a big enough value
                 if (Math.Abs(DxDy.y) < 30.0d)
                 {
-                    DxDy.y = 0;
-                    result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
-                    result.obj1_IsStill = true;
-                }
+                    
+                    if (Math.Abs(DxDy.x) < 0.05d)
+                    {
+                        result.obj1_IsStill = true;
+                        DxDy.y = 0;
+                        result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
 
+                    }
+                }
 
                 //Returning;
                 return result;
@@ -188,7 +220,6 @@ namespace GDD_Library
 
             return null;
         }
-
 
         /// <summary>
         /// Calculates the bounce angle
@@ -280,8 +311,7 @@ namespace GDD_Library
                 } 
             }
         }
-
-        
+      
         /// <summary>
         /// Letting obj1 collide with the BounceAngle
         /// </summary>
@@ -312,7 +342,6 @@ namespace GDD_Library
 
             }
         }
-
 
         private static double EuclidianDistance(GDD_Point2F p1, GDD_Point2F p2)
         {

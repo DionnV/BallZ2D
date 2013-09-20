@@ -143,8 +143,6 @@ namespace GDD_Library
                             //Calculating the collision
                             GDD_CollisionInfo collision = GDD_Shape.Collides(obj.Shape, obj1.Shape);
 
-
-
                             //Did we have a collision
                             if (collision != null)
                             {
