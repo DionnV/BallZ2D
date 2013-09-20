@@ -62,7 +62,7 @@ namespace GDD_Library
                 if (this.Velocity_Vector.Size < 0.001f)
                 {
                     this._Velocity = new GDD_Point2F(0f, 0f);
-                    this.GravityType = GDD_GravityType.Still;
+                    //this.GravityType = GDD_GravityType.Still;
                 }
                 
                    

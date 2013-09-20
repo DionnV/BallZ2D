@@ -26,11 +26,11 @@ namespace GDD_Game_Windows
             GDD_Object square1 = new GDD_Object(new GDD_Square());
             GDD_Object square2 = new GDD_Object(new GDD_Square());
             GDD_Object square3 = new GDD_Object(new GDD_Square());
-            circle1.Location = new GDD_Point2F(100f, 100f);
+            circle1.Location = new GDD_Point2F(100f, 0f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
-           // circle1.Velocity = new GDD_Point2F(0.00f, 0f);
+            circle1.Velocity = new GDD_Point2F(0.5f, -20f);
             
             circle2.Location = new GDD_Point2F(100f, 300f);
             circle2.Shape.Size = 50f;
@@ -42,7 +42,7 @@ namespace GDD_Game_Windows
             square1.Location = new GDD_Point2F(180f, 300f);
             square1.Shape.Size = 50f;
             square1.Mass = 50f;
-            square1.Rotation = new GDD_Vector2F(5f, 0f);
+            square1.Rotation = new GDD_Vector2F(0f, 0f);
             square1.Velocity = new GDD_Point2F(0f, 0f);
             square1.GravityType = GDD_GravityType.Static;
 

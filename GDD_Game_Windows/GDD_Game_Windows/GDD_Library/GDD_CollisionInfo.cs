@@ -22,6 +22,11 @@ namespace GDD_Library
         /// The velocity after the collision
         /// </summary>
         public GDD_Vector2F obj1_NewVelocity { get; set; }
+
+        /// <summary>
+        /// Have we come to rest
+        /// </summary>
+        public Boolean obj1_IsStill { get; set; }
  
         /// <summary>
         /// The second GDD_Object that will colide
@@ -162,6 +167,18 @@ namespace GDD_Library
                 //Letting obj collide
                 result.obj1VSBounceAngle();
 
+                //Checking if the vol
+                GDD_Point2F DxDy = GDD_Math.VectorToDXDY(result.obj1_NewVelocity);
+
+                //Checking if the Y Value has a big enough value
+                if (Math.Abs(DxDy.y) < 30.0d)
+                {
+                    DxDy.y = 0;
+                    result.obj1_NewVelocity = GDD_Math.DXDYToVector(DxDy);
+                    result.obj1_IsStill = true;
+                }
+
+
                 //Returning;
                 return result;
 
@@ -252,9 +269,7 @@ namespace GDD_Library
                     }
                     else
                     {
-                            obj1_NewVelocity = new GDD_Vector2F(BounceAngle_low - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);                    
-                    
-                           
+                            obj1_NewVelocity = new GDD_Vector2F(BounceAngle_low - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);                                                    
                     }
                 }
                 else

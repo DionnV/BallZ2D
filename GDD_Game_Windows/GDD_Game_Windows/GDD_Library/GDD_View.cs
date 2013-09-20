@@ -167,6 +167,12 @@ namespace GDD_Library
                             //Determining the end location
                             collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
 
+                            //Is the object now laying still?
+                            if (collision.obj1_IsStill)
+                            {
+                                collision.obj1.GravityType = GDD_GravityType.Still;
+                            }
+                            
                             //We've collided, adding object 2 to the exceptions list
                             CollisionExceptions.Add(collision.obj2);
                          }
