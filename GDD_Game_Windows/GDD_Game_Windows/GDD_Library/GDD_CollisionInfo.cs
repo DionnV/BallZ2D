@@ -318,7 +318,58 @@ namespace GDD_Library
 
         public static GDD_CollisionInfo get(GDD_Circle circle1, GDD_Line line1)
         {
+            GDD_Point2F line_end = line1.end;
+            float start_to_circle = (float)GDD_Math.EuclidianDistance(line1.Owner.Location, circle1.Owner.Desired_Location);
+            float end_to_circle = (float)GDD_Math.EuclidianDistance(line_end, circle1.Owner.Desired_Location);
 
+            float dx = (float)GDD_Math.Delta(line1.Owner.Location.x, line_end.x);
+            float dy = (float)GDD_Math.Delta(line1.Owner.Location.y, line_end.y);
+            float dxdy = dy / dx;
+
+            GDD_Point2F func1;
+            GDD_Point2F func2;
+            if ((GDD_Math.Angle(line1.Owner.Rotation.Direction) == 90f))
+            {
+                func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(10000, circle1.Owner.Location);
+            }
+            else if(GDD_Math.Angle(line1.Owner.Rotation.Direction) == 270)
+            {
+                func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(-10000, circle1.Owner.Location);             
+            } 
+            else 
+            {   
+                func1 = GDD_Math.DXDYToFunc(dxdy, line1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(-dxdy, circle1.Owner.Location);
+            }
+            
+
+            GDD_Point2F intersection = GDD_Math.intersection(func1, func2);
+
+                    if (GDD_Math.EuclidianDistance(intersection, circle1.Owner.Desired_Location) < (circle1.Size / 2F))
+                    {
+
+                        //We are probably colliding or already penetrating a bit
+                        GDD_CollisionInfo result = new GDD_CollisionInfo();
+                        result.obj1 = circle1.Owner;
+                        result.obj2 = line1.Owner;
+
+                        //Rotation remains the same
+                        result.obj1_NewRotation = circle1.Owner.Rotation;
+
+                        if (line1.Owner.Rotation.Direction < 0)
+                        {
+                            result.BounceAngle = line1.Owner.Rotation.Direction + 180f;
+                        }
+                        else
+                        {
+                            result.BounceAngle = line1.Owner.Rotation.Direction;
+                        }
+                        result.obj1VSBounceAngle();
+
+                        return result;
+                    }       
             return null;
         }
 
