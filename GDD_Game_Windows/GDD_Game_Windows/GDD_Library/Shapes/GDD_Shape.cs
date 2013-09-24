@@ -38,7 +38,7 @@ namespace GDD_Library
                 {
                     return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Square)shape2);
                 }
-                else if (shape2 is GDD_Line)
+                if (shape2 is GDD_Line)
                 {
                     return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Line)shape2);
                 }

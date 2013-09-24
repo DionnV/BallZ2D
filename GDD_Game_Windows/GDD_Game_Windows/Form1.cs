@@ -20,62 +20,106 @@ namespace GDD_Game_Windows
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            GDD_Object circle1 = new GDD_Object(new GDD_Circle());
-            GDD_Object circle2 = new GDD_Object(new GDD_Circle());
-            GDD_Object square1 = new GDD_Object(new GDD_Square());
-            GDD_Object square2 = new GDD_Object(new GDD_Square());
-            GDD_Object square3 = new GDD_Object(new GDD_Square());
-            GDD_Object line1 = new GDD_Object(new GDD_Line());
-
-            line1.Location = new GDD_Point2F(100f, 100f);
-            line1.Shape.Size = 200f;
-            line1.Rotation = new GDD_Vector2F(40f, 0f);
-            line1.Velocity = new GDD_Point2F(0f, 0f);
-            line1.GravityType = GDD_GravityType.Static;
-
-            circle1.Location = new GDD_Point2F(210f, 0f);
-            circle1.Shape.Size = 50f;
-            circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(0f, 0f);
-            circle1.Velocity = new GDD_Point2F(0.5f, -20f);
-            
-            circle2.Location = new GDD_Point2F(100f, 300f);
-            circle2.Shape.Size = 50f;
-            circle2.Mass = 50f;
-            circle2.Rotation = new GDD_Vector2F(0f, 0f);
-            circle2.Velocity = new GDD_Point2F(0f, 0f);
-            circle2.GravityType = GDD_GravityType.Static;
-
-            square1.Location = new GDD_Point2F(180f, 300f);
-            square1.Shape.Size = 50f;
-            square1.Mass = 50f;
-            square1.Rotation = new GDD_Vector2F(0f, 0f);
-            square1.Velocity = new GDD_Point2F(0f, 0f);
-            square1.GravityType = GDD_GravityType.Static;
-
-            square2.Location = new GDD_Point2F(320f, 400f);
-            square2.Shape.Size = 50f;
-            square2.Mass = 50f;
-            square2.Rotation = new GDD_Vector2F(-30f, 0f);
-            square2.Velocity = new GDD_Point2F(0f, 0f);
-            square2.GravityType = GDD_GravityType.Static;
-
-
-
             //Creating the scene and adding the square
             GDD_View1.graphicsTimer.Stop();
             GDD_View1.Scene = new GDD_Scene(GDD_View1.Width, GDD_View1.Height);
-            //GDD_View1.Scene.Objects.Add(obj);
-            //GDD_View1.Scene.Objects.Add(obj1);
-            GDD_View1.Scene.Objects.Add(circle1);
-            GDD_View1.Scene.Objects.Add(circle2);
-            GDD_View1.Scene.Objects.Add(square1);
-            GDD_View1.Scene.Objects.Add(square2);
-            GDD_View1.Scene.Objects.Add(line1);
+
+
+            //The bounce test
+            //BounceTest();
+            AngularMomentumTest();
+
             GDD_View1.graphicsTimer.Start();
+            
 
 
+        }
+
+        private void BounceTest()
+        {
+
+            GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+
+            circle1.Location = new GDD_Point2F(300f, 300f);
+            circle1.Shape.Size = 50f;
+            circle1.Mass = 50f;
+            circle1.Rotation = new GDD_Vector2F(0f, 5f);
+            circle1.Velocity = new GDD_Point2F(-1000f, 1000f);
+
+            float r = 250f;
+            float f = 360 / ((2f * r * (float)Math.PI) / 50f);
+
+            //Looping 32 boxes
+            for (int i = 0; i < 32; i++)
+            {
+                GDD_Object square1 = new GDD_Object(new GDD_Square());
+                GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(270f - f * i, 250f));
+
+                square1.Location = new GDD_Point2F(300f + dxdy.x, 300f + dxdy.y);
+                square1.Shape.Size = 50f;
+                square1.Mass = 50f;
+                square1.Rotation = new GDD_Vector2F(-f * i, 0f);
+                square1.Velocity = new GDD_Point2F(0f, 0f);
+                square1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(square1);
+
+            }
+
+            //Adding the circles
+            GDD_View1.Scene.Objects.Add(circle1);
+        }
+
+        private void AngularMomentumTest()
+        {
+
+            GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+
+            circle1.Location = new GDD_Point2F(50f, 50f);
+            circle1.Shape.Size = 50f;
+            circle1.Mass = 50f;
+            circle1.Rotation = new GDD_Vector2F(0f, 2f);
+            circle1.Velocity = new GDD_Point2F(0f, 0f);
+           
+            //Angle of the boxes;
+            float angle = 10;
+            float LongSize = (float)(Math.Sqrt(2d) * 50f);
+            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
+
+            //Placing a few boxes
+            for (int i = 0; i < 8; i++)
+            {
+                GDD_Object square1 = new GDD_Object(new GDD_Square());
+               
+                square1.Location = new GDD_Point2F(50f + dxdy.x * i, 200f + dxdy.y * i);
+                square1.Shape.Size = 50f;
+                square1.Mass = 50f;
+                square1.Rotation = new GDD_Vector2F(angle, 0f);
+                square1.Velocity = new GDD_Point2F(0f, 0f);
+                square1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(square1);
+
+            }
+
+            dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f - angle, 50f));
+
+            //Placing a few boxes
+            for (int i = 0; i < 8; i++)
+            {
+                GDD_Object square1 = new GDD_Object(new GDD_Square());
+
+                square1.Location = new GDD_Point2F(150f + dxdy.x * i, 450f + dxdy.y * i);
+                square1.Shape.Size = 50f;
+                square1.Mass = 50f;
+                square1.Rotation = new GDD_Vector2F(-angle, 0f);
+                square1.Velocity = new GDD_Point2F(0f, 0f);
+                square1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(square1);
+
+            }
+
+
+            //Adding the circles
+            GDD_View1.Scene.Objects.Add(circle1);
         }
     }
 }
