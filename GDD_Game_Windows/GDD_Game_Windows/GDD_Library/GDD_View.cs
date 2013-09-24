@@ -112,6 +112,12 @@ namespace GDD_Library
             //Looping each thing
             for (int i = 0; i < this.Scene.Objects.Count; i++)
             {
+
+                if (graphicsTimer.CancellationPending)
+                {
+                    return;
+                }
+
                 GDD_Object obj = this.Scene.Objects[i];
 
                 //We only apply gravity when its gravity type is normal
@@ -128,7 +134,6 @@ namespace GDD_Library
                     //Applying gravity
                     obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d));
                     
-
                     //Determining the end location
                     obj.Desired_Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
 

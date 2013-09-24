@@ -26,13 +26,36 @@ namespace GDD_Game_Windows
 
 
             //The bounce test
-            //BounceTest();
-            AngularMomentumTest();
+            BounceTest();
+            //AngularMomentumTest();
+            BucketTest();
 
+            //Starting the graphics timer
             GDD_View1.graphicsTimer.Start();
-            
+        }
+
+        private void BucketTest()
+        {
+            GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+
+            circle1.Location = new GDD_Point2F(300f, 300f);
+            circle1.Shape.Size = 50f;
+            circle1.Mass = 50f;
+            circle1.Rotation = new GDD_Vector2F(0f, 5f);
+            circle1.Velocity = new GDD_Point2F(0f, 0f);
+
+            GDD_Object bucket1 = new GDD_Object(new GDD_Bucket());
+            bucket1.Location = new GDD_Point2F(300f, 500f);
+            bucket1.Shape.Size = 100f;
+            bucket1.Mass = 100f;
+            bucket1.Rotation = new GDD_Vector2F(0f, 0f);
+            bucket1.Velocity = new GDD_Point2F(0f, 0f);
+            bucket1.GravityType = GDD_GravityType.Static;
 
 
+            //Adding the circles
+            GDD_View1.Scene.Objects.Add(circle1);
+            GDD_View1.Scene.Objects.Add(bucket1);
         }
 
         private void BounceTest()
