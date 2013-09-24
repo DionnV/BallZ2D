@@ -83,6 +83,48 @@ namespace GDD_Library
         }
 
         /// <summary>
+        /// Returns a function as in y = a*x + b, given in a GDD_Point2f(a, b).
+        /// </summary>
+        /// <param name="dxdy"></param>
+        /// <param name="point_on_line"></param>
+        /// <returns></returns>
+        public static GDD_Point2F DXDYToFunc(float slope, GDD_Point2F point_on_line)
+        {
+            GDD_Point2F result = new GDD_Point2F();
+
+            //Let's make a function as in y = a*x + b
+            //We will return a and b as a GDD_Point2F
+            float a = slope;
+            float b = point_on_line.y - a * point_on_line.x;
+
+            result.x = a;
+            result.y = b;
+
+            return result;
+        }
+
+        public static GDD_Point2F intersection(GDD_Point2F func1, GDD_Point2F func2)
+        {
+            GDD_Point2F result = new GDD_Point2F();
+
+            //Given two function consisting of y = a*x + b and y = c*x + b,
+            //the intersection will be a*x + b = c*x + d.
+            //
+            //Therefore, we will calculate x = (d - b)/(a - c)
+
+            float x = (func2.y - func1.y) / (func1.x - func2.x);
+
+            //Then y will be given from either func1 or func2,
+            //let's just use func1.
+            float y = func1.x * x + func1.y;
+
+            //Lastly, put the found values in the GDD_Point2F
+            result.x = x;
+            result.y = y;
+
+            return result;
+        }
+        /// <summary>
         /// The delta of 2 values
         /// </summary>
         /// <param name="d1"></param>
