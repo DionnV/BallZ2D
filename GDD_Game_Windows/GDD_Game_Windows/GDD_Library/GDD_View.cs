@@ -84,6 +84,8 @@ namespace GDD_Library
             Application.DoEvents(); 
         }
 
+        float lowestSize = 1000f;
+
         private void Repaint()
         {
             //We can only continue if we have a scene
@@ -100,7 +102,7 @@ namespace GDD_Library
 
             //Filling it
             g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
-
+           
             //Drawing FPS
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
 
@@ -194,20 +196,45 @@ namespace GDD_Library
 
                             //Applying the direction of the objection
                             collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
-                            collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
 
-                            //Applying the new rotation
-                            collision.obj1.Rotation = collision.obj1_NewRotation;
-
-                            //Determining the end location
-                            collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
-
-                            //Is the object now laying still?
-                            if (collision.obj1_IsStill)
+                            if (collision.obj1.MaxVelocitySinceLastBounce < 50)
                             {
-                                collision.obj1.GravityType = GDD_GravityType.Still;
+                                //Rolling!
+                                collision.obj1.IsRolling = true;
+
+                                GDD_Vector2F vec = GDD_Math.DXDYToVector( new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d)));
+
+                                if (collision.obj1_RollVelocity.Direction != 0f)
+                                {
+                                    collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_RollVelocity.Direction, vec.Size + ((98.1f * 100) * d));
+                                }
+                                
+
+                                //Determining the end location
+                                collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
+
+                            } 
+                            else
+                            {
+                                collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
+
+                                //Applying the new rotation
+                                collision.obj1.Rotation = collision.obj1_NewRotation;
+
+                                //Determining the end location
+                                collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
+
+                                //Is the object now laying still?
+                                if (collision.obj1_IsStill)
+                                {
+                                    collision.obj1.GravityType = GDD_GravityType.Still;
+                                }
                             }
+
                             
+
+                            collision.obj1.MaxVelocitySinceLastBounce = 0;
+
                             //We've collided, adding object 2 to the exceptions list
                             CollisionExceptions.Add(collision.obj2);
                          //}

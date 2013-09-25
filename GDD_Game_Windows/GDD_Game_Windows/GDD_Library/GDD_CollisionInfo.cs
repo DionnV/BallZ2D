@@ -19,6 +19,11 @@ namespace GDD_Library
         public float obj1_CollisionAngle { get; set; }
 
         /// <summary>
+        /// The roll velocity
+        /// </summary>
+        public GDD_Vector2F obj1_RollVelocity { get; set; }
+
+        /// <summary>
         /// The velocity after the collision
         /// </summary>
         public GDD_Vector2F obj1_NewVelocity { get; set; }
@@ -183,33 +188,40 @@ result.obj2_NewVelocity = new GDD_Vector2F( Bounce_Max - ((Bounce_Max - result.o
                 result.obj2 = square1.Owner;
 
                 //Determining if we're colliding with a face or a point
-
                 if (eud_obj > Math.Sqrt(Math.Pow((square1.Size / 2f) + (circle1.Size / 2f), 2) + Math.Pow(square1.Size / 2f, 2)))
                 {
                     //With point
-                    GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - circle1.Owner.Location.x, corners[closest].y - circle1.Owner.Location.y));
+                    GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - circle1.Owner.Desired_Location.x, corners[closest].y - circle1.Owner.Desired_Location.y));
                     result.BounceAngle = vec.Direction - 90f;
                 }
                 else
                 {
-                    //With face
-                    GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(corners[closest].x - corners[closest2].x, corners[closest].y - corners[closest2].y));
+                    //With face - creating a virutal Line to collide with
+                    GDD_Object obj = new GDD_Object(new GDD_Line());
+                    obj.Location = corners[closest];
+                    obj.Rotation = GDD_Math.DXDYToVector(
+                                        new GDD_Point2F(
+                                            corners[closest2].x - corners[closest].x,
+                                            corners[closest2].y - corners[closest].y));
+                    ((GDD_Line)obj.Shape).Size = obj.Rotation.Size; 
+                    obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction, square1.Owner.Rotation.Size);
+                    obj.GravityType = GDD_GravityType.Static;
+                    
+                    //Returning the result
+                    result = GDD_CollisionInfo.get(circle1, (GDD_Line)obj.Shape);
 
-                    //if (circle1.Owner.Desired_Location.x < square1.
-                    result.BounceAngle = vec.Direction;
+                    return result;
+
                 }
 
                 //Letting obj collide
                 result.obj1VSBounceAngle();
-
-
 
                 //Calculating the new velocity as DxDy
                 GDD_Point2F DxDy = GDD_Math.VectorToDXDY(result.obj1_NewVelocity);
 
                 //Calculating the collision angle
                 result.obj1_CollisionAngle = GDD_Math.Angle((float)GDD_Math.Delta(result.obj1.Velocity_Vector.Direction, result.BounceAngle));
-
 
                 //The circumference
                 float circumference = (float)Math.PI * result.obj1.Shape.Size;
@@ -318,110 +330,166 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
 
         public static GDD_CollisionInfo get(GDD_Circle circle1, GDD_Line line1)
         {
+            //The hypothecial roll direction
+            float RollDirection = 0;
+            float arot = GDD_Math.Angle(line1.Owner.Rotation.Direction);
+
+            if (arot < 90f)
+            {
+                RollDirection = 180f + arot;
+            }
+            else if (arot > 270f)
+            {
+                RollDirection = arot - 180f;
+            }
+            else
+            {
+                RollDirection = arot;
+            }
+
+            if (circle1.Owner.RollVelocity.Direction == RollDirection)
+            {
+                return null;
+            }
+
             GDD_Point2F line_end = line1.end;
             float start_to_circle = (float)GDD_Math.EuclidianDistance(line1.Owner.Location, circle1.Owner.Desired_Location);
             float end_to_circle = (float)GDD_Math.EuclidianDistance(line_end, circle1.Owner.Desired_Location);
-<<<<<<< HEAD
-
-            float dx = (float)GDD_Math.Delta(line1.Owner.Location.x, line_end.x);
-            float dy = (float)GDD_Math.Delta(line1.Owner.Location.y, line_end.y);
+            
+            float dx;
+            float dy;
+            
+            if (line1.Owner.Rotation.Direction > 180f)
+            {
+                dx = line1.Owner.Location.x - line_end.x;
+                dy = line1.Owner.Location.y - line_end.y;
+            }
+            else
+            {
+                dx = line_end.x - line1.Owner.Location.x;
+                dy = line_end.y - line1.Owner.Location.y;
+            
+            }
             float dxdy = dy / dx;
 
             GDD_Point2F func1;
             GDD_Point2F func2;
+
             if ((GDD_Math.Angle(line1.Owner.Rotation.Direction) == 90f))
             {
                 func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(10000, circle1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(10000, circle1.Owner.Desired_Location);
             }
-            else if (GDD_Math.Angle(line1.Owner.Rotation.Direction) == 270)
+            else if(GDD_Math.Angle(line1.Owner.Rotation.Direction) == 270f)
             {
                 func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(-10000, circle1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(-10000, circle1.Owner.Desired_Location);             
+            }
+            else if (GDD_Math.Angle(line1.Owner.Rotation.Direction) == 180f)
+            {
+                func1 = GDD_Math.DXDYToFunc(-10000, line1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(0, circle1.Owner.Desired_Location);
+            }
+            else if (GDD_Math.Angle(line1.Owner.Rotation.Direction) == 0f)
+            {
+                func1 = GDD_Math.DXDYToFunc(10000, line1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(0, circle1.Owner.Desired_Location);
             }
             else
             {
                 func1 = GDD_Math.DXDYToFunc(dxdy, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(-dxdy, circle1.Owner.Location);
+                func2 = GDD_Math.DXDYToFunc(-1 / dxdy, circle1.Owner.Desired_Location);
             }
-
+            
 
             GDD_Point2F intersection = GDD_Math.intersection(func1, func2);
 
             if (GDD_Math.EuclidianDistance(intersection, circle1.Owner.Desired_Location) < (circle1.Size / 2F))
             {
 
-                //We are probably colliding or already penetrating a bit
-                GDD_CollisionInfo result = new GDD_CollisionInfo();
-                result.obj1 = circle1.Owner;
-                result.obj2 = line1.Owner;
+                //We might be colliding
+                GDD_CollisionInfo result = null;
 
-                //Rotation remains the same
-                result.obj1_NewRotation = circle1.Owner.Rotation;
 
-                if (line1.Owner.Rotation.Direction < 0)
+                //Colliding with the point
+                if ((intersection.x > Math.Min(line1.Owner.Location.x, line_end.x)) && (intersection.x < Math.Max(line1.Owner.Location.x, line_end.x)))
                 {
-                    result.BounceAngle = line1.Owner.Rotation.Direction + 180f;
+                    //We're colliding
+                    result = new GDD_CollisionInfo();
+
+                    //We are probably colliding or already penetrating a bit
+                    result.obj1 = circle1.Owner;
+                    result.obj2 = line1.Owner;
+
+                    //RollDireciton
+                    result.obj1_RollVelocity = new GDD_Vector2F(RollDirection, result.obj1_NewVelocity.Size);
+
+                    //Rotation remains the same
+                    result.obj1_NewRotation = circle1.Owner.Rotation;
+                    
+                    if (line1.Owner.Rotation.Direction < 0)
+                    {
+                        result.BounceAngle = line1.Owner.Rotation.Direction + 180f;
+                    }
+                    else
+                    {
+                        result.BounceAngle = line1.Owner.Rotation.Direction;
+                    }
                 }
                 else
                 {
-                    result.BounceAngle = line1.Owner.Rotation.Direction;
-                }
-                result.obj1VSBounceAngle();
+                    float eud_start = (float)GDD_Math.EuclidianDistance(line1.Owner.Location, circle1.Owner.Desired_Location);
+                    float eud_end = (float)GDD_Math.EuclidianDistance(line_end, circle1.Owner.Desired_Location);
 
-                return result;
-            }
-=======
-
-            float dx = (float)GDD_Math.Delta(line1.Owner.Location.x, line_end.x);
-            float dy = (float)GDD_Math.Delta(line1.Owner.Location.y, line_end.y);
-            float dxdy = dy / dx;
-
-            GDD_Point2F func1;
-            GDD_Point2F func2;
-            if ((GDD_Math.Angle(line1.Owner.Rotation.Direction) == 90f))
-            {
-                func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(10000, circle1.Owner.Location);
-            }
-            else if(GDD_Math.Angle(line1.Owner.Rotation.Direction) == 270)
-            {
-                func1 = GDD_Math.DXDYToFunc(0, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(-10000, circle1.Owner.Location);             
-            } 
-            else 
-            {   
-                func1 = GDD_Math.DXDYToFunc(dxdy, line1.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(-dxdy, circle1.Owner.Location);
-            }
-            
-
-            GDD_Point2F intersection = GDD_Math.intersection(func1, func2);
-
-                    if (GDD_Math.EuclidianDistance(intersection, circle1.Owner.Desired_Location) < (circle1.Size / 2F))
-                    {
+                    //Collision with the end of the line?
+                    if (eud_start < (circle1.Size / 2f))
+                    { //We're colliding
+                        result = new GDD_CollisionInfo();
 
                         //We are probably colliding or already penetrating a bit
-                        GDD_CollisionInfo result = new GDD_CollisionInfo();
                         result.obj1 = circle1.Owner;
                         result.obj2 = line1.Owner;
 
                         //Rotation remains the same
                         result.obj1_NewRotation = circle1.Owner.Rotation;
 
-                        if (line1.Owner.Rotation.Direction < 0)
-                        {
-                            result.BounceAngle = line1.Owner.Rotation.Direction + 180f;
-                        }
-                        else
-                        {
-                            result.BounceAngle = line1.Owner.Rotation.Direction;
-                        }
-                        result.obj1VSBounceAngle();
+                        //Calculating new bounce angle
+                        GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(line1.Owner.Location.x - circle1.Owner.Desired_Location.x, line1.Owner.Location.y - circle1.Owner.Desired_Location.y));
+                        result.BounceAngle = vec.Direction - 90f;
+                    }
+                    if (eud_end < (circle1.Size / 2f))
+                    {
+                        //We're colliding
+                        result = new GDD_CollisionInfo();
 
-                        return result;
-                    }       
->>>>>>> cd728a11b97232e0e5c0366dd1829d6d0bce977c
+                        //We are probably colliding or already penetrating a bit
+                        result.obj1 = circle1.Owner;
+                        result.obj2 = line1.Owner;
+
+                        //Rotation remains the same
+                        result.obj1_NewRotation = circle1.Owner.Rotation;
+                    
+                        //Calculating new bounce angle
+                        GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(line_end.x - circle1.Owner.Desired_Location.x, line_end.y - circle1.Owner.Desired_Location.y));
+                        result.BounceAngle = vec.Direction - 90f;
+
+
+                    }
+                }
+
+                if (result != null)
+                {
+                    //Lettng it do it's work!
+                    result.obj1VSBounceAngle();
+
+                    //Check for roll
+                    //if (GDD_Math.DeltaAngle(result.obj1_NewVelocity.Direction, line1.Owner.Rotation.Direction) < 5f)
+                    //{
+                    //}
+                }
+
+                return result;
+            }
             return null;
         }
 

@@ -110,9 +110,9 @@ namespace GDD_Library
             //Given two function consisting of y = a*x + b and y = c*x + b,
             //the intersection will be a*x + b = c*x + d.
             //
-            //Therefore, we will calculate x = (d - b)/(a - c)
+            //Therefore, we will calculate x = (b - d)/(a - c)
 
-            float x = (func2.y - func1.y) / (func1.x - func2.x);
+            float x = (float)(Delta(func1.y, func2.y) / Delta(func2.x, func1.x));
 
             //Then y will be given from either func1 or func2,
             //let's just use func1.
