@@ -16,9 +16,9 @@ namespace GDD_Library
             this.Height = height;
 
             //Starting the physics computing
-            this.physicsTimer = new GDD_Timer();
-            this.physicsTimer.TickCap = 60;
-            this.physicsTimer.Tick += new EventHandler(physicsTimer_Tick);
+            //this.physicsTimer = new GDD_Timer();
+            //this.physicsTimer.TickCap = 60;
+            //this.physicsTimer.Tick += new EventHandler(physicsTimer_Tick);
            // this.physicsTimer.Start();
 
 

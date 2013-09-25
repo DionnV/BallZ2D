@@ -20,15 +20,13 @@ namespace GDD_Library
             //Create a new graphics timer
             graphicsTimer = new GDD_Timer();
             graphicsTimer.TickCap = 60;
-            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);
-            graphicsTimer.Start();
-            
+            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);        
         }
 
         ~GDD_View()
         {
             //Stop drawing
-            
+            graphicsTimer.Stop();
         }
 
         /// <summary>
@@ -228,6 +226,16 @@ namespace GDD_Library
                             if (collision.obj1_IsStill)
                             {
                                 collision.obj1.GravityType = GDD_GravityType.Still;
+
+                                //Is the object now laying still?
+                                if (collision.obj1_IsStill)
+                                {
+                                    collision.obj1.GravityType = GDD_GravityType.Still;
+                                }
+
+                                //We've collided, notifing the object
+                                collision.obj1.RaiseOnCollision(collision.obj1, EventArgs.Empty);
+                                collision.obj2.RaiseOnCollision(collision.obj2, EventArgs.Empty);
                             }
                         }
 

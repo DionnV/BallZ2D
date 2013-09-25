@@ -80,12 +80,8 @@ namespace GDD_Library
                 {
                     this._Velocity = new GDD_Point2F(0f, 0f);
                     //this.GravityType = GDD_GravityType.Still;
-                }
-                
-                   
-                
+                }               
             }
-
         }
 
         private GDD_Point2F _Velocity = new GDD_Point2F(0f, 0f);
@@ -98,7 +94,18 @@ namespace GDD_Library
         /// <summary>
         /// The rotation
         /// </summary>
-        public GDD_Vector2F Rotation { get { return this._Rotation; } set { this._Rotation = value; } }
+        public GDD_Vector2F Rotation 
+        { 
+            get 
+            { 
+                return this._Rotation; 
+            } 
+            set 
+            { 
+                
+                this._Rotation = new GDD_Vector2F(GDD_Math.Angle(value.Direction), value.Size); 
+            } 
+        }
         private GDD_Vector2F _Rotation = new GDD_Vector2F(180f, 0f);
 
         /// <summary>
@@ -138,6 +145,24 @@ namespace GDD_Library
         public override string ToString()
         {
             return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
+        }
+
+        /// <summary>
+        /// Will be raised whenever this objects collides
+        /// </summary>
+        public event EventHandler OnCollision;
+
+        /// <summary>
+        /// Will raise the OnCollision event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void RaiseOnCollision(object sender, EventArgs e)
+        {
+            if (OnCollision != null)
+            {
+                OnCollision(sender, e);
+            }
         }
     }
 
