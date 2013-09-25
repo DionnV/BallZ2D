@@ -39,14 +39,32 @@ namespace GDD_Library
             get
             {
                 //Letting math do all the hard work
-                return GDD_Math.DXDYToVector(this.Velocity);
+                GDD_Vector2F result = GDD_Math.DXDYToVector(this.Velocity);
+                if (MaxVelocitySinceLastBounce < result.Size)
+                {
+                    MaxVelocitySinceLastBounce = result.Size;
+                }
+                return result;
             }
             set
             {          
                 //Letting math do all the hard work
-                this.Velocity = GDD_Math.VectorToDXDY(value);      
+                this.Velocity = GDD_Math.VectorToDXDY(value);
+                
+                
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public float MaxVelocitySinceLastBounce = 0f;
+
+        /// <summary>
+        /// Roll Velocity, if null not rolling
+        /// </summary>
+        public GDD_Vector2F RollVelocity { get; set; }
+        public Boolean IsRolling { get; set; }
 
         //Velocity defined as dX and dY
         public GDD_Point2F Velocity

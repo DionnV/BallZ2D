@@ -35,6 +35,6 @@ namespace GDD_Library.Shapes
         /// The bounce rate, 0.8 default
         /// </summary>
         public float RestitutionRate { get { return this._RestitutionRate; } set { _RestitutionRate = value;  } }
-        private float _RestitutionRate = 0.6f;
+        private float _RestitutionRate = 0.8f;
     }
 }

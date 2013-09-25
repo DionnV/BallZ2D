@@ -24,13 +24,12 @@ namespace GDD_Game_Windows
             GDD_View1.graphicsTimer.Stop();
             GDD_View1.Scene = new GDD_Scene(GDD_View1.Width, GDD_View1.Height);
 
-
             //The bounce test
+            //BucketTest();
             //BounceTest();
             //AngularMomentumTest();
-            BucketTest();
-            //LineTest();
-
+            LineTest2();
+            
             //Starting the graphics timer
             GDD_View1.graphicsTimer.Start();
         }
@@ -63,23 +62,64 @@ namespace GDD_Game_Windows
         {
             GDD_Object circle1 = new GDD_Object(new GDD_Circle());
 
-            circle1.Location = new GDD_Point2F(50f, 50f);
+            circle1.Location = new GDD_Point2F(200f, 200f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(0f, 2f);
+            circle1.Rotation = new GDD_Vector2F(0f, 0f);
+            circle1.Velocity = new GDD_Point2F(500f, 0f);
+
+            float r = 250f;
+            float f = 360 / ((2f * r * (float)Math.PI) / 50f);
+
+            //Looping 32 boxes
+            for (int i = 0; i < 32; i++)
+            {
+                GDD_Point2F p1 = GDD_Math.VectorToDXDY(new GDD_Vector2F(f * i, 250f));
+                GDD_Point2F p2 = GDD_Math.VectorToDXDY(new GDD_Vector2F(f * (i + 1), 250f));
+                
+                GDD_Object line1 = new GDD_Object(new GDD_Line());
+                line1.Location = new GDD_Point2F(300f + p1.x, 300f + p1.y);
+                line1.Shape.Size = 50f;
+                line1.Mass = 50f;
+                line1.Rotation = GDD_Math.DXDYToVector(new GDD_Point2F(p2.x - p1.x, p2.y - p1.y));
+                line1.Velocity = new GDD_Point2F(0f, 0f);
+                line1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(line1);
+
+            }
+            GDD_View1.Scene.Objects.Add(circle1);
+        }
+
+        private void LineTest2()
+        {
+            GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+
+            circle1.Location = new GDD_Point2F(100f, 350f);
+            circle1.Shape.Size = 50f;
+            circle1.Mass = 50f;
+            circle1.Rotation = new GDD_Vector2F(0f, 0f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
-            GDD_Object line1 = new GDD_Object(new GDD_Line());
+            float angle = 10;
+            float LongSize = (float)(Math.Sqrt(2d) * 50f);
+            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
 
-            line1.Location = new GDD_Point2F(40f, 400f);
-            line1.Shape.Size = 200f;
-            line1.Mass = 0f;
-            line1.Rotation = new GDD_Vector2F(90f, 0f);
-            line1.Velocity = new GDD_Point2F(0f, 0f);
-            line1.GravityType = GDD_GravityType.Static;
 
+            //Placing a few lines
+            for (int i = 0; i < 10; i++)
+            {
+                GDD_Object line1 = new GDD_Object(new GDD_Line());
+
+                line1.Location = new GDD_Point2F(50f + dxdy.x * i, 400f + dxdy.y * i);
+                line1.Shape.Size = 50f;
+                line1.Mass = 50f;
+                line1.Rotation = new GDD_Vector2F(angle + 90f, 0f);
+                line1.Velocity = new GDD_Point2F(0f, 0f);
+                line1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(line1);
+
+            }
             GDD_View1.Scene.Objects.Add(circle1);
-            GDD_View1.Scene.Objects.Add(line1);
         }
 
         private void BounceTest()
@@ -91,7 +131,7 @@ namespace GDD_Game_Windows
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 5f);
-            circle1.Velocity = new GDD_Point2F(-1000f, 1000f);
+            circle1.Velocity = new GDD_Point2F(-200f, -200f);
 
             float r = 250f;
             float f = 360 / ((2f * r * (float)Math.PI) / 50f);
@@ -133,7 +173,7 @@ namespace GDD_Game_Windows
             GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
 
             //Placing a few boxes
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 4; i++)
             {
                 GDD_Object square1 = new GDD_Object(new GDD_Square());
                
