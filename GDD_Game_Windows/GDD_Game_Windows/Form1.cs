@@ -29,6 +29,7 @@ namespace GDD_Game_Windows
             //BounceTest();
             //AngularMomentumTest();
             LineTest2();
+            //LineTest();
             
             //Starting the graphics timer
             GDD_View1.graphicsTimer.Start();
@@ -97,7 +98,7 @@ namespace GDD_Game_Windows
             circle1.Location = new GDD_Point2F(100f, 350f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(0f, 0f);
+            circle1.Rotation = new GDD_Vector2F(0f, 1f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
             float angle = 10;
@@ -106,7 +107,7 @@ namespace GDD_Game_Windows
 
 
             //Placing a few lines
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
                 GDD_Object line1 = new GDD_Object(new GDD_Line());
 

@@ -61,9 +61,8 @@ namespace GDD_Library
         public float MaxVelocitySinceLastBounce = 0f;
 
         /// <summary>
-        /// Roll Velocity, if null not rolling
+        /// Are we rolling right now?
         /// </summary>
-        public GDD_Vector2F RollVelocity { get; set; }
         public Boolean IsRolling { get; set; }
 
         //Velocity defined as dX and dY
