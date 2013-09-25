@@ -42,6 +42,10 @@ namespace GDD_Library
                 {
                     return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Line)shape2);
                 }
+                if (shape2 is GDD_Bucket)
+                {
+                    return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Bucket)shape2);
+                }
             }
 
 

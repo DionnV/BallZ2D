@@ -147,6 +147,24 @@ namespace GDD_Library
         {
             return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
         }
+
+        /// <summary>
+        /// Will be raised whenever this objects collides
+        /// </summary>
+        public event EventHandler OnCollision;
+
+        /// <summary>
+        /// Will raise the OnCollision event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void RaiseOnCollision(object sender, EventArgs e)
+        {
+            if (OnCollision != null)
+            {
+                OnCollision(sender, e);
+            }
+        }
     }
 
     public enum GDD_GravityType

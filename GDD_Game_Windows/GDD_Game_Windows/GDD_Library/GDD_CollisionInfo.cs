@@ -328,6 +328,89 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
             }
         }
 
+        public static GDD_CollisionInfo get(GDD_Circle circle, GDD_Bucket bucket)
+        {
+            //The arrays we need to work with
+            GDD_Object[] Line = new GDD_Object[8];
+            GDD_Vector2F[] Vector = new GDD_Vector2F[8];
+            GDD_Point2F[] Points = new GDD_Point2F[8];
+            List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
+            GDD_Vector2F Vec;
+
+            //The vectors
+            Vector[0] = new GDD_Vector2F(350.7539f, 61.61169f);
+            Vector[1] = new GDD_Vector2F(356.872f, 53.8145f);
+            Vector[2] = new GDD_Vector2F(259.0193f, 48.25971f);
+            Vector[3] = new GDD_Vector2F(190.9807f, 48.25971f);
+            Vector[4] = new GDD_Vector2F(93.01279f, 53.8145f);
+            Vector[5] = new GDD_Vector2F(99.24611f, 61.61169f);
+            Vector[6] = new GDD_Vector2F(190.008f, 61.03278f);
+            Vector[7] = new GDD_Vector2F(259.992f, 61.03278f);
+
+            //The vectors above are designed for a bucket of size 100
+            float sizeFactor = bucket.Size / 100f;
+
+            //Looping each vector, translating it to a point
+            for (int i = 0; i<Vector.Count(); i++)
+            {
+                Vec = Vector[i];
+                Vec = new GDD_Vector2F(Vec.Direction + (bucket.Owner.Rotation.Direction - 45f), Vec.Size * sizeFactor);
+                Points[i] = GDD_Math.VectorToDXDY(Vec);
+                Points[i] = new GDD_Point2F(Points[i].x + bucket.Owner.Location.x, Points[i].y + bucket.Owner.Location.y);
+            }
+            
+            //Looping all the points, making lines and collisions
+            for (int i = 0; i<Points.Count(); i++)
+            {
+                //Making a line
+                Line[i] = GDD_Line.Create(Points[i], Points[(i + 1) % 8]);
+
+                //Looking for collision
+                GDD_CollisionInfo Collision = get(circle, (GDD_Line)Line[i].Shape);
+                
+                //Adding a collision!
+                if (Collision != null)
+                {   
+                    Collisions.Add(Collision);
+                }
+            }
+
+            //To track which line is the closest
+            int Closest_i = -1;
+            float Closest_dst = -1f;
+            
+            //Returning the closest Line of which to collide with
+            for (int i = 0; i < Collisions.Count(); i++)
+            {
+                if (Collisions[i] != null)
+                {
+                    if (Closest_i == -1)
+                    {
+                        Closest_i = i;
+                        Closest_dst = (float)GDD_Math.EuclidianDistance(Collisions[i].obj1.Desired_Location, Collisions[i].obj2.Desired_Location);
+                    }
+                    else
+                    {
+                        float dst = (float)GDD_Math.EuclidianDistance(Collisions[i].obj1.Desired_Location, Collisions[i].obj2.Desired_Location);
+                        
+                        if (dst < Closest_dst)
+                        {
+                            Closest_i = i;
+                            Closest_dst = dst;
+                        }
+                    }
+                }
+            }
+
+
+            if (Closest_i != -1)
+            {
+                Collisions[Closest_i].obj2 = bucket.Owner;
+                return Collisions[Closest_i];
+            }
+            return null;
+        }
+
         public static GDD_CollisionInfo get(GDD_Circle circle1, GDD_Line line1)
         {
             //The hypothecial roll direction
@@ -572,8 +655,6 @@ float a = (Bounce_Max2 - Bounce_Max1) * force1Ratio;*/
 
             }
         }
-
-
 
     }
 

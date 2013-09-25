@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using GDD_Library;
 using GDD_Library.Shapes;
+using System.Diagnostics;
 
 namespace GDD_Game_Windows
 {
@@ -40,16 +41,20 @@ namespace GDD_Game_Windows
             GDD_View1.Scene.Objects.Clear();
 
             //The bounce test
-            //BucketTest();
+            BucketTest();
             //BounceTest();
             //AngularMomentumTest();
-            LineTest2();
+            //LineTest2();
 
             //Looping each object adding them again
             foreach (GDD_Object obj in Lines)
             {
                 GDD_View1.Scene.Objects.Add(obj);
             }
+
+            //The buttons need to be reset
+            button_Reset.Visible = false;
+            button_GO.Visible = true;
 
             //We don't want the circle to fall just yet
             circle1.GravityType = GDD_GravityType.Static;
@@ -67,7 +72,7 @@ namespace GDD_Game_Windows
             //Creating a new line
             if (lineToolStripMenuItem.Checked == true)
             {
-                Line_Preview = StartAndEndToLine(Line_Start, Line_Start);
+                Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
                 Line_Preview.GravityType = GDD_GravityType.Static;
                 
                 GDD_View1.Scene.Objects.Add(Line_Preview);
@@ -89,7 +94,7 @@ namespace GDD_Game_Windows
                 Line_End = new GDD_Point2F(e.X, e.Y);
                
                 //Using the Start and End to add a new line to ther scene
-                GDD_Object obj = StartAndEndToLine(Line_Start, Line_End);
+                GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
 
                 //Determining what to do with the start and end
                 if (pencilToolStripMenuItem.Checked == true)
@@ -120,21 +125,6 @@ namespace GDD_Game_Windows
             }
         }
 
-        public GDD_Object StartAndEndToLine(GDD_Point2F Line_Start, GDD_Point2F Line_End)
-        {
-            //Calculating a vector
-            GDD_Vector2F vector = GDD_Math.DXDYToVector(new GDD_Point2F(Line_Start.x - Line_End.x, Line_Start.y - Line_End.y));
-
-            GDD_Object obj = new GDD_Object(new GDD_Line());
-            obj.Location = Line_Start;
-            obj.Mass = 1f;
-            obj.GravityType = GDD_GravityType.Static;
-            obj.Velocity_Vector = new GDD_Vector2F(0f, 0f);
-            obj.Rotation = new GDD_Vector2F(vector.Direction + 180f, 0f);
-            obj.Shape.Size = vector.Size;
-
-            return obj;
-        }
 
 
         private void button_GO_Click(object sender, EventArgs e)
@@ -161,9 +151,6 @@ namespace GDD_Game_Windows
         {
             //Resetting
             Reset();
-
-            button_Reset.Visible = false;
-            button_GO.Visible = true;
         }
 
         private void levelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,24 +171,51 @@ namespace GDD_Game_Windows
 
         private void BucketTest()
         {
-            circle1.Location = new GDD_Point2F(300f, 300f);
+            circle1.Location = new GDD_Point2F(120f, 100f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(0f, 5f);
+            circle1.Rotation = new GDD_Vector2F(0f, 0f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
             GDD_Object bucket1 = new GDD_Object(new GDD_Bucket());
-            bucket1.Location = new GDD_Point2F(300f, 500f);
-            bucket1.Shape.Size = 100f;
+            bucket1.Location = new GDD_Point2F(300f, 400f);
+            bucket1.Shape.Size = 110f;
             bucket1.Mass = 100f;
             bucket1.Rotation = new GDD_Vector2F(0f, 0f);
             bucket1.Velocity = new GDD_Point2F(0f, 0f);
             bucket1.GravityType = GDD_GravityType.Static;
+            bucket1.OnCollision += new EventHandler(bucket1_OnCollision);
 
 
             //Adding the circles
             GDD_View1.Scene.Objects.Add(circle1);
             GDD_View1.Scene.Objects.Add(bucket1);
+        }
+
+        Stopwatch bucketCollisionTimer = new Stopwatch();
+        int bucketCollisionCounter = 0;
+        void bucket1_OnCollision(object sender, EventArgs e)
+        {
+            if (bucketCollisionTimer.ElapsedMilliseconds >= 2000)
+            {
+                bucketCollisionTimer.Restart();
+                bucketCollisionCounter = 0;
+                
+            }
+
+            //We're looking for 10 bounces in 2 seconds
+            bucketCollisionCounter++;
+
+            if (bucketCollisionCounter >= 10)
+            {
+                MessageBox.Show("YOU WON!");
+                Reset();
+            }
+
+
+
+                
+            
         }
 
         private void LineTest()
