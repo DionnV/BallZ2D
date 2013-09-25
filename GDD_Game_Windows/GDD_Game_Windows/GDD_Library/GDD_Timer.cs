@@ -51,6 +51,11 @@ namespace GDD_Library
         private BackgroundWorker worker;
 
         /// <summary>
+        /// Should we cancel processing?
+        /// </summary>
+        public Boolean CancellationPending { get { return worker.CancellationPending; } }
+
+        /// <summary>
         /// Ticks Per Second that have been executed
         /// </summary>
         public Int32 TPS { get { return this._TPS; } }
