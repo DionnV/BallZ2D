@@ -20,15 +20,13 @@ namespace GDD_Library
             //Create a new graphics timer
             graphicsTimer = new GDD_Timer();
             graphicsTimer.TickCap = 60;
-            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);
-            graphicsTimer.Start();
-            
+            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);        
         }
 
         ~GDD_View()
         {
             //Stop drawing
-            
+            graphicsTimer.Stop();
         }
 
         /// <summary>

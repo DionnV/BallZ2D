@@ -147,6 +147,5 @@ namespace GDD_Library
                 Thread.Sleep(1); //so processor can rest for a while
             }
         }
-
     }
 }

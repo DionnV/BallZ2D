@@ -81,12 +81,8 @@ namespace GDD_Library
                 {
                     this._Velocity = new GDD_Point2F(0f, 0f);
                     //this.GravityType = GDD_GravityType.Still;
-                }
-                
-                   
-                
+                }               
             }
-
         }
 
         private GDD_Point2F _Velocity = new GDD_Point2F(0f, 0f);
@@ -99,7 +95,18 @@ namespace GDD_Library
         /// <summary>
         /// The rotation
         /// </summary>
-        public GDD_Vector2F Rotation { get { return this._Rotation; } set { this._Rotation = value; } }
+        public GDD_Vector2F Rotation 
+        { 
+            get 
+            { 
+                return this._Rotation; 
+            } 
+            set 
+            { 
+                
+                this._Rotation = new GDD_Vector2F(GDD_Math.Angle(value.Direction), value.Size); 
+            } 
+        }
         private GDD_Vector2F _Rotation = new GDD_Vector2F(180f, 0f);
 
         /// <summary>
