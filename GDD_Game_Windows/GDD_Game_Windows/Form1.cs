@@ -213,7 +213,7 @@ namespace GDD_Game_Windows
             if (bucketCollisionCounter >= 10)
             {
                 MessageBox.Show("YOU WON!");
-                Reset();
+                //Reset();
             }
 
 
@@ -366,11 +366,13 @@ namespace GDD_Game_Windows
         private void pencilToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.pencilToolStripMenuItem.Checked = true;
+            lineToolStripMenuItem.Checked = false;
         }
 
         private void lineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lineToolStripMenuItem.Checked = true;
+            pencilToolStripMenuItem.Checked = false;
         }
 
         

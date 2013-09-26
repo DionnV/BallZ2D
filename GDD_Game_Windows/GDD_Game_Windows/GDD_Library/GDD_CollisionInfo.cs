@@ -436,19 +436,7 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                 RollDirection = arot;
             }
             
-            if (GDD_Math.Delta(circle1.Owner.Velocity_Vector.Direction, RollDirection) < 2)
-            {
-                GDD_CollisionInfo result = new GDD_CollisionInfo();
-                result.obj1 = circle1.Owner;
-                result.obj2 = line1.Owner;
-                result.obj1_IsRolling = true;
-                result.obj1_NewVelocity = new GDD_Vector2F(RollDirection, result.obj1.Velocity_Vector.Size);
-                result.BounceAngle = arot;
-                return result;
-            }
-            else
-            {
-            }
+            
           
 
             GDD_Point2F line_end = line1.end;
@@ -510,6 +498,19 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
             if (eud < (circle1.Size / 2F))
             {
 
+                if (GDD_Math.Delta(circle1.Owner.Velocity_Vector.Direction, RollDirection) < 2)
+                {
+                    GDD_CollisionInfo result_early = new GDD_CollisionInfo();
+                    result_early.obj1 = circle1.Owner;
+                    result_early.obj2 = line1.Owner;
+                    result_early.obj1_IsRolling = true;
+                    result_early.obj1_NewVelocity = new GDD_Vector2F(RollDirection, result_early.obj1.Velocity_Vector.Size);
+                    result_early.BounceAngle = arot;
+                    return result_early;
+                }
+                else
+                {
+                }
                 //We might be colliding
                 GDD_CollisionInfo result = null;
 
