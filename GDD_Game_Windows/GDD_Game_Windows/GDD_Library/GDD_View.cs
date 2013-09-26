@@ -206,7 +206,7 @@ namespace GDD_Library
                             GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d)));
 
                             //Taking the 
-                            collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_NewVelocity.Direction, collision.obj1_NewVelocity.Size * 2f);            
+                            //collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_NewVelocity.Direction, collision.obj1_NewVelocity.Size * 2f);            
 
                             //Determining the end location
                             collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));

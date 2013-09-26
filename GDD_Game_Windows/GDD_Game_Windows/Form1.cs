@@ -44,7 +44,7 @@ namespace GDD_Game_Windows
             BucketTest();
             //BounceTest();
             //AngularMomentumTest();
-            LineTest2();
+            //LineTest2();
             //LineTest();
             
             //Starting the graphics timer
