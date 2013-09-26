@@ -407,8 +407,7 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
         }
 
         public static GDD_CollisionInfo get(GDD_Circle circle1, GDD_Line line1)
-        {           
-            //Determining a few numbers
+        {                        
             GDD_Point2F line_end = line1.end;
             float start_to_circle = (float)GDD_Math.EuclidianDistance(line1.Owner.Location, circle1.Owner.Desired_Location);
             float end_to_circle = (float)GDD_Math.EuclidianDistance(line_end, circle1.Owner.Desired_Location);
@@ -457,17 +456,17 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                 func1 = GDD_Math.DXDYToFunc(dxdy, line1.Owner.Location);
                 func2 = GDD_Math.DXDYToFunc(-1 / dxdy, circle1.Owner.Desired_Location);
             }
-            
 
             GDD_Point2F intersection = GDD_Math.intersection(func1, func2);
 
-            //Checking if the intersection is in range of the circle; if so, we're probobly colliding
-            if (GDD_Math.EuclidianDistance(intersection, circle1.Owner.Desired_Location) < (circle1.Size / 2F))
+            float eud = (float)GDD_Math.EuclidianDistance(intersection, circle1.Owner.Desired_Location);
+            
+            if (eud < (circle1.Size / 2F))
             {
-                //We might be colliding; initializing result
+                //We might be colliding
                 GDD_CollisionInfo result = null;
 
-                //Colliding with the point
+                //Colliding with the point or a line?
                 if ((intersection.x > Math.Min(line1.Owner.Location.x, line_end.x)) && (intersection.x < Math.Max(line1.Owner.Location.x, line_end.x)))
                 {
                     //We're colliding with the line
@@ -495,10 +494,17 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                     float eud_end = (float)GDD_Math.EuclidianDistance(line_end, circle1.Owner.Desired_Location);
 
                     //Are we colliding with a point
-                    if ((eud_start < (circle1.Size / 2f)) || (eud_end < (circle1.Size / 2f)))
+                    if (((eud_start + 1) < (circle1.Size / 2f)) || ((eud_end+1) < (circle1.Size / 2f)))
                     {
                         //We're definately colliding with a point, assuming its the start
                         GDD_Point2F collisionPoint = line1.Owner.Location;
+
+                        //We're colliding
+                        result = new GDD_CollisionInfo();
+
+                        //We are probably colliding or already penetrating a bit
+                        result.obj1 = circle1.Owner;
+                        result.obj2 = line1.Owner;
 
                         //If the distance to end point is shorter; then we're colliding with the end point
                         if (eud_end < eud_start)
@@ -507,16 +513,6 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                         }
 
                         //We're Colliding with the start
-                        result = new GDD_CollisionInfo();
-
-                        //We are probably colliding or already penetrating a bit
-                        result.obj1 = circle1.Owner;
-                        result.obj1_NewRotation = circle1.Owner.Rotation;
- 
-                        //Obj2
-                        result.obj2 = line1.Owner;
-
-                        //Calculating new bounce angle
                         GDD_Vector2F vec = GDD_Math.DXDYToVector(new GDD_Point2F(collisionPoint.x - circle1.Owner.Desired_Location.x, collisionPoint.y - circle1.Owner.Desired_Location.y));
                         result.BounceAngle = vec.Direction - 90f;   
                       
@@ -524,14 +520,13 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                 }
 
                 if (result != null)
-                {
-                    
-                    result.obj1VSBounceAngle();
-                   
-                }
-
+                {                   
+                    result.obj1VSBounceAngle();           
+                } 
                 return result;
             }
+
+            //We aren't colliding
             return null;
         }
 
@@ -541,6 +536,7 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
         /// <param name="obj"></param>
         private void obj1VSBounceAngle()
         {
+            
             //The ratio of force from obj1
             float force1Ratio = obj1.Force / (obj1.Force + obj2.Force);
 
@@ -549,8 +545,6 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
             {
                 //D will hold the angle of impact for obj1
                 float d = (float)GDD_Math.DeltaAngle(BounceAngle_low, obj1.Velocity_Vector.Direction);
-                float bounce_True;
-
 
                 //The max bounce that can occur
                 float Bounce_Max1 = GDD_Math.Angle(BounceAngle + d);
@@ -569,42 +563,14 @@ result.obj1_NewRotation = new GDD_Vector2F(result.obj1.Rotation.Direction, 0f);
                             a = 360 - a;
                         }
 
-                        //Giving new velocity
-                        bounce_True = a;
+                        //New velocity
                         obj1_NewVelocity = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
                     }
                     else
                     {
-                        //We're going downwards, we shall go upwards
-                        bounce_True = BounceAngle_low - d;
-                        obj1_NewVelocity = new GDD_Vector2F(BounceAngle_low - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);   
+                        obj1_NewVelocity = new GDD_Vector2F(BounceAngle - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
+                    
                     }
-
-                    //Checking for a roll
-                    /*float da = GDD_Math.DeltaAngle(obj1_NewVelocity.Direction, 0f);
-                    if ((obj1_NewVelocity.Size < 50f) && (da < 90f))
-                    {
-
-                        if (BounceAngle < 90f)
-                        {
-                            bounce_True = BounceAngle + 180;
-                        }
-                        else
-                        {
-                            
-                            bounce_True = BounceAngle;
-                        }
-
-                        if (BounceAngle > 180f)
-                        {
-                            //return null;
-                        }
-                        else
-                        {
-                            //We are now Rolling, rolling ont he bounce angle
-                            obj1_NewVelocity = new GDD_Vector2F(bounce_True, obj1_NewVelocity.Size);
-                        }
-                    }*/
                 }
                 else
                 {

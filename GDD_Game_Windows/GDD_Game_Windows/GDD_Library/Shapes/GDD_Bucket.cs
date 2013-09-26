@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
-    public class GDD_Bucket : GDD_Shape
+    [Serializable]
+    public class GDD_Bucket : GDD_Shape, ISerializable
     {
         /// <summary>
         /// Draws this shape on a Graphics g
@@ -74,5 +76,19 @@ namespace GDD_Library.Shapes
                 G.DrawLine(Owner.FrontPen, Owner.Location.x + p[i].x, Owner.Location.y + p[i].y, Owner.Location.x + p[(i + 1) % cnt].x, Owner.Location.y + p[(i + 1) % cnt].y);
             }            
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Size", Size, typeof(float));
+        }
+
+        public GDD_Bucket(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            Size = (float) info.GetValue("Size", typeof(float));
+        }
+
+        public GDD_Bucket() { }
     }
 }

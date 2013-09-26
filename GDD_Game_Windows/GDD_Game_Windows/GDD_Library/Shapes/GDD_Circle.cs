@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
-{   
-    public class GDD_Circle: GDD_Shape
+{
+    [Serializable]
+    public class GDD_Circle : GDD_Shape, ISerializable
     {
         /// <summary>
         /// Draws this shape on a Graphics g
@@ -34,5 +36,21 @@ namespace GDD_Library.Shapes
         /// </summary>
         public float RestitutionRate { get { return this._RestitutionRate; } set { _RestitutionRate = value;  } }
         private float _RestitutionRate = 0.6f;
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Size", Size, typeof(float));
+            info.AddValue("RestitutionRate", _RestitutionRate, typeof(float));
+        }
+
+        public GDD_Circle(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            Size = (float) info.GetValue("Size", typeof(float));
+            _RestitutionRate = (float)info.GetValue("RestitutionRate", typeof(float));
+        }
+
+        public GDD_Circle() { }
     }
 }

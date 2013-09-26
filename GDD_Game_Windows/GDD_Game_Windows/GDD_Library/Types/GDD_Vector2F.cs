@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GDD_Library
 {
-    public struct GDD_Vector2F
+    [Serializable]
+    public struct GDD_Vector2F: ISerializable
     {
         /// <summary>
         /// The direction of the vector
@@ -35,6 +37,19 @@ namespace GDD_Library
         public override string ToString()
         {
             return "{" + Direction.ToString() + " ; " + Size.ToString() + "}";
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Size", Size, typeof(float));
+            info.AddValue("Direction", Direction, typeof(float));
+        }
+
+        public GDD_Vector2F(SerializationInfo info, StreamingContext context)
+        {
+            Size = (float)info.GetValue("Size", typeof(float));
+            Direction = (float)info.GetValue("Direction", typeof(float));
         }
 
     }

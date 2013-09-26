@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using GDD_Library.Shapes;
+using System.Runtime.Serialization;
 
 namespace GDD_Library
 {
-    public class GDD_Object
+    [Serializable]
+    public class GDD_Object : ISerializable
     {
         /// <summary>
         /// Creating a new instance 
@@ -17,6 +19,18 @@ namespace GDD_Library
         {
             //Setting it's shape
             this.Shape = Shape;
+        }
+
+        public GDD_Object(SerializationInfo info, StreamingContext context)
+        {
+            
+            _Mass = (float) info.GetValue("Mass", typeof(float));
+            _Shape = (GDD_Shape) info.GetValue("Shape", typeof(GDD_Shape));
+            _Location = (GDD_Point2F) info.GetValue("Location", typeof(GDD_Point2F));
+            _Rotation = (GDD_Vector2F) info.GetValue("Rotation", typeof(GDD_Vector2F));
+            _GravityType = (GDD_GravityType) info.GetValue("GravityType", typeof(GDD_GravityType));
+            CanLeaveScene = (bool) info.GetValue("CanLeaveScene", typeof(bool));
+            _Velocity = (GDD_Point2F) info.GetValue("Velocity", typeof(GDD_Point2F));
         }
 
         /// <summary>
@@ -137,6 +151,16 @@ namespace GDD_Library
         public GDD_GravityType GravityType { get { return this._GravityType; } set { this._GravityType = value; if (value == GDD_GravityType.Static) { this.Desired_Location = this.Location; } } }
         private GDD_GravityType _GravityType = GDD_GravityType.Normal;
 
+        public Boolean IsInZone(GDD_Zone zone)
+        {
+            Rectangle rec = new Rectangle((int)zone.Location.x, (int)zone.Location.y, (int)zone.Width, (int)zone.Height);
+            if(rec.Contains((int)this.Desired_Location.x, (int)this.Desired_Location.y))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public override string ToString()
         {
             return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
@@ -158,6 +182,23 @@ namespace GDD_Library
             {
                 OnCollision(sender, e);
             }
+        }
+
+        /// <summary>
+        /// This method is called on serialization.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Mass", _Mass, typeof(float));
+            info.AddValue("Shape", _Shape, typeof(GDD_Shape));
+            info.AddValue("Location", _Location, typeof(GDD_Point2F));
+            info.AddValue("Rotation", _Rotation, typeof(GDD_Vector2F));
+            info.AddValue("GravityType", _GravityType, typeof(GDD_GravityType));
+            info.AddValue("CanLeaveScene", CanLeaveScene, typeof(bool));
+            info.AddValue("Velocity", _Velocity, typeof(GDD_Point2F));
         }
     }
 

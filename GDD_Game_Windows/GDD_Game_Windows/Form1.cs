@@ -8,7 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using GDD_Library;
 using GDD_Library.Shapes;
+using GDD_Library.LevelDesign;
 using System.Diagnostics;
+
 
 namespace GDD_Game_Windows
 {
@@ -47,11 +49,12 @@ namespace GDD_Game_Windows
 
             //The bounce test
             BucketTest();
-            BounceTest();
+            //BounceTest();
             //AngularMomentumTest();
             //LineTest2();
             //LineTest();
-
+            //ZoneTest();
+ 
             //Looping each object adding them again
             foreach (GDD_Object obj in Lines)
             {
@@ -176,7 +179,11 @@ namespace GDD_Game_Windows
         {
             Application.Exit();
         }
-               
+
+        private void ZoneTest()
+        {
+
+        }
 
         private void BucketTest()
         {
@@ -222,11 +229,6 @@ namespace GDD_Game_Windows
                 MessageBox.Show("YOU WON!");
                 this.Invoke(new ResetDelegate(this.Reset), new object[0]);
             }
-
-
-
-                
-            
         }
 
         private void LineTest()
@@ -264,7 +266,7 @@ namespace GDD_Game_Windows
             circle1.Location = new GDD_Point2F(100f, 50f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
-            circle1.Rotation = new GDD_Vector2F(0f, 0f);
+            circle1.Rotation = new GDD_Vector2F(0f, 1f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
             
             float angle = 10;
@@ -273,7 +275,7 @@ namespace GDD_Game_Windows
 
 
             //Placing a few lines
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
                 GDD_Object line1 = new GDD_Object(new GDD_Line());
 
@@ -382,9 +384,16 @@ namespace GDD_Game_Windows
             pencilToolStripMenuItem.Checked = false;
         }
 
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Lines.Clear();
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GDD_SerializeTest test = new GDD_SerializeTest();
+            test.run();
         }
 
         

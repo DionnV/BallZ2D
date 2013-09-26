@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
-    public class GDD_Line : GDD_Shape
+    [Serializable]
+    public class GDD_Line : GDD_Shape, ISerializable
     {
         /// <summary>
         /// The end of the line
@@ -48,5 +50,19 @@ namespace GDD_Library.Shapes
 
             return obj;
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Size", Size, typeof(float));
+        }
+
+        public GDD_Line(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            Size = (float) info.GetValue("Size", typeof(float));
+        }
+
+        public GDD_Line() { }
     }
 }
