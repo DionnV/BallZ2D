@@ -47,9 +47,10 @@ namespace GDD_Game_Windows
 
             //The bounce test
             BucketTest();
-            //BounceTest();
+            BounceTest();
             //AngularMomentumTest();
             //LineTest2();
+            //LineTest();
 
             //Looping each object adding them again
             foreach (GDD_Object obj in Lines)
@@ -145,6 +146,9 @@ namespace GDD_Game_Windows
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //The clientsize should be good
+            this.ClientSize = new System.Drawing.Size(600, 600);
+
             //Placing the level
             Reset();
 
@@ -176,7 +180,7 @@ namespace GDD_Game_Windows
 
         private void BucketTest()
         {
-            circle1.Location = new GDD_Point2F(120f, 100f);
+            circle1.Location = new GDD_Point2F(300f, 100f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
@@ -203,16 +207,18 @@ namespace GDD_Game_Windows
         {
             if (bucketCollisionTimer.ElapsedMilliseconds >= 2000)
             {
-                bucketCollisionTimer.Restart();
                 bucketCollisionCounter = 0;
-                
+                bucketCollisionTimer.Restart();
+                             
             }
 
             //We're looking for 10 bounces in 2 seconds
             bucketCollisionCounter++;
 
+            //Have we finished?
             if (bucketCollisionCounter >= 10)
             {
+                bucketCollisionCounter = 0;
                 MessageBox.Show("YOU WON!");
                 this.Invoke(new ResetDelegate(this.Reset), new object[0]);
             }
@@ -225,7 +231,7 @@ namespace GDD_Game_Windows
 
         private void LineTest()
         {
-            circle1.Location = new GDD_Point2F(200f, 50f);
+            circle1.Location = new GDD_Point2F(200f, 150f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
@@ -260,7 +266,7 @@ namespace GDD_Game_Windows
             circle1.Mass = 50f;
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
-            /*
+            
             float angle = 10;
             float LongSize = (float)(Math.Sqrt(2d) * 50f);
             GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
@@ -279,7 +285,7 @@ namespace GDD_Game_Windows
                 line1.GravityType = GDD_GravityType.Static;
                 GDD_View1.Scene.Objects.Add(line1);
 
-            }*/
+            }
             GDD_View1.Scene.Objects.Add(circle1);
         }
 
@@ -374,6 +380,11 @@ namespace GDD_Game_Windows
         {
             lineToolStripMenuItem.Checked = true;
             pencilToolStripMenuItem.Checked = false;
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Lines.Clear();
         }
 
         

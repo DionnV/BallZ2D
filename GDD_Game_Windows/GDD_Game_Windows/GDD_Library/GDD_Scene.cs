@@ -15,6 +15,8 @@ namespace GDD_Library
             this.Width = width;
             this.Height = height;
 
+            this.GravityFactor = 9.81f * 100f;
+
             //Starting the physics computing
             //this.physicsTimer = new GDD_Timer();
             //this.physicsTimer.TickCap = 60;
@@ -35,6 +37,11 @@ namespace GDD_Library
         /// The width of the scene
         /// </summary>
         public int Width { get; set; }
+
+        /// <summary>
+        /// The Gravity Constant
+        /// </summary>
+        public float GravityFactor { get; set; }
 
         /// <summary>
         /// The height of the scene

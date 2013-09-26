@@ -149,16 +149,27 @@ namespace GDD_Library
 
         public static float Angle(float f)
         {
-            if (f < 0f)
-            {
-                f = 360f + f;
-            }
+            return Loop(f, 0f, 360f);
+        }
 
-            if (f > 360f)
+        public static float Loop(float value, float min, float max)
+        {
+            while (true)
             {
-                f = f - 360f;
+                if (value > max)
+                {
+                    value -= (float)Delta(min, max);
+                }
+                else if (value < min)
+                {
+                    value += (float)Delta(min, max);
+                }
+                else
+                {
+                    return value;
+                }
+                
             }
-            return f;
         }
 
     }

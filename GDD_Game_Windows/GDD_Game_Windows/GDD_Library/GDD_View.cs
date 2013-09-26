@@ -132,7 +132,7 @@ namespace GDD_Library
                     obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction + (obj.Rotation.Size * 360f) * d, obj.Rotation.Size);
 
                     //Applying gravity
-                    obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d));
+                    obj.Velocity = new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + (this.Scene.GravityFactor * d));
                     
                     //Determining the end location
                     obj.Desired_Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
@@ -184,62 +184,71 @@ namespace GDD_Library
                                 }
                             }
                         }
+                                                
+                        //Applying the collision with the closest object
+                        GDD_CollisionInfo collision = Collisions[shortest];
 
 
+                        //The true bounce angle
+                        float ba = GDD_Math.Loop(collision.BounceAngle, -180f, 180f);
+                        if (collision.obj1_NewVelocity.Direction < 0f)
+                        {
+                            ba = -180f + collision.BounceAngle;
+                        }
 
-                        //Looping each collision
-                        //foreach (GDD_CollisionInfo collision in Collisions)
-                       // {
-                            GDD_CollisionInfo collision = Collisions[shortest];
+                        float dAngle = GDD_Math.DeltaAngle(collision.obj1_NewVelocity.Direction, ba);
 
-                            //Applying the direction of the objection
-                            collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
-
-                            if (collision.obj1.MaxVelocitySinceLastBounce < 50)
-                            {
-                                //Rolling!
-                                collision.obj1.IsRolling = true;
-
-                                GDD_Vector2F vec = GDD_Math.DXDYToVector( new GDD_Point2F(obj.Velocity.x, obj.Velocity.y + ((9.81f * 100) * d)));
-
-                                if (collision.obj1_RollVelocity.Direction != 0f)
-                                {
-                                    collision.obj1.Velocity_Vector = new GDD_Vector2F(collision.obj1_RollVelocity.Direction, vec.Size + ((98.1f * 100) * d));
-                                }
-                                
-
-                                //Determining the end location
-                                collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
-
-                            } 
-                            else
-                            {
-                                collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
-
-                                //Applying the new rotation
-                                collision.obj1.Rotation = collision.obj1_NewRotation;
-
-                                //Determining the end location
-                                collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
-
-                                //Is the object now laying still?
-                                if (collision.obj1_IsStill)
-                                {
-                                    collision.obj1.GravityType = GDD_GravityType.Still;
-                                }
-
-                                //We've collided, notifing the object
-                                collision.obj1.RaiseOnCollision(collision.obj1, EventArgs.Empty);
-                                collision.obj2.RaiseOnCollision(collision.obj2, EventArgs.Empty);
-                            }
-
+                        //Checking if the velocity is too low and the new velocity is pointing upwards
+                        if (((collision.obj1_NewVelocity.Size < 60f) && (GDD_Math.DeltaAngle(collision.obj1_NewVelocity.Direction, 0f) < 90f)) || (dAngle < 5f))
+                        {
+                            //Addapting movement to ba(the true BounceAngle), with the correct size
+                            //Getting the inverse angle of the true bounce angle
                             
+                            float ba_inf = (ba < 0) ? GDD_Math.Angle(ba - 90f) : GDD_Math.Angle(ba + 90f);
+                            dAngle = GDD_Math.DeltaAngle(180f, ba_inf);
+                            float Speed = (float)Math.Sin(dAngle * GDD_Math.RadConverter) * (collision.obj1.Mass * this.Scene.GravityFactor);
+                            float r = (GDD_Math.VectorToDXDY(collision.obj1_NewVelocity).x < 0) ? -1 : 1;
 
-                            collision.obj1.MaxVelocitySinceLastBounce = 0;
+                            //float Speed = (float)Math.Sqrt(Math.Pow(this.Scene.GravityFactor, 2) - Math.Pow(collision.obj1.Mass, 2));
+                            collision.obj1_NewVelocity = new GDD_Vector2F(ba, Speed / 100);
 
-                            //We've collided, adding object 2 to the exceptions list
-                            CollisionExceptions.Add(collision.obj2);
-                         //}
+                            //Making the rotation
+                            collision.obj1_NewRotation = new GDD_Vector2F(
+                                collision.obj1.Rotation.Direction,
+                                r * (collision.obj1_NewVelocity.Size / ((float)Math.PI * collision.obj1.Shape.Size)
+                                ));
+
+    
+                            
+                        }
+
+
+                        //Applying obj2 new velocity
+                        collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
+
+                        //Applying the new rotation
+                        collision.obj1.Rotation = collision.obj1_NewRotation;
+                        collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
+
+                        //Determining the end location
+                        collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
+
+                        //Is the object now laying still?
+                        if (collision.obj1_IsStill)
+                        {
+                            collision.obj1.GravityType = GDD_GravityType.Still;
+                        }
+
+                        //We've collided, raising the event
+                        collision.obj1.RaiseOnCollision(collision.obj1, EventArgs.Empty);
+                        collision.obj2.RaiseOnCollision(collision.obj2, EventArgs.Empty);
+                                               
+
+                        collision.obj1.MaxVelocitySinceLastBounce = 0;
+
+                        //We've collided, adding object 2 to the exceptions list
+                        CollisionExceptions.Add(collision.obj2);
+                        //}
                     }
                     else
                     {
