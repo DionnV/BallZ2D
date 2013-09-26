@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
             this.button_GO = new System.Windows.Forms.Button();
             this.button_Reset = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -38,6 +39,7 @@
             this.pencilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GDD_View1 = new GDD_Library.GDD_View();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +79,8 @@
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
+            this.closeToolStripMenuItem,
+            this.testToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -85,7 +88,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -108,7 +111,7 @@
             // pencilToolStripMenuItem
             // 
             this.pencilToolStripMenuItem.Name = "pencilToolStripMenuItem";
-            this.pencilToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pencilToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.pencilToolStripMenuItem.Text = "Pencil";
             this.pencilToolStripMenuItem.Click += new System.EventHandler(this.pencilToolStripMenuItem_Click);
             // 
@@ -117,13 +120,17 @@
             this.lineToolStripMenuItem.Checked = true;
             this.lineToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lineToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.lineToolStripMenuItem.Text = "Line";
             this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
             // 
             // GDD_View1
             // 
             this.GDD_View1.Dock = System.Windows.Forms.DockStyle.Fill;
+            gdD_Timer1.DesiredTickTime = 16.66667F;
+            gdD_Timer1.TickCap = 60;
+            gdD_Timer1.TickTime = 0;
+            this.GDD_View1.graphicsTimer = gdD_Timer1;
             this.GDD_View1.Location = new System.Drawing.Point(0, 24);
             this.GDD_View1.Name = "GDD_View1";
             this.GDD_View1.Size = new System.Drawing.Size(584, 538);
@@ -132,6 +139,13 @@
             this.GDD_View1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GDD_View1_MouseDown);
             this.GDD_View1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GDD_View1_MouseMove);
             this.GDD_View1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GDD_View1_MouseUp);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -165,6 +179,7 @@
         private System.Windows.Forms.ToolStripMenuItem drawToolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pencilToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }
 

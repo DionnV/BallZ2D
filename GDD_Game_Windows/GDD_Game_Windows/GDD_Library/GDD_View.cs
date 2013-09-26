@@ -82,7 +82,6 @@ namespace GDD_Library
             Application.DoEvents(); 
         }
 
-        float lowestSize = 1000f;
 
         private void Repaint()
         {

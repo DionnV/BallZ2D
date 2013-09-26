@@ -1,15 +1,21 @@
 Zipbestand met de volgende bestanden
 
 - HeaderFile
+	- VersionNumber
+	- LevelVersionNumber
+	- LevelSize.X
+	- LevelSize.y
 	- Welke Index van LOO is bucket
 	- Welke Index van LOO is balletje
 	- Naam map
-	- Max dist line
-	- 
+	- Max dist line (-1 if unlimited)
+	- Map Designer
 
 - PermissionMap
 	- Rood = Geen teken zone
 	- Blauw = Geen gravity zone
+
+
 
 
 - BackgroundMap

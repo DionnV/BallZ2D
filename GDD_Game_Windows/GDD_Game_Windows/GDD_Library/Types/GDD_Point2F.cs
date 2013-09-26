@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GDD_Library
 {
-    public struct GDD_Point2F
+    [Serializable]
+    public struct GDD_Point2F: ISerializable
     {
         /// <summary>
         /// The x coordinate of the Point
@@ -41,6 +43,19 @@ namespace GDD_Library
         public override string ToString()
         {
             return "{" + x.ToString() + " ; " + y.ToString() + "}";
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("x", x, typeof(float));
+            info.AddValue("y", y, typeof(float));
+        }
+
+        public GDD_Point2F(SerializationInfo info, StreamingContext context)
+        {
+            x = (float) info.GetValue("x", typeof(float));
+            y = (float) info.GetValue("y", typeof(float));
         }
     }
 }

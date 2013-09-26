@@ -8,7 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using GDD_Library;
 using GDD_Library.Shapes;
+using GDD_Library.LevelDesign;
 using System.Diagnostics;
+
 
 namespace GDD_Game_Windows
 {
@@ -46,11 +48,12 @@ namespace GDD_Game_Windows
             GDD_View1.Scene.Objects.Clear();
 
             //The bounce test
-            BucketTest();
+            //BucketTest();
             //BounceTest();
             //AngularMomentumTest();
             //LineTest2();
             //LineTest();
+            ZoneTest();
             
             //Starting the graphics timer
             //LineTest2();
@@ -176,7 +179,11 @@ namespace GDD_Game_Windows
         {
             Application.Exit();
         }
-               
+
+        private void ZoneTest()
+        {
+
+        }
 
         private void BucketTest()
         {
@@ -378,6 +385,12 @@ namespace GDD_Game_Windows
         {
             lineToolStripMenuItem.Checked = true;
             pencilToolStripMenuItem.Checked = false;
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GDD_SerializeTest test = new GDD_SerializeTest();
+            test.run();
         }
 
         
