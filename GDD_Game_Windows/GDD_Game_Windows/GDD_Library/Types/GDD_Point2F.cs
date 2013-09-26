@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace GDD_Library
 {
@@ -34,6 +35,11 @@ namespace GDD_Library
         {
             this.x = (float)x;
             this.y = (float)y;
+        }
+
+        public Point ToPoint()
+        {
+            return new Point((int)Math.Round(this.x), (int)Math.Round(this.y));
         }
 
         /// <summary>

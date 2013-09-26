@@ -99,6 +99,12 @@ namespace GDD_Library
 
             //Filling it
             g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
+
+            //Drawing Background image
+            if (this.BackgroundImage != null)
+            {
+                g.DrawImage(this.BackgroundImage, new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), GraphicsUnit.Pixel);
+            }
            
             //Drawing FPS
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));

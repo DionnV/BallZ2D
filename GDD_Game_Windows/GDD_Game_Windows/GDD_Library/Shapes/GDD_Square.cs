@@ -30,11 +30,19 @@ namespace GDD_Library.Shapes
             GDD_Point2F p3 = new GDD_Point2F(Math.Sin((Rotation + 225f) * Rad2Deg) * LongSize, Math.Cos((Rotation + 225f) * Rad2Deg) * LongSize);
             GDD_Point2F p4 = new GDD_Point2F(Math.Sin((Rotation - 45f) * Rad2Deg) * LongSize, Math.Cos((Rotation - 45f) * Rad2Deg) * LongSize);
 
+            G.FillPolygon(new SolidBrush(Color.Brown), new Point[] { 
+                p1.ToPoint().Offset(Owner.Location.ToPoint()), 
+                p2.ToPoint().Offset(Owner.Location.ToPoint()), 
+                p3.ToPoint(), p4.ToPoint() });
+            
+
             //Drawing the box
             G.DrawLine(Owner.FrontPen, Owner.Location.x + p1.x, Owner.Location.y + p1.y, Owner.Location.x + p2.x, Owner.Location.y + p2.y);
             G.DrawLine(Owner.FrontPen, Owner.Location.x + p2.x, Owner.Location.y + p2.y, Owner.Location.x + p3.x, Owner.Location.y + p3.y);
             G.DrawLine(Owner.FrontPen, Owner.Location.x + p3.x, Owner.Location.y + p3.y, Owner.Location.x + p4.x, Owner.Location.y + p4.y);
             G.DrawLine(Owner.FrontPen, Owner.Location.x + p4.x, Owner.Location.y + p4.y, Owner.Location.x + p1.x, Owner.Location.y + p1.y);
+
+            //G.DrawLines(Owner.FrontPen, new Point[{ p1.T,p2,p3,p4});
 
             //Calculating the end point for our direction line
             GDD_Point2F end = new GDD_Point2F(Math.Sin(Rotation * Rad2Deg) * (0.5f * Size), Math.Cos(Rotation * Rad2Deg) * (0.5f * Size));

@@ -54,6 +54,12 @@ namespace GDD_Game_Windows
             //LineTest2();
             //LineTest();
             //ZoneTest();
+            GDD_Level DemoLevel = new GDD_Level();
+            DemoLevel.LoadNoDraw("bg.jpg");
+
+            //Setting bacvkground
+            GDD_View1.BackgroundImage = DemoLevel.NoDrawZone;
+
  
             //Looping each object adding them again
             foreach (GDD_Object obj in Lines)
@@ -194,13 +200,33 @@ namespace GDD_Game_Windows
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
             GDD_Object bucket1 = new GDD_Object(new GDD_Bucket());
-            bucket1.Location = new GDD_Point2F(300f, 400f);
+            bucket1.Location = new GDD_Point2F(300f, 500f);
             bucket1.Shape.Size = 110f;
             bucket1.Mass = 100f;
             bucket1.Rotation = new GDD_Vector2F(0f, 0f);
             bucket1.Velocity = new GDD_Point2F(0f, 0f);
             bucket1.GravityType = GDD_GravityType.Static;
             bucket1.OnCollision += new EventHandler(bucket1_OnCollision);
+
+            //Angle of the boxes;
+            float angle = 45;
+            float LongSize = (float)(Math.Sqrt(2d) * 50f);
+            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
+
+            //Placing a few boxes
+            for (int i = 0; i < 4; i++)
+            {
+                GDD_Object square1 = new GDD_Object(new GDD_Square());
+
+                square1.Location = new GDD_Point2F(50f + dxdy.x * i, 200f + dxdy.y * i);
+                square1.Shape.Size = 50f;
+                square1.Mass = 50f;
+                square1.Rotation = new GDD_Vector2F(angle, 0f);
+                square1.Velocity = new GDD_Point2F(0f, 0f);
+                square1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(square1);
+
+            }
 
 
             //Adding the circles
