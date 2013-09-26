@@ -1,0 +1,18 @@
+Zipbestand met de volgende bestanden
+
+- HeaderFile
+	- Welke Index van LOO is bucket
+	- Welke Index van LOO is balletje
+	- Naam map
+	- Max dist line
+	- 
+
+- PermissionMap
+	- Rood = Geen teken zone
+	- Blauw = Geen gravity zone
+
+
+- BackgroundMap
+	Afbeelding met background
+
+- List Of Objects

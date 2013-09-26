@@ -31,6 +31,11 @@ namespace GDD_Game_Windows
         /// The preview for a straight line
         /// </summary>
         GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
+        
+        /// <summary>
+        /// The delegate for calling reset
+        /// </summary>
+        private delegate void ResetDelegate();
 
         /// <summary>
         /// Resetting the level to it's org
@@ -213,7 +218,7 @@ namespace GDD_Game_Windows
             if (bucketCollisionCounter >= 10)
             {
                 MessageBox.Show("YOU WON!");
-                //Reset();
+                this.Invoke(new ResetDelegate(this.Reset), new object[0]);
             }
 
 
