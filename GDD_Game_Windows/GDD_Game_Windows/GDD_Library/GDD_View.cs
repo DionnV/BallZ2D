@@ -104,7 +104,7 @@ namespace GDD_Library
             if (this.BackgroundImage != null)
             {
                 
-                g.DrawImage(this.BackgroundImage, new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), GraphicsUnit.Pixel);
+                //g.DrawImage(this.BackgroundImage, new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), GraphicsUnit.Pixel);
             }
            
             //Drawing FPS
@@ -151,6 +151,15 @@ namespace GDD_Library
                     {
                         GDD_Object obj1 = this.Scene.Objects[j];
 
+                        if (!this.Scene.Objects[j].CanLeaveScene)
+                        {
+                            //Can't leave scene, colliding with borders
+                            //this.Scene.Objects[j].Shape.Collides(SouthBorder)
+                            //this.Scene.Objects[j].Shape.Collides(SouthBorder)
+                            //this.Scene.Objects[j].Shape.Collides(SouthBorder)
+                            //this.Scene.Objects[j].Shape.Collides(SouthBorder)
+                        }
+
                         if (!CollisionExceptions.Contains(obj1))
                         {
                             //Calculating the collision
@@ -196,16 +205,16 @@ namespace GDD_Library
 
                         //The true bounce angle
                         float ba = GDD_Math.Loop(collision.BounceAngle, -180f, 180f);
-                        if (collision.obj1_NewVelocity.Direction < 0f)
+                        if (collision.obj1_AfterCollision.Velocity_Vector.Direction < 0f)
                         {
                             ba = -180f + collision.BounceAngle;
                         }
 
                         //Delta angle between BounceAngle and object1's direction
-                        float dAngle = GDD_Math.DeltaAngle(collision.obj1_NewVelocity.Direction, ba);
+                        float dAngle = GDD_Math.DeltaAngle(collision.obj1_AfterCollision.Velocity_Vector.Direction, ba);
 
                         //Checking if the velocity is too low and the new velocity is pointing upwards
-                        if (((collision.obj1_NewVelocity.Size < 40f) && (GDD_Math.DeltaAngle(collision.obj1_NewVelocity.Direction, 0f) < 90f)) || (dAngle < 5f))
+                        if (((collision.obj1_AfterCollision.Velocity_Vector.Size < 40f) && (GDD_Math.DeltaAngle(collision.obj1_AfterCollision.Velocity_Vector.Direction, 0f) < 90f)) || (dAngle < 5f))
                         {
                             //Addapting movement to ba(the true BounceAngle), with the correct size
                             //Getting the inverse angle of the true bounce angle
@@ -214,31 +223,31 @@ namespace GDD_Library
                             ba_inf = GDD_Math.Loop(ba_inf, -180f, 180f);
                             dAngle = GDD_Math.DeltaAngle(180f, ba_inf);
                             float Speed = (float)Math.Sin(dAngle * GDD_Math.RadConverter) * (collision.obj1.Mass * this.Scene.GravityFactor);
-                            float r = (GDD_Math.VectorToDXDY(collision.obj1_NewVelocity).x < 0) ? -1 : 1;
+                            float r = (collision.obj1_AfterCollision.Velocity_Vector.ToDXDY().x < 0) ? -1 : 1;
 
                             //float Speed = (float)Math.Sqrt(Math.Pow(this.Scene.GravityFactor, 2) - Math.Pow(collision.obj1.Mass, 2));
-                            collision.obj1_NewVelocity = new GDD_Vector2F(ba, Speed / 100);
+                            collision.obj1_AfterCollision .Velocity_Vector= new GDD_Vector2F(ba, Speed / 100);
 
                             //Making the rotation
-                            collision.obj1_NewRotation = new GDD_Vector2F(
+                            collision.obj1_AfterCollision.Rotation = new GDD_Vector2F(
                                 collision.obj1.Rotation.Direction,
-                                r * (collision.obj1_NewVelocity.Size / ((float)Math.PI * collision.obj1.Shape.Size)
+                                r * (collision.obj1_AfterCollision.Velocity_Vector.Size / ((float)Math.PI * collision.obj1.Shape.Size)
                                 ));                           
                         }
 
 
                         //Applying obj2 new velocity
-                        collision.obj2.Velocity_Vector = collision.obj2_NewVelocity;
+                        collision.obj2.Velocity_Vector = collision.obj2_AfterCollision.Velocity_Vector;
 
                         //Applying the new rotation
-                        collision.obj1.Rotation = collision.obj1_NewRotation;
-                        collision.obj1.Velocity_Vector = collision.obj1_NewVelocity;
+                        collision.obj1.Rotation = collision.obj1_AfterCollision.Rotation;
+                        collision.obj1.Velocity_Vector = collision.obj1_AfterCollision.Velocity_Vector;
 
                         //Determining the end location
                         collision.obj1.Location = new GDD_Point2F(obj.Location.x + (obj.Velocity.x * d), obj.Location.y + (obj.Velocity.y * d));
 
                         //Is the object now laying still?
-                        if (collision.obj1_IsStill)
+                        if (collision.obj1_AfterCollision.Velocity_Vector.Size == 0f)
                         {
                             collision.obj1.GravityType = GDD_GravityType.Still;
                         }

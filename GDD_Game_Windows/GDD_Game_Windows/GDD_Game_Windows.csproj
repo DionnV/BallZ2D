@@ -67,6 +67,7 @@
     <Compile Include="GDD_Library\Shapes\GDD_Bucket.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Circle.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Line.cs" />
+    <Compile Include="GDD_Library\Shapes\GDD_Polygon.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Shape.cs" />
     <Compile Include="GDD_Library\GDD_View.cs">
       <SubType>UserControl</SubType>

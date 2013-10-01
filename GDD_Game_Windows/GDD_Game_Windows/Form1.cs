@@ -46,7 +46,8 @@ namespace GDD_Game_Windows
         /// </summary>
         private void Reset()
         {
-            Lines.Clear();
+            //Lines.Clear();
+            
             //Creating the scene and adding the square
             GDD_View1.Scene.Objects.Clear();
 
@@ -220,7 +221,7 @@ namespace GDD_Game_Windows
             //Angle of the boxes;
             float angle = 45;
             float LongSize = (float)(Math.Sqrt(2d) * 50f);
-            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
+            GDD_Point2F dxdy = new GDD_Vector2F(90f + angle, 50f).ToDXDY();
 
             //Placing a few boxes
             for (int i = 0; i < 4; i++)
@@ -297,14 +298,14 @@ namespace GDD_Game_Windows
             //Looping 32 boxes
             for (int i = 0; i < 32; i++)
             {
-                GDD_Point2F p1 = GDD_Math.VectorToDXDY(new GDD_Vector2F(f * i, 250f));
-                GDD_Point2F p2 = GDD_Math.VectorToDXDY(new GDD_Vector2F(f * (i + 1), 250f));
+                GDD_Point2F p1 = new GDD_Vector2F(f * i, 250f).ToDXDY();
+                GDD_Point2F p2 = new GDD_Vector2F(f * (i + 1), 250f).ToDXDY();
                 
                 GDD_Object line1 = new GDD_Object(new GDD_Line());
                 line1.Location = new GDD_Point2F(300f + p1.x, 300f + p1.y);
                 line1.Shape.Size = 50f;
                 line1.Mass = 50f;
-                line1.Rotation = GDD_Math.DXDYToVector(new GDD_Point2F(p2.x - p1.x, p2.y - p1.y));
+                line1.Rotation = new GDD_Point2F(p2.x - p1.x, p2.y - p1.y).ToVector();
                 line1.Velocity = new GDD_Point2F(0f, 0f);
                 line1.GravityType = GDD_GravityType.Static;
                 GDD_View1.Scene.Objects.Add(line1);
@@ -323,7 +324,7 @@ namespace GDD_Game_Windows
             
             float angle = 10;
             float LongSize = (float)(Math.Sqrt(2d) * 50f);
-            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
+            GDD_Point2F dxdy = new GDD_Vector2F(90f + angle, 50f).ToDXDY();
 
 
             //Placing a few lines
@@ -358,7 +359,7 @@ namespace GDD_Game_Windows
             for (int i = 0; i < 32; i++)
             {
                 GDD_Object square1 = new GDD_Object(new GDD_Square());
-                GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(270f - f * i, 250f));
+                GDD_Point2F dxdy = new GDD_Vector2F(270f - f * i, 250f).ToDXDY();
 
                 square1.Location = new GDD_Point2F(300f + dxdy.x, 300f + dxdy.y);
                 square1.Shape.Size = 50f;
@@ -385,7 +386,7 @@ namespace GDD_Game_Windows
             //Angle of the boxes;
             float angle = 10;
             float LongSize = (float)(Math.Sqrt(2d) * 50f);
-            GDD_Point2F dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f + angle, 50f));
+            GDD_Point2F dxdy = new GDD_Vector2F(90f + angle, 50f).ToDXDY();
 
             //Placing a few boxes
             for (int i = 0; i < 4; i++)
@@ -402,7 +403,7 @@ namespace GDD_Game_Windows
 
             }
 
-            dxdy = GDD_Math.VectorToDXDY(new GDD_Vector2F(90f - angle, 50f));
+            dxdy = new GDD_Vector2F(90f - angle, 50f).ToDXDY();
 
             //Placing a few boxes
             for (int i = 0; i < 8; i++)

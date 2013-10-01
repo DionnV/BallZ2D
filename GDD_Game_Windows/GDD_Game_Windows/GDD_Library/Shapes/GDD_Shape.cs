@@ -7,7 +7,7 @@ using GDD_Library.Shapes;
 
 namespace GDD_Library
 {
-    public abstract class GDD_Shape
+    public abstract class GDD_Shape : ICloneable
     {
         public abstract void Draw(Graphics G);
 
@@ -23,28 +23,35 @@ namespace GDD_Library
         public GDD_Object Owner { get { return _Owner; } set { this._Owner = value; } }
         private GDD_Object _Owner;
 
+        /// <summary>
+        /// returns a clone of this object
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
         public static GDD_CollisionInfo Collides(GDD_Shape shape1, GDD_Shape shape2)
         {
             //Making 2 circle's collide
-            if ((shape1 is GDD_Circle) && (shape2 is GDD_Circle))
-            {
-                return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Circle)shape2);
-            }
-
-            
-            if ((shape1 is GDD_Circle) && (!(shape2 is GDD_Circle)))
-            {
-                if (shape2 is GDD_Square)
+            if (shape1 is GDD_Circle)
+            {  
+                if (shape2 is GDD_Circle)
                 {
-                    return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Square)shape2);
+                    return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Circle)shape2);
                 }
+
+        
+                if (shape2 is GDD_Polygon)
+                {
+                    return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Polygon)shape2);
+                }
+
                 if (shape2 is GDD_Line)
                 {
                     return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Line)shape2);
-                }
-                if (shape2 is GDD_Bucket)
-                {
-                    return GDD_CollisionInfo.get((GDD_Circle)shape1, (GDD_Bucket)shape2);
+                
                 }
             }
 

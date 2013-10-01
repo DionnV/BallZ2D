@@ -51,6 +51,49 @@ namespace GDD_Library
             return "{" + x.ToString() + " ; " + y.ToString() + "}";
         }
 
+        /// <summary>
+        /// Interpets ourself as a DxDy and calculates a vector off of it
+        /// </summary>
+        /// <returns></returns>
+        public GDD_Vector2F ToVector()
+        {
+            //Defining dir
+            float dir = -1f;
+
+            //Calculating the Direction of the first object
+            if (this.x == 0)
+            {
+                if (this.y > 0)
+                {
+                    dir = 180f;
+                }
+                else
+                {
+                    dir = 0f;
+                }
+            }
+            else
+            {
+
+                dir = (float)Math.Atan(this.y / this.x) / GDD_Math.RadConverter;
+
+                if (this.x < 0)
+                {
+                    dir -= 90;
+                }
+                else
+                {
+                    dir += 90;
+                }
+            }
+
+            //Calculating the size
+            float size = (float)Math.Sqrt(this.x * this.x + this.y * this.y);
+
+            //Returning the vector
+            return new GDD_Vector2F((dir < 0) ? (360f + dir) : dir, size);
+        }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
