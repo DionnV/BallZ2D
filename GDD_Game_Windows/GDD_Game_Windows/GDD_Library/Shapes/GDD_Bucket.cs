@@ -65,9 +65,15 @@ namespace GDD_Library.Shapes
                 p[i] = GDD_Math.VectorToDXDY(vec);
                 p2[i] = new PointF(Owner.Location.x + p[i].x, Owner.Location.y + p[i].y);
             }
+            
+            //Hardcoded nodraw-zone, #yolo
+            //Rectangle nodraw = new Rectangle(0, 376, 600, (600-376));
+            //G.FillRectangle(new SolidBrush(Color.Red), nodraw);
 
             //Filling the bucket with a green color, ( yay )
             G.FillPolygon(new SolidBrush(Color.Green), p2);
+
+            
 
             //Drawing a border around the already displaying bucket
             for (int i = 0; i < cnt; i++)

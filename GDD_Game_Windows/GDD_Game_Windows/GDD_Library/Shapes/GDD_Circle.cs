@@ -23,6 +23,7 @@ namespace GDD_Library.Shapes
 
             //Draw a circle
             G.DrawEllipse(Owner.FrontPen, Owner.Location.x - Size/2f, Owner.Location.y - Size/2f, Size, Size);
+            G.FillEllipse(new SolidBrush(Color.Orange), Owner.Location.x - Size / 2f, Owner.Location.y - Size / 2f, Size, Size);
 
             //Calculating the end point for our direction line
             GDD_Point2F end = new GDD_Point2F(Math.Sin(Rotation * Rad2Deg) * this.Size/2f, Math.Cos(Rotation * Rad2Deg) * Size/2f);

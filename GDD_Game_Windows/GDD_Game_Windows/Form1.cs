@@ -39,11 +39,14 @@ namespace GDD_Game_Windows
         /// </summary>
         private delegate void ResetDelegate();
 
+        private Rectangle nodraw = new Rectangle(0, 376, 600, (600 - 376));
+
         /// <summary>
         /// Resetting the level to it's org
         /// </summary>
         private void Reset()
         {
+            Lines.Clear();
             //Creating the scene and adding the square
             GDD_View1.Scene.Objects.Clear();
 
@@ -54,11 +57,11 @@ namespace GDD_Game_Windows
             //LineTest2();
             //LineTest();
             //ZoneTest();
-            GDD_Level DemoLevel = new GDD_Level();
-            DemoLevel.LoadNoDraw("bg.jpg");
+ //           GDD_Level DemoLevel = new GDD_Level();
+ //           DemoLevel.LoadNoDraw("C:/Users/Dion/Documents/Visual Studio 2010/Projects/BallZ2D/GDD_Game_Window/bg.png");
 
             //Setting bacvkground
-            GDD_View1.BackgroundImage = DemoLevel.NoDrawZone;
+            GDD_View1.BackgroundImage = Image.FromFile("bg.png");
 
  
             //Looping each object adding them again
@@ -81,17 +84,20 @@ namespace GDD_Game_Windows
 
         private void GDD_View1_MouseDown(object sender, MouseEventArgs e)
         {
-            //Recording the start of the Line
-            Line_Start = new GDD_Point2F(e.X, e.Y);
-
-            //Creating a new line
-            if (lineToolStripMenuItem.Checked == true)
+            if (!nodraw.Contains(new Point(e.X, e.Y)))
             {
-                Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
-                Line_Preview.GravityType = GDD_GravityType.Static;
-                
-                GDD_View1.Scene.Objects.Add(Line_Preview);
-                Lines.Add(Line_Preview);
+                //Recording the start of the Line
+                Line_Start = new GDD_Point2F(e.X, e.Y);
+
+                //Creating a new line
+                if (lineToolStripMenuItem.Checked == true)
+                {
+                    Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
+                    Line_Preview.GravityType = GDD_GravityType.Static;
+
+                    GDD_View1.Scene.Objects.Add(Line_Preview);
+                    Lines.Add(Line_Preview);
+                }
             }
         }
 
@@ -102,31 +108,34 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void GDD_View1_MouseMove(object sender, MouseEventArgs e)
         {
-            //Only proceding if the mousebutton is down
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (!nodraw.Contains(new Point(e.X, e.Y)))
             {
-                //Redording the end of the line
-                Line_End = new GDD_Point2F(e.X, e.Y);
-               
-                //Using the Start and End to add a new line to ther scene
-                GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
-
-                //Determining what to do with the start and end
-                if (pencilToolStripMenuItem.Checked == true)
+                //Only proceding if the mousebutton is down
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    //Adding the line
-                    GDD_View1.Scene.Objects.Add(obj);
-                    Lines.Add(obj);
+                    //Redording the end of the line
+                    Line_End = new GDD_Point2F(e.X, e.Y);
 
-                    //Updating the start
-                    Line_Start = Line_End;
-                }
+                    //Using the Start and End to add a new line to ther scene
+                    GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
 
-                if (lineToolStripMenuItem.Checked == true)
-                {
-                    //Modifying line_preview
-                    Line_Preview.Rotation = obj.Rotation;
-                    Line_Preview.Shape.Size = obj.Shape.Size;                    
+                    //Determining what to do with the start and end
+                    if (pencilToolStripMenuItem.Checked == true)
+                    {
+                        //Adding the line
+                        GDD_View1.Scene.Objects.Add(obj);
+                        Lines.Add(obj);
+
+                        //Updating the start
+                        Line_Start = Line_End;
+                    }
+
+                    if (lineToolStripMenuItem.Checked == true)
+                    {
+                        //Modifying line_preview
+                        Line_Preview.Rotation = obj.Rotation;
+                        Line_Preview.Shape.Size = obj.Shape.Size;
+                    }
                 }
             }
         }
@@ -192,7 +201,7 @@ namespace GDD_Game_Windows
         }
 
         private void BucketTest()
-        {
+        {          
             circle1.Location = new GDD_Point2F(300f, 100f);
             circle1.Shape.Size = 50f;
             circle1.Mass = 50f;
@@ -218,10 +227,27 @@ namespace GDD_Game_Windows
             {
                 GDD_Object square1 = new GDD_Object(new GDD_Square());
 
-                square1.Location = new GDD_Point2F(50f + dxdy.x * i, 200f + dxdy.y * i);
+                //square1.Location = new GDD_Point2F(200f + dxdy.x*i, 200f + dxdy.y *i);
+                square1.Location = new GDD_Point2F(75f + dxdy.x +125* i,200f );
                 square1.Shape.Size = 50f;
                 square1.Mass = 50f;
-                square1.Rotation = new GDD_Vector2F(angle, 0f);
+                square1.Rotation = new GDD_Vector2F(0, 0f);
+                square1.Velocity = new GDD_Point2F(0f, 0f);
+                square1.GravityType = GDD_GravityType.Static;
+                GDD_View1.Scene.Objects.Add(square1);
+
+            }
+
+            //Placing a few boxes
+            for (int i = 0; i < 3; i++)
+            {
+                GDD_Object square1 = new GDD_Object(new GDD_Square());
+
+                //square1.Location = new GDD_Point2F(200f + dxdy.x*i, 200f + dxdy.y *i);
+                square1.Location = new GDD_Point2F(145f + dxdy.x + 125 * i, 350f);
+                square1.Shape.Size = 50f;
+                square1.Mass = 50f;
+                square1.Rotation = new GDD_Vector2F(0, 0f);
                 square1.Velocity = new GDD_Point2F(0f, 0f);
                 square1.GravityType = GDD_GravityType.Static;
                 GDD_View1.Scene.Objects.Add(square1);
