@@ -26,3 +26,4 @@ C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Wi
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config

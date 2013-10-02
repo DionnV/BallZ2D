@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GDD_Library.LevelDesign
 {
-    class GDD_HeaderInfo
+    public class GDD_HeaderInfo
     {
         public GDD_HeaderInfo()
         {
