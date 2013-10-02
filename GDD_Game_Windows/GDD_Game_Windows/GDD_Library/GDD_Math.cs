@@ -17,17 +17,13 @@ namespace GDD_Library
         /// Converts a GDD_Vector2F to a DeltaX and DeltaY
         /// </summary>
         /// <param name="input"></param>
-        public static GDD_Point2F VectorToDXDY(GDD_Vector2F input)
+       /* public static GDD_Point2F VectorToDXDY(GDD_Vector2F input)
         {
-            //Calculating this to DX and DY
-            float dx = (float)Math.Sin(input.Direction * RadConverter) * input.Size;
-            float dy = (float)Math.Cos(input.Direction * RadConverter) * input.Size;
-
-            return new GDD_Point2F(dx, -dy);
+            
                 
-        }
+        }*/
 
-        public static GDD_Vector2F DXDYToVector(GDD_Point2F input)
+       /* public static GDD_Vector2F DXDYToVector(GDD_Point2F input)
         {
 
             //Defining dir
@@ -66,7 +62,7 @@ namespace GDD_Library
             //Returning the vector
             return new GDD_Vector2F((dir < 0) ? (360f + dir) : dir, size);
 
-        }
+        }*/
 
         /// <summary>
         /// The Euclidian distance between two points
@@ -103,7 +99,7 @@ namespace GDD_Library
             return result;
         }
 
-        public static GDD_Point2F intersection(GDD_Point2F func1, GDD_Point2F func2)
+        public static GDD_Point2F Intersection(GDD_Point2F func1, GDD_Point2F func2)
         {
             GDD_Point2F result = new GDD_Point2F();
 
@@ -124,6 +120,7 @@ namespace GDD_Library
 
             return result;
         }
+        
         /// <summary>
         /// The delta of 2 values
         /// </summary>
@@ -171,6 +168,16 @@ namespace GDD_Library
                 
             }
         }
+
+        /// <summary>
+        /// Returns a Inverse angle of a, (90 degrees)
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+       /* public static float InverseAngle(float a)
+        {
+            float result = a;
+        }*/
 
     }
 }

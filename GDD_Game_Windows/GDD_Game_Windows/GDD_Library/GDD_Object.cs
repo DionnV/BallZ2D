@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace GDD_Library
 {
     [Serializable]
-    public class GDD_Object : ISerializable
+    public class GDD_Object : ISerializable, ICloneable
     {
         /// <summary>
         /// Creating a new instance 
@@ -34,6 +34,22 @@ namespace GDD_Library
         }
 
         /// <summary>
+        /// Will return a clone of this instance
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            //Gets a shallow Clone
+            GDD_Object result = (GDD_Object)this.MemberwiseClone();
+
+            //Cloning the shape ( this will set the owner )
+            result.Shape = (GDD_Shape)this.Shape.Clone();
+
+            //We're done
+            return result;
+        }
+
+        /// <summary>
         /// Mass in Kg
         /// </summary>
         public float Mass { get { return this._Mass; } set { this._Mass = value; } }
@@ -53,7 +69,7 @@ namespace GDD_Library
             get
             {
                 //Letting math do all the hard work
-                GDD_Vector2F result = GDD_Math.DXDYToVector(this.Velocity);
+                GDD_Vector2F result = this.Velocity.ToVector();
                 if (MaxVelocitySinceLastBounce < result.Size)
                 {
                     MaxVelocitySinceLastBounce = result.Size;
@@ -62,8 +78,8 @@ namespace GDD_Library
             }
             set
             {          
-                //Letting math do all the hard work
-                this.Velocity = GDD_Math.VectorToDXDY(value);
+                //Getting a DXDY from the vector
+                this.Velocity = value.ToDXDY();
                 
                 
             }
@@ -110,9 +126,9 @@ namespace GDD_Library
                 return this._Rotation; 
             } 
             set 
-            { 
-                
-                this._Rotation = new GDD_Vector2F(GDD_Math.Angle(value.Direction), value.Size); 
+            {
+
+                this._Rotation = value;
             } 
         }
         private GDD_Vector2F _Rotation = new GDD_Vector2F(180f, 0f);
