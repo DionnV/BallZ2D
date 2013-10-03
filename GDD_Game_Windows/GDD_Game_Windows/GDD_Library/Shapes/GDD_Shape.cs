@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using GDD_Library.Shapes;
-using System.Runtime.Serialization;
 
 namespace GDD_Library
 {
-    [Serializable]
-    public abstract class GDD_Shape : ISerializable, ICloneable
+    public abstract class GDD_Shape : ICloneable
     {
         public abstract void Draw(Graphics G);
 
@@ -63,21 +61,7 @@ namespace GDD_Library
         }
 
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            // Use the AddValue method to specify serialized values.
-            info.AddValue("Size", Size, typeof(float));
-            info.AddValue("Owner", Owner, typeof(GDD_Object));
-        }
 
-        public GDD_Shape(SerializationInfo info, StreamingContext context)
-        {
-            // Use the AddValue method to specify serialized values.
-            Size = (float) info.GetValue("Size", typeof(float));
-            Owner = (GDD_Object)info.GetValue("Owner", typeof(GDD_Object));
-        }
-
-        public GDD_Shape() { }
        
     }
 }

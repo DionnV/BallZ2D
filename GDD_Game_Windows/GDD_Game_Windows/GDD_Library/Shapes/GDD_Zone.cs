@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace GDD_Library.Shapes
 {
     [Serializable]
-    public class GDD_Zone : ISerializable
+    public class GDD_Zone : GDD_Polygon
     {
         /// <summary>
         /// The type of the zone
@@ -16,38 +17,77 @@ namespace GDD_Library.Shapes
         public GDD_ZoneType ZoneType { get; set; }
 
         /// <summary>
-        /// The location of the zone
+        /// An array of the BorderEdge Shape
         /// </summary>
-        public GDD_Point2F Location { get; set; }
+        protected GDD_Polygon EdgeShape { get; set; }
 
         /// <summary>
-        /// Considering the zone is a square, for now, the width of the zone
+        /// Creates a new instance of zone
         /// </summary>
-        public float Width { get; set; }
+        public GDD_Zone() 
+        {
+            EdgeShape = new GDD_Polygon();
+            EdgeShape.PolygonPoints = new GDD_Point2F[4];
+            EdgeShape.PolygonPoints[0] = new GDD_Point2F(0f, 0f);
+            EdgeShape.PolygonPoints[1] = new GDD_Point2F(100f, 100f);
+            EdgeShape.PolygonPoints[2] = new GDD_Point2F(200f, 100f);
+            EdgeShape.PolygonPoints[3] = new GDD_Point2F(100f, 0f);
+        }
 
         /// <summary>
-        /// Considering the zone is a square, for now, the height of the zone
+        /// Draws this shape on a Graphics g
         /// </summary>
-        public float Height { get; set; }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        /// <param name="G"></param>
+        public override void Draw(Graphics G)
         {
-            // Use the AddValue method to specify serialized values.
-            info.AddValue("Location", Location, typeof(GDD_Point2F));
-            info.AddValue("Width", Width, typeof(float));
-            info.AddValue("Height", Height, typeof(float));
+            //Size represents the size of the border
+            float SizeFactor = Size / 100f;
+            
+            //Getting the lines for the polygon
+            GDD_Object[] Lines = TranslatePolygon_ToLines();
+
+            //Using 
+            using (var polygonPath = new GraphicsPath())
+            {
+                //Looping each line
+                foreach (GDD_Object line in Lines)
+                {
+                    GDD_Vector2F vec = new GDD_Vector2F(line.Rotation.Direction, 200f * SizeFactor);
+                    GDD_Point2F dxdy = vec.ToDXDY();
+
+
+
+                    //Making sure we got the right brush
+                    GDD_Vector2F vec1 = new GDD_Vector2F(line.Rotation.Direction + 90f, 100f * SizeFactor);
+                    GDD_Point2F dxdy1 = vec1.ToDXDY();
+                    /*
+                    //Adding the shape to the path
+                    polygonPath.AddPolygon(shape);*/
+
+                    //Using a new brush
+                   /* using (var brush = new LinearGradientBrush(new PointF(0, 0), dxdy1.ToPoint(), Owner.FrontColor, Color.LightGray))
+                    {
+                        //Looping multiple times
+                        for (int i = 0; Math.Abs((float)i * dxdy.x) < line.Shape.Size; i++)
+                        {
+                            //Transformin g the points
+                            PointF[] shape = EdgeShape.TranslatePolygonPoints(line.Rotation.Direction, SizeFactor, new GDD_Point2F(line.Location.x + (i * dxdy.x), line.Location.y + (i * -dxdy.y)));
+
+
+                            //G.FillPolygon(brush, shape);
+                        }
+                    }*/
+
+                    //line.Shape.Draw(G);
+                    
+
+
+                }
+            }
+
+            //Draws the shape using the poligon data
+            G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
         }
-
-        public GDD_Zone(SerializationInfo info, StreamingContext context)
-        {
-            // Use the AddValue method to specify serialized values.
-            Location = (GDD_Point2F) info.GetValue("Location", typeof(GDD_Point2F));
-            Width = (float)info.GetValue("Width", typeof(float));
-            Height = (float)info.GetValue("Height", typeof(float));
-
-        }
-
-        public GDD_Zone() { }
     }
 
     public enum GDD_ZoneType

@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace GDD_Library.Shapes
 {
-    public abstract class GDD_Polygon: GDD_Shape
+    public class GDD_Polygon: GDD_Shape
     {
         /// <summary>
         /// Creates a new instance of GDD Polygon

@@ -27,3 +27,14 @@ C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Wi
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form1.resources
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resources
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources

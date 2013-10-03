@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using GDD_Library.Shapes;
 
 namespace GDD_Library
 {
@@ -68,13 +69,20 @@ namespace GDD_Library
             //Repaint();
         }
 
+        /// <summary>
+        /// The tick even for the graphics timer; forces a new redraw
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void graphicsTimer_Tick(Object sender, EventArgs e)
         {
             Repaint();
             Application.DoEvents(); 
         }
 
-
+        /// <summary>
+        /// Repainting the scene on this view
+        /// </summary>
         private void Repaint()
         {
             //We can only continue if we have a scene
@@ -98,6 +106,13 @@ namespace GDD_Library
                 
                 //g.DrawImage(this.BackgroundImage, new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), new Rectangle(0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height), GraphicsUnit.Pixel);
             }
+
+            //Drawing the zones
+            foreach (GDD_Object zone in Scene.Zones)
+            {
+                zone.Shape.Draw(g);
+            }
+
            
             //Drawing FPS
             g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
