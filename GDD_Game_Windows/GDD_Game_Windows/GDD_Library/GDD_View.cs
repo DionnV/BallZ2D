@@ -17,6 +17,9 @@ namespace GDD_Library
         {
             InitializeComponent();
 
+            //Creating a view
+            this.Scene = new GDD_Scene(this.Width, this.Height);
+
             //Create a new graphics timer
             graphicsTimer = new GDD_Timer();
             graphicsTimer.TickCap = 60;
@@ -38,18 +41,7 @@ namespace GDD_Library
         /// <summary>
         /// The GDD_Scene on which we are viewing
         /// </summary>
-        public GDD_Scene Scene
-        {
-            get
-            {
-                return _Scene;
-            }
-            set
-            {
-                this._Scene = value;
-            }
-        }
-        private GDD_Scene _Scene = new GDD_Scene(100, 100);
+        public GDD_Scene Scene { get; set; }
 
         /// <summary>
         /// The Rectangle we are viewing
@@ -176,32 +168,16 @@ namespace GDD_Library
 
                     //Checking for collisions
                     if (Collisions.Count > 0)
-                    {
-                        //The shortest is by default index 0
-                        int shortest = 0;
-                        float shortest_dst = (float)GDD_Math.EuclidianDistance(Collisions[shortest].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
-                        float dst = 0f;
-
-                        //Checking if we have any more shorterr
+                    {   
+                        //Do we have more than 1 collision?
                         if (Collisions.Count > 1)
                         {
-                            //We're only colliding with the closest object - finding it
-                            for (int j = 1; j < Collisions.Count; j++)
-                            {
-                                //Calculating the new dst
-                                dst = (float)GDD_Math.EuclidianDistance(Collisions[j].obj1.Desired_Location, Collisions[j].obj2.Desired_Location);
-
-                                //Is it shorter?
-                                if (dst < shortest_dst)
-                                {
-                                    shortest = j;
-                                    shortest_dst = (float)GDD_Math.EuclidianDistance(Collisions[shortest].obj1.Desired_Location, Collisions[shortest].obj2.Desired_Location);
-                                }
-                            }
+                            //Sorting the collisions by distance to collision
+                            Collisions = Collisions.OrderBy(c => c.DistanceToCollision).ToList();                                   
                         }
-                                                
+
                         //Applying the collision with the closest object
-                        GDD_CollisionInfo collision = Collisions[shortest];
+                        GDD_CollisionInfo collision = Collisions[0];
 
                         //The true bounce angle
                         float ba = GDD_Math.Loop(collision.BounceAngle, -180f, 180f);
@@ -214,7 +190,7 @@ namespace GDD_Library
                         float dAngle = GDD_Math.DeltaAngle(collision.obj1_AfterCollision.Velocity_Vector.Direction, ba);
 
                         //Checking if the velocity is too low and the new velocity is pointing upwards
-                        if (((collision.obj1_AfterCollision.Velocity_Vector.Size < 40f) && (GDD_Math.DeltaAngle(collision.obj1_AfterCollision.Velocity_Vector.Direction, 0f) < 90f)) || (dAngle < 5f))
+ /*                       if (((collision.obj1_AfterCollision.Velocity_Vector.Size < 40f) && (GDD_Math.DeltaAngle(collision.obj1_AfterCollision.Velocity_Vector.Direction, 0f) < 90f)) || (dAngle < 5f))
                         {
                             //Addapting movement to ba(the true BounceAngle), with the correct size
                             //Getting the inverse angle of the true bounce angle
@@ -233,7 +209,7 @@ namespace GDD_Library
                                 collision.obj1.Rotation.Direction,
                                 r * (collision.obj1_AfterCollision.Velocity_Vector.Size / ((float)Math.PI * collision.obj1.Shape.Size)
                                 ));                           
-                        }
+                        }*/
 
 
                         //Applying obj2 new velocity

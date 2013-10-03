@@ -153,7 +153,7 @@ namespace GDD_Library
         {
             while (true)
             {
-                if (value > max)
+                if (value >= max)
                 {
                     value -= (float)Delta(min, max);
                 }
