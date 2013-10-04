@@ -84,6 +84,12 @@
     <Compile Include="GDD_Library\Shapes\GDD_Zone.cs" />
     <Compile Include="GDD_Library\Types\GDD_Point2F.cs" />
     <Compile Include="GDD_Library\Types\GDD_Vector2F.cs" />
+    <Compile Include="LevelDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelDesigner.Designer.cs">
+      <DependentUpon>LevelDesigner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GDD_Library\GDD_View.resx">
       <DependentUpon>GDD_View.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelDesigner.resx">
+      <DependentUpon>LevelDesigner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -102,7 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="GDD_Library\app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

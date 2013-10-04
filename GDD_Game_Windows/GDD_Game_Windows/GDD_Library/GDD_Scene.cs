@@ -45,6 +45,7 @@ namespace GDD_Library
         private List<GDD_Object> _Zones = new List<GDD_Object>();
 
         /// <summary>
+<<<<<<< HEAD
         /// Returns true if this point is one of the Zones that has zoneType as GDD_ZoneType
         /// </summary>
         /// <param name="p"></param>
@@ -105,6 +106,8 @@ namespace GDD_Library
         }
 
         /// <summary>
+=======
+>>>>>>> f60b24cafd91910d0722ffbdf1cb966bb009e3d2
         /// The width of the scene
         /// </summary>
         public int Width { get; set; }
