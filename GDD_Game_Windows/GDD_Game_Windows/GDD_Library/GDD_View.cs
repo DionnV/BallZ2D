@@ -16,7 +16,8 @@ namespace GDD_Library
     {
         public GDD_View()
         {
-            InitializeComponent();
+            //InitializeComponent();
+
 
             //Creating a view
             this.Scene = new GDD_Scene(this.Width, this.Height);

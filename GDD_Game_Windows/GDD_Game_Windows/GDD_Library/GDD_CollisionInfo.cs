@@ -360,7 +360,7 @@ namespace GDD_Library
             if (obj1.Shape is GDD_Circle)
             {
                 //D will hold the angle of impact for obj1
-                float d = (float)GDD_Math.Delta(BounceAngle_low, obj1.Velocity_Vector.Direction);
+                float d = (float)GDD_Math.Delta(BounceAngle_low, obj1.Velocity_Vector.Direction) % 180f;
 
                 //The max bounce that can occur
                 float Bounce_Max1 = GDD_Math.Angle(BounceAngle + d);
@@ -371,7 +371,7 @@ namespace GDD_Library
                     if (obj1.Velocity_Vector.Direction < 90 || (obj1.Velocity_Vector.Direction > 270))
                     {
                         //Applying a simple rule:)
-                        float a = GDD_Math.Angle(BounceAngle + d);
+                        float a = GDD_Math.Angle(BounceAngle + d) ;
 
                         //Swapping if nessecairy
                         if (BounceAngle > 270) 
@@ -392,12 +392,39 @@ namespace GDD_Library
 
                         //New velocity
                         obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
-                    }
-                    else
-                    {
-                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(BounceAngle - d, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
+                   }
+                   else
+                   {
+                       //Applying a simple rule:)
+                       float a = BounceAngle - d;
+
+                      /* //Swapping if nessecairy
+                       if (BounceAngle == 270)
+                       {
+                           a = a - 180;
+                       }
+
+                       //Another exception
+                       if (BounceAngle == 180f)
+                       {
+                           a = BounceAngle + d;
+                       }
+
+                       if (BounceAngle == 0f)
+                       {
+                           a = 360 - d;
+                       }
+
+                       if (BounceAngle == 90f)
+                       {
+
+                       }*/
+
+
+                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
+                        
                     
-                    }
+                   }
 
                     //Checking if obj1 has enough speed
                    /* if (Math.Abs(obj1_AfterCollision.Velocity_Vector.Size) < 50d)

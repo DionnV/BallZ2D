@@ -41,3 +41,16 @@ D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Gam
 =======
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
 >>>>>>> f60b24cafd91910d0722ffbdf1cb966bb009e3d2
+E:\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form1.resources
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resources
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+E:\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe
+E:\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.Controls.GDD_View.resources
+E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
