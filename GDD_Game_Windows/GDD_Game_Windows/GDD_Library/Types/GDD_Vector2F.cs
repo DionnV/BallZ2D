@@ -66,6 +66,16 @@ namespace GDD_Library
         }
 
         /// <summary>
+        /// Converts the Point2F to a string, with
+        /// </summary>
+        /// <returns></returns>
+        public string ToString(string format)
+        {
+            return "{" + Direction.ToString(format) + " ; " + Size.ToString(format) + "}";
+        }
+
+
+        /// <summary>
         /// Creates a DXDY based on this Vector
         /// </summary>
         /// <returns></returns>

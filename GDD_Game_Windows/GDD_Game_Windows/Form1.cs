@@ -39,8 +39,6 @@ namespace GDD_Game_Windows
         /// </summary>
         private delegate void ResetDelegate();
 
-        private Rectangle nodraw = new Rectangle(0, 376, 600, (600 - 376));
-
         /// <summary>
         /// Resetting the level to it's org
         /// </summary>
@@ -87,7 +85,7 @@ namespace GDD_Game_Windows
 
         private void GDD_View1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!nodraw.Contains(new Point(e.X, e.Y)))
+            if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X,e.Y), GDD_ZoneType.NoDraw))
             {
                 //Recording the start of the Line
                 Line_Start = new GDD_Point2F(e.X, e.Y);
@@ -111,44 +109,56 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void GDD_View1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!nodraw.Contains(new Point(e.X, e.Y)))
+
+            //Only proceding if the mousebutton is down
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                //Only proceding if the mousebutton is down
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                //Making the right frontcolor depending on the current end of the line
+                Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
+
+                GDD_View1.Scene.LineThroughObject(Line_Preview);
+
+                //Redording the end of the line
+                Line_End = new GDD_Point2F(e.X, e.Y);
+
+                //Using the Start and End to add a new line to ther scene
+                GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
+
+                //Determining what to do with the start and end
+                if (pencilToolStripMenuItem.Checked == true)
                 {
-                    //Redording the end of the line
-                    Line_End = new GDD_Point2F(e.X, e.Y);
+                    //Adding the line
+                    GDD_View1.Scene.Objects.Add(obj);
+                    Lines.Add(obj);
 
-                    //Using the Start and End to add a new line to ther scene
-                    GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
-
-                    //Determining what to do with the start and end
-                    if (pencilToolStripMenuItem.Checked == true)
-                    {
-                        //Adding the line
-                        GDD_View1.Scene.Objects.Add(obj);
-                        Lines.Add(obj);
-
-                        //Updating the start
-                        Line_Start = Line_End;
-                    }
-
-                    if (lineToolStripMenuItem.Checked == true)
-                    {
-                        //Modifying line_preview
-                        Line_Preview.Rotation = obj.Rotation;
-                        Line_Preview.Shape.Size = obj.Shape.Size;
-                    }
+                    //Updating the start
+                    Line_Start = Line_End;
                 }
+
+                if (lineToolStripMenuItem.Checked == true)
+                {
+                    //Modifying line_preview
+                    Line_Preview.Rotation = obj.Rotation;
+                    Line_Preview.Shape.Size = obj.Shape.Size;
+                }
+                
             }
+
         }
 
 
         private void GDD_View1_MouseUp(object sender, MouseEventArgs e)
         {
+            //Only applies to a line
             if (lineToolStripMenuItem.Checked == true)
             {
-                
+                //Checking if the end is in the zone
+                if (GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X,e.Y), GDD_ZoneType.NoDraw))
+                {
+                    //Removing line, preview
+                    GDD_View1.Scene.Objects.Remove(Line_Preview);
+                    Lines.Remove(Line_Preview);
+                }
             }
         }
 
@@ -232,7 +242,7 @@ namespace GDD_Game_Windows
                 square1.Rotation = new GDD_Vector2F(0, 0f);
                 square1.Velocity = new GDD_Point2F(0f, 0f);
                 square1.GravityType = GDD_GravityType.Static;
-                //GDD_View1.Scene.Objects.Add(square1);
+                GDD_View1.Scene.Objects.Add(square1);
 
             }
 
@@ -248,14 +258,30 @@ namespace GDD_Game_Windows
                 square1.Rotation = new GDD_Vector2F(0, 0f);
                 square1.Velocity = new GDD_Point2F(0f, 0f);
                 square1.GravityType = GDD_GravityType.Static;
-               // GDD_View1.Scene.Objects.Add(square1);
+                GDD_View1.Scene.Objects.Add(square1);
 
             }
 
+            //Adding a no-draw zone
+
+            GDD_Zone zone = new GDD_Zone();
+            GDD_Object obj = new GDD_Object(zone);
+           
+            zone.PolygonPoints = new GDD_Point2F[4];
+            zone.PolygonPoints[0] = new GDD_Point2F(0, 275f);
+            zone.PolygonPoints[1] = new GDD_Point2F(800, 275f);
+            zone.PolygonPoints[2] = new GDD_Point2F(800, 450);
+            zone.PolygonPoints[3] = new GDD_Point2F(0, 450);
+            zone.ZoneType = GDD_ZoneType.NoDraw;
+            zone.Size = 10f;
+            obj.FrontColor = Color.LightGray;
+            obj.Rotation = new GDD_Vector2F(0f, 0f);
+
+            GDD_View1.Scene.Zones.Add(obj);
 
             //Adding the circles
             GDD_View1.Scene.Objects.Add(circle1);
-            //GDD_View1.Scene.Objects.Add(bucket1);
+            GDD_View1.Scene.Objects.Add(bucket1);
         }
 
         Stopwatch bucketCollisionTimer = new Stopwatch();

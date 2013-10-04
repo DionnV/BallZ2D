@@ -52,6 +52,15 @@ namespace GDD_Library
         }
 
         /// <summary>
+        /// Converts the Point2F to a string, with
+        /// </summary>
+        /// <returns></returns>
+        public string ToString(string format)
+        {
+            return "{" + x.ToString(format) + " ; " + y.ToString(format) + "}";
+        }
+
+        /// <summary>
         /// Interpets ourself as a DxDy and calculates a vector off of it
         /// </summary>
         /// <returns></returns>

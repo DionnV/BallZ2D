@@ -167,7 +167,7 @@ namespace GDD_Library
         public GDD_GravityType GravityType { get { return this._GravityType; } set { this._GravityType = value; if (value == GDD_GravityType.Static) { this.Desired_Location = this.Location; } } }
         private GDD_GravityType _GravityType = GDD_GravityType.Normal;
 
-        public Boolean IsInZone(GDD_Zone zone)
+        /*public Boolean IsInZone(GDD_Zone zone)
         {
             Rectangle rec = new Rectangle((int)zone.Location.x, (int)zone.Location.y, (int)zone.Width, (int)zone.Height);
             if(rec.Contains((int)this.Desired_Location.x, (int)this.Desired_Location.y))
@@ -175,11 +175,11 @@ namespace GDD_Library
                 return true;
             }
             return false;
-        }
+        }*/
 
         public override string ToString()
         {
-            return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
+            return "Location " + this.Location.ToString("0.00") + " Velocity " + this.Velocity_Vector.ToString("0.00") + " Rotation " + this.Rotation.ToString("0.00");
         }
 
         /// <summary>
