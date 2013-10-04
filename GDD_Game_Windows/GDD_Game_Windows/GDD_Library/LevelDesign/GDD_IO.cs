@@ -52,6 +52,7 @@ namespace GDD_Library.LevelDesign
                 loo.Add(obj);
             }
 
+            fs.Close();
             return loo;
         }
 
@@ -158,7 +159,7 @@ namespace GDD_Library.LevelDesign
             File.Delete(filename);
         }
 
-        public GDD_Level CreateFromZipFile(string zipfile)
+        public static GDD_Level CreateFromZipFile(string zipfile)
         {
             GDD_Level lev = new GDD_Level();
             //Create a path to unpack the levels to
@@ -185,13 +186,13 @@ namespace GDD_Library.LevelDesign
                 FileMove(progpath + "/background.jpeg", lev_path);
                 lev.Background = lev_path + "/background.jpeg";
             }
-            FileMove(progpath + "/Objects.bin", lev_path);
-            FileMove(progpath + "/LevelData.bin", lev_path);
+            FileMove(progpath + "/Objects.bin", lev_path + "/Objects.bin");
+            FileMove(progpath + "/LevelData.bin", lev_path + "/LevelData.bin");
 
             return lev;
         }
 
-        public GDD_Level CreateFromFolder(string folder)
+        public static GDD_Level CreateFromFolder(string folder)
         {
             GDD_Level lev = new GDD_Level();
 

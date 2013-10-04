@@ -98,6 +98,10 @@ namespace GDD_Library.Shapes
             }
         }
 
+        public override bool Contains(GDD_Point2F p)
+        {
+            return true;
+        }
         public override void Draw(Graphics G)
         {
             //Drawing a line given two points

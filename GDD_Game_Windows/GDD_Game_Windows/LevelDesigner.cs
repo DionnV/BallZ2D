@@ -319,7 +319,8 @@ namespace GDD_Game_Windows
             //Saves the current built level
             GDD_Level level = new GDD_Level();
             level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
-            level.Background = "";
+            level.info = new GDD_HeaderInfo();
+            level.Background = backgroundpath;
             if (LevelName.Text != null)
             {
                 level.info.LevelName = LevelName.Text;
@@ -334,6 +335,7 @@ namespace GDD_Game_Windows
             level.info.Level_Height = GDD_View_LevelDesigner1.Scene.Height;
             level.info.MaxLineLenght = 200;
 
+            level.WriteToZipFile();
         }
 
         private void button1_Click_2(object sender, EventArgs e)

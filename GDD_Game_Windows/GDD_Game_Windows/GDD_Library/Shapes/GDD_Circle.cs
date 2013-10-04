@@ -32,6 +32,11 @@ namespace GDD_Library.Shapes
             //G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, Owner.Location.x + end.x, Owner.Location.y + end.y);
         }
 
+        public override bool Contains(GDD_Point2F p)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// The bounce rate, 0.8 default
         /// </summary>

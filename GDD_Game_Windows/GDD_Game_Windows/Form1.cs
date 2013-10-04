@@ -50,15 +50,36 @@ namespace GDD_Game_Windows
             GDD_View1.Scene.Objects.Clear();
 
             //The bounce test
-            BucketTest();
+            //BucketTest();
             //BounceTest();
             //AngularMomentumTest();
             //LineTest2();
-            //LineTest();
+            //LineTest();          
             //ZoneTest();
+            //LevelTest();
  //           GDD_Level DemoLevel = new GDD_Level();
  //           DemoLevel.LoadNoDraw("C:/Users/Dion/Documents/Visual Studio 2010/Projects/BallZ2D/GDD_Game_Window/bg.png");
-
+            try
+            {
+                GDD_Level demo = GDD_IO.CreateFromZipFile("./Saved levels/Custom/test.zip");
+                List<GDD_Object> newlist = new List<GDD_Object>();
+                foreach (GDD_Object obj in demo.Objects)
+                {
+                    GDD_Object temp = new GDD_Object(obj.Shape);
+                    temp.Location = obj.Location;
+                    temp.Shape.Size = obj.Shape.Size;
+                    temp.Mass = obj.Mass; ;
+                    temp.Rotation = obj.Rotation;
+                    temp.Velocity = obj.Velocity;
+                    temp.GravityType = obj.GravityType;
+                    newlist.Add(temp);
+                }
+                GDD_View1.Scene.Objects = newlist;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
             //Setting bacvkground
             //GDD_View1.BackgroundImage = Image.FromFile("bg.png");
 
@@ -196,10 +217,6 @@ namespace GDD_Game_Windows
             Application.Exit();
         }
 
-        private void ZoneTest()
-        {
-
-        }
 
         private void BucketTest()
         {          

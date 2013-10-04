@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            GDD_Library.GDD_Timer gdD_Timer2 = new GDD_Library.GDD_Timer();
             this.Pencil = new System.Windows.Forms.Button();
             this.Line = new System.Windows.Forms.Button();
             this.Ball = new System.Windows.Forms.Button();
@@ -119,10 +118,6 @@
             // 
             // GDD_View_LevelDesigner1
             // 
-            gdD_Timer2.DesiredTickTime = 16.66667F;
-            gdD_Timer2.TickCap = 60;
-            gdD_Timer2.TickTime = 0;
-            this.GDD_View_LevelDesigner1.graphicsTimer = gdD_Timer2;
             this.GDD_View_LevelDesigner1.Location = new System.Drawing.Point(0, 24);
             this.GDD_View_LevelDesigner1.Name = "GDD_View_LevelDesigner1";
             this.GDD_View_LevelDesigner1.Size = new System.Drawing.Size(800, 456);
