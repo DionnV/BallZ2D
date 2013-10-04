@@ -454,7 +454,6 @@ namespace GDD_Game_Windows
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Add some tests here
-            ZipTest.run();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
