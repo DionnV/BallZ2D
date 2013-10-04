@@ -23,6 +23,7 @@ namespace GDD_Game_Windows
         private GDD_Object Circle_Preview = new GDD_Object(new GDD_Circle());
         private GDD_Object Square_Preview = new GDD_Object(new GDD_Square());
         private GDD_Object Bucket_Preview = new GDD_Object(new GDD_Bucket());
+        private string backgroundpath = "";
         
 
         public LevelDesigner()
@@ -32,7 +33,7 @@ namespace GDD_Game_Windows
 
         private void LevelDesigner_Load(object sender, EventArgs e)
         {
-            this.ClientSize = new System.Drawing.Size(600, 600);
+            this.ClientSize = new System.Drawing.Size(800, 800);
 
             //Add all buttons to the list
             buttons.Add(Pencil);
@@ -51,7 +52,7 @@ namespace GDD_Game_Windows
         {
             GDD_Point2F location = new GDD_Point2F(e.X, e.Y);
             int selected = 0;
-            for (int i = 0; i < buttons.Count-2; i++)
+            for (int i = 0; i < buttons.Count-1; i++)
             {
                 if (buttons[i].BackColor == Color.Green)
                 {
@@ -109,6 +110,11 @@ namespace GDD_Game_Windows
                     Bucket_Preview.GravityType = GDD_GravityType.Static;
                     GDD_View_LevelDesigner1.Scene.Objects.Add(Bucket_Preview);
                     break;
+                case 5:
+                    //Delete
+                    //Not implemented yet
+                    break;
+
             }
         }
 
@@ -116,7 +122,7 @@ namespace GDD_Game_Windows
         {
             GDD_Point2F location = new GDD_Point2F(e.X, e.Y);
             int selected = 0;
-            for (int i = 0; i < buttons.Count-2; i++)
+            for (int i = 0; i < buttons.Count-1; i++)
             {
                 if (buttons[i].BackColor == Color.Green)
                 {
@@ -182,13 +188,17 @@ namespace GDD_Game_Windows
                         Bucket_Preview.Location = location;
                     }
                     break;
+                case 5:
+                    //Delete
+                    //Not implemented yet
+                    break;
             }                         
         }
 
         private void GDD_View_LevelDesigner1_MouseUp(object sender, EventArgs e)
         {
             int selected = 0;
-            for (int i = 0; i < buttons.Count - 2; i++)
+            for (int i = 0; i < buttons.Count - 1; i++)
             {
                 if (buttons[i].BackColor == Color.Green)
                 {
@@ -215,6 +225,10 @@ namespace GDD_Game_Windows
                     //Bucket
                     GDD_View_LevelDesigner1.Scene.Objects.Add(Bucket_Preview);
                     Bucket_Preview = new GDD_Object(new GDD_Bucket());
+                    break;
+                case 5:
+                    //Delete
+                    //Not implemented yet
                     break;
             } 
         }
@@ -289,7 +303,7 @@ namespace GDD_Game_Windows
         {
             DialogResult answer = MessageBox.Show("Are you sure you want to delete everything?",
                                                     "Really?",
-                                                    MessageBoxButtons.YesNoCancel,
+                                                    MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Question);
             if (answer == System.Windows.Forms.DialogResult.Yes)
             {
@@ -298,6 +312,40 @@ namespace GDD_Game_Windows
             }
 
             //Else do nothing
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //Saves the current built level
+            GDD_Level level = new GDD_Level();
+            level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
+            level.info = new GDD_HeaderInfo();
+            level.Background = backgroundpath;
+            if (LevelName.Text != null)
+            {
+                level.info.LevelName = LevelName.Text;
+            }
+            if (CreatorBox.Text != null)
+            {
+                level.info.CreatorName = CreatorBox.Text;
+            }
+            level.info.VersionNumber = 1;
+            level.info.LevelVersionNumber = 1;
+            level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
+            level.info.Level_Height = GDD_View_LevelDesigner1.Scene.Height;
+            level.info.MaxLineLenght = 200;
+
+            level.WriteToZipFile();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                backgroundpath = ofd.FileName;
+            }
+            BackgroundBox.Text = backgroundpath;
         }
     }
 }

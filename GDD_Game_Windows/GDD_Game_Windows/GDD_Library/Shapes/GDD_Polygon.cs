@@ -193,5 +193,10 @@ namespace GDD_Library.Shapes
             G.FillPolygon(new SolidBrush(Color.White), poly); 
             G.DrawPolygon(Owner.FrontPen, poly);
         }
+
+        public override bool Contains(GDD_Point2F p)
+        {
+            return true;
+        }
     }
 }

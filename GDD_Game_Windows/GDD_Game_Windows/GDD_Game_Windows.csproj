@@ -80,7 +80,6 @@
     <Compile Include="GDD_Library\LevelDesign\GDD_IO.cs" />
     <Compile Include="GDD_Library\LevelDesign\GDD_Level.cs" />
     <Compile Include="GDD_Library\LevelDesign\GDD_ZoneReader.cs" />
-    <Compile Include="GDD_Library\LevelDesign\ZipTest.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Bucket.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Circle.cs" />
     <Compile Include="GDD_Library\Shapes\GDD_Line.cs" />

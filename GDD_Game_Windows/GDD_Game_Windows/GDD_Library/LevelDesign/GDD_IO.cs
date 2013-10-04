@@ -52,6 +52,7 @@ namespace GDD_Library.LevelDesign
                 loo.Add(obj);
             }
 
+            fs.Close();
             return loo;
         }
 
@@ -84,8 +85,7 @@ namespace GDD_Library.LevelDesign
         public static GDD_HeaderInfo ReadFromFile(String url)
         {
             GDD_HeaderInfo info = new GDD_HeaderInfo();
-            MemoryStream MS = new MemoryStream();
-            BinaryReader Reader = new BinaryReader(MS);
+            BinaryReader Reader = new BinaryReader(File.Open(url, FileMode.Open));
 
             //Every version higher or equal to should contain this info
             info.VersionNumber = Reader.ReadInt32();
@@ -96,7 +96,6 @@ namespace GDD_Library.LevelDesign
             info.Index_Ball = Reader.ReadInt32();
             info.Index_Bucket = Reader.ReadInt32();
             info.LevelName = Reader.ReadString();
-            info.BackgroundName = Reader.ReadString();
             info.CreatorName = Reader.ReadString();
 
             //Higher versions might contain more info
@@ -104,6 +103,10 @@ namespace GDD_Library.LevelDesign
             {
                 //We don't have a higher version yet
             }
+            
+            //Closing the reader
+            Reader.Close();
+            Reader.Dispose();
 
             return info;
         }
@@ -114,7 +117,6 @@ namespace GDD_Library.LevelDesign
         /// <param name="url"></param>
         public static void WriteToFile(String url, GDD_HeaderInfo info)
         {
-            //
             MemoryStream MS = new MemoryStream();
             BinaryWriter Writer = new BinaryWriter(MS);
 
@@ -127,7 +129,6 @@ namespace GDD_Library.LevelDesign
             Writer.Write(info.Index_Ball);
             Writer.Write(info.Index_Bucket);
             Writer.Write(info.LevelName);
-            Writer.Write(info.BackgroundName);
             Writer.Write(info.CreatorName);
 
             //Converting memory stream
@@ -135,6 +136,12 @@ namespace GDD_Library.LevelDesign
             {
                 MS.WriteTo(file);
             }
+
+            //Closing the streams
+            MS.Close();
+            MS.Dispose();
+            Writer.Close();
+            Writer.Dispose();
         }
 
         public static bool FileExists(string filename)
@@ -145,6 +152,63 @@ namespace GDD_Library.LevelDesign
         public static void FileMove(string src, string dest)
         {
             File.Move(src, dest);
+        }
+
+        public static void FileDelete(string filename)
+        {
+            File.Delete(filename);
+        }
+
+        public static GDD_Level CreateFromZipFile(string zipfile)
+        {
+            GDD_Level lev = new GDD_Level();
+            //Create a path to unpack the levels to
+            string progpath = "./Progress";
+
+            //Unzip the zip file
+            GDD_IO.Decompress(zipfile, progpath);
+
+            //The unzipped folder should contain a serialized file called Objects.bin.
+            //Read the serialized file.
+            lev.Objects = GDD_IO.Deserialize(progpath + "/Objects.bin");
+
+            //There is also a file called LevelData.bin which holds info about the level.
+            //Let's read that one too.
+            lev.info = GDD_IO.ReadFromFile(progpath + "/LevelData.bin");
+
+            //Create a directory for the level
+            string lev_path = "./Saved levels/Custom/" + lev.info.LevelName;
+            Directory.CreateDirectory(lev_path);         
+
+            //Start moving files to the levelfolder
+            if (FileExists(progpath + "/background.jpeg"))
+            {               
+                FileMove(progpath + "/background.jpeg", lev_path);
+                lev.Background = lev_path + "/background.jpeg";
+            }
+            FileMove(progpath + "/Objects.bin", lev_path + "/Objects.bin");
+            FileMove(progpath + "/LevelData.bin", lev_path + "/LevelData.bin");
+
+            return lev;
+        }
+
+        public static GDD_Level CreateFromFolder(string folder)
+        {
+            GDD_Level lev = new GDD_Level();
+
+            //The unzipped folder should contain a serialized file called Objects.bin.
+            //Read the serialized file.
+            lev.Objects = GDD_IO.Deserialize(folder + "/Objects.bin");
+
+            //There is also a file called LevelData.bin which holds info about the level.
+            //Let's read that one too.
+            lev.info = GDD_IO.ReadFromFile(folder + "/LevelData.bin");
+
+            if (FileExists(folder + "/background.jpeg"))
+            {
+                lev.Background = folder + "/background.jpeg";
+            }
+            return lev;
         }
     }
 }

@@ -56,10 +56,5 @@ namespace GDD_Library.LevelDesign
         /// The name of the creator
         /// </summary>
         public String CreatorName { get; set; }
-
-        /// <summary>
-        /// The name of the background
-        /// </summary>
-        public String BackgroundName { get; set; }
     }
 }

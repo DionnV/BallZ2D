@@ -67,7 +67,15 @@ namespace GDD_Library.Shapes
         {
         }
 
+<<<<<<< HEAD
+        public override bool Contains(GDD_Point2F p)
+        {
+            return true;
+        }
+        public override void Draw(Graphics G)
+=======
         public GDD_Point2F toFunction()
+>>>>>>> 8cecf330abf9adf6d8d5d9a21844761c9470f22f
         {
             //Rotation
             float rot = GDD_Math.Angle(Owner.Rotation.Direction);
