@@ -145,6 +145,7 @@
             this.GDD_View1.Name = "GDD_View1";
             this.GDD_View1.Size = new System.Drawing.Size(800, 456);
             this.GDD_View1.TabIndex = 0;
+            this.GDD_View1.BackColor = System.Drawing.Color.White;
             this.GDD_View1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.GDD_View1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GDD_View1_MouseDown);
             this.GDD_View1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GDD_View1_MouseMove);

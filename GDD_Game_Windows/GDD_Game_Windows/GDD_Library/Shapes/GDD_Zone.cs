@@ -42,6 +42,53 @@ namespace GDD_Library.Shapes
         {
             //Size represents the size of the border
             float SizeFactor = Size / 100f;
+<<<<<<< HEAD
+
+            //Backing up the size
+            float s = this.Size;
+
+            //Getting the lines for the polygon, need to set size to 100 first
+            this.Size = 100f;     
+            GDD_Object[] Lines = TranslatePolygon_ToLines();
+
+            //Re-applying the size
+            this.Size = s;
+
+            //Using 
+            using (var polygonPath = new GraphicsPath())
+            {
+                //Looping each line
+                foreach (GDD_Object line in Lines)
+                {
+                    //
+                    GDD_Vector2F vec = new GDD_Vector2F(line.Rotation.Direction, 200f * SizeFactor);
+                    GDD_Point2F dxdy = vec.ToDXDY();
+
+                    //Making sure we got the right brush
+                    GDD_Vector2F vec1 = new GDD_Vector2F(line.Rotation.Direction + 90f, 100f * SizeFactor);
+                    GDD_Point2F dxdy1 = vec1.ToDXDY();
+
+                    //Doing a transformation
+                    PointF end = new PointF(dxdy1.x + line.Location.x, dxdy1.y + line.Location.y);
+
+                    //Using a new brush
+                    using (var brush = new LinearGradientBrush(line.Location.ToPoint(), end,  Owner.FrontColor, Color.White))
+                    {
+                        int cnt = (int)( line.Shape.Size / vec.Size);
+
+                        //Looping multiple times
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            //Transformin g the points
+                            PointF[] shape = EdgeShape.TranslatePolygonPoints(line.Rotation.Direction - 90f, SizeFactor, new GDD_Point2F(line.Location.x + (i * dxdy.x), line.Location.y + (i * dxdy.y)));
+
+
+                            G.FillPolygon(brush, shape);
+                        }
+                    }
+
+                   //line.Shape.Draw(G);
+=======
             
             //Getting the lines for the polygon
             GDD_Object[] Lines = TranslatePolygon_ToLines();
@@ -79,6 +126,7 @@ namespace GDD_Library.Shapes
                     }*/
 
                     //line.Shape.Draw(G);
+>>>>>>> f60b24cafd91910d0722ffbdf1cb966bb009e3d2
                     
 
 

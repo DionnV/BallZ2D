@@ -179,7 +179,7 @@ namespace GDD_Library
 
         public override string ToString()
         {
-            return "{ Location " + this.Location.ToString() + " Velocity {" + this.Velocity_Vector.ToString() + " }";
+            return "Location " + this.Location.ToString("0.00") + " Velocity " + this.Velocity_Vector.ToString("0.00") + " Rotation " + this.Rotation.ToString("0.00");
         }
 
         /// <summary>

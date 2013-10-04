@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GDD_Library.Shapes;
 
 namespace GDD_Library
 {
@@ -119,6 +120,46 @@ namespace GDD_Library
             result.y = y;
 
             return result;
+        }
+
+
+        public static bool Intersect(GDD_Object line1, GDD_Object line2)
+        {
+            if ((line1.Shape is GDD_Line) && (line2.Shape is GDD_Line))
+            {
+                GDD_Point2F l1 = ((GDD_Line)line1.Shape).toFunction(); 
+                GDD_Point2F l2 = ((GDD_Line)line2.Shape).toFunction();
+
+                GDD_Point2F intersection = GDD_Math.Intersection(l1, l2);
+
+                if (
+                    (
+                        (
+                            l1.x == 0
+                        )
+                        &&
+                        (
+                            (intersection.y > Math.Min(line1.Location.y, ((GDD_Line)line1.Shape).end.y)) &&
+                            (intersection.y < Math.Max(line1.Location.y, ((GDD_Line)line1.Shape).end.y))
+                        )
+                    )
+                ||
+                    (
+                        (intersection.x > Math.Min(line1.Location.x, ((GDD_Line)line1.Shape).end.x)) &&
+                        (intersection.x < Math.Max(line1.Location.x, ((GDD_Line)line1.Shape).end.x))
+
+                    )
+                )
+                {
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+           
         }
         
         /// <summary>
