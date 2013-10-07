@@ -122,8 +122,17 @@ namespace GDD_Game_Windows
                             {
                                 if (obj.Shape.Contains(new GDD_Point2F(e.X, e.Y)))
                                 {
-                                    obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
-                                    SelectedObj = obj;
+                                    if (SelectedObj == null)
+                                    {
+                                        obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
+                                        SelectedObj = obj;
+                                    }
+                                    else
+                                    {
+                                        SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                                        obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
+                                        SelectedObj = obj;
+                                    }
                                     break;
                                 }
                             }
