@@ -1,6 +1,6 @@
 ﻿namespace GDD_Library
 {
-    partial class GDD_View
+    public partial class GDD_View : System.Windows.Forms.UserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -19,6 +19,7 @@
             }
             base.Dispose(disposing);
         }
+
 
         #region Component Designer generated code
 

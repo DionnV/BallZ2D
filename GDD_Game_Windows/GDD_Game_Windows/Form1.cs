@@ -106,10 +106,9 @@ namespace GDD_Game_Windows
 
         private void GDD_View1_MouseDown(object sender, MouseEventArgs e)
         {
+
             if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X,e.Y), GDD_ZoneType.NoDraw))
             {
-            //if (!nodraw.Contains(new Point(e.X, e.Y)))
-            //{
                 //Recording the start of the Line
                 Line_Start = new GDD_Point2F(e.X, e.Y);
 
@@ -132,7 +131,6 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void GDD_View1_MouseMove(object sender, MouseEventArgs e)
         {
-
             //Only proceding if the mousebutton is down
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
@@ -158,22 +156,21 @@ namespace GDD_Game_Windows
                     Line_Start = Line_End;
                 }
 
+                //
                 if (lineToolStripMenuItem.Checked == true)
-            //if (!nodraw.Contains(new Point(e.X, e.Y)))
-            //{
-                //Only proceding if the mousebutton is down
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
-                    //Modifying line_preview
-                    Line_Preview.Rotation = obj.Rotation;
-                    Line_Preview.Shape.Size = obj.Shape.Size;
-                }  
+                    //if (!nodraw.Contains(new Point(e.X, e.Y)))
+                    //{
+                    //Only proceding if the mousebutton is down
+                    if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                    {
+                        //Modifying line_preview
+                        Line_Preview.Rotation = obj.Rotation;
+                        Line_Preview.Shape.Size = obj.Shape.Size;
+                    }
             }
-
-            //}
         }
-
-
+                
+                                
         private void GDD_View1_MouseUp(object sender, MouseEventArgs e)
         {
             //Only applies to a line
@@ -304,8 +301,8 @@ namespace GDD_Game_Windows
             zone.PolygonPoints[3] = new GDD_Point2F(0, (480 - 275));
             zone.ZoneType = GDD_ZoneType.NoDraw;
             zone.Size = 10f;
-
             GDD_View1.Scene.Zones.Add(obj);
+
 
             //Adding the circles
             GDD_View1.Scene.Objects.Add(circle1);
