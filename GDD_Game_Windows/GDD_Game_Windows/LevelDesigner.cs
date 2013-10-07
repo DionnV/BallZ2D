@@ -10,12 +10,13 @@ using System.Windows.Forms;
 using GDD_Library;
 using GDD_Library.Shapes;
 using GDD_Library.LevelDesign;
+using GDD_Library.Controls;
 
 namespace GDD_Game_Windows
 {
     public partial class LevelDesigner : Form
     {
-        public List<Button> buttons = new List<Button>();
+        public List<GDD_Button> buttons = new List<GDD_Button>();
         private GDD_Point2F Line_Start;
         private GDD_Point2F Line_End;
         private List<GDD_Object> Lines = new List<GDD_Object>();
@@ -34,7 +35,7 @@ namespace GDD_Game_Windows
 
         private void LevelDesigner_Load(object sender, EventArgs e)
         {
-            this.ClientSize = new System.Drawing.Size(800, 800);
+            this.ClientSize = new System.Drawing.Size(800, 480);
 
             //Add all buttons to the list
             buttons.Add(Pencil);
@@ -44,6 +45,17 @@ namespace GDD_Game_Windows
             buttons.Add(Bucket);
             buttons.Add(SelectButton);
             buttons.Add(DeleteAll);
+
+            //Set the text of the GDD_Buttons.
+            //VS will modify this to "" when done in LevelDesigner.Designer.cs.
+            buttons[0].Text = "Pencil";
+            buttons[1].Text = "Line";
+            buttons[2].Text = "Ball";
+            buttons[3].Text = "Square";
+            buttons[4].Text = "Bucket";
+            buttons[5].Text = "Select";
+            buttons[6].Text = "Delete All";
+
 
             GDD_View_LevelDesigner1.graphicsTimer.Start();
 
@@ -57,7 +69,7 @@ namespace GDD_Game_Windows
                 
                 for (int i = 0; i < buttons.Count - 1; i++)
                 {
-                    if (buttons[i].BackColor == Color.Green)
+                    if (buttons[i].BackColor == Color.LightGray)
                     {
                         selected = i;
                     }
@@ -126,12 +138,16 @@ namespace GDD_Game_Windows
                                     {
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+                                        RotateBar.Value = (int)SelectedObj.Rotation.Direction;
+                                        SizeBar.Value = (int)SelectedObj.Shape.Size;
                                     }
                                     else
                                     {
                                         SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+                                        RotateBar.Value = (int)SelectedObj.Rotation.Direction;
+                                        SizeBar.Value = (int)SelectedObj.Shape.Size;
                                     }
                                     break;
                                 }
@@ -150,7 +166,7 @@ namespace GDD_Game_Windows
             int selected = 0;
             for (int i = 0; i < buttons.Count - 1; i++)
             {
-                if (buttons[i].BackColor == Color.Green)
+                if (buttons[i].BackColor == Color.LightGray)
                 {
                     selected = i;
                 }
@@ -241,7 +257,7 @@ namespace GDD_Game_Windows
             int selected = 0;
             for (int i = 0; i < buttons.Count - 1; i++)
             {
-                if (buttons[i].BackColor == Color.Green)
+                if (buttons[i].BackColor == Color.LightGray)
                 {
                     selected = i;
                 }
@@ -270,7 +286,7 @@ namespace GDD_Game_Windows
             int selected = 0;
             for (int i = 0; i < buttons.Count - 1; i++)
             {
-                if (buttons[i].BackColor == Color.Green)
+                if (buttons[i].BackColor == Color.LightGray)
                 {
                     selected = i;
                 }
@@ -291,67 +307,67 @@ namespace GDD_Game_Windows
         private void button1_Click(object sender, EventArgs e)
         {           
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            Pencil.BackColor = Color.Green;
+            Pencil.BackColor = Color.LightGray;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            Line.BackColor = Color.Green;
+            Line.BackColor = Color.LightGray;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            Ball.BackColor = Color.Green;
+            Ball.BackColor = Color.LightGray;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            Square.BackColor = Color.Green;
+            Square.BackColor = Color.LightGray;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            Bucket.BackColor = Color.Green;
+            Bucket.BackColor = Color.LightGray;
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             //Highlight this button and downlight the others
-            foreach (Button button in buttons)
+            foreach (GDD_Button button in buttons)
             {
-                button.BackColor = Color.Gray;
+                button.BackColor = Color.White;
             }
 
-            SelectButton.BackColor = Color.Green;
+            SelectButton.BackColor = Color.LightGray;
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -391,6 +407,8 @@ namespace GDD_Game_Windows
             level.info.MaxLineLenght = 200;
 
             level.WriteToZipFile();
+
+            MessageBox.Show("Level saved.");
         }
 
         private void button1_Click_2(object sender, EventArgs e)
@@ -419,5 +437,9 @@ namespace GDD_Game_Windows
             }
         }
 
+        private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

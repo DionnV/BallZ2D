@@ -8,20 +8,30 @@ namespace GDD_Library.LevelDesign
 {
     public class GDD_Level
     {
-       
+        /// <summary>
+        /// The list of objects used for creating the level
+        /// </summary>   
         public List<GDD_Object> Objects;
+
+        /// <summary>
+        /// The info used for creating the level.
+        /// </summary>
         public GDD_HeaderInfo info;
+
+        /// <summary>
+        /// The path to the background used for the level.
+        /// </summary>
         public string Background { get; set; }
-        public string progpath = "./Progress";
+
+        /// <summary>
+        /// The path to the progressing map. This should be left unchanged.
+        /// </summary>
+        private string progpath = "./Progress";
        
         
         /// <summary>
         /// Creates a .zip-file containing all the necessary files used for level design.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="loo"></param>
-        /// <param name="info"></param>
-        /// <param name="background"></param>
         public void WriteToZipFile()
         {
             //Serialize the List of GDD_Object to a binary file called Objects.bin
@@ -30,8 +40,8 @@ namespace GDD_Library.LevelDesign
             //Write the GDD_HeaderInfo to a binary file called LevelData.bin
             GDD_IO.WriteToFile(progpath + "/LevelData.bin", this.info);
 
-            //Move the background picture to the folder we will zip
-            //Only if we have a background, ofcourse
+            //Move the background picture to the folder we will zip.
+            //Only if a background exists.
             if(GDD_IO.FileExists(this.Background))
             {
                 GDD_IO.FileMove(this.Background, progpath);

@@ -23,6 +23,9 @@ namespace GDD_Game_Windows
 
         //The circle that will be falling
         GDD_Object circle1 = new GDD_Object(new GDD_Circle());
+
+        //The bucket that will be the end of the level
+        GDD_Object bucket = new GDD_Object(new GDD_Bucket());
        
         /// <summary>
         /// All the lines that needs to be added
@@ -39,12 +42,15 @@ namespace GDD_Game_Windows
         /// </summary>
         private delegate void ResetDelegate();
 
+        private bool done = false;
+        int levelno = 1;
+
         /// <summary>
         /// Resetting the level to it's org
         /// </summary>
         private void Reset()
         {
-            //Lines.Clear();
+            Lines.Clear();
             
             //Creating the scene and adding the square
             GDD_View1.Scene.Objects.Clear();
@@ -59,26 +65,44 @@ namespace GDD_Game_Windows
             //LevelTest();
  //           GDD_Level DemoLevel = new GDD_Level();
  //           DemoLevel.LoadNoDraw("C:/Users/Dion/Documents/Visual Studio 2010/Projects/BallZ2D/GDD_Game_Window/bg.png");
-            try
+            //Only do this once
+   
+            if (!done)
             {
-                GDD_Level demo = GDD_IO.CreateFromZipFile("./Saved levels/Custom/test.zip");
-                List<GDD_Object> newlist = new List<GDD_Object>();
-                foreach (GDD_Object obj in demo.Objects)
+                try
                 {
-                    GDD_Object temp = new GDD_Object(obj.Shape);
-                    temp.Location = obj.Location;
-                    temp.Shape.Size = obj.Shape.Size;
-                    temp.Mass = obj.Mass; ;
-                    temp.Rotation = obj.Rotation;
-                    temp.Velocity = obj.Velocity;
-                    temp.GravityType = obj.GravityType;
-                    newlist.Add(temp);
+                    GDD_Level demo = GDD_IO.Load(1, levelno);
+                    List<GDD_Object> newlist = new List<GDD_Object>();
+                    foreach (GDD_Object obj in demo.Objects)
+                    {
+                        GDD_Object temp = new GDD_Object(obj.Shape);
+                        temp.Location = obj.Location;
+                        temp.Shape.Size = obj.Shape.Size;
+                        temp.Mass = obj.Mass; ;
+                        temp.Rotation = obj.Rotation;
+                        temp.Velocity = obj.Velocity;
+                        temp.GravityType = obj.GravityType;
+                        newlist.Add(temp);
+                    }
+                    GDD_View1.Scene.Objects = newlist;
+                    foreach (GDD_Object c in GDD_View1.Scene.Objects)
+                    {
+                        if (c.Shape is GDD_Circle)
+                        {
+                            circle1 = c;
+                        }
+                    }
                 }
-                GDD_View1.Scene.Objects = newlist;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
+
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+                levelno++;
+                if (levelno > 10)
+                {
+                    done = true;
+                }
             }
             //Setting bacvkground
             //GDD_View1.BackgroundImage = Image.FromFile("bg.png");
