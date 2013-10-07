@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
-    public class GDD_Polygon: GDD_Shape
+    [Serializable]
+    public class GDD_Polygon : GDD_Shape, ISerializable
     {
         /// <summary>
         /// Creates a new instance of GDD Polygon
@@ -16,6 +18,20 @@ namespace GDD_Library.Shapes
             //Initializing the points
             this.PolygonPoints = new GDD_Point2F[0];
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            info.AddValue("Size", Size, typeof(float));
+            info.AddValue("PolygonPoints", PolygonPoints, typeof(GDD_Point2F[]));
+        }
+
+        public GDD_Polygon(SerializationInfo info, StreamingContext context)
+        {
+            // Use the AddValue method to specify serialized values.
+            Size = (float)info.GetValue("Size", typeof(float));
+            PolygonPoints = (GDD_Point2F[])info.GetValue("PolygonPoints", typeof(GDD_Point2F[]));
+        }        
 
         /// <summary>
         /// The points of the polygon, normalized to a shape of 100 units
@@ -89,7 +105,7 @@ namespace GDD_Library.Shapes
             {
                 //Creating a vector
                 vector = this.PolygonPoints[i].ToVector();
-                
+
                 //Applying the rotation change
                 vector.Direction += Rotation;
 
@@ -97,7 +113,7 @@ namespace GDD_Library.Shapes
                 vector.Size *= Scale;
 
                 //Translating to a dxdy
-                dxdy = vector.ToDXDY() ;
+                dxdy = vector.ToDXDY();
 
                 //Translating to a XY
                 result[i] = new GDD_Point2F(offset.x + dxdy.x, offset.y + dxdy.y);
@@ -132,8 +148,8 @@ namespace GDD_Library.Shapes
                 }
 
                 //Check to see if we're in the polygon, translated to C# originally written by Nathan Mercer.
-                int   i, j=Points.Length-1;
-                bool  result = false;
+                int i, j = Points.Length - 1;
+                bool result = false;
 
                 for (i = 0; i < Points.Length; i++)
                 {
@@ -148,8 +164,8 @@ namespace GDD_Library.Shapes
                 }
 
                 //Returning the result
-                return result; 
-         
+                return result;
+
             }
 
             //Don't have enough points to make a polygon
@@ -167,7 +183,7 @@ namespace GDD_Library.Shapes
 
             //Initializing a list of lines
             GDD_Object[] Lines = new GDD_Object[Points.Length];
-        
+
             //Looping all the points, making lines and collisions
             for (int i = 0; i < Points.Count(); i++)
             {
@@ -190,13 +206,53 @@ namespace GDD_Library.Shapes
             PointF[] poly = TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location);
 
             //Draws the shape using the poligon data
-            G.FillPolygon(new SolidBrush(Color.White), poly); 
+            G.FillPolygon(DrawingColor, poly);
             G.DrawPolygon(Owner.FrontPen, poly);
         }
 
-        public override bool Contains(GDD_Point2F p)
+        public override bool Contains(GDD_Point2F point)
         {
-            return true;
+            //Getting the translated points
+            GDD_Point2F[] Points = TranslatePolygonGDDPoints(Owner.Rotation.Direction, 1, Owner.Location);
+
+            if (Points.Length > 2)
+            {
+                //Sorting by X to get the xMIn and xMax
+                Points = Points.OrderBy(p => p.x).ToArray();
+                float xMin = Points[0].x;
+                float xMax = Points[Points.Length - 1].x;
+
+                //Sorting by Y to get the yMax and yMin
+                Points = Points.OrderBy(p => p.y).ToArray();
+                float yMin = Points[0].y;
+                float yMax = Points[Points.Length - 1].y;
+
+                //Checking if we're outside the polygon
+                if (point.x < xMin || point.x > xMax || point.y < yMin || point.y > yMax)
+                {
+                    //Definately outside polygon
+                    return false;
+                }
+
+                //Check to see if we're in the polygon, translated to C# originally written by Nathan Mercer.
+                int i, j = Points.Length - 1;
+                bool result = false;
+
+                for (i = 0; i < Points.Length; i++)
+                {
+                    if ((Points[i].y < point.y && Points[j].y >= point.y || Points[j].y < point.y && Points[i].y >= point.y) && (Points[i].x <= point.x || Points[j].x <= point.x))
+                    {
+                        if (Points[i].x + (point.y - Points[i].y) / (Points[j].y - Points[i].y) * (Points[j].x - Points[i].x) < point.x)
+                        {
+                            result = !result;
+                        }
+                    }
+                    j = i;
+                }
+                //Returning the result
+                return result;
+            }
+            return false;
         }
     }
 }
