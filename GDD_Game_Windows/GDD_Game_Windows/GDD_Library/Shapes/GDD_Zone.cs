@@ -24,7 +24,7 @@ namespace GDD_Library.Shapes
         /// <summary>
         /// Creates a new instance of zone
         /// </summary>
-        public GDD_Zone() 
+        public GDD_Zone()
         {
             EdgeShape = new GDD_Polygon();
             EdgeShape.PolygonPoints = new GDD_Point2F[4];
@@ -47,7 +47,7 @@ namespace GDD_Library.Shapes
             float s = this.Size;
 
             //Getting the lines for the polygon, need to set size to 100 first
-            this.Size = 100f;     
+            this.Size = 100f;
             GDD_Object[] Lines = TranslatePolygon_ToLines();
 
             //Re-applying the size
@@ -71,9 +71,9 @@ namespace GDD_Library.Shapes
                     PointF end = new PointF(dxdy1.x + line.Location.x, dxdy1.y + line.Location.y);
 
                     //Using a new brush
-                    using (var brush = new LinearGradientBrush(line.Location.ToPoint(), end,  Owner.FrontColor, Color.White))
+                    using (var brush = new LinearGradientBrush(line.Location.ToPoint(), end, Owner.FrontColor, Color.White))
                     {
-                        int cnt = (int)( line.Shape.Size / vec.Size);
+                        int cnt = (int)(line.Shape.Size / vec.Size);
 
                         //Looping multiple times
                         for (int i = 0; i < cnt; i++)
@@ -86,11 +86,10 @@ namespace GDD_Library.Shapes
                         }
                     }
 
+                    //Draws the shape using the poligon data
+                    G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
                 }
             }
-
-            //Draws the shape using the poligon data
-           // G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
         }
     }
 

@@ -25,6 +25,12 @@ namespace GDD_Library
         private GDD_Object _Owner;
 
         /// <summary>
+        /// The color of the shape
+        /// </summary>
+        public SolidBrush DrawingColor { get { return _DrawingColor; } set { _DrawingColor = value; } }
+        private SolidBrush _DrawingColor = new SolidBrush(Color.White);
+
+        /// <summary>
         /// returns a clone of this object
         /// </summary>
         /// <returns></returns>

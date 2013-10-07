@@ -22,7 +22,7 @@ namespace GDD_Library.Shapes
             float Rotation = -Owner.Rotation.Direction + 180f;
 
             //Draw a circle
-            //G.FillEllipse(new SolidBrush(Color.Orange), Owner.Location.x - Size / 2f, Owner.Location.y - Size / 2f, Size, Size);
+            G.FillEllipse(DrawingColor, Owner.Location.x - Size / 2f, Owner.Location.y - Size / 2f, Size, Size);
             G.DrawEllipse(Owner.FrontPen, Owner.Location.x - Size/2f, Owner.Location.y - Size/2f, Size, Size);
             
             //Calculating the end point for our direction line
@@ -34,7 +34,22 @@ namespace GDD_Library.Shapes
 
         public override bool Contains(GDD_Point2F p)
         {
-            throw new NotImplementedException();
+            if ((p.x >= Owner.Location.x - (Size / 2f)) &&
+                (p.x <= Owner.Location.x + (Size / 2f)) &&
+                (p.y >= Owner.Location.y - (Size / 2f)) &&
+                (p.y <= Owner.Location.y + (Size / 2f)))
+            {
+                //We are near the circle
+                //Checking if we are in in
+                float dx = Owner.Location.x - p.x;
+                float dy = Owner.Location.y - p.y;
+                dx *= dx;
+                dy *= dy;
+                float dist = dx + dy;
+                float r = (Size / 2f) * (Size / 2f);
+                return dist <= r;
+            }
+            return false;
         }
 
         /// <summary>

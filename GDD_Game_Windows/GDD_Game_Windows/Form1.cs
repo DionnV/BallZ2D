@@ -158,18 +158,19 @@ namespace GDD_Game_Windows
 
                 //
                 if (lineToolStripMenuItem.Checked == true)
-                {
-                    //Modifying line_preview
-                    Line_Preview.Rotation = obj.Rotation;
-                    Line_Preview.Shape.Size = obj.Shape.Size;
-                }
-                
+                    //if (!nodraw.Contains(new Point(e.X, e.Y)))
+                    //{
+                    //Only proceding if the mousebutton is down
+                    if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                    {
+                        //Modifying line_preview
+                        Line_Preview.Rotation = obj.Rotation;
+                        Line_Preview.Shape.Size = obj.Shape.Size;
+                    }
             }
-
-
         }
-
-
+                
+                                
         private void GDD_View1_MouseUp(object sender, MouseEventArgs e)
         {
             //Only applies to a line
@@ -295,6 +296,11 @@ namespace GDD_Game_Windows
             zone.Size = 10f;
             obj.FrontColor = Color.LightGray;
             obj.Rotation = new GDD_Vector2F(0f, 0f);
+
+            zone.PolygonPoints[2] = new GDD_Point2F(800, (480 - 275));
+            zone.PolygonPoints[3] = new GDD_Point2F(0, (480 - 275));
+            zone.ZoneType = GDD_ZoneType.NoDraw;
+            zone.Size = 10f;
             GDD_View1.Scene.Zones.Add(obj);
 
 
