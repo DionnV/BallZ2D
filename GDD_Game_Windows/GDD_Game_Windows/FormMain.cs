@@ -277,6 +277,7 @@ namespace GDD_Game_Windows
 
         void Button_Line_Click(object sender, System.EventArgs e)
         {
+            Button_Pencil.IsSelected = false;
             if (Button_Line.IsSelected)
             {
                 Button_Line.IsSelected = false;
@@ -294,11 +295,12 @@ namespace GDD_Game_Windows
 
         void Button_Wiper_Click(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            //Not implemented yet
         }
 
         void Button_Pencil_Click(object sender, System.EventArgs e)
         {
+            Button_Line.IsSelected = false;
             if (Button_Pencil.IsSelected)
             {
                 Button_Pencil.IsSelected = false;
@@ -358,7 +360,7 @@ namespace GDD_Game_Windows
            // Scene.Objects.Add(obj);           
         }
 
-        private void GDD_View1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void GDD_View1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (DrawingEnabled)
                 if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
@@ -426,7 +428,7 @@ namespace GDD_Game_Windows
             }
         }
 
-        private void GDD_View1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void GDD_View1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (DrawingEnabled)
             {

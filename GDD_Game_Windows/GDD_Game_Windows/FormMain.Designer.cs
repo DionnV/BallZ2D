@@ -261,7 +261,7 @@
             this.Button_Pencil.Name = "Button_Pencil";
             this.Button_Pencil.Note = "";
             this.Button_Pencil.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Pencil.Size = new System.Drawing.Size(50, 50);
+            this.Button_Pencil.Size = new System.Drawing.Size(75, 50);
             this.Button_Pencil.TabIndex = 4;
             this.Button_Pencil.Click += Button_Pencil_Click;
             //
@@ -275,7 +275,7 @@
             this.Button_Line.Name = "Button_Line";
             this.Button_Line.Note = "";
             this.Button_Line.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Line.Size = new System.Drawing.Size(50, 50);
+            this.Button_Line.Size = new System.Drawing.Size(75, 50);
             this.Button_Line.TabIndex = 4;
             this.Button_Line.Click += Button_Line_Click;
             //
@@ -289,7 +289,7 @@
             this.Button_StartGame.Name = "Button_StartGame";
             this.Button_StartGame.Note = "";
             this.Button_StartGame.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_StartGame.Size = new System.Drawing.Size(50, 50);
+            this.Button_StartGame.Size = new System.Drawing.Size(75, 50);
             this.Button_StartGame.TabIndex = 4;
             this.Button_StartGame.Click += Button_StartGame_Click;
             //
@@ -303,7 +303,7 @@
             this.Button_Wiper.Name = "Button_Wiper";
             this.Button_Wiper.Note = "";
             this.Button_Wiper.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Wiper.Size = new System.Drawing.Size(50, 50);
+            this.Button_Wiper.Size = new System.Drawing.Size(75, 50);
             this.Button_Wiper.TabIndex = 4;
             this.Button_Wiper.Click += Button_Wiper_Click;
             // 
