@@ -87,6 +87,7 @@
             this.Button_Settings.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Settings.TabIndex = 4;
+            this.Button_Settings.Click +=Button_Settings_Click;
             // 
             // Button_Store
             // 
@@ -113,6 +114,7 @@
             this.Button_LevelDesign.Padding = new System.Windows.Forms.Padding(3);
             this.Button_LevelDesign.Size = new System.Drawing.Size(350, 50);
             this.Button_LevelDesign.TabIndex = 2;
+            this.Button_LevelDesign.Click +=Button_LevelDesign_Click;
             // 
             // Button_PlayNow
             // 
@@ -126,6 +128,7 @@
             this.Button_PlayNow.Padding = new System.Windows.Forms.Padding(3);
             this.Button_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_PlayNow.TabIndex = 1;
+            this.Button_PlayNow.Click +=Button_PlayNow_Click;
             // 
             // Button_Back_PlayNow
             // 
@@ -204,6 +207,7 @@
             this.Button_Sound.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Sound.Size = new System.Drawing.Size(350, 50);
             this.Button_Sound.TabIndex = 4;
+            this.Button_Sound.Click += Button_Sound_Click;
             // 
             // Button_Competitive
             // 
@@ -217,6 +221,7 @@
             this.Button_Competitive.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Competitive.Size = new System.Drawing.Size(350, 50);
             this.Button_Competitive.TabIndex = 4;
+            this.Button_Competitive.Click += Button_Competitive_Click;
             // 
             // Button_Custom
             // 
@@ -230,6 +235,7 @@
             this.Button_Custom.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Custom.Size = new System.Drawing.Size(350, 50);
             this.Button_Custom.TabIndex = 4;
+            this.Button_Custom.Click += Button_Custom_Click;
             // 
             // Button_Chapter1
             // 
@@ -243,6 +249,7 @@
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
             this.Button_Chapter1.TabIndex = 4;
+            this.Button_Chapter1.Click += Button_Chapter1_Click;
             //
             // Button_Pencil
             //
@@ -403,7 +410,6 @@
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
         
         #endregion

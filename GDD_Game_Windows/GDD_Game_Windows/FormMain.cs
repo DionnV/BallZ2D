@@ -29,7 +29,7 @@ namespace GDD_Game_Windows
         private GDD_Object bucket = new GDD_Object(new GDD_Bucket());
 
         //Defining a previewed GDD_Line
-        private GDD_Object Line_Preview;
+        private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
 
         private GDD_Point2F Line_Start;
         private GDD_Point2F Line_End;
@@ -138,7 +138,6 @@ namespace GDD_Game_Windows
             //Not implemented yet
         }
 
-
         private void LoadBGScene()
         {
             LoadDefaultBG();
@@ -151,6 +150,7 @@ namespace GDD_Game_Windows
 
         private void Button_PlayNow_Click(object sender, System.EventArgs e)
         {
+            MessageBox.Show("Clicked button");
             LoadPlayMenu();
         }
 
@@ -270,9 +270,6 @@ namespace GDD_Game_Windows
         {
             LoadChapterSelect();
         }
-
-
-
 
         private void LoadDefaultBG()
         {
