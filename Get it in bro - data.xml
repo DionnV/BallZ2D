@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<game>
+	<title>Get it in bro</title>
+	<release-date>11 October 2013</release-date>
+	<website>http://www.rho-thegame.com</website>
+	<press-can-request-copy>FALSE</press-can-request-copy>
+	<platforms>
+		<platform>
+			<name>Windows</name>
+			<link>TODO</link>
+		</platform>
+	</platforms>
+	
+	<description>
+	“Get it in bro!” is een puzzel game waarbij het doel is dat de speler een bal in een emmer krijgt,  dit zal hij/zij moeten doen door op het scherm een lijn te tekenen waar de bal op zal stuiteren of rollen. Natuurlijk is het niet zo makkelijk als het klink, de speler zal naarmate de game vordert tientallen obstakels moeten overwinnen om succesvol te blijven! 
+	</description>
+
+	<history>
+	NVT
+	</history>
+
+	<features>
+		<feature>Play the game with 10 default maps!</feature>
+		<feature>Create your own maps and shapes!</feature>
+	</features>
+	
+	<trailers>
+		<trailer>
+			<name>Teaser</name>
+			<youtube>MYMcSvWlTSY</youtube>
+		</trailer>
+		<trailer>
+			<name>Gameplay Video (short)</name>
+			<youtube>C8g_uacTEdY</youtube>
+		</trailer>
+	</trailers>
+	
+	<awards>
+	</awards>
+
+	<quotes>
+	</quotes>
+	
+	<credits>
+		<credit>
+			<person>Koen Klever</person>
+			<role>Programmeur</role>
+		</credit>
+		<credit>
+			<person>Dion van 't Veer</person>
+			<role>Programmeur</role>
+		</credit>
+	</credits>
+</game>

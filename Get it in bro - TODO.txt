@@ -6,8 +6,9 @@
 • Website (ter promotie van de game, gehost op de HR server)
 • Persmap (met een persbericht en ander materiaal voor journalisten)
 • Demo video (60 seconden game play in AVI, MPG of MP4)1
-• Eindpresentatie (met al het gebruikte materiaal)
-• Ingevulde data.xml file met details over de game en het team voorzien van de nodige materialen 
+// Eindpresentatie (met al het gebruikte materiaal)
+// Ingevulde data.xml file met details over de game en het team voorzien van de nodige materialen 
 (video en afbeeldingen)
-• Urenverantwoording per teamlid (in een uniform format met het totaal aantal uur per persoon en het 
+	LET OP: URLs Updaten
+//Urenverantwoording per teamlid (in een uniform format met het totaal aantal uur per persoon en het 
 totaal aantal uur van het team)
