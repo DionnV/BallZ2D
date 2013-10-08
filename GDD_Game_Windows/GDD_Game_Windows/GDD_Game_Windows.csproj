@@ -127,6 +127,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram2.cd" />
     <None Include="GDD_Library\app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

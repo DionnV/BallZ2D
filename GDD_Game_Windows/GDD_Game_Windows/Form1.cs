@@ -50,13 +50,13 @@ namespace GDD_Game_Windows
         /// </summary>
         private void Reset()
         {
-            Lines.Clear();
+            //Lines.Clear();
             
             //Creating the scene and adding the square
             GDD_View1.Scene.Objects.Clear();
 
             //The bounce test
-            //BucketTest();
+            BucketTest();
             //BounceTest();
             //AngularMomentumTest();
             //LineTest2();
@@ -66,7 +66,7 @@ namespace GDD_Game_Windows
  //           GDD_Level DemoLevel = new GDD_Level();
  //           DemoLevel.LoadNoDraw("C:/Users/Dion/Documents/Visual Studio 2010/Projects/BallZ2D/GDD_Game_Window/bg.png");
             //Only do this once
-   
+   /*
             if (!done)
             {
                 try
@@ -104,6 +104,7 @@ namespace GDD_Game_Windows
                     done = true;
                 }
             }
+    */
             //Setting bacvkground
             //GDD_View1.BackgroundImage = Image.FromFile("bg.png");
 
@@ -314,17 +315,12 @@ namespace GDD_Game_Windows
             zone.PolygonPoints = new GDD_Point2F[4];
             zone.PolygonPoints[0] = new GDD_Point2F(0, 275f);
             zone.PolygonPoints[1] = new GDD_Point2F(800, 275f);
-            zone.PolygonPoints[2] = new GDD_Point2F(800, 450);
-            zone.PolygonPoints[3] = new GDD_Point2F(0, 450);
+            zone.PolygonPoints[2] = new GDD_Point2F(800, 455);
+            zone.PolygonPoints[3] = new GDD_Point2F(0, 455);
             zone.ZoneType = GDD_ZoneType.NoDraw;
             zone.Size = 10f;
             obj.FrontColor = Color.LightGray;
             obj.Rotation = new GDD_Vector2F(0f, 0f);
-
-            zone.PolygonPoints[2] = new GDD_Point2F(800, (480 - 275));
-            zone.PolygonPoints[3] = new GDD_Point2F(0, (480 - 275));
-            zone.ZoneType = GDD_ZoneType.NoDraw;
-            zone.Size = 10f;
             GDD_View1.Scene.Zones.Add(obj);
 
 

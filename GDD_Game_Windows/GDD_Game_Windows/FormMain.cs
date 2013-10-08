@@ -14,9 +14,15 @@ namespace GDD_Game_Windows
 {
     public partial class FormMain : Form
     {
+        private Panel CurrentPanel;
         public FormMain()
         {
             InitializeComponent();
+            Button_Back.Text = "Main menu";
+            Button_PlayNow.Text = "Play now";
+            Button_Settings.Text = "Settings";
+            Button_Store.Text = "Store";
+            Button_LevelDesigner.Text = "Level Designer";
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -26,10 +32,67 @@ namespace GDD_Game_Windows
 
             //Loading the background scene
             LoadBGScene();
+            LoadMainMenu();
 
             //Starting the timer
             this.GDD_View1.graphicsTimer.Start();
         }
+
+        private void LoadMainMenu()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelMain.BringToFront();
+            CurrentPanel = PanelMain;
+        }
+
+        private void LoadPlayMenu()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelPlayNow.BringToFront();
+            CurrentPanel = PanelPlayNow;
+        }
+
+        private void LoadLevelDesigner()
+        {
+            Application.Run(new LevelDesigner());
+            CurrentPanel.SendToBack();
+            this.PanelMain.BringToFront();
+            CurrentPanel = PanelMain;
+        }
+
+        private void LoadSettings()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelSettings.BringToFront();
+            CurrentPanel = PanelSettings;
+        }
+
+        private void LoadChapterSelect()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelChapterSelect.BringToFront();
+            CurrentPanel = PanelChapterSelect;
+        }
+
+        private void LoadLevelSelect()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelLevelSelect.BringToFront();
+            CurrentPanel = PanelLevelSelect;
+        }
+
+        private void LoadCustomLevels()
+        {
+            CurrentPanel.SendToBack();
+            this.PanelCustomLevels.BringToFront();
+            CurrentPanel = PanelCustomLevels;
+        }
+
+        private void LoadStore()
+        {
+            //Not implemented yet
+        }
+
 
         private void LoadBGScene()
         {

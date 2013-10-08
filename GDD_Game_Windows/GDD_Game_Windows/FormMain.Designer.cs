@@ -34,6 +34,13 @@
             this.Button_LevelDesigner = new GDD_Library.Controls.GDD_Button();
             this.Button_PlayNow = new GDD_Library.Controls.GDD_Button();
             this.GDD_View1 = new GDD_Library.GDD_View();
+            this.PanelMain = new System.Windows.Forms.Panel();
+            this.PanelPlayNow = new System.Windows.Forms.Panel();
+            this.PanelSettings = new System.Windows.Forms.Panel();
+            this.PanelLevelSelect = new System.Windows.Forms.Panel();
+            this.PanelCustomLevels = new System.Windows.Forms.Panel();
+            this.PanelChapterSelect = new System.Windows.Forms.Panel();
+            this.PanelMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // Button_Back
@@ -48,9 +55,8 @@
             this.Button_Back.Note = "";
             this.Button_Back.Size = new System.Drawing.Size(350, 50);
             this.Button_Back.TabIndex = 5;
-            this.Button_Back.Text = "Main Menu";
             // 
-            // gdD_Button3
+            // Button_Settings
             // 
             this.Button_Settings.BackColor = System.Drawing.Color.White;
             this.Button_Settings.BorderWidth = 2F;
@@ -62,9 +68,8 @@
             this.Button_Settings.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Settings.TabIndex = 4;
-            this.Button_Settings.Text = "Settings";
             // 
-            // gdD_Button2
+            // Button_Store
             // 
             this.Button_Store.BackColor = System.Drawing.Color.White;
             this.Button_Store.BorderWidth = 2F;
@@ -72,22 +77,20 @@
             this.Button_Store.ForeColor = System.Drawing.Color.Black;
             this.Button_Store.Location = new System.Drawing.Point(50, 250);
             this.Button_Store.Name = "Button_Store";
-            this.Button_Store.Text = "Store";
             this.Button_Store.Note = "Soon";
             this.Button_Store.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Store.Size = new System.Drawing.Size(350, 50);
             this.Button_Store.TabIndex = 3;
             // 
-            // Button_CustomGames
+            // Button_LevelDesigner
             // 
             this.Button_LevelDesigner.BackColor = System.Drawing.Color.White;
             this.Button_LevelDesigner.BorderWidth = 2F;
             this.Button_LevelDesigner.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_LevelDesigner.ForeColor = System.Drawing.Color.Black;
             this.Button_LevelDesigner.Location = new System.Drawing.Point(50, 180);
-            this.Button_LevelDesigner.Name = "Button_CustomGames";
+            this.Button_LevelDesigner.Name = "Button_LevelDesigner";
             this.Button_LevelDesigner.Note = "Beta";
-            this.Button_LevelDesigner.Text = "Level Designer";
             this.Button_LevelDesigner.Padding = new System.Windows.Forms.Padding(3);
             this.Button_LevelDesigner.Size = new System.Drawing.Size(350, 50);
             this.Button_LevelDesigner.TabIndex = 2;
@@ -101,7 +104,6 @@
             this.Button_PlayNow.Location = new System.Drawing.Point(50, 110);
             this.Button_PlayNow.Name = "Button_PlayNow";
             this.Button_PlayNow.Note = "";
-            this.Button_PlayNow.Text = "Play now";
             this.Button_PlayNow.Padding = new System.Windows.Forms.Padding(3);
             this.Button_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_PlayNow.TabIndex = 1;
@@ -116,20 +118,35 @@
             this.GDD_View1.TabIndex = 0;
             this.GDD_View1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // PanelMain
+            // 
+            this.PanelMain.Controls.Add(this.Button_Back);
+            this.PanelMain.Controls.Add(this.Button_Settings);
+            this.PanelMain.Controls.Add(this.Button_Store);
+            this.PanelMain.Controls.Add(this.Button_LevelDesigner);
+            this.PanelMain.Controls.Add(this.Button_PlayNow);
+            this.PanelMain.BackColor = System.Drawing.Color.White;
+            this.PanelMain.Location = new System.Drawing.Point(0, 0);
+            this.PanelMain.Name = "PanelMain";
+            this.PanelMain.Size = new System.Drawing.Size(400, 480);
+            this.PanelMain.TabIndex = 1;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 418);
-            this.Controls.Add(this.Button_Back);
-            this.Controls.Add(this.Button_Settings);
-            this.Controls.Add(this.Button_Store);
-            this.Controls.Add(this.Button_LevelDesigner);
-            this.Controls.Add(this.Button_PlayNow);
             this.Controls.Add(this.GDD_View1);
+            this.Controls.Add(this.PanelMain);
+            this.Controls.Add(this.PanelChapterSelect);
+            this.Controls.Add(this.PanelLevelSelect);
+            this.Controls.Add(this.PanelCustomLevels);
+            this.Controls.Add(this.PanelSettings);
+            this.Controls.Add(this.PanelPlayNow);
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.PanelMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -142,5 +159,11 @@
         private GDD_Library.Controls.GDD_Button Button_Store;
         private GDD_Library.Controls.GDD_Button Button_Settings;
         private GDD_Library.Controls.GDD_Button Button_Back;
+        private System.Windows.Forms.Panel PanelMain;
+        private System.Windows.Forms.Panel PanelPlayNow;
+        private System.Windows.Forms.Panel PanelSettings;
+        private System.Windows.Forms.Panel PanelChapterSelect;
+        private System.Windows.Forms.Panel PanelCustomLevels;
+        private System.Windows.Forms.Panel PanelLevelSelect;
     }
 }

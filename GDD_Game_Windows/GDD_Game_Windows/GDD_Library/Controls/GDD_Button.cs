@@ -70,7 +70,7 @@ namespace GDD_Library.Controls
             g.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), new PointF((this.Width - size.Width)/2f, (this.Height - size.Height)/ 2f));
 
             //Drawing note
-            if (Note != "")
+            if (Note != "" && Note != null)
             {
                 //Creating a new font
                 Font NoteFont = new System.Drawing.Font(this.Font.FontFamily, this.FontHeight - 8);
