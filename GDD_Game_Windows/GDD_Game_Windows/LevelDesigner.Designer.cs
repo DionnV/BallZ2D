@@ -38,7 +38,7 @@
             this.SizeBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new GDD_Library.Controls.GDD_Button();
+            this.BrowseButton = new GDD_Library.Controls.GDD_Button();
             this.Save = new GDD_Library.Controls.GDD_Button();
             this.DeleteAll = new GDD_Library.Controls.GDD_Button();
             this.SelectButton = new GDD_Library.Controls.GDD_Button();
@@ -140,16 +140,16 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "Size";
             // 
-            // button1
+            // BrowseButton
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.BorderWidth = 2F;
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(710, 206);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(62, 20);
-            this.button1.TabIndex = 14;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            this.BrowseButton.BackColor = System.Drawing.Color.White;
+            this.BrowseButton.BorderWidth = 2F;
+            this.BrowseButton.ForeColor = System.Drawing.Color.Black;
+            this.BrowseButton.Location = new System.Drawing.Point(710, 206);
+            this.BrowseButton.Name = "BrowseButton";
+            this.BrowseButton.Size = new System.Drawing.Size(62, 20);
+            this.BrowseButton.TabIndex = 14;
+            this.BrowseButton.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // Save
             // 
@@ -261,7 +261,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SizeBar);
             this.Controls.Add(this.RotateBar);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BrowseButton);
             this.Controls.Add(this.BackgroundBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CreatorBox);
@@ -304,7 +304,7 @@
         private System.Windows.Forms.TextBox CreatorBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox BackgroundBox;
-        private GDD_Library.Controls.GDD_Button button1;
+        private GDD_Library.Controls.GDD_Button BrowseButton;
         private System.Windows.Forms.TrackBar RotateBar;
         private System.Windows.Forms.TrackBar SizeBar;
         private System.Windows.Forms.Label label3;

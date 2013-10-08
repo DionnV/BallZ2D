@@ -47,7 +47,7 @@ namespace GDD_Game_Windows
             buttons.Add(DeleteAll);
 
             //Set the text of the GDD_Buttons.
-            //VS will modify this to "" when done in LevelDesigner.Designer.cs.
+            //VS will modify this to null when done in LevelDesigner.Designer.cs.
             buttons[0].Text = "Pencil";
             buttons[1].Text = "Line";
             buttons[2].Text = "Ball";
@@ -55,6 +55,9 @@ namespace GDD_Game_Windows
             buttons[4].Text = "Bucket";
             buttons[5].Text = "Select";
             buttons[6].Text = "Delete All";
+
+            BrowseButton.Text = "Browse...";
+            Save.Text = "Save";
 
 
             GDD_View_LevelDesigner1.graphicsTimer.Start();
@@ -81,49 +84,64 @@ namespace GDD_Game_Windows
                         //Pencil
 
                         //Recording the start of the Line
-                        Line_Start = new GDD_Point2F(e.X, e.Y);
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Line_Start = new GDD_Point2F(e.X, e.Y);
+                        }
                         break;
                     case 1:
                         //Line
 
                         //Recording the start of the Line
-                        Line_Start = new GDD_Point2F(e.X, e.Y);
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Line_Start = new GDD_Point2F(e.X, e.Y);
 
-                        Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
-                        Line_Preview.GravityType = GDD_GravityType.Static;
+                            Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
+                            Line_Preview.GravityType = GDD_GravityType.Static;
 
-                        GDD_View_LevelDesigner1.Scene.Objects.Add(Line_Preview);
-                        Lines.Add(Line_Preview);
+                            GDD_View_LevelDesigner1.Scene.Objects.Add(Line_Preview);
+                            Lines.Add(Line_Preview);
+                        }
                         break;
                     case 2:
                         //Ball
-                        Circle_Preview.Location = location;
-                        Circle_Preview.Shape.Size = 50f;
-                        Circle_Preview.Mass = 50f;
-                        Circle_Preview.Rotation = new GDD_Vector2F(0f, 0f);
-                        Circle_Preview.Velocity = new GDD_Point2F(0f, 0f);
-                        Circle_Preview.GravityType = GDD_GravityType.Static;
-                        GDD_View_LevelDesigner1.Scene.Objects.Add(Circle_Preview);
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Circle_Preview.Location = location;
+                            Circle_Preview.Shape.Size = 50f;
+                            Circle_Preview.Mass = 50f;
+                            Circle_Preview.Rotation = new GDD_Vector2F(0f, 0f);
+                            Circle_Preview.Velocity = new GDD_Point2F(0f, 0f);
+                            Circle_Preview.GravityType = GDD_GravityType.Static;
+                            GDD_View_LevelDesigner1.Scene.Objects.Add(Circle_Preview);
+                        }
                         break;
                     case 3:
                         //Square
-                        Square_Preview.Location = location;
-                        Square_Preview.Shape.Size = 50f;
-                        Square_Preview.Mass = 50f;
-                        Square_Preview.Rotation = new GDD_Vector2F(0, 0f);
-                        Square_Preview.Velocity = new GDD_Point2F(0f, 0f);
-                        Square_Preview.GravityType = GDD_GravityType.Static;
-                        GDD_View_LevelDesigner1.Scene.Objects.Add(Square_Preview);
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Square_Preview.Location = location;
+                            Square_Preview.Shape.Size = 50f;
+                            Square_Preview.Mass = 50f;
+                            Square_Preview.Rotation = new GDD_Vector2F(0, 0f);
+                            Square_Preview.Velocity = new GDD_Point2F(0f, 0f);
+                            Square_Preview.GravityType = GDD_GravityType.Static;
+                            GDD_View_LevelDesigner1.Scene.Objects.Add(Square_Preview);
+                        }
                         break;
                     case 4:
                         //Bucket
-                        Bucket_Preview.Location = location;
-                        Bucket_Preview.Shape.Size = 110f;
-                        Bucket_Preview.Mass = 100f;
-                        Bucket_Preview.Rotation = new GDD_Vector2F(0f, 0f);
-                        Bucket_Preview.Velocity = new GDD_Point2F(0f, 0f);
-                        Bucket_Preview.GravityType = GDD_GravityType.Static;
-                        GDD_View_LevelDesigner1.Scene.Objects.Add(Bucket_Preview);
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Bucket_Preview.Location = location;
+                            Bucket_Preview.Shape.Size = 110f;
+                            Bucket_Preview.Mass = 100f;
+                            Bucket_Preview.Rotation = new GDD_Vector2F(0f, 0f);
+                            Bucket_Preview.Velocity = new GDD_Point2F(0f, 0f);
+                            Bucket_Preview.GravityType = GDD_GravityType.Static;
+                            GDD_View_LevelDesigner1.Scene.Objects.Add(Bucket_Preview);
+                        }
                         break;
                     case 5:
                         //Select
@@ -252,33 +270,36 @@ namespace GDD_Game_Windows
             
     
 
-        private void GDD_View_LevelDesigner1_MouseUp(object sender, EventArgs e)
+        private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
-            int selected = 0;
-            for (int i = 0; i < buttons.Count - 1; i++)
+            if (e.Button == MouseButtons.Left)
             {
-                if (buttons[i].BackColor == Color.LightGray)
+                int selected = 0;
+                for (int i = 0; i < buttons.Count - 1; i++)
                 {
-                    selected = i;
+                    if (buttons[i].BackColor == Color.LightGray)
+                    {
+                        selected = i;
+                    }
+                }
+
+                switch (selected)
+                {
+                    default: break;
+                    case 2:
+                        //Ball
+                        Circle_Preview = new GDD_Object(new GDD_Circle());
+                        break;
+                    case 3:
+                        //Square
+                        Square_Preview = new GDD_Object(new GDD_Square());
+                        break;
+                    case 4:
+                        //Bucket
+                        Bucket_Preview = new GDD_Object(new GDD_Bucket());
+                        break;
                 }
             }
-
-            switch (selected)
-            {
-                default: break;
-                case 2:
-                    //Ball
-                    Circle_Preview = new GDD_Object(new GDD_Circle());
-                    break;
-                case 3:
-                    //Square
-                    Square_Preview = new GDD_Object(new GDD_Square());
-                    break;
-                case 4:
-                    //Bucket
-                    Bucket_Preview = new GDD_Object(new GDD_Bucket());
-                    break;
-            } 
         }
 
         private void GDD_View_LevelDesigner1_MouseClick(object sender, MouseEventArgs e)
@@ -435,11 +456,6 @@ namespace GDD_Game_Windows
             {
                 SelectedObj.Shape.Size = SizeBar.Value;
             }
-        }
-
-        private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
-        {
-
         }
     }
 }
