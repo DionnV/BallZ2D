@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Pencil = new System.Windows.Forms.Button();
-            this.Line = new System.Windows.Forms.Button();
-            this.Ball = new System.Windows.Forms.Button();
-            this.Square = new System.Windows.Forms.Button();
-            this.Bucket = new System.Windows.Forms.Button();
-            this.SelectButton = new System.Windows.Forms.Button();
-            this.DeleteAll = new System.Windows.Forms.Button();
+            this.Pencil = new GDD_Library.Controls.GDD_Button();
+            this.Line = new GDD_Library.Controls.GDD_Button();
+            this.Ball = new GDD_Library.Controls.GDD_Button();
+            this.Square = new GDD_Library.Controls.GDD_Button();
+            this.Bucket = new GDD_Library.Controls.GDD_Button();
+            this.SelectButton = new GDD_Library.Controls.GDD_Button();
+            this.DeleteAll = new GDD_Library.Controls.GDD_Button();
             this.GDD_View_LevelDesigner1 = new GDD_Library.GDD_View();
-            this.Save = new System.Windows.Forms.Button();
+            this.Save = new GDD_Library.Controls.GDD_Button();
             this.LevelName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CreatorName = new System.Windows.Forms.Label();
             this.CreatorBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.BackgroundBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button1 = new GDD_Library.Controls.GDD_Button();
             this.RotateBar = new System.Windows.Forms.TrackBar();
             this.SizeBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,79 +54,73 @@
             // 
             // Pencil
             // 
-            this.Pencil.BackColor = System.Drawing.Color.Gray;
+            this.Pencil.BackColor = System.Drawing.Color.White;
             this.Pencil.Location = new System.Drawing.Point(12, 12);
             this.Pencil.Name = "Pencil";
             this.Pencil.Size = new System.Drawing.Size(50, 50);
             this.Pencil.TabIndex = 0;
             this.Pencil.Text = "Pencil";
-            this.Pencil.UseVisualStyleBackColor = false;
+            //this.Pencil.UseVisualStyleBackColor = false;
             this.Pencil.Click += new System.EventHandler(this.button1_Click);
             // 
             // Line
             // 
-            this.Line.BackColor = System.Drawing.Color.Gray;
+            this.Line.BackColor = System.Drawing.Color.White;
             this.Line.Location = new System.Drawing.Point(12, 68);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(50, 50);
             this.Line.TabIndex = 1;
             this.Line.Text = "Line";
-            this.Line.UseVisualStyleBackColor = false;
             this.Line.Click += new System.EventHandler(this.button2_Click);
             // 
             // Ball
             // 
-            this.Ball.BackColor = System.Drawing.Color.Gray;
+            this.Ball.BackColor = System.Drawing.Color.White;
             this.Ball.Location = new System.Drawing.Point(12, 124);
             this.Ball.Name = "Ball";
             this.Ball.Size = new System.Drawing.Size(50, 50);
             this.Ball.TabIndex = 2;
             this.Ball.Text = "Ball";
-            this.Ball.UseVisualStyleBackColor = false;
             this.Ball.Click += new System.EventHandler(this.button3_Click);
             // 
             // Square
             // 
-            this.Square.BackColor = System.Drawing.Color.Gray;
+            this.Square.BackColor = System.Drawing.Color.White;
             this.Square.Location = new System.Drawing.Point(12, 180);
             this.Square.Name = "Square";
             this.Square.Size = new System.Drawing.Size(50, 50);
             this.Square.TabIndex = 3;
             this.Square.Text = "Square";
-            this.Square.UseVisualStyleBackColor = false;
             this.Square.Click += new System.EventHandler(this.button4_Click);
             // 
             // Bucket
             // 
-            this.Bucket.BackColor = System.Drawing.Color.Gray;
+            this.Bucket.BackColor = System.Drawing.Color.White;
             this.Bucket.Location = new System.Drawing.Point(12, 236);
             this.Bucket.Name = "Bucket";
             this.Bucket.Size = new System.Drawing.Size(50, 50);
             this.Bucket.TabIndex = 4;
             this.Bucket.Text = "Bucket";
-            this.Bucket.UseVisualStyleBackColor = false;
             this.Bucket.Click += new System.EventHandler(this.button5_Click);
             // 
             // SelectButton
             // 
-            this.SelectButton.BackColor = System.Drawing.Color.Gray;
+            this.SelectButton.BackColor = System.Drawing.Color.White;
             this.SelectButton.Location = new System.Drawing.Point(12, 292);
             this.SelectButton.Name = "SelectButton";
             this.SelectButton.Size = new System.Drawing.Size(50, 50);
             this.SelectButton.TabIndex = 5;
             this.SelectButton.Text = "Select";
-            this.SelectButton.UseVisualStyleBackColor = false;
             this.SelectButton.Click += new System.EventHandler(this.button6_Click);
             // 
             // DeleteAll
             // 
-            this.DeleteAll.BackColor = System.Drawing.Color.Gray;
+            this.DeleteAll.BackColor = System.Drawing.Color.White;
             this.DeleteAll.Location = new System.Drawing.Point(12, 348);
             this.DeleteAll.Name = "DeleteAll";
             this.DeleteAll.Size = new System.Drawing.Size(50, 50);
             this.DeleteAll.TabIndex = 6;
             this.DeleteAll.Text = "Delete all";
-            this.DeleteAll.UseVisualStyleBackColor = false;
             this.DeleteAll.Click += new System.EventHandler(this.button7_Click);
             // 
             // GDD_View_LevelDesigner1
@@ -144,13 +138,12 @@
             // 
             // Save
             // 
-            this.Save.BackColor = System.Drawing.Color.Gray;
+            this.Save.BackColor = System.Drawing.Color.White;
             this.Save.Location = new System.Drawing.Point(722, 12);
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(50, 50);
             this.Save.TabIndex = 7;
             this.Save.Text = "Save";
-            this.Save.UseVisualStyleBackColor = false;
             this.Save.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // LevelName
@@ -203,13 +196,12 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.BackColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(710, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(62, 20);
             this.button1.TabIndex = 14;
             this.button1.Text = "Browse...";
-            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // RotateBar
@@ -290,21 +282,21 @@
         #endregion
 
         private GDD_Library.GDD_View GDD_View_LevelDesigner1;
-        private System.Windows.Forms.Button Pencil;
-        private System.Windows.Forms.Button Line;
-        private System.Windows.Forms.Button Ball;
-        private System.Windows.Forms.Button Square;
-        private System.Windows.Forms.Button Bucket;
-        private System.Windows.Forms.Button SelectButton;
-        private System.Windows.Forms.Button DeleteAll;
-        private System.Windows.Forms.Button Save;
+        private GDD_Library.Controls.GDD_Button Pencil;
+        private GDD_Library.Controls.GDD_Button Line;
+        private GDD_Library.Controls.GDD_Button Ball;
+        private GDD_Library.Controls.GDD_Button Square;
+        private GDD_Library.Controls.GDD_Button Bucket;
+        private GDD_Library.Controls.GDD_Button SelectButton;
+        private GDD_Library.Controls.GDD_Button DeleteAll;
+        private GDD_Library.Controls.GDD_Button Save;
         private System.Windows.Forms.TextBox LevelName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label CreatorName;
         private System.Windows.Forms.TextBox CreatorBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox BackgroundBox;
-        private System.Windows.Forms.Button button1;
+        private GDD_Library.Controls.GDD_Button button1;
         private System.Windows.Forms.TrackBar RotateBar;
         private System.Windows.Forms.TrackBar SizeBar;
         private System.Windows.Forms.Label label3;
