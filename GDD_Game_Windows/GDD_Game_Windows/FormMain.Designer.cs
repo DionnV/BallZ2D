@@ -257,12 +257,13 @@
             this.Button_Pencil.BorderWidth = 2F;
             this.Button_Pencil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Pencil.ForeColor = System.Drawing.Color.Black;
-            this.Button_Pencil.Location = new System.Drawing.Point(400, 40);
+            this.Button_Pencil.Location = new System.Drawing.Point(10, 40);
             this.Button_Pencil.Name = "Button_Pencil";
             this.Button_Pencil.Note = "";
             this.Button_Pencil.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Pencil.Size = new System.Drawing.Size(350, 50);
+            this.Button_Pencil.Size = new System.Drawing.Size(50, 50);
             this.Button_Pencil.TabIndex = 4;
+            this.Button_Pencil.Click += Button_Pencil_Click;
             //
             // Button_Line
             //
@@ -270,12 +271,13 @@
             this.Button_Line.BorderWidth = 2F;
             this.Button_Line.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Line.ForeColor = System.Drawing.Color.Black;
-            this.Button_Line.Location = new System.Drawing.Point(400, 110);
+            this.Button_Line.Location = new System.Drawing.Point(10, 110);
             this.Button_Line.Name = "Button_Line";
             this.Button_Line.Note = "";
             this.Button_Line.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Line.Size = new System.Drawing.Size(350, 50);
+            this.Button_Line.Size = new System.Drawing.Size(50, 50);
             this.Button_Line.TabIndex = 4;
+            this.Button_Line.Click += Button_Line_Click;
             //
             // Button_Start
             //
@@ -283,12 +285,13 @@
             this.Button_StartGame.BorderWidth = 2F;
             this.Button_StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_StartGame.ForeColor = System.Drawing.Color.Black;
-            this.Button_StartGame.Location = new System.Drawing.Point(400, 250);
+            this.Button_StartGame.Location = new System.Drawing.Point(10, 250);
             this.Button_StartGame.Name = "Button_StartGame";
             this.Button_StartGame.Note = "";
             this.Button_StartGame.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_StartGame.Size = new System.Drawing.Size(350, 50);
+            this.Button_StartGame.Size = new System.Drawing.Size(50, 50);
             this.Button_StartGame.TabIndex = 4;
+            this.Button_StartGame.Click += Button_StartGame_Click;
             //
             //Button_Wiper
             //
@@ -296,12 +299,13 @@
             this.Button_Wiper.BorderWidth = 2F;
             this.Button_Wiper.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Wiper.ForeColor = System.Drawing.Color.Black;
-            this.Button_Wiper.Location = new System.Drawing.Point(400, 180);
+            this.Button_Wiper.Location = new System.Drawing.Point(10, 180);
             this.Button_Wiper.Name = "Button_Wiper";
             this.Button_Wiper.Note = "";
             this.Button_Wiper.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Wiper.Size = new System.Drawing.Size(350, 50);
+            this.Button_Wiper.Size = new System.Drawing.Size(50, 50);
             this.Button_Wiper.TabIndex = 4;
+            this.Button_Wiper.Click += Button_Wiper_Click;
             // 
             // GDD_View1
             // 
@@ -347,9 +351,9 @@
             this.PanelPlaying.Controls.Add(this.Button_Line);
             this.PanelPlaying.Controls.Add(this.Button_Wiper);
             this.PanelPlaying.Controls.Add(this.Button_StartGame);
-            this.PanelPlaying.Location = new System.Drawing.Point(0, 0);
+            this.PanelPlaying.Location = new System.Drawing.Point(600, 0);
             this.PanelPlaying.Name = "PanelPlaying";
-            this.PanelPlaying.Size = new System.Drawing.Size(400, 480);
+            this.PanelPlaying.Size = new System.Drawing.Size(134, 418);
             this.PanelPlaying.TabIndex = 1;
             // 
             // PanelSettings
@@ -375,7 +379,7 @@
             // 
             this.PanelCustomLevels.Location = new System.Drawing.Point(0, 0);
             this.PanelCustomLevels.Name = "PanelCustomLevels";
-            this.PanelCustomLevels.Size = new System.Drawing.Size(200, 100);
+            this.PanelCustomLevels.Size = new System.Drawing.Size(400, 480);
             this.PanelCustomLevels.TabIndex = 2;
             // 
             // PanelChapterSelect
@@ -410,7 +414,7 @@
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
-        }
+        }      
         
         #endregion
 

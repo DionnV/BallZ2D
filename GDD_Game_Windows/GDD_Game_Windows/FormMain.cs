@@ -131,6 +131,11 @@ namespace GDD_Game_Windows
             CurrentPanel.SendToBack();
             this.PanelPlaying.BringToFront();
             CurrentPanel = PanelPlaying;
+            Button_Pencil.Text = "Pencil";
+            Button_Line.Text = "Line";
+            Button_StartGame.Text = "Start!";
+            Button_Wiper.Text = "Wiper";
+
         }
 
         private void LoadStore()
@@ -150,7 +155,6 @@ namespace GDD_Game_Windows
 
         private void Button_PlayNow_Click(object sender, System.EventArgs e)
         {
-            MessageBox.Show("Clicked button");
             LoadPlayMenu();
         }
 
@@ -270,6 +274,41 @@ namespace GDD_Game_Windows
         {
             LoadChapterSelect();
         }
+
+        void Button_Line_Click(object sender, System.EventArgs e)
+        {
+            if (Button_Line.IsSelected)
+            {
+                Button_Line.IsSelected = false;
+            }
+            else
+            {
+                Button_Line.IsSelected = true;
+            }
+        }
+
+        void Button_StartGame_Click(object sender, System.EventArgs e)
+        {
+            ball.GravityType = GDD_GravityType.Normal;
+        }
+
+        void Button_Wiper_Click(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void Button_Pencil_Click(object sender, System.EventArgs e)
+        {
+            if (Button_Pencil.IsSelected)
+            {
+                Button_Pencil.IsSelected = false;
+            }
+            else
+            {
+                Button_Pencil.IsSelected = true;
+            }
+        }
+
 
         private void LoadDefaultBG()
         {
