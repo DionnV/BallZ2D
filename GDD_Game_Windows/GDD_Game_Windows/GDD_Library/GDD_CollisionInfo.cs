@@ -360,16 +360,16 @@ namespace GDD_Library
             if (obj1.Shape is GDD_Circle)
             {
                 //D will hold the angle of impact for obj1
-                //float d = (float)GDD_Math.Delta(BounceAngle_low, obj1.Velocity_Vector.Direction) % 180f;
+                float d = (float)GDD_Math.Delta(BounceAngle_low, obj1.Velocity_Vector.Direction) % 180f;
 
                 //The max bounce that can occur
-               // float Bounce_Max1 = GDD_Math.Angle(BounceAngle + d);
+                float Bounce_Max1 = GDD_Math.Angle(BounceAngle + d);
 
                 //Checking for static and null objects
                 if ((obj2 == null) || (obj2.GravityType == GDD_GravityType.Static))
                 {
                     //Normalizing the angles to 0..180;
-                    float BA = BounceAngle % 180f;
+                    /*float BA = BounceAngle % 180f;
                     float VA = obj1.Velocity_Vector.Direction % 90f;
                     float CA = 90f - VA;
 
@@ -378,11 +378,11 @@ namespace GDD_Library
 
                     obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(BA + 180f - CA, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
 
-                    
+                    */
 
 
 
-                    /*if (obj1.Velocity_Vector.Direction < 90 || (obj1.Velocity_Vector.Direction > 270))
+                    if (obj1.Velocity_Vector.Direction < 90 || (obj1.Velocity_Vector.Direction > 270))
                     {
                         //Applying a simple rule:)
                         float a = GDD_Math.Angle(BounceAngle + d) ;
@@ -432,13 +432,15 @@ namespace GDD_Library
                        if (BounceAngle == 90f)
                        {
 
-                       }*/
+                       }
+                     * 8
+                     */
 
 
-                       // obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
+                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
                         
                     
-                   //}
+                   }
 
                     //Checking if obj1 has enough speed
                    /* if (Math.Abs(obj1_AfterCollision.Velocity_Vector.Size) < 50d)

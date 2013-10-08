@@ -37,7 +37,6 @@ namespace GDD_Library
         /// <summary>
         /// An acurate timer that ticks regularly
         /// </summary>
-        [Browsable(false)]
         public GDD_Timer graphicsTimer { get; set; }
 
         /// <summary>
