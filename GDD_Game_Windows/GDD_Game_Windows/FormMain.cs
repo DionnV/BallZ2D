@@ -75,6 +75,14 @@ namespace GDD_Game_Windows
             obj.FrontColor = Color.Black;
             Scene.Objects.Add(obj);
 
+            obj = new GDD_Object(new GDD_Bucket());
+            obj.Shape.Size = 100f;
+            obj.Location = new GDD_Point2F(600f, 430f);
+            obj.Rotation = new GDD_Vector2F(180f, 0);
+            obj.GravityType = GDD_GravityType.Static;
+            obj.FrontColor = Color.Black;
+           // Scene.Objects.Add(obj);
+
             
 
         }

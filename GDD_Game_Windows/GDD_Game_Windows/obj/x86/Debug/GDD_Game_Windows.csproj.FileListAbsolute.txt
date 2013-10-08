@@ -55,3 +55,8 @@ E:\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
 E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.Controls.GDD_View.resources
 E:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\BallZ2D\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
+<<<<<<< HEAD
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
+D:\Documenten\Bureaublad\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
+=======
+>>>>>>> f58a49712bcc76c077f328cf969b49e6b9c84d51

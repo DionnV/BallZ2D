@@ -156,16 +156,22 @@ namespace GDD_Game_Windows
                                     {
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+<<<<<<< HEAD
+=======
                                         RotateBar.Value = (int)SelectedObj.Rotation.Direction;
                                         SizeBar.Value = (int)SelectedObj.Shape.Size;
+>>>>>>> f58a49712bcc76c077f328cf969b49e6b9c84d51
                                     }
                                     else
                                     {
                                         SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+<<<<<<< HEAD
+=======
                                         RotateBar.Value = (int)SelectedObj.Rotation.Direction;
                                         SizeBar.Value = (int)SelectedObj.Shape.Size;
+>>>>>>> f58a49712bcc76c077f328cf969b49e6b9c84d51
                                     }
                                     break;
                                 }
