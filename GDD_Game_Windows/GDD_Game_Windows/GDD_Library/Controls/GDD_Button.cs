@@ -46,11 +46,22 @@ namespace GDD_Library.Controls
         private String _Note;
 
         /// <summary>
+        /// Returns whether the button is selected.
+        /// </summary>
+        public bool IsSelected { 
+            get { return _IsSelected; } 
+            set { _IsSelected = value; } }
+        private bool _IsSelected;
+        /// <summary>
         /// We're going to paint this!
         /// </summary>
         /// <param name="pevent"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (_IsSelected)
+            {
+                this.BackColor = System.Drawing.Color.LightGray;
+            }
             //Creating a bitmap
             Bitmap b = new Bitmap(this.Width, this.Height);
 

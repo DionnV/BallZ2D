@@ -20,7 +20,7 @@ namespace GDD_Library
 
         ~GDD_Timer()
         {
-            Stop();
+            worker.CancelAsync();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace GDD_Library
         /// </summary>
         public void Stop()
         {
-            worker.CancelAsync();
+            IsRunning = false;   
         }
 
         /// <summary>
@@ -36,8 +36,17 @@ namespace GDD_Library
         /// </summary>
         public void Start()
         {
-            worker.RunWorkerAsync();
+            if (!worker.IsBusy)
+            {
+                worker.RunWorkerAsync();
+            }
+            IsRunning = true;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Boolean IsRunning {get;set;}
 
         /// <summary>
         /// The tick event that gets called x times per second
@@ -121,30 +130,34 @@ namespace GDD_Library
                     break;
                 }
 
-                //Restarting the counters every second
-                if (stopwatch.ElapsedMilliseconds >= 1000)
+                if (IsRunning)
                 {
-                    stopwatch.Restart();
-                    this._TicksThisSecond = 0;
-                }
 
-                //some other processing to do STILL POSSIBLE
-                if (stopwatch.ElapsedMilliseconds >= (int)((float)this.DesiredTickTime * (_TicksThisSecond)))
-                {
-                    //We created another frame!
-                    if (_TicksThisSecond != 0)
+                    //Restarting the counters every second
+                    if (stopwatch.ElapsedMilliseconds >= 1000)
                     {
-                        this.TickTime = (int)(stopwatch.ElapsedMilliseconds / _TicksThisSecond);
+                        stopwatch.Restart();
+                        this._TicksThisSecond = 0;
                     }
 
-                    //Forcing to redraw
-                    if (this.Tick != null)
+                    //some other processing to do STILL POSSIBLE
+                    if (stopwatch.ElapsedMilliseconds >= (int)((float)this.DesiredTickTime * (_TicksThisSecond)))
                     {
-                        this.Tick(this, new EventArgs());
-                        this._TicksThisSecond++;
+                        //We created another frame!
+                        if (_TicksThisSecond != 0)
+                        {
+                            this.TickTime = (int)(stopwatch.ElapsedMilliseconds / _TicksThisSecond);
+                        }
+
+                        //Forcing to redraw
+                        if (this.Tick != null)
+                        {
+                            this.Tick(this, new EventArgs());
+                            this._TicksThisSecond++;
+                        }
                     }
+                    Thread.Sleep(1); //so processor can rest for a while
                 }
-                Thread.Sleep(1); //so processor can rest for a while
             }
         }
     }
