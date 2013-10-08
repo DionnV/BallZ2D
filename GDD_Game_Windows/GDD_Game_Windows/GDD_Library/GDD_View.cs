@@ -40,7 +40,6 @@ namespace GDD_Library
         [Browsable(false)]
         public GDD_Timer graphicsTimer { get; set; }
 
-
         /// <summary>
         /// The GDD_Scene on which we are viewing
         /// </summary>
@@ -122,8 +121,8 @@ namespace GDD_Library
             //Calculating some constatns
             //float Deg2Rad = 0.0174532925f;
 
-            List<GDD_Object> CollisionExceptions = new List<GDD_Object>();
-
+            List<GDD_Object> CollisionExceptions = new List<GDD_Object>();         
+          
             //Looping each thing
             for (int i = 0; i < this.Scene.Objects.Count; i++)
             {

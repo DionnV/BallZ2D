@@ -7,33 +7,36 @@ namespace GDD_Library.LevelDesign
 {
     public class GDD_HeaderInfo
     {
+        /// <summary>
+        /// Creates a constructor.
+        /// </summary>
         public GDD_HeaderInfo()
         {
             Index_Ball = 0;
             Index_Bucket = 1;
         }
         /// <summary>
-        /// The version number of the game
+        /// The version number of the game.
         /// </summary>
         public int VersionNumber { get; set; }
 
         /// <summary>
-        /// The version number of the level
+        /// The version number of the level.
         /// </summary>
         public int LevelVersionNumber { get; set; }
 
         /// <summary>
-        /// The name of the level
+        /// The name of the level.
         /// </summary>
         public String LevelName { get; set; }
 
         /// <summary>
-        /// The width of the level
+        /// The width of the level.
         /// </summary>
         public int Level_Width { get; set; }
 
         /// <summary>
-        /// The height of the level
+        /// The height of the level.
         /// </summary>
         public int Level_Height { get; set; }
 
@@ -43,17 +46,17 @@ namespace GDD_Library.LevelDesign
         public int MaxLineLenght { get; set; }
 
         /// <summary>
-        /// The index of the ball in the list of objects
+        /// The index of the ball in the list of objects.
         /// </summary>
         public int Index_Ball { get; set; }
 
         /// <summary>
-        /// The index of the bucket in the list of objects
+        /// The index of the bucket in the list of objects.
         /// </summary>
         public int Index_Bucket { get; set; }
 
         /// <summary>
-        /// The name of the creator
+        /// The name of the creator.
         /// </summary>
         public String CreatorName { get; set; }
     }

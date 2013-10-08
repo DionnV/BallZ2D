@@ -35,7 +35,7 @@ namespace GDD_Game_Windows
 
         private void LevelDesigner_Load(object sender, EventArgs e)
         {
-            this.ClientSize = new System.Drawing.Size(800, 800);
+            this.ClientSize = new System.Drawing.Size(800, 480);
 
             //Add all buttons to the list
             buttons.Add(Pencil);
@@ -45,6 +45,17 @@ namespace GDD_Game_Windows
             buttons.Add(Bucket);
             buttons.Add(SelectButton);
             buttons.Add(DeleteAll);
+
+            //Set the text of the GDD_Buttons.
+            //VS will modify this to "" when done in LevelDesigner.Designer.cs.
+            buttons[0].Text = "Pencil";
+            buttons[1].Text = "Line";
+            buttons[2].Text = "Ball";
+            buttons[3].Text = "Square";
+            buttons[4].Text = "Bucket";
+            buttons[5].Text = "Select";
+            buttons[6].Text = "Delete All";
+
 
             GDD_View_LevelDesigner1.graphicsTimer.Start();
 
@@ -127,12 +138,22 @@ namespace GDD_Game_Windows
                                     {
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+<<<<<<< HEAD
+=======
+                                        RotateBar.Value = (int)SelectedObj.Rotation.Direction;
+                                        SizeBar.Value = (int)SelectedObj.Shape.Size;
+>>>>>>> f58a49712bcc76c077f328cf969b49e6b9c84d51
                                     }
                                     else
                                     {
                                         SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
                                         obj.Shape.DrawingColor = new SolidBrush(Color.Gray);
                                         SelectedObj = obj;
+<<<<<<< HEAD
+=======
+                                        RotateBar.Value = (int)SelectedObj.Rotation.Direction;
+                                        SizeBar.Value = (int)SelectedObj.Shape.Size;
+>>>>>>> f58a49712bcc76c077f328cf969b49e6b9c84d51
                                     }
                                     break;
                                 }
@@ -392,6 +413,8 @@ namespace GDD_Game_Windows
             level.info.MaxLineLenght = 200;
 
             level.WriteToZipFile();
+
+            MessageBox.Show("Level saved.");
         }
 
         private void button1_Click_2(object sender, EventArgs e)
@@ -420,5 +443,9 @@ namespace GDD_Game_Windows
             }
         }
 
+        private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
