@@ -318,7 +318,7 @@ namespace GDD_Game_Windows
             zone.PolygonPoints[2] = new GDD_Point2F(800, 455);
             zone.PolygonPoints[3] = new GDD_Point2F(0, 455);
             zone.ZoneType = GDD_ZoneType.NoDraw;
-            zone.Size = 10f;
+            zone.EdgeSize = 200f;
             obj.FrontColor = Color.LightGray;
             obj.Rotation = new GDD_Vector2F(0f, 0f);
             GDD_View1.Scene.Zones.Add(obj);

@@ -10,7 +10,7 @@ namespace GDD_Library
     public abstract class GDD_Shape : ICloneable
     {
         public abstract void Draw(Graphics G);
-        public abstract bool Contains(GDD_Point2F p);
+        public abstract bool ContainsPoint(GDD_Point2F p);
 
         /// <summary>
         /// The size of this Square

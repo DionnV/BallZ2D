@@ -70,6 +70,20 @@ namespace GDD_Library.Controls
 
             //Drawing the rectangle and border
             g.FillRectangle(new SolidBrush(this.BackColor), (BorderWidth / 2) + Padding.Left, (BorderWidth / 2) + Padding.Top, (this.Width - BorderWidth) - (Padding.Left + Padding.Right), (this.Height - BorderWidth) - (Padding.Bottom + Padding.Top));
+
+            //Drawing an image
+            if (this.BackgroundImage != null)
+            {
+                //Drawing a stretched image
+                g.DrawImage(
+                    this.BackgroundImage,     
+                    new RectangleF((BorderWidth / 2) + Padding.Left, (BorderWidth / 2) + Padding.Top, (this.Width - BorderWidth) - (Padding.Left + Padding.Right), (this.Height - BorderWidth) - (Padding.Bottom + Padding.Top)),
+                    new RectangleF(0, 0, BackgroundImage.Width, BackgroundImage.Height),
+                    GraphicsUnit.Pixel);
+            }
+
+
+            //Drawing the border
             if (BorderWidth > 0)
             {
                 g.DrawRectangle(new Pen(this.ForeColor, BorderWidth), (BorderWidth / 2) + Padding.Left, (BorderWidth / 2) + Padding.Top, (this.Width - BorderWidth) - (Padding.Left + Padding.Right), (this.Height - BorderWidth) - (Padding.Bottom + Padding.Top));

@@ -123,7 +123,12 @@ namespace GDD_Library.Shapes
             return result;
         }
 
-        public Boolean ContainsPoint(GDD_Point2F point)
+        /// <summary>
+        /// Checks wether this shape contains a cirtain point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override Boolean ContainsPoint(GDD_Point2F point)
         {
             //Getting the translated points
             GDD_Point2F[] Points = TranslatePolygonGDDPoints(Owner.Rotation.Direction, 1, Owner.Location);
@@ -162,13 +167,9 @@ namespace GDD_Library.Shapes
                     }
                     j = i;
                 }
-
                 //Returning the result
                 return result;
-
             }
-
-            //Don't have enough points to make a polygon
             return false;
         }
 
@@ -210,49 +211,5 @@ namespace GDD_Library.Shapes
             G.DrawPolygon(Owner.FrontPen, poly);
         }
 
-        public override bool Contains(GDD_Point2F point)
-        {
-            //Getting the translated points
-            GDD_Point2F[] Points = TranslatePolygonGDDPoints(Owner.Rotation.Direction, 1, Owner.Location);
-
-            if (Points.Length > 2)
-            {
-                //Sorting by X to get the xMIn and xMax
-                Points = Points.OrderBy(p => p.x).ToArray();
-                float xMin = Points[0].x;
-                float xMax = Points[Points.Length - 1].x;
-
-                //Sorting by Y to get the yMax and yMin
-                Points = Points.OrderBy(p => p.y).ToArray();
-                float yMin = Points[0].y;
-                float yMax = Points[Points.Length - 1].y;
-
-                //Checking if we're outside the polygon
-                if (point.x < xMin || point.x > xMax || point.y < yMin || point.y > yMax)
-                {
-                    //Definately outside polygon
-                    return false;
-                }
-
-                //Check to see if we're in the polygon, translated to C# originally written by Nathan Mercer.
-                int i, j = Points.Length - 1;
-                bool result = false;
-
-                for (i = 0; i < Points.Length; i++)
-                {
-                    if ((Points[i].y < point.y && Points[j].y >= point.y || Points[j].y < point.y && Points[i].y >= point.y) && (Points[i].x <= point.x || Points[j].x <= point.x))
-                    {
-                        if (Points[i].x + (point.y - Points[i].y) / (Points[j].y - Points[i].y) * (Points[j].x - Points[i].x) < point.x)
-                        {
-                            result = !result;
-                        }
-                    }
-                    j = i;
-                }
-                //Returning the result
-                return result;
-            }
-            return false;
-        }
     }
 }

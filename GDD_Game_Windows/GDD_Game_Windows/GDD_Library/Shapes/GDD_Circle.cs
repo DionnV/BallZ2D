@@ -32,7 +32,7 @@ namespace GDD_Library.Shapes
             //G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, Owner.Location.x + end.x, Owner.Location.y + end.y);
         }
 
-        public override bool Contains(GDD_Point2F p)
+        public override bool ContainsPoint(GDD_Point2F p)
         {
             if ((p.x >= Owner.Location.x - (Size / 2f)) &&
                 (p.x <= Owner.Location.x + (Size / 2f)) &&
