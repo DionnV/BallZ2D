@@ -125,6 +125,7 @@ namespace GDD_Game_Windows
             this.Button_Exit.Note = null;
             this.Button_Exit.Size = new System.Drawing.Size(76, 76);
             this.Button_Exit.TabIndex = 26;
+            this.Button_Exit.Click += new System.EventHandler(Button_Exit_Click);
             // 
             // Button_Options
             // 
@@ -288,7 +289,7 @@ namespace GDD_Game_Windows
             this.optionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
-        }
+        }       
 
 
         #endregion
@@ -303,7 +304,7 @@ namespace GDD_Game_Windows
         private GDD_Library.Controls.GDD_Button Button_Resize;
         private GDD_Library.Controls.GDD_Button Button_Rotate;
         private System.Windows.Forms.Panel editPanel;
-        private GDD_Library.Controls.GDD_Button Button_Exit;
+        public GDD_Library.Controls.GDD_Button Button_Exit;
         private GDD_Library.Controls.GDD_Button Button_Reset;
         private GDD_Library.Controls.GDD_Button Button_Options;
         private GDD_Library.Controls.GDD_Button Button_Play;

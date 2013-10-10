@@ -13,7 +13,7 @@ namespace GDD_Library.Controls
     ///<summary>
     ///This class will create a self-made button. These buttons can contain notes in the left-upper corner. 
     /// </summary>
-    public partial class GDD_Button: UserControl
+    public partial class GDD_Button: UserControl, ICloneable
     {
         /// <summary>
         /// Constructor to create a new GDD_Button object.
@@ -31,6 +31,15 @@ namespace GDD_Library.Controls
             //Default BorderWidth is 2f.
             this.BorderWidth = 2f;
            
+        }
+
+        /// <summary>
+        /// This method will create a clone and return it.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return (GDD_Button)this.MemberwiseClone();
         }
 
         /// <summary>

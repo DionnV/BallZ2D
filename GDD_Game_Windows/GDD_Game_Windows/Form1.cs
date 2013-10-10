@@ -43,9 +43,6 @@ namespace GDD_Game_Windows
         /// </summary>
         private delegate void ResetDelegate();
 
-        private bool done = false;
-        int levelno = 1;
-
         /// <summary>
         /// Resetting the level to it's org
         /// </summary>

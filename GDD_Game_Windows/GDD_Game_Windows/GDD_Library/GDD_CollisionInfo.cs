@@ -105,12 +105,7 @@ namespace GDD_Library
         /// <param name="circle2">The polygon.</param>
         /// <returns>A GDD_CollisionInfo object containing all collision data.</returns>
         public static GDD_CollisionInfo get(GDD_Circle circle, GDD_Polygon polygon)
-        {
-
-            if (polygon is GDD_Spikes)
-            {
-                //GAME OVER
-            }
+        {            
            
             //A list of collisions
             List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
@@ -127,6 +122,12 @@ namespace GDD_Library
                 //Adding a collision!
                 if (Collision != null)
                 {
+                    if (polygon is GDD_Spikes)
+                    {
+                        //Set circle gravityType to static so it wont move anymore.
+                        circle.Owner.GravityType = GDD_GravityType.Static;
+                        circle.Owner.FrontColor = System.Drawing.Color.Red;
+                    }
                     Collisions.Add(Collision);
                 }
             }

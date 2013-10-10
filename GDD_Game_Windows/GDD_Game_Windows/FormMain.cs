@@ -102,15 +102,17 @@ namespace GDD_Game_Windows
             //Hide this form.
             this.Hide();
             
-            if (this.playzone == null)
+            if (this.playzone != null)
             {
-                //Create a new one if the current one is null
-                this.playzone = new LevelDesigner();
-
-                //Add the FormClosed Event
-                this.playzone.FormClosed += playzone_FormClosed;
-                
+                this.playzone.Dispose();
+                this.playzone = null;          
             }
+
+            //Create a new one if the current one is null
+            this.playzone = new LevelDesigner();
+
+            //Add the FormClosed Event
+            this.playzone.FormClosed += playzone_FormClosed;
 
             //We have designer rights.
             this.playzone.isDesigner = true;
@@ -264,7 +266,7 @@ namespace GDD_Game_Windows
             int y = 20;
 
             //Add tiles to the panel
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 7; i++)
             {
                 //Add a new row after 3 tiles
                 if ((i % col) == 0)
@@ -341,12 +343,13 @@ namespace GDD_Game_Windows
 
             //This works fine though.
             level.Objects = newlist;
-
+            
             //Load the level
             this.playzone.LoadLevel(level);
 
             //Show the playzone
             playzone.Show();
+
             //LoadPlayingScreen();
             //GDD_View1.graphicsTimer.Start();
             //DrawingEnabled = true;
@@ -439,6 +442,16 @@ namespace GDD_Game_Windows
 
             //Show the main form.
             this.Show();          
+        }
+
+        private void Button_Exit_Click(object sender, System.EventArgs e)
+        {
+            //Dispose and set to null.
+            this.playzone.Dispose();
+            this.playzone = null;
+
+            //Show the main form.
+            this.Show();
         }  
 
         /// <summary>

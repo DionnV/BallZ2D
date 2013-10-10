@@ -53,6 +53,9 @@ namespace GDD_Library.Obstacles
             this.PolygonPoints[8] = new GDD_Point2F(30f, 0f);
             this.PolygonPoints[9] = new GDD_Point2F(40f, -30f);
             this.PolygonPoints[10] = new GDD_Point2F(50f, 0f);
+
+            // Use the AddValue method to specify serialized values.
+            Size = (float)info.GetValue("Size", typeof(float));
         }
     }
 }

@@ -580,6 +580,11 @@ namespace GDD_Game_Windows
             PositionComponents();
         }
 
+        private void Button_Exit_Click(object sender, System.EventArgs e)
+        {
+            //Add exit here
+        }
+
         private void PositionComponents()
         {
             //We need to position all the buttons; 
@@ -681,7 +686,7 @@ namespace GDD_Game_Windows
             bucketCollisionCounter++;
 
             //Have we finished?
-            if (bucketCollisionCounter >= 10)
+            if (bucketCollisionCounter >= 20)
             {
                 bucketCollisionCounter = 0;
                 //We have to go to the next level now...
@@ -709,7 +714,9 @@ namespace GDD_Game_Windows
 
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Static;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Bucket].OnCollision += Bucket_OnCollision;
+                this.GDD_View_LevelDesigner1.graphicsTimer.Start();
             }
+
         }
 
         public void LoadLevel(GDD_Level level)
