@@ -22,20 +22,8 @@ namespace GDD_Game_Windows
         private Panel CurrentPanel;
         private bool SoundOn = false;
 
-/*        private List<GDD_Object> Lines = new List<GDD_Object>();
+        private LevelDesigner playzone;
 
-        //Defining the circle
-        private GDD_Object ball = new GDD_Object(new GDD_Circle());
-
-        //Defining the bucket
-        private GDD_Object bucket = new GDD_Object(new GDD_Bucket());
-
-        //Defining a previewed GDD_Line
-        private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
-
-        private GDD_Point2F Line_Start;
-        private GDD_Point2F Line_End;
-*/
         /// <summary>
         /// Contructor will initialize all components.
         /// </summary>
@@ -106,6 +94,7 @@ namespace GDD_Game_Windows
         {
             //Hide this form.
             this.Hide();
+            
             if (this.playzone == null)
             {
                 //Create a new one if the current one is null
@@ -117,7 +106,7 @@ namespace GDD_Game_Windows
             }
 
             //We have designer rights.
-            this.playzone.IsDesigner = true;
+            this.playzone.isDesigner = true;
 
             //Set location and show the form.
             this.playzone.Location = this.Location;
@@ -170,18 +159,6 @@ namespace GDD_Game_Windows
             Button_Back_CustomLevels.Text = "Choose a custom level.";
         }
 
-/*        private void LoadPlayingScreen()
-        {
-            CurrentPanel.SendToBack();
-            this.PanelPlaying.BringToFront();
-            CurrentPanel = PanelPlaying;
-            Button_Pencil.Text = "Pencil";
-            Button_Line.Text = "Line";
-            Button_StartGame.Text = "Start!";
-            Button_Eraser.Text = "Eraser";
-
-        }
-*/
        
         /// <summary>
         /// This will load the store menu.
@@ -312,24 +289,16 @@ namespace GDD_Game_Windows
             //Who pressed me?
             GDD_Button button = (GDD_Button)sender;
 
-            //Hide the FormMain.
-            this.Hide();
-
-            //Make a new playzone with no designer rights
-            if (this.playzone == null)
-            {
-                this.playzone = new LevelDesigner();
-                this.playzone.FormClosed += playzone_FormClosed;
-
-            }
-            this.playzone.IsDesigner = false;
-            this.playzone.Location = this.Location;          
+            LoadLevelDesigner();
+            playzone.isDesigner = false;
 
             //Load the level.          
             GDD_Level level = GDD_IO.LoadFromZipFile("./Competitive/Chapter1/" + button.Name + ".zip");
 
             //Put the levels in a new list, because serializing gives errors with the Owners.
             List<GDD_Object> newlist = new List<GDD_Object>();
+            
+            
             foreach (GDD_Object obj in level.Objects)
             {
                 GDD_Object temp = new GDD_Object(obj.Shape);
@@ -349,7 +318,7 @@ namespace GDD_Game_Windows
             this.playzone.LoadLevel(level);
 
             //Show the playzone
-            this.playzone.Show();
+            playzone.Show();
             //LoadPlayingScreen();
             //GDD_View1.graphicsTimer.Start();
             //DrawingEnabled = true;
@@ -636,6 +605,6 @@ namespace GDD_Game_Windows
         {
             //Updating all buttons to the right location
             
-        }       
+        }   
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.playzone = new LevelDesigner();
+            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
             this.Button_Back_Main = new GDD_Library.Controls.GDD_Button();
             this.Button_Settings = new GDD_Library.Controls.GDD_Button();
             this.Button_Store = new GDD_Library.Controls.GDD_Button();
@@ -76,10 +76,6 @@
             this.Button_Back_Main.Note = "";
             this.Button_Back_Main.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_Main.TabIndex = 5;
-            //
-            // playzone
-            //
-            this.playzone.FormClosed += playzone_FormClosed;
             // 
             // Button_Settings
             // 
@@ -94,6 +90,7 @@
             this.Button_Settings.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Settings.TabIndex = 4;
+            this.Button_Settings.Click += new System.EventHandler(this.Button_Settings_Click);
             // 
             // Button_Store
             // 
@@ -122,6 +119,7 @@
             this.Button_LevelDesign.Padding = new System.Windows.Forms.Padding(3);
             this.Button_LevelDesign.Size = new System.Drawing.Size(350, 50);
             this.Button_LevelDesign.TabIndex = 2;
+            this.Button_LevelDesign.Click += new System.EventHandler(this.Button_LevelDesign_Click);
             // 
             // Button_PlayNow
             // 
@@ -136,6 +134,7 @@
             this.Button_PlayNow.Padding = new System.Windows.Forms.Padding(3);
             this.Button_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_PlayNow.TabIndex = 1;
+            this.Button_PlayNow.Click += new System.EventHandler(this.Button_PlayNow_Click);
             // 
             // Button_Back_PlayNow
             // 
@@ -234,6 +233,7 @@
             this.Button_Competitive.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Competitive.Size = new System.Drawing.Size(350, 50);
             this.Button_Competitive.TabIndex = 4;
+            this.Button_Competitive.Click += new System.EventHandler(this.Button_Competitive_Click);
             // 
             // Button_Custom
             // 
@@ -248,6 +248,7 @@
             this.Button_Custom.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Custom.Size = new System.Drawing.Size(350, 50);
             this.Button_Custom.TabIndex = 4;
+            this.Button_Custom.Click += new System.EventHandler(this.Button_Custom_Click);
             // 
             // Button_Chapter1
             // 
@@ -262,7 +263,7 @@
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
             this.Button_Chapter1.TabIndex = 4;
-            this.Button_Chapter1.Click += Button_Chapter1_Click;
+            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter1_Click);
             // 
             // GDD_View1
             // 
@@ -371,12 +372,12 @@
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
         private GDD_Library.GDD_View GDD_View1;
-        private LevelDesigner playzone;
         private GDD_Library.Controls.GDD_Button Button_PlayNow;
         private GDD_Library.Controls.GDD_Button Button_LevelDesign;
         private GDD_Library.Controls.GDD_Button Button_Store;
