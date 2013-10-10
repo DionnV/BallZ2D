@@ -7,9 +7,22 @@ using GDD_Library.Shapes;
 
 namespace GDD_Library
 {
+    /// <summary>
+    /// This class hold the intelligence to create a shape.
+    /// </summary>
     public abstract class GDD_Shape : ICloneable
     {
+        /// <summary>
+        /// Any object derived from this class should contain a Draw().
+        /// </summary>
+        /// <param name="G"></param>
         public abstract void Draw(Graphics G);
+
+        /// <summary>
+        /// Any object derived from this class should contain a ContainsPoint().
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public abstract bool ContainsPoint(GDD_Point2F p);
 
         /// <summary>
@@ -60,14 +73,7 @@ namespace GDD_Library
                 
                 }
             }
-
-
             return null;
-
-        }
-
-
-
-       
+        }      
     }
 }

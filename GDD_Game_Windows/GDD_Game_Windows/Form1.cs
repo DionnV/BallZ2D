@@ -10,6 +10,7 @@ using GDD_Library;
 using GDD_Library.Shapes;
 using GDD_Library.LevelDesign;
 using System.Diagnostics;
+using GDD_Library.Obstacles;
 
 
 namespace GDD_Game_Windows
@@ -266,14 +267,14 @@ namespace GDD_Game_Windows
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
-            GDD_Object bucket1 = new GDD_Object(new GDD_Bucket());
-            bucket1.Location = new GDD_Point2F(400f, 400f);
-            bucket1.Shape.Size = 110f;
-            bucket1.Mass = 100f;
-            bucket1.Rotation = new GDD_Vector2F(0f, 0f);
-            bucket1.Velocity = new GDD_Point2F(0f, 0f);
-            bucket1.GravityType = GDD_GravityType.Static;
-            bucket1.OnCollision += new EventHandler(bucket1_OnCollision);
+            GDD_Object grav = new GDD_Object(new GDD_Spikes());
+            grav.Location = new GDD_Point2F(400f, 400f);
+            grav.Shape.Size = 110f;
+            grav.Mass = 100f;
+            grav.Rotation = new GDD_Vector2F(0f, 0f);
+            grav.Velocity = new GDD_Point2F(0f, 0f);
+            grav.GravityType = GDD_GravityType.Static;
+            //grav.OnCollision += new EventHandler(grav_OnCollision);
 
             //Placing a few boxes
             for (int i = 0; i < 4; i++)
@@ -309,7 +310,7 @@ namespace GDD_Game_Windows
 
             //Adding a no-draw zone
 
-            GDD_Zone zone = new GDD_Zone();
+            /*GDD_Zone zone = new GDD_Zone();
             GDD_Object obj = new GDD_Object(zone);
            
             zone.PolygonPoints = new GDD_Point2F[4];
@@ -323,10 +324,10 @@ namespace GDD_Game_Windows
             obj.Rotation = new GDD_Vector2F(0f, 0f);
             GDD_View1.Scene.Zones.Add(obj);
 
-
+            */
             //Adding the circles
             GDD_View1.Scene.Objects.Add(circle1);
-            GDD_View1.Scene.Objects.Add(bucket1);
+            GDD_View1.Scene.Objects.Add(grav);
         }
 
         Stopwatch bucketCollisionTimer = new Stopwatch();

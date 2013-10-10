@@ -86,7 +86,7 @@ namespace GDD_Library
         private void Repaint()
         {
             //We can only continue if we have a scene
-            if (this.Scene == null)
+            if (this.Scene == null ||this.Width == 0)
             {
                 return;
             }
@@ -267,14 +267,20 @@ namespace GDD_Library
             {
 
                 //Creating own graphics
-                Graphics g2 = this.CreateGraphics();
+                try
+                {
+                    Graphics g2 = this.CreateGraphics();
+                    //Drawing the bitmap onto us
+                    g2.DrawImage(b, new Point(0, 0));
 
-                //Drawing the bitmap onto us
-                g2.DrawImage(b, new Point(0, 0));
-
-                g.Dispose();
-                g2.Dispose();
-                b.Dispose();
+                    g.Dispose();
+                    g2.Dispose();
+                    b.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    //Just go on
+                }                
             }
 
         }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.playzone = new LevelDesigner();
             this.Button_Back_Main = new GDD_Library.Controls.GDD_Button();
             this.Button_Settings = new GDD_Library.Controls.GDD_Button();
             this.Button_Store = new GDD_Library.Controls.GDD_Button();
@@ -74,6 +75,10 @@
             this.Button_Back_Main.Note = "";
             this.Button_Back_Main.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_Main.TabIndex = 5;
+            //
+            // playzone
+            //
+            this.playzone.FormClosed += playzone_FormClosed;
             // 
             // Button_Settings
             // 
@@ -263,7 +268,7 @@
             this.Button_Pencil.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Pencil.Size = new System.Drawing.Size(75, 50);
             this.Button_Pencil.TabIndex = 4;
-            this.Button_Pencil.Click += Button_Pencil_Click;
+            //this.Button_Pencil.Click += Button_Pencil_Click;
             //
             // Button_Line
             //
@@ -277,7 +282,7 @@
             this.Button_Line.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Line.Size = new System.Drawing.Size(75, 50);
             this.Button_Line.TabIndex = 4;
-            this.Button_Line.Click += Button_Line_Click;
+            //this.Button_Line.Click += Button_Line_Click;
             //
             // Button_Start
             //
@@ -291,7 +296,7 @@
             this.Button_StartGame.Padding = new System.Windows.Forms.Padding(3);
             this.Button_StartGame.Size = new System.Drawing.Size(75, 50);
             this.Button_StartGame.TabIndex = 4;
-            this.Button_StartGame.Click += Button_StartGame_Click;
+            //this.Button_StartGame.Click += Button_StartGame_Click;
             //
             //Button_Eraser
             //
@@ -305,7 +310,7 @@
             this.Button_Eraser.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Eraser.Size = new System.Drawing.Size(75, 50);
             this.Button_Eraser.TabIndex = 4;
-            this.Button_Eraser.Click += Button_Eraser_Click;
+            //this.Button_Eraser.Click += Button_Eraser_Click;
             // 
             // GDD_View1
             // 
@@ -316,9 +321,9 @@
             this.GDD_View1.Size = new System.Drawing.Size(734, 418);
             this.GDD_View1.TabIndex = 0;
             this.GDD_View1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.GDD_View1.MouseDown += GDD_View1_MouseDown;
+/*            this.GDD_View1.MouseDown += GDD_View1_MouseDown;
             this.GDD_View1.MouseMove += GDD_View1_MouseMove;
-            this.GDD_View1.MouseUp += GDD_View1_MouseUp;
+            this.GDD_View1.MouseUp += GDD_View1_MouseUp;*/
             // 
             // PanelMain
             // 
@@ -414,11 +419,12 @@
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
-        }      
-        
+        }
+                   
         #endregion
 
         private GDD_Library.GDD_View GDD_View1;
+        private LevelDesigner playzone;
         private GDD_Library.Controls.GDD_Button Button_PlayNow;
         private GDD_Library.Controls.GDD_Button Button_LevelDesign;
         private GDD_Library.Controls.GDD_Button Button_Store;

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace GDD_Library.LevelDesign
 {
+    /// <summary>
+    /// This class will create a GDD_HeaderInfo object, which holds info used for creating levels.
+    /// </summary>
     public class GDD_HeaderInfo
     {
         /// <summary>
@@ -12,9 +15,13 @@ namespace GDD_Library.LevelDesign
         /// </summary>
         public GDD_HeaderInfo()
         {
+            //Default index of the ball in the list of objects.
             Index_Ball = 0;
+
+            //Default index of the bucket in the list of objects.
             Index_Bucket = 1;
         }
+
         /// <summary>
         /// The version number of the game.
         /// </summary>

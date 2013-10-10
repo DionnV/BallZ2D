@@ -7,6 +7,9 @@ using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
+    /// <summary>
+    /// This class hold the intelligence to create a circle.
+    /// </summary>
     [Serializable]
     public class GDD_Circle : GDD_Shape, ISerializable
     {
@@ -32,6 +35,11 @@ namespace GDD_Library.Shapes
             //G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, Owner.Location.x + end.x, Owner.Location.y + end.y);
         }
 
+        /// <summary>
+        /// This method will run a check if a given point is in the circle.
+        /// </summary>
+        /// <param name="p">The point to check.</param>
+        /// <returns>Whether the point is in the circle.</returns>
         public override bool ContainsPoint(GDD_Point2F p)
         {
             if ((p.x >= Owner.Location.x - (Size / 2f)) &&
@@ -53,11 +61,16 @@ namespace GDD_Library.Shapes
         }
 
         /// <summary>
-        /// The bounce rate, 0.8 default
+        /// The bounce rate, 0.6 by default
         /// </summary>
         public float RestitutionRate { get { return this._RestitutionRate; } set { _RestitutionRate = value;  } }
         private float _RestitutionRate = 0.6f;
 
+        /// <summary>
+        /// This method will be called by a serialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
@@ -65,6 +78,11 @@ namespace GDD_Library.Shapes
             info.AddValue("RestitutionRate", _RestitutionRate, typeof(float));
         }
 
+        /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public GDD_Circle(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
@@ -72,6 +90,9 @@ namespace GDD_Library.Shapes
             _RestitutionRate = (float)info.GetValue("RestitutionRate", typeof(float));
         }
 
+        /// <summary>
+        /// An empty constructor.
+        /// </summary>
         public GDD_Circle() { }
     }
 }

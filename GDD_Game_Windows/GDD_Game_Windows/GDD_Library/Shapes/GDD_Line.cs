@@ -7,6 +7,9 @@ using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
+    /// <summary>
+    /// This class hold the intelligence to create a line.
+    /// </summary>
     [Serializable]
     public class GDD_Line : GDD_Shape, ISerializable
     {
@@ -28,12 +31,22 @@ namespace GDD_Library.Shapes
             }
         }
 
+        /// <summary>
+        /// Drawing the line on the graphics.
+        /// </summary>
+        /// <param name="G"></param>
         public override void Draw(Graphics G)
         {
             //Drawing a line given two points
             G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, end.x, end.y);
         }
 
+        /// <summary>
+        /// Creates a new line, given a start- and endpoint
+        /// </summary>
+        /// <param name="Start">The start of the line.</param>
+        /// <param name="End">The end of the line.</param>
+        /// <returns>A GDD_Line object with the given start- and endpoints.</returns>
         public static GDD_Object Create(GDD_Point2F Start, GDD_Point2F End)
         {
             //Calculating a vector
@@ -48,30 +61,55 @@ namespace GDD_Library.Shapes
             obj.Rotation = new GDD_Vector2F(vector.Direction + 180f, 0f);
             obj.Shape.Size = vector.Size;
 
+            //Returning the object.
             return obj;
         }
 
+        /// <summary>
+        /// This method will be called by a serialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
             info.AddValue("Size", Size, typeof(float));
         }
 
+        /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public GDD_Line(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
             Size = (float) info.GetValue("Size", typeof(float));
         }
 
+        /// <summary>
+        /// An empty constructor.
+        /// </summary>
         public GDD_Line()
         {
         }
 
+        /// <summary>
+        /// This method is derived from GDD_Shape. We will never use this method, therefore
+        /// it will always return false.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns>False. Always.</returns>
         public override bool ContainsPoint(GDD_Point2F p)
         {
             return false;
         }
 
+        /// <summary>
+        /// This method will return a function of the line, given in y = ax + b, given
+        /// in a GDD_Point, holding a and b.
+        /// </summary>
+        /// <returns>A GDD_Point object holding a and b in y = ax + b</returns>
         public GDD_Point2F toFunction()
         {
             //Rotation

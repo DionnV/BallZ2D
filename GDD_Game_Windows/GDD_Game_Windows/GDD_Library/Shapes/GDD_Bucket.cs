@@ -7,16 +7,17 @@ using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
+    /// <summary>
+    /// This class hold the intelligence to create a bucket.
+    /// </summary>
     [Serializable]
     public class GDD_Bucket : GDD_Polygon, ISerializable
     {
-/*
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            // Use the AddValue method to specify serialized values.
-            info.AddValue("Size", Size, typeof(float));
-        }
-*/
+        /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public GDD_Bucket(SerializationInfo info, StreamingContext context)
         {
             //Initializing the 8 points for the bucket
@@ -34,6 +35,9 @@ namespace GDD_Library.Shapes
             Size = (float) info.GetValue("Size", typeof(float));
         }
 
+        /// <summary>
+        /// Constructor to create a GDD_Bucket.
+        /// </summary>
         public GDD_Bucket() 
         {
             //Initializing the 8 points for the bucket

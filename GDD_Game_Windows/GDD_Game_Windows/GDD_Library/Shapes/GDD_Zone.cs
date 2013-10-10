@@ -27,6 +27,32 @@ namespace GDD_Library.Shapes
         public float EdgeSize { get; set; }
 
         /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public GDD_Zone(SerializationInfo info, StreamingContext context)
+        {
+            //Initializing the 4 points for 
+            this.PolygonPoints = new GDD_Point2F[4];
+            this.PolygonPoints[0] = new GDD_Point2F(-50f, -50f);
+            this.PolygonPoints[1] = new GDD_Point2F(50f, -50f);
+            this.PolygonPoints[2] = new GDD_Point2F(50f, 50f);
+            this.PolygonPoints[3] = new GDD_Point2F(-50f, 50f);
+
+            //The edgeshape
+            EdgeShape = new GDD_Polygon();
+            EdgeShape.PolygonPoints = new GDD_Point2F[4];
+            EdgeShape.PolygonPoints[0] = new GDD_Point2F(0f, 0f);
+            EdgeShape.PolygonPoints[1] = new GDD_Point2F(100f, 100f);
+            EdgeShape.PolygonPoints[2] = new GDD_Point2F(200f, 100f);
+            EdgeShape.PolygonPoints[3] = new GDD_Point2F(100f, 0f);
+
+            //The Edgesize is normally 5
+            EdgeSize = 5;
+        }
+
+        /// <summary>
         /// Creates a new instance of zone
         /// </summary>
         public GDD_Zone()
@@ -112,9 +138,14 @@ namespace GDD_Library.Shapes
                 //Draws the shape using the poligon data
                 G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
             }
+
+            G.Dispose();
         }
     }
 
+    /// <summary>
+    /// These enums will define what kind of zone we are using.
+    /// </summary>
     public enum GDD_ZoneType
     {
         NoDraw,

@@ -7,6 +7,9 @@ using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
+    /// <summary>
+    /// This class hold the intelligence to create a line.
+    /// </summary>
     [Serializable]
     public class GDD_Polygon : GDD_Shape, ISerializable
     {
@@ -19,6 +22,11 @@ namespace GDD_Library.Shapes
             this.PolygonPoints = new GDD_Point2F[0];
         }
 
+        /// <summary>
+        /// This method will be called by a serialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
@@ -26,6 +34,11 @@ namespace GDD_Library.Shapes
             info.AddValue("PolygonPoints", PolygonPoints, typeof(GDD_Point2F[]));
         }
 
+        /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public GDD_Polygon(SerializationInfo info, StreamingContext context)
         {
             // Use the AddValue method to specify serialized values.
@@ -124,10 +137,10 @@ namespace GDD_Library.Shapes
         }
 
         /// <summary>
-        /// Checks wether this shape contains a cirtain point
+        /// Checks wether this shape contains a certain point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point to be checked.</param>
+        /// <returns>Whether the point is in the polygon.</returns>
         public override Boolean ContainsPoint(GDD_Point2F point)
         {
             //Getting the translated points
@@ -174,9 +187,9 @@ namespace GDD_Library.Shapes
         }
 
         /// <summary>
-        /// Converts the polygon to a set of faces / lines
+        /// Converts the polygon to a set of faces / lines.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A GDD_Object[] of faces/lines.</returns>
         public GDD_Object[] TranslatePolygon_ToLines()
         {
             //Getting all the translated points
@@ -210,6 +223,5 @@ namespace GDD_Library.Shapes
             G.FillPolygon(DrawingColor, poly);
             G.DrawPolygon(Owner.FrontPen, poly);
         }
-
     }
 }

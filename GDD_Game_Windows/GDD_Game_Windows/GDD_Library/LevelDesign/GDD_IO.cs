@@ -150,7 +150,7 @@ namespace GDD_Library.LevelDesign
             MemoryStream MS = new MemoryStream();
             BinaryWriter Writer = new BinaryWriter(MS);
 
-            //Writing Verison Number
+            //Writing the info
             Writer.Write(info.VersionNumber);
             Writer.Write(info.LevelVersionNumber);
             Writer.Write(info.Level_Width);
@@ -213,7 +213,7 @@ namespace GDD_Library.LevelDesign
         /// </summary>
         /// <param name="zipfile">The used .zip-file</param>
         /// <returns>A GDD_Level object.</returns>
-        public static GDD_Level CreateFromZipFile(string zipfile)
+        public static GDD_Level LoadFromZipFile(string zipfile)
         {
             //Run a check if the file exists.
             if (!File.Exists(zipfile))
@@ -258,20 +258,13 @@ namespace GDD_Library.LevelDesign
             //using the CreateFromFolder()-method.
             if (Directory.Exists(lev_path))
             {
-                return CreateFromFolder(lev_path);
+                return LoadFromFolder(lev_path);
             }
 
             //Create the directory.
             Directory.CreateDirectory(lev_path);         
 
-            //Start moving files to the levelfolder
-            if (FileExists(progpath + "/background.jpeg"))
-            {               
-                FileMove(progpath + "/background.jpeg", lev_path);
-
-                //Set the background.
-                lev.Background = lev_path + "/background.jpeg";
-            }
+            //Moving the files to their own level path.
             FileMove(objectfile, lev_path + "/Objects.bin");
             FileMove(datafile, lev_path + "/LevelData.bin");
 
@@ -286,7 +279,7 @@ namespace GDD_Library.LevelDesign
         /// </summary>
         /// <param name="folder">The folder.</param>
         /// <returns>A GDD_Level object.</returns>
-        public static GDD_Level CreateFromFolder(string folder)
+        public static GDD_Level LoadFromFolder(string folder)
         {
             //Run a check whether the folder exists
             if (!Directory.Exists(folder))
@@ -302,13 +295,6 @@ namespace GDD_Library.LevelDesign
 
             //Read the binary file.
             lev.info = GDD_IO.ReadFromFile(folder + "/LevelData.bin");
-
-            //Run a check if the background exists.
-            if (FileExists(folder + "/background.jpeg"))
-            {
-                //Set the background.
-                lev.Background = folder + "/background.jpeg";
-            }
 
             //Return the result.
             return lev;
@@ -326,15 +312,18 @@ namespace GDD_Library.LevelDesign
             if(Directory.Exists("./Competitive/Chapter" + chapter + "/level" + level))
             {
                 //Return the level.
-                return CreateFromFolder("./Competitive/Chapter" + chapter + "/level" + level);
+                return LoadFromFolder("./Competitive/Chapter" + chapter + "/level" + level);
             }
 
             //Return the level.
-            return CreateFromZipFile("./Competitive/Chapter" + chapter + "/level" + level + ".zip");
+            return LoadFromZipFile("./Competitive/Chapter" + chapter + "/level" + level + ".zip");
         }
     }
 }
 
+/// <summary>
+/// This class will hold a self-made exception, which will be throwed when a folder can't be found.
+/// </summary>
 public class IncorrectFolderException : Exception
 {
     public IncorrectFolderException() : base() { }
@@ -347,6 +336,9 @@ public class IncorrectFolderException : Exception
     }
 }
 
+/// <summary>
+/// This class will hold a self-made exception, which will be throwed when a file can't be found.
+/// </summary>
 public class IncorrectFileException : Exception
 {
     public IncorrectFileException() : base() { }

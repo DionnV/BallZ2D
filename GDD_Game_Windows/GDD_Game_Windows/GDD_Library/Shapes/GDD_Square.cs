@@ -7,15 +7,17 @@ using System.Runtime.Serialization;
 
 namespace GDD_Library.Shapes
 {
+    /// <summary>
+    /// This class hold the intelligence to create a square.
+    /// </summary>
     [Serializable]
     public class GDD_Square : GDD_Polygon, ISerializable
     {
-/*        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            // Use the AddValue method to specify serialized values.
-            info.AddValue("Size", Size, typeof(float));
-        }
-*/
+        /// <summary>
+        /// Constructor which is called by a deserialize-method.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public GDD_Square(SerializationInfo info, StreamingContext context)
         {
             //Initializing the 4 points for 
@@ -25,10 +27,12 @@ namespace GDD_Library.Shapes
             this.PolygonPoints[2] = new GDD_Point2F(50f, 50f);
             this.PolygonPoints[3] = new GDD_Point2F(-50f, 50f);
 
-            // Use the AddValue method to specify serialized values.
             Size = (float) info.GetValue("Size", typeof(float));
         }
 
+        /// <summary>
+        /// Constructor to create a GDD_Square object.
+        /// </summary>
         public GDD_Square() 
         {
             //Initializing the 4 points for 
@@ -37,8 +41,6 @@ namespace GDD_Library.Shapes
             this.PolygonPoints[1] = new GDD_Point2F(50f, -50f);
             this.PolygonPoints[2] = new GDD_Point2F(50f, 50f);
             this.PolygonPoints[3] = new GDD_Point2F(-50f, 50f);
-
         }
-
     }
 }

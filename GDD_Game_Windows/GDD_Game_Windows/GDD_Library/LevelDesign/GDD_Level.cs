@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace GDD_Library.LevelDesign
 {
+    /// <summary>
+    /// This class will hold all the necessary items which are used to create a level.
+    /// </summary>
     public class GDD_Level
     {
         /// <summary>
@@ -19,16 +22,10 @@ namespace GDD_Library.LevelDesign
         public GDD_HeaderInfo info;
 
         /// <summary>
-        /// The path to the background used for the level.
-        /// </summary>
-        public string Background { get; set; }
-
-        /// <summary>
         /// The path to the progressing map. This should be left unchanged.
         /// </summary>
         private string progpath = "./Progress";
-       
-        
+            
         /// <summary>
         /// Creates a .zip-file containing all the necessary files used for level design.
         /// </summary>
@@ -39,13 +36,6 @@ namespace GDD_Library.LevelDesign
 
             //Write the GDD_HeaderInfo to a binary file called LevelData.bin
             GDD_IO.WriteToFile(progpath + "/LevelData.bin", this.info);
-
-            //Move the background picture to the folder we will zip.
-            //Only if a background exists.
-            if(GDD_IO.FileExists(this.Background))
-            {
-                GDD_IO.FileMove(this.Background, progpath);
-            }
 
             //All the needed data is in the right folder now, let's zip it for distribution
             GDD_IO.Compress(progpath, "./Saved levels/Custom/" + info.LevelName + ".zip");

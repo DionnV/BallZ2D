@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,13 +14,15 @@ using GDD_Library.LevelDesign;
 
 namespace GDD_Game_Windows
 {
+    /// <summary>
+    /// This class holds the whole menu.
+    /// </summary>
     public partial class FormMain : Form
     {
         private Panel CurrentPanel;
         private bool SoundOn = false;
 
-        private List<GDD_Object> Lines = new List<GDD_Object>();
-        private bool DrawingEnabled = false;
+/*        private List<GDD_Object> Lines = new List<GDD_Object>();
 
         //Defining the circle
         private GDD_Object ball = new GDD_Object(new GDD_Circle());
@@ -31,15 +33,12 @@ namespace GDD_Game_Windows
         //Defining a previewed GDD_Line
         private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
 
-        //Defining the eraser as a GDD_Square
-        private GDD_Object Eraser = new GDD_Object(new GDD_Square());
-
         private GDD_Point2F Line_Start;
         private GDD_Point2F Line_End;
-
-        //Defining an eraser cursor
-        //Cursor eraser = new Cursor("./eraser.bmp");
-
+*/
+        /// <summary>
+        /// Contructor will initialize all components.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -49,15 +48,13 @@ namespace GDD_Game_Windows
             this.PanelMain.SendToBack();
             this.PanelPlayNow.SendToBack();
             this.PanelSettings.SendToBack();
-
-            //Initialize the eraser
-            Eraser.Shape.Size = 10f;
-            Eraser.Mass = 0; ;
-            Eraser.Rotation = new GDD_Vector2F(0,0);
-            Eraser.Velocity = new GDD_Point2F(0,0);
-            Eraser.GravityType = GDD_GravityType.Static;
         }
 
+        /// <summary>
+        /// This will load the FormMain and start the graphics.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
             //Setting the proper size
@@ -71,6 +68,9 @@ namespace GDD_Game_Windows
             this.GDD_View1.graphicsTimer.Start();
         }
 
+        /// <summary>
+        /// This will load the main menu screen.
+        /// </summary>
         private void LoadMainMenu()
         {
             if (CurrentPanel != null)
@@ -86,6 +86,9 @@ namespace GDD_Game_Windows
             Button_LevelDesign.Text = "Level Designer";
         }
 
+        /// <summary>
+        /// This will load the play menu screen.
+        /// </summary>
         private void LoadPlayMenu()
         {
             CurrentPanel.SendToBack();
@@ -96,15 +99,34 @@ namespace GDD_Game_Windows
             Button_Custom.Text = "Custom";
         }
 
+        /// <summary>
+        /// This will load the level designer.
+        /// </summary>
         private void LoadLevelDesigner()
         {
-            System.Threading.Thread levelthread = new System.Threading.Thread(new System.Threading.ThreadStart(OpenLevelDesigner));
-            levelthread.Start();
-            CurrentPanel.SendToBack();
-            this.PanelMain.BringToFront();
-            CurrentPanel = PanelMain;
+            //Hide this form.
+            this.Hide();
+            if (this.playzone == null)
+            {
+                //Create a new one if the current one is null
+                this.playzone = new LevelDesigner();
+
+                //Add the FormClosed Event
+                this.playzone.FormClosed += playzone_FormClosed;
+                
+            }
+
+            //We have designer rights.
+            this.playzone.IsDesigner = true;
+
+            //Set location and show the form.
+            this.playzone.Location = this.Location;
+            this.playzone.Show();
         }
 
+        /// <summary>
+        /// This will load the settings menu.
+        /// </summary>
         private void LoadSettings()
         {
             CurrentPanel.SendToBack();
@@ -114,6 +136,9 @@ namespace GDD_Game_Windows
             Button_Sound.Text = "Sound: off";
         }
 
+        /// <summary>
+        /// This will load the chapter select menu.
+        /// </summary>
         private void LoadChapterSelect()
         {
             CurrentPanel.SendToBack();
@@ -123,6 +148,9 @@ namespace GDD_Game_Windows
             Button_Chapter1.Text = "Chapter 1";
         }
 
+        /// <summary>
+        /// This will load the level select menu.
+        /// </summary>
         private void LoadLevelSelect()
         {
             CurrentPanel.SendToBack();
@@ -131,6 +159,9 @@ namespace GDD_Game_Windows
             Button_Back_LevelSelect.Text = "Choose a level.";
         }
 
+        /// <summary>
+        /// This will load the custom level menu.
+        /// </summary>
         private void LoadCustomLevels()
         {
             CurrentPanel.SendToBack();
@@ -139,7 +170,7 @@ namespace GDD_Game_Windows
             Button_Back_CustomLevels.Text = "Choose a custom level.";
         }
 
-        private void LoadPlayingScreen()
+/*        private void LoadPlayingScreen()
         {
             CurrentPanel.SendToBack();
             this.PanelPlaying.BringToFront();
@@ -150,43 +181,71 @@ namespace GDD_Game_Windows
             Button_Eraser.Text = "Eraser";
 
         }
-
+*/
+       
+        /// <summary>
+        /// This will load the store menu.
+        /// </summary>
         private void LoadStore()
         {
             //Not implemented yet
         }
 
+        /// <summary>
+        /// This will load the background.
+        /// </summary>
         private void LoadBGScene()
         {
+            //Load the default background.
             LoadDefaultBG();
         }
 
-        private void OpenLevelDesigner()
-        {
-            Application.Run(new LevelDesigner());
-        }
-
+        
+        /// <summary>
+        /// This will handle the clicking on the PlayNow button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_PlayNow_Click(object sender, System.EventArgs e)
         {
+            //Load the play menu.
             LoadPlayMenu();
         }
 
+        /// <summary>
+        /// This will handle the clicking on the LevelDesign button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_LevelDesign_Click(object sender, System.EventArgs e)
         {
+            //Load the level designer.
             LoadLevelDesigner();            
         }
 
+        /// <summary>
+        /// This will handle the clicking on the Settings button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Settings_Click(object sender, System.EventArgs e)
         {
+            //Load the settings menu.
             LoadSettings();
         }
 
+        /// <summary>
+        /// This will handle the clicking on the Sound button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Sound_Click(object sender, System.EventArgs e)
         {
+            //Sound is not implemented yet
             if (!SoundOn)
             {
                 Button_Sound.Text = "Sound: on";
-                SoundOn = true;
+                SoundOn = true;              
             }
             else
             {
@@ -195,22 +254,31 @@ namespace GDD_Game_Windows
 
         }
 
+        /// <summary>
+        /// This will handle the clicking on the Chapter1 button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Chapter1_Click(object sender, System.EventArgs e)
         {
-            
+            //We will make 3 columns
             int col = 3;
 
+            //Tile size
             int x = 50;
             int y = 20;
 
+            //Add tiles to the panel
             for (int i = 0; i < 10; i++)
             {
+                //Add a new row after 3 tiles
                 if ((i % col) == 0)
                 {
                     y += 85;
                     x = 50;
                 }
               
+                //Add the button
                 GDD_Button b = new GDD_Button();
                 b.Note = "";
                 b.Text = "" + (i+1);
@@ -226,28 +294,41 @@ namespace GDD_Game_Windows
                 b.Click += new EventHandler(Button_LoadLevel);
                 PanelLevelSelect.Controls.Add(b);
 
+                //Increase x for the next button
                 x += 113;
             }
+
+            //Load the levelselect.
             LoadLevelSelect();
         }
 
+        /// <summary>
+        /// This will load the selected level.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_LoadLevel(object sender, EventArgs e)
         {
             //Who pressed me?
             GDD_Button button = (GDD_Button)sender;
 
-            //Bring the current panel to the background.
-            CurrentPanel.SendToBack();
+            //Hide the FormMain.
+            this.Hide();
 
-            //Stop the background.
-            GDD_View1.Scene.Objects.Clear();
+            //Make a new playzone with no designer rights
+            if (this.playzone == null)
+            {
+                this.playzone = new LevelDesigner();
+                this.playzone.FormClosed += playzone_FormClosed;
 
-            //Stop the graphicstimer.
-            GDD_View1.graphicsTimer.Stop();
-
+            }
+            this.playzone.IsDesigner = false;
+            this.playzone.Location = this.Location;          
 
             //Load the level.          
-            GDD_Level level = GDD_IO.CreateFromZipFile("./Competitive/Chapter1/" + button.Name + ".zip");
+            GDD_Level level = GDD_IO.LoadFromZipFile("./Competitive/Chapter1/" + button.Name + ".zip");
+
+            //Put the levels in a new list, because serializing gives errors with the Owners.
             List<GDD_Object> newlist = new List<GDD_Object>();
             foreach (GDD_Object obj in level.Objects)
             {
@@ -260,35 +341,43 @@ namespace GDD_Game_Windows
                 temp.GravityType = obj.GravityType;
                 newlist.Add(temp);
             }
-            GDD_View1.Scene.Objects = newlist;
-            
-            foreach (GDD_Object obj in GDD_View1.Scene.Objects)
-            {
-                if (obj.Shape is GDD_Circle)
-                {
-                    ball = obj;
-                }
-                if (obj.Shape is GDD_Bucket)
-                {
-                    bucket = obj;
-                }
-            }
-            LoadPlayingScreen();
-            GDD_View1.graphicsTimer.Start();
-            DrawingEnabled = true;
+
+            //This works fine though.
+            level.Objects = newlist;
+
+            //Load the level
+            this.playzone.LoadLevel(level);
+
+            //Show the playzone
+            this.playzone.Show();
+            //LoadPlayingScreen();
+            //GDD_View1.graphicsTimer.Start();
+            //DrawingEnabled = true;
         }
 
+        /// <summary>
+        /// This will handle the clicking on the custom button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Custom_Click(object sender, System.EventArgs e)
         {
+            //Load the custom levels menu.
             LoadCustomLevels();
         }
 
+        /// <summary>
+        /// This will handle the clicking on the competitive button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Competitive_Click(object sender, System.EventArgs e)
         {
+            //Load the chapter select.
             LoadChapterSelect();
         }
 
-        void Button_Line_Click(object sender, System.EventArgs e)
+/*        void Button_Line_Click(object sender, System.EventArgs e)
         {
             Button_Pencil.IsSelected = false;
             Button_Eraser.IsSelected = false;
@@ -304,8 +393,8 @@ namespace GDD_Game_Windows
 
         void Button_StartGame_Click(object sender, System.EventArgs e)
         {
-            DrawingEnabled = false;
-            ball.GravityType = GDD_GravityType.Normal;
+            //DrawingEnabled = false;
+            //ball.GravityType = GDD_GravityType.Normal;
         }
 
         void Button_Eraser_Click(object sender, System.EventArgs e)
@@ -322,16 +411,10 @@ namespace GDD_Game_Windows
             {
                 Button_Eraser.IsSelected = true;
             }
-            Point p = Cursor.Position;
-            p = PointToClient(p);
-            Eraser.Location = new GDD_Point2F(p.X, p.Y);
-            Cursor.Hide();
-            GDD_View1.Scene.Objects.Add(Eraser);
         }
 
         void Button_Pencil_Click(object sender, System.EventArgs e)
         {
-
             Button_Line.IsSelected = false;
             Button_Eraser.IsSelected = false;
             if (Button_Pencil.IsSelected)
@@ -344,12 +427,32 @@ namespace GDD_Game_Windows
             }
         }
 
+ */
 
+        /// <summary>
+        /// This will handle the closing of the playzone form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void playzone_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            //Dispose and set to null.
+            this.playzone.Dispose();
+            this.playzone = null;
+
+            //Show the main form.
+            this.Show();          
+        }  
+
+        /// <summary>
+        /// This will load the default background.
+        /// </summary>
         private void LoadDefaultBG()
         {
             //For our convienence
             GDD_Scene Scene = this.GDD_View1.Scene;
 
+            //Add a circle
             GDD_Object obj = new GDD_Object(new GDD_Circle());
             obj.Shape.Size = 50f;
             obj.Location = new GDD_Point2F(600f, 10f);
@@ -360,6 +463,7 @@ namespace GDD_Game_Windows
             ((GDD_Circle)obj.Shape).RestitutionRate = 0.98f;
             Scene.Objects.Add(obj);
 
+            //Add 3 lines.
             obj = new GDD_Object(new GDD_Line());
             obj.Shape.Size = 460f;
             obj.Location = new GDD_Point2F(780f, 470f);
@@ -384,32 +488,23 @@ namespace GDD_Game_Windows
             obj.FrontColor = Color.Black;
             Scene.Objects.Add(obj);
 
+            //Add a bucket.
             obj = new GDD_Object(new GDD_Bucket());
             obj.Shape.Size = 100f;
             obj.Location = new GDD_Point2F(600f, 430f);
             obj.Rotation = new GDD_Vector2F(180f, 0);
             obj.GravityType = GDD_GravityType.Static;
             obj.FrontColor = Color.Black;
-           // Scene.Objects.Add(obj);           
-        }
 
+            //Or not
+            //Scene.Objects.Add(obj);           
+        }
+/*
         private void GDD_View1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (DrawingEnabled)
             {
-                /*if (Button_Eraser.IsSelected)
-                {
-                    foreach(GDD_Object line in Lines)
-                    {
-                        if (Eraser.Shape.Contains(line.Location))
-                        {
-                            Lines.Remove(line);
-                            GDD_View1.Scene.Objects.Remove(line);
-                            break;
-                        }
-                    }                  
-                }
-                else*/ if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
+                if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
                 {
                     {
                         //Recording the start of the Line
@@ -433,12 +528,6 @@ namespace GDD_Game_Windows
         {
             if (DrawingEnabled)
             {
-                if (Button_Eraser.IsSelected)
-                {
-                    Point p = Cursor.Position;
-                    p = PointToClient(p);
-                    Eraser.Location = new GDD_Point2F(p.X, p.Y);
-                }
                 //Only proceding if the mousebutton is down
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
@@ -454,7 +543,7 @@ namespace GDD_Game_Windows
                             }
                         }
                     }
-                    else*/
+                    else
                     {
                         //Making the right frontcolor depending on the current end of the line
                         Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
@@ -494,10 +583,7 @@ namespace GDD_Game_Windows
                     }
                 }
             }
-        }
-
-    
-        
+        }      
 
         private void GDD_View1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -543,6 +629,7 @@ namespace GDD_Game_Windows
                     }
                 }
             }
-        }        
+        }
+ */
     }
 }

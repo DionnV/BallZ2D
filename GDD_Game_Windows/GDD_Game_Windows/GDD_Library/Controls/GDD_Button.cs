@@ -10,13 +10,25 @@ using System.Windows.Forms;
 
 namespace GDD_Library.Controls
 {
+    ///<summary>
+    ///This class will create a self-made button. These buttons can contain notes in the left-upper corner. 
+    /// </summary>
     public partial class GDD_Button: UserControl
     {
+        /// <summary>
+        /// Constructor to create a new GDD_Button object.
+        /// </summary>
         public GDD_Button()
         {
             InitializeComponent();
+
+            //Default BackColor is White
             this.BackColor = Color.White;
+
+            //Default ForeColor is Black
             this.ForeColor = Color.Black;
+
+            //Default BorderWidth is 2f.
             this.BorderWidth = 2f;
            
         }
@@ -39,7 +51,7 @@ namespace GDD_Library.Controls
         /// <summary>
         /// The note to be written on the button
         /// </summary>
-         [Browsable(true)]
+        [Browsable(true)]
         public  String Note { 
              get { return _Note; } 
              set { _Note = value; } }
@@ -52,10 +64,11 @@ namespace GDD_Library.Controls
             get { return _IsSelected; } 
             set { _IsSelected = value; } }
         private bool _IsSelected;
+
         /// <summary>
-        /// We're going to paint this!
+        /// This method will paint the Button.
         /// </summary>
-        /// <param name="pevent"></param>
+        /// <param name="pevent">The PaintEventArgs.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             //Creating a bitmap
@@ -77,7 +90,6 @@ namespace GDD_Library.Controls
                     new RectangleF(0, 0, BackgroundImage.Width, BackgroundImage.Height),
                     GraphicsUnit.Pixel);
             }
-
 
             //Drawing the border
             if (BorderWidth > 0)
@@ -103,7 +115,7 @@ namespace GDD_Library.Controls
                 g.FillRectangle(new SolidBrush(this.BackColor), this.Width - (size.Width + 20), 0, size.Width + 19, size.Height + 10);
                 g.DrawRectangle(new Pen(ForeColor, 1f), this.Width - (size.Width + 20), 0, size.Width + 19, size.Height + 10);
 
-                //Drawing the 
+                //Drawing the note.
                 g.DrawString(this.Note, NoteFont, new SolidBrush(Color.Red), this.Width - (size.Width + 10), 5);
 
             }
@@ -114,10 +126,10 @@ namespace GDD_Library.Controls
             //Drawing the bitmap onto us
             g2.DrawImage(b, new Point(0, 0));
 
+            //Dispose the graphics.
             g.Dispose();
             g2.Dispose();
             b.Dispose();
-
         }
     }
 }

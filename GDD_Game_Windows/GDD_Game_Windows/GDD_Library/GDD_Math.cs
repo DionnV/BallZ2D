@@ -6,6 +6,9 @@ using GDD_Library.Shapes;
 
 namespace GDD_Library
 {
+    /// <summary>
+    /// This class will hold intelligence of our own-used math.
+    /// </summary>
     public static class GDD_Math
     {
         /// <summary>
@@ -68,15 +71,14 @@ namespace GDD_Library
         /// <summary>
         /// The Euclidian distance between two points
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
+        /// <param name="p1">The first point.</param>
+        /// <param name="p2">The second point.</param>
+        /// <returns>The Euclidian distance between the two points.</returns>
         public static double EuclidianDistance(GDD_Point2F p1, GDD_Point2F p2)
         {
             return Math.Sqrt(
                     Delta(p1.x, p2.x) * Delta(p1.x, p2.x) +
                     Delta(p1.y, p2.y) * Delta(p1.y, p2.y));
-
         }
 
         /// <summary>

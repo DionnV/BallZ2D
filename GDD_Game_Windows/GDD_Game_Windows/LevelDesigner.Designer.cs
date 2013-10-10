@@ -1,4 +1,6 @@
-﻿namespace GDD_Game_Windows
+﻿
+
+namespace GDD_Game_Windows
 {
     partial class LevelDesigner
     {
@@ -28,7 +30,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
             this.LevelName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CreatorName = new System.Windows.Forms.Label();
@@ -185,7 +186,7 @@
             this.Button_Browse.Note = null;
             this.Button_Browse.Size = new System.Drawing.Size(62, 20);
             this.Button_Browse.TabIndex = 14;
-            this.Button_Browse.Click += new System.EventHandler(this.Button_Browse_Click);
+            //this.Button_Browse.Click += new System.EventHandler(this.Button_Browse_Click);
             // 
             // Button_DeleteAll
             // 
