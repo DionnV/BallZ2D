@@ -45,7 +45,7 @@
             this.Button_Line = new GDD_Library.Controls.GDD_Button();
             this.Button_Pencil = new GDD_Library.Controls.GDD_Button();
             this.Button_StartGame = new GDD_Library.Controls.GDD_Button();
-            this.Button_Wiper = new GDD_Library.Controls.GDD_Button();
+            this.Button_Eraser = new GDD_Library.Controls.GDD_Button();
             this.GDD_View1 = new GDD_Library.GDD_View();
             this.PanelMain = new System.Windows.Forms.Panel();
             this.PanelPlayNow = new System.Windows.Forms.Panel();
@@ -293,19 +293,19 @@
             this.Button_StartGame.TabIndex = 4;
             this.Button_StartGame.Click += Button_StartGame_Click;
             //
-            //Button_Wiper
+            //Button_Eraser
             //
-            this.Button_Wiper.BackColor = System.Drawing.Color.White;
-            this.Button_Wiper.BorderWidth = 2F;
-            this.Button_Wiper.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button_Wiper.ForeColor = System.Drawing.Color.Black;
-            this.Button_Wiper.Location = new System.Drawing.Point(10, 180);
-            this.Button_Wiper.Name = "Button_Wiper";
-            this.Button_Wiper.Note = "";
-            this.Button_Wiper.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Wiper.Size = new System.Drawing.Size(75, 50);
-            this.Button_Wiper.TabIndex = 4;
-            this.Button_Wiper.Click += Button_Wiper_Click;
+            this.Button_Eraser.BackColor = System.Drawing.Color.White;
+            this.Button_Eraser.BorderWidth = 2F;
+            this.Button_Eraser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
+            this.Button_Eraser.Location = new System.Drawing.Point(10, 180);
+            this.Button_Eraser.Name = "Button_Eraser";
+            this.Button_Eraser.Note = "";
+            this.Button_Eraser.Padding = new System.Windows.Forms.Padding(3);
+            this.Button_Eraser.Size = new System.Drawing.Size(75, 50);
+            this.Button_Eraser.TabIndex = 4;
+            this.Button_Eraser.Click += Button_Eraser_Click;
             // 
             // GDD_View1
             // 
@@ -349,7 +349,7 @@
             this.PanelPlaying.BackColor = System.Drawing.Color.White;
             this.PanelPlaying.Controls.Add(this.Button_Pencil);
             this.PanelPlaying.Controls.Add(this.Button_Line);
-            this.PanelPlaying.Controls.Add(this.Button_Wiper);
+            this.PanelPlaying.Controls.Add(this.Button_Eraser);
             this.PanelPlaying.Controls.Add(this.Button_StartGame);
             this.PanelPlaying.Location = new System.Drawing.Point(600, 0);
             this.PanelPlaying.Name = "PanelPlaying";
@@ -436,7 +436,7 @@
         private GDD_Library.Controls.GDD_Button Button_Line;
         private GDD_Library.Controls.GDD_Button Button_Pencil;
         private GDD_Library.Controls.GDD_Button Button_StartGame;
-        private GDD_Library.Controls.GDD_Button Button_Wiper;
+        private GDD_Library.Controls.GDD_Button Button_Eraser;
         private System.Windows.Forms.Panel PanelMain;
         private System.Windows.Forms.Panel PanelPlayNow;
         private System.Windows.Forms.Panel PanelSettings;

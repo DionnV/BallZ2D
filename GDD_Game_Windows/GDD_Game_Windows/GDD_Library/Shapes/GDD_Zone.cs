@@ -112,6 +112,8 @@ namespace GDD_Library.Shapes
                 //Draws the shape using the poligon data
                 G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
             }
+
+            G.Dispose();
         }
     }
 

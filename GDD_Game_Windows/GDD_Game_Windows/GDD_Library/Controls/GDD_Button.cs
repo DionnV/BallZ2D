@@ -58,10 +58,6 @@ namespace GDD_Library.Controls
         /// <param name="pevent"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (_IsSelected)
-            {
-                this.BackColor = System.Drawing.Color.LightGray;
-            }
             //Creating a bitmap
             Bitmap b = new Bitmap(this.Width, this.Height);
 

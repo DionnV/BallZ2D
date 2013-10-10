@@ -4,7 +4,7 @@
 // Game Design Document (de “10-pager” met “Level Beat Chart” als PDF)
 // One-Pager (als PDF)
 • Website (ter promotie van de game, gehost op de HR server)
-• Persmap (met een persbericht en ander materiaal voor journalisten)
+// Persmap (met een persbericht en ander materiaal voor journalisten)
 • Demo video (60 seconden game play in AVI, MPG of MP4)1
 // Eindpresentatie (met al het gebruikte materiaal)
 // Ingevulde data.xml file met details over de game en het team voorzien van de nodige materialen 

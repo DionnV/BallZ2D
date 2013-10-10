@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,8 +31,14 @@ namespace GDD_Game_Windows
         //Defining a previewed GDD_Line
         private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
 
+        //Defining the eraser as a GDD_Square
+        private GDD_Object Eraser = new GDD_Object(new GDD_Square());
+
         private GDD_Point2F Line_Start;
         private GDD_Point2F Line_End;
+
+        //Defining an eraser cursor
+        //Cursor eraser = new Cursor("./eraser.bmp");
 
         public FormMain()
         {
@@ -43,6 +49,13 @@ namespace GDD_Game_Windows
             this.PanelMain.SendToBack();
             this.PanelPlayNow.SendToBack();
             this.PanelSettings.SendToBack();
+
+            //Initialize the eraser
+            Eraser.Shape.Size = 10f;
+            Eraser.Mass = 0; ;
+            Eraser.Rotation = new GDD_Vector2F(0,0);
+            Eraser.Velocity = new GDD_Point2F(0,0);
+            Eraser.GravityType = GDD_GravityType.Static;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -134,7 +147,7 @@ namespace GDD_Game_Windows
             Button_Pencil.Text = "Pencil";
             Button_Line.Text = "Line";
             Button_StartGame.Text = "Start!";
-            Button_Wiper.Text = "Wiper";
+            Button_Eraser.Text = "Eraser";
 
         }
 
@@ -278,6 +291,7 @@ namespace GDD_Game_Windows
         void Button_Line_Click(object sender, System.EventArgs e)
         {
             Button_Pencil.IsSelected = false;
+            Button_Eraser.IsSelected = false;
             if (Button_Line.IsSelected)
             {
                 Button_Line.IsSelected = false;
@@ -290,17 +304,36 @@ namespace GDD_Game_Windows
 
         void Button_StartGame_Click(object sender, System.EventArgs e)
         {
+            DrawingEnabled = false;
             ball.GravityType = GDD_GravityType.Normal;
         }
 
-        void Button_Wiper_Click(object sender, System.EventArgs e)
+        void Button_Eraser_Click(object sender, System.EventArgs e)
         {
-            //Not implemented yet
+            //this.Cursor = eraser;
+
+            Button_Line.IsSelected = false;
+            Button_Pencil.IsSelected = false;
+            if (Button_Eraser.IsSelected)
+            {
+                Button_Eraser.IsSelected = false;
+            }
+            else
+            {
+                Button_Eraser.IsSelected = true;
+            }
+            Point p = Cursor.Position;
+            p = PointToClient(p);
+            Eraser.Location = new GDD_Point2F(p.X, p.Y);
+            Cursor.Hide();
+            GDD_View1.Scene.Objects.Add(Eraser);
         }
 
         void Button_Pencil_Click(object sender, System.EventArgs e)
         {
+
             Button_Line.IsSelected = false;
+            Button_Eraser.IsSelected = false;
             if (Button_Pencil.IsSelected)
             {
                 Button_Pencil.IsSelected = false;
@@ -363,7 +396,20 @@ namespace GDD_Game_Windows
         private void GDD_View1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (DrawingEnabled)
-                if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
+            {
+                /*if (Button_Eraser.IsSelected)
+                {
+                    foreach(GDD_Object line in Lines)
+                    {
+                        if (Eraser.Shape.Contains(line.Location))
+                        {
+                            Lines.Remove(line);
+                            GDD_View1.Scene.Objects.Remove(line);
+                            break;
+                        }
+                    }                  
+                }
+                else*/ if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
                 {
                     {
                         //Recording the start of the Line
@@ -380,53 +426,78 @@ namespace GDD_Game_Windows
                         }
                     }
                 }
+            }
         }
 
         private void GDD_View1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (DrawingEnabled)
             {
+                if (Button_Eraser.IsSelected)
+                {
+                    Point p = Cursor.Position;
+                    p = PointToClient(p);
+                    Eraser.Location = new GDD_Point2F(p.X, p.Y);
+                }
                 //Only proceding if the mousebutton is down
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    //Making the right frontcolor depending on the current end of the line
-                    Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
-
-                    GDD_View1.Scene.LineThroughObject(Line_Preview);
-
-                    //Redording the end of the line
-                    Line_End = new GDD_Point2F(e.X, e.Y);
-
-                    //Using the Start and End to add a new line to ther scene
-                    GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
-
-                    //Determining what to do with the start and end
-                    if (Button_Pencil.IsSelected)
+                    /*if (Button_Eraser.IsSelected)
                     {
-                        //Adding the line
-                        GDD_View1.Scene.Objects.Add(obj);
-                        Lines.Add(obj);
-
-                        //Updating the start
-                        Line_Start = Line_End;
-                    }
-
-                    //
-                    if (Button_Line.IsSelected)
-                    {
-                        //if (!nodraw.Contains(new Point(e.X, e.Y)))
-                        //{
-                        //Only proceding if the mousebutton is down
-                        if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                        foreach (GDD_Object line in Lines)
                         {
-                            //Modifying line_preview
-                            Line_Preview.Rotation = obj.Rotation;
-                            Line_Preview.Shape.Size = obj.Shape.Size;
+                            if (Eraser.Shape.Contains(line.Location))
+                            {
+                                Lines.Remove(line);
+                                GDD_View1.Scene.Objects.Remove(line);
+                                break;
+                            }
+                        }
+                    }
+                    else*/
+                    {
+                        //Making the right frontcolor depending on the current end of the line
+                        Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
+
+                        GDD_View1.Scene.LineThroughObject(Line_Preview);
+
+                        //Redording the end of the line
+                        Line_End = new GDD_Point2F(e.X, e.Y);
+
+                        //Using the Start and End to add a new line to ther scene
+                        GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
+
+                        //Determining what to do with the start and end
+                        if (Button_Pencil.IsSelected)
+                        {
+                            //Adding the line
+                            GDD_View1.Scene.Objects.Add(obj);
+                            Lines.Add(obj);
+
+                            //Updating the start
+                            Line_Start = Line_End;
+                        }
+
+                        //
+                        if (Button_Line.IsSelected)
+                        {
+                            //if (!nodraw.Contains(new Point(e.X, e.Y)))
+                            //{
+                            //Only proceding if the mousebutton is down
+                            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                            {
+                                //Modifying line_preview
+                                Line_Preview.Rotation = obj.Rotation;
+                                Line_Preview.Shape.Size = obj.Shape.Size;
+                            }
                         }
                     }
                 }
             }
         }
+
+    
+        
 
         private void GDD_View1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {

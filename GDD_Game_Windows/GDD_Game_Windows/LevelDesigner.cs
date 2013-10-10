@@ -181,6 +181,7 @@ namespace GDD_Game_Windows
                         button.BackColor = Color.White;
                         shapePanel.Visible = false;
                         Button_Move.IsSelected = true;
+                        Button_Move.BackColor = Color.LightGray;
                         editPanel.Visible = true;
                     }
                 }   
@@ -334,7 +335,6 @@ namespace GDD_Game_Windows
             //Are we moving the object?
             if (Button_Rotate.IsSelected)
             {
-                //Are we pressing the mouse?
                 if (e.Button == MouseButtons.Left)
                 {
                     if (SelectedObj != null)
@@ -348,18 +348,13 @@ namespace GDD_Game_Windows
 
 
                         //resizing the object
-                        SelectedObj.Rotation = new GDD_Vector2F((StartRotation.Direction + (v2.Direction - v1.Direction)) %  360 , SelectedObj.Rotation.Size);
-                    
+                        SelectedObj.Rotation = new GDD_Vector2F((StartRotation.Direction + (v2.Direction - v1.Direction)) % 360, SelectedObj.Rotation.Size);
+
                     }
                 }
                 return;
-            }
-
-
-            
-        }
-            
-    
+            }           
+        }       
 
         private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -389,7 +384,6 @@ namespace GDD_Game_Windows
             if (sender != Button_Select && sender != Button_Move && sender != Button_Rotate && sender != Button_Resize)
             {
                 editPanel.Visible = false;
-
 
                 if (SelectedObj != null)
                 {
