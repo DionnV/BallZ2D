@@ -96,7 +96,6 @@ namespace GDD_Game_Windows
             buttons.Add(Button_Resize);
 
             //Set the text of the GDD_Buttons.
-            this.Button_Select.Text = "Edit";
             this.editPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
             this.editPanel.Visible = false;
             this.optionPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
