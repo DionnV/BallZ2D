@@ -70,3 +70,4 @@ I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resource
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
