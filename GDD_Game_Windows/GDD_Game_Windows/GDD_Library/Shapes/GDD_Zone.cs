@@ -22,16 +22,33 @@ namespace GDD_Library.Shapes
         protected GDD_Polygon EdgeShape { get; set; }
 
         /// <summary>
+        /// How big is the edge size?
+        /// </summary>
+        public float EdgeSize { get; set; }
+
+        /// <summary>
         /// Creates a new instance of zone
         /// </summary>
         public GDD_Zone()
         {
+
+            //Creating the basic shape for ourself
+            this.PolygonPoints = new GDD_Point2F[4];
+            this.PolygonPoints[0] = new GDD_Point2F(-50f, -50f);
+            this.PolygonPoints[1] = new GDD_Point2F(50f, -50f);
+            this.PolygonPoints[2] = new GDD_Point2F(50f, 50f);
+            this.PolygonPoints[3] = new GDD_Point2F(-50f, 50f);
+
+            //The edgeshape
             EdgeShape = new GDD_Polygon();
             EdgeShape.PolygonPoints = new GDD_Point2F[4];
             EdgeShape.PolygonPoints[0] = new GDD_Point2F(0f, 0f);
             EdgeShape.PolygonPoints[1] = new GDD_Point2F(100f, 100f);
             EdgeShape.PolygonPoints[2] = new GDD_Point2F(200f, 100f);
             EdgeShape.PolygonPoints[3] = new GDD_Point2F(100f, 0f);
+
+            //The Edgesize is normally 5
+            EdgeSize = 5;
         }
 
         /// <summary>
@@ -40,55 +57,60 @@ namespace GDD_Library.Shapes
         /// <param name="G"></param>
         public override void Draw(Graphics G)
         {
+            GC.Collect();
+
             //Size represents the size of the border
             float SizeFactor = Size / 100f;
+           // float EdgeFactor = EdgeSize / 100f;
 
-            //Backing up the size
-            float s = this.Size;
-
-            //Getting the lines for the polygon, need to set size to 100 first
-            this.Size = 100f;
+            //Getting the lines
             GDD_Object[] Lines = TranslatePolygon_ToLines();
 
-            //Re-applying the size
-            this.Size = s;
+            //Defining variables we're using
+            GDD_Vector2F vec, vec1;
+            GDD_Point2F dxdy, dxdy1;
+            PointF end;
 
             //Using 
-            using (var polygonPath = new GraphicsPath())
+            GraphicsPath polygonPath = new GraphicsPath();
+            
+
+            //Looping each line
+            foreach (GDD_Object line in Lines)
             {
-                //Looping each line
-                foreach (GDD_Object line in Lines)
+                //
+                vec = new GDD_Vector2F(line.Rotation.Direction, 200f * SizeFactor);
+                dxdy = vec.ToDXDY();
+
+                //Making sure we got the right brush
+                vec1 = new GDD_Vector2F(line.Rotation.Direction + 90f, 100f * SizeFactor);
+                dxdy1 = vec1.ToDXDY();
+
+                //Doing a transformation
+                end = new PointF(dxdy1.x + line.Location.x, dxdy1.y + line.Location.y);
+
+                //Using a new brush
+                Point p = line.Location.ToPoint();
+                Brush brush = new LinearGradientBrush(p, end, Owner.FrontColor, Color.White);
+  
+                //The count of shapes to draw
+                int cnt = (int)(line.Shape.Size / vec.Size);
+                
+                //Lets define shape forhand
+                PointF[] shape;
+
+                //Looping multiple times
+                for (int i = 0; i < cnt; i++)
                 {
-                    //
-                    GDD_Vector2F vec = new GDD_Vector2F(line.Rotation.Direction, 200f * SizeFactor);
-                    GDD_Point2F dxdy = vec.ToDXDY();
+                    //Transformin g the points
+                    shape = EdgeShape.TranslatePolygonPoints(line.Rotation.Direction - 90f, 0.1f, new GDD_Point2F(line.Location.x + (i * dxdy.x), line.Location.y + (i * dxdy.y)));
 
-                    //Making sure we got the right brush
-                    GDD_Vector2F vec1 = new GDD_Vector2F(line.Rotation.Direction + 90f, 100f * SizeFactor);
-                    GDD_Point2F dxdy1 = vec1.ToDXDY();
-
-                    //Doing a transformation
-                    PointF end = new PointF(dxdy1.x + line.Location.x, dxdy1.y + line.Location.y);
-
-                    //Using a new brush
-                    using (var brush = new LinearGradientBrush(line.Location.ToPoint(), end, Owner.FrontColor, Color.White))
-                    {
-                        int cnt = (int)(line.Shape.Size / vec.Size);
-
-                        //Looping multiple times
-                        for (int i = 0; i < cnt; i++)
-                        {
-                            //Transformin g the points
-                            PointF[] shape = EdgeShape.TranslatePolygonPoints(line.Rotation.Direction - 90f, SizeFactor, new GDD_Point2F(line.Location.x + (i * dxdy.x), line.Location.y + (i * dxdy.y)));
-
-
-                            G.FillPolygon(brush, shape);
-                        }
-                    }
-
-                    //Draws the shape using the poligon data
-                    G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
+                    G.FillPolygon(brush, shape);
                 }
+                    
+
+                //Draws the shape using the poligon data
+                G.DrawPolygon(Owner.FrontPen, this.TranslatePolygonPoints(Owner.Rotation.Direction, Size / 100f, Owner.Location));
             }
         }
     }

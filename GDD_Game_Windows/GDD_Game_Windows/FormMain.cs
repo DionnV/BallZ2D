@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -397,7 +397,7 @@ namespace GDD_Game_Windows
         {
             if (DrawingEnabled)
             {
-                if (Button_Eraser.IsSelected)
+                /*if (Button_Eraser.IsSelected)
                 {
                     foreach(GDD_Object line in Lines)
                     {
@@ -409,7 +409,7 @@ namespace GDD_Game_Windows
                         }
                     }                  
                 }
-                else if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
+                else*/ if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
                 {
                     {
                         //Recording the start of the Line
@@ -442,7 +442,7 @@ namespace GDD_Game_Windows
                 //Only proceding if the mousebutton is down
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    if (Button_Eraser.IsSelected)
+                    /*if (Button_Eraser.IsSelected)
                     {
                         foreach (GDD_Object line in Lines)
                         {
@@ -454,7 +454,7 @@ namespace GDD_Game_Windows
                             }
                         }
                     }
-                    else
+                    else*/
                     {
                         //Making the right frontcolor depending on the current end of the line
                         Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;

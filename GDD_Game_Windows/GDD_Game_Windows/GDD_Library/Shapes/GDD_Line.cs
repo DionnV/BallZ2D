@@ -67,7 +67,7 @@ namespace GDD_Library.Shapes
         {
         }
 
-        public override bool Contains(GDD_Point2F p)
+        public override bool ContainsPoint(GDD_Point2F p)
         {
             return false;
         }
