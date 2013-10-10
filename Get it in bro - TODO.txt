@@ -1,7 +1,7 @@
 //Game (speelbaar op het gekozen doelplatform)
 //Broncode (als project in de gebruikte IDE)
 • Technisch Ontwerp (met daarin entiteiten en logica beschreven)
-• Game Design Document (de “10-pager” met “Level Beat Chart” als PDF)
+// Game Design Document (de “10-pager” met “Level Beat Chart” als PDF)
 // One-Pager (als PDF)
 • Website (ter promotie van de game, gehost op de HR server)
 • Persmap (met een persbericht en ander materiaal voor journalisten)

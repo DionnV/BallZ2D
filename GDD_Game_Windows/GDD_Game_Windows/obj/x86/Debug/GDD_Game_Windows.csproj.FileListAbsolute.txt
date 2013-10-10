@@ -71,3 +71,7 @@ I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigne
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache

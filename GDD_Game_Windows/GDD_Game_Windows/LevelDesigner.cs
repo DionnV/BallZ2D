@@ -24,7 +24,10 @@ namespace GDD_Game_Windows
         private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
         private GDD_Object SelectedObj;
         private GDD_Object EraserSphere;
-
+        private GDD_Point2F MouseStart;
+        private GDD_Point2F StartLocation;
+        private GDD_Vector2F StartRotation;
+        private float StartSize;
         private string backgroundpath = "";
         private GDD_Button shapePanel;
 
@@ -35,6 +38,7 @@ namespace GDD_Game_Windows
 
         private void LevelDesigner_Load(object sender, EventArgs e)
         {
+            //Setting the correct size
             this.ClientSize = new System.Drawing.Size(800, 480);
 
             //Add all buttons to the list
@@ -42,14 +46,16 @@ namespace GDD_Game_Windows
             buttons.Add(Button_Line);
             buttons.Add(Button_Eraser);
             buttons.Add(Button_Shapes);
-            buttons.Add(Button_DeleteAll);
+            buttons.Add(Button_Select);
+            buttons.Add(Button_Move);
+            buttons.Add(Button_Rotate);
+            buttons.Add(Button_Resize);
 
             //Set the text of the GDD_Buttons.
-            this.Button_DeleteAll.Text = "Delete All";
-
-            Button_Browse.Text = "Browse...";
-            Button_Save.Text = "Save";
-
+            this.Button_Select.Text = "Edit";
+            this.editPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
+            this.editPanel.Visible = false;
+     
 
             GDD_View_LevelDesigner1.graphicsTimer.Start();
 
@@ -58,15 +64,36 @@ namespace GDD_Game_Windows
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
         {
             //First off; checking if we clicked on a polygon object
-            foreach (GDD_Object obj in this.GDD_View_LevelDesigner1.Scene.Objects)
+            if (Button_Select.IsSelected)
             {
-                //Are we clicking on it?
-                if (obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
+                if (e.Button == MouseButtons.Left)
                 {
-                    SelectedObj = obj;
+                    foreach (GDD_Object obj in this.GDD_View_LevelDesigner1.Scene.Objects)
+                    {
+                        //Are we clicking on it?
+                        if (obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
+                        {
+                            //De-Highlighting the shape
+                            if (SelectedObj != null)
+                            {
+                                SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                            }
+
+                            //We are clicking on it
+                            SelectedObj = obj;
+                            SelectedObj.Shape.DrawingColor = new SolidBrush(Color.LightGray);
+
+                            //Now we should transform the select button to the edit button
+                            editPanel.Show();
+                            editPanel.BringToFront();
+
+
+                            return;
+                        }
+                    }
+
                     return;
                 }
-                
             }
 
             //Are we using a pencil?
@@ -112,6 +139,23 @@ namespace GDD_Game_Windows
                 return;
             }
 
+            //Are we Editing the object
+            if (Button_Move.IsSelected || Button_Rotate.IsSelected || Button_Resize.IsSelected)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        MouseStart = new GDD_Point2F(e.X, e.Y);
+                        StartRotation = SelectedObj.Rotation;
+                        StartSize = SelectedObj.Shape.Size;
+                        StartLocation = SelectedObj.Location;
+                    }
+                }
+                return;
+
+            }
+
             //This leaves us with a shape to add, getting the name we should add from the name of the sender
             if (e.Button == MouseButtons.Left)
             {
@@ -127,12 +171,17 @@ namespace GDD_Game_Windows
                         SelectedObj.Rotation = new GDD_Vector2F(0f, 0f);
                         SelectedObj.Velocity = new GDD_Point2F(0f, 0f);
                         SelectedObj.GravityType = GDD_GravityType.Static;
+                        SelectedObj.Shape.DrawingColor = new SolidBrush(Color.LightGray);
                         GDD_View_LevelDesigner1.Scene.Objects.Add(SelectedObj);
+                        StartLocation = SelectedObj.Location;
+                        MouseStart = new GDD_Point2F(e.X, e.Y);
 
                         //Deselecting the button and hiding the menu
                         button.IsSelected = false;
                         button.BackColor = Color.White;
                         shapePanel.Visible = false;
+                        Button_Move.IsSelected = true;
+                        editPanel.Visible = true;
                     }
                 }   
             }         
@@ -141,10 +190,8 @@ namespace GDD_Game_Windows
         private void GDD_View_LevelDesigner1_MouseMove(object sender, MouseEventArgs e)
         {
             //Checking if we have a selected object now
-            if ((SelectedObj != null) && (SelectedObj != EraserSphere))
+            if (Button_Select.IsSelected)
             {
-                //This leaves us with the other option; moving the just added object
-                SelectedObj.Location = new GDD_Point2F(e.X, e.Y);
                 return;
             }
 
@@ -194,7 +241,6 @@ namespace GDD_Game_Windows
             //Are we erasing stuff?
             if (Button_Eraser.IsSelected)
             {
-                
                 //Creating a sphere with width 10px
                 if (EraserSphere == null)
                 {
@@ -246,6 +292,68 @@ namespace GDD_Game_Windows
                 return;
             }
 
+            //Are we moving the object?
+            if (Button_Move.IsSelected)
+            {
+                //Are we pressing the mouse?
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        SelectedObj.Location = new GDD_Point2F(
+                            StartLocation.x + (e.X - MouseStart.x), 
+                            StartLocation.y + (e.Y - MouseStart.y));
+                    }
+                }
+                return;
+            }
+
+            //Are we moving the object?
+            if (Button_Resize.IsSelected)
+            {
+                //Are we pressing the mouse?
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        //Calculating the distances
+                        float oldEud = (float)GDD_Math.EuclidianDistance(new GDD_Point2F(MouseStart.x, MouseStart.y), SelectedObj.Location);
+                        float newEud = (float)GDD_Math.EuclidianDistance(new GDD_Point2F(e.X, e.Y), SelectedObj.Location);
+
+                        //Insuring a big enough size
+                        float s = StartSize + (newEud - oldEud);
+                        s = s < 3 ? 3 : s;
+
+                        //resizing the object
+                        SelectedObj.Shape.Size = s;
+                    }
+                }
+                return;
+            }
+
+            //Are we moving the object?
+            if (Button_Rotate.IsSelected)
+            {
+                //Are we pressing the mouse?
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        //Creating a vector
+                        GDD_Point2F p1 = new GDD_Point2F(MouseStart.x - SelectedObj.Location.x, MouseStart.y - SelectedObj.Location.y);
+                        GDD_Vector2F v1 = p1.ToVector();
+
+                        GDD_Point2F p2 = new GDD_Point2F(e.X - SelectedObj.Location.x, e.Y - SelectedObj.Location.y);
+                        GDD_Vector2F v2 = p2.ToVector();
+
+
+                        //resizing the object
+                        SelectedObj.Rotation = new GDD_Vector2F((StartRotation.Direction + (v2.Direction - v1.Direction)) %  360 , SelectedObj.Rotation.Size);
+                    
+                    }
+                }
+                return;
+            }
 
 
             
@@ -256,32 +364,12 @@ namespace GDD_Game_Windows
         private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
             //Making sure we stop pointing at the just added or selected object
+            /*if (SelectedObj != null)
+            {
+                SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+            }
             SelectedObj = new GDD_Object(new GDD_Square());
-            SelectedObj = null;
-        }
-
-        private void GDD_View_LevelDesigner1_MouseClick(object sender, MouseEventArgs e)
-        {
-            int selected = 0;
-            for (int i = 0; i < buttons.Count - 1; i++)
-            {
-                if (buttons[i].BackColor == Color.LightGray)
-                {
-                    selected = i;
-                }
-            }
-
-            if (e.Button == MouseButtons.Right)
-            {
-                foreach (GDD_Object obj in GDD_View_LevelDesigner1.Scene.Objects)
-                {
-                    if(obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
-                    {
-                        GDD_View_LevelDesigner1.Scene.Objects.Remove(obj);
-                        break;
-                    }
-                }
-            }
+            SelectedObj = null;*/
         }
 
         private void HighLightButton(object sender, EventArgs e)
@@ -296,6 +384,19 @@ namespace GDD_Game_Windows
             //Highlighting ourself
             ((GDD_Button)sender).BackColor = Color.LightGray;
             ((GDD_Button)sender).IsSelected = true;
+
+            //Do we need to hide the options?
+            if (sender != Button_Select && sender != Button_Move && sender != Button_Rotate && sender != Button_Resize)
+            {
+                editPanel.Visible = false;
+
+
+                if (SelectedObj != null)
+                {
+                    SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                    SelectedObj = null;
+                }
+            }
         }
 
 
@@ -306,13 +407,11 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         void Button_Shapes_Click(object sender, System.EventArgs e)
         {
-
             if (shapePanel == null)
             {
                 //Getting a list of all types known right now
                 Type[] allTypes = Assembly.GetExecutingAssembly().GetTypes();
                 List<Type> polygonTypes = new List<Type>();
-
 
                 //Looping each type we can find
                 foreach (Type type in allTypes)
@@ -329,7 +428,7 @@ namespace GDD_Game_Windows
                 polygonTypes.Add((new GDD_Circle()).GetType());
 
                 //Defining the tile sizes
-                Size tileSize = new Size(50, 50);
+                Size tileSize = new Size(76, 76);
                 Size tileDistance = new Size(10, 10);
 
                 //Max size of the panel          
@@ -344,8 +443,8 @@ namespace GDD_Game_Windows
                 shapePanel.Text = "";
                 shapePanel.TabIndex = 0;
                 shapePanel.BorderWidth = 0f;
-                int x = (polygonTypes.Count) * (tileSize.Width + tileDistance.Width) + tileDistance.Width ;
-                int y = ((x / shapePanel.MaximumSize.Width) + 1) * (tileSize.Width + tileDistance.Width) + tileDistance.Width;
+                int x = polygonTypes.Count * (tileSize.Width + tileDistance.Width) - tileDistance.Width ;
+                int y = ((x / shapePanel.MaximumSize.Width) + 1) * tileSize.Height;
                 shapePanel.Size = new Size(x, y);
                 shapePanel.Visible = false;
 
@@ -417,14 +516,14 @@ namespace GDD_Game_Windows
             level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
             level.info = new GDD_HeaderInfo();
             level.Background = backgroundpath;
-            if (LevelName.Text != null)
+            /*if (LevelName.Text != null)
             {
                 level.info.LevelName = LevelName.Text;
             }
             if (CreatorBox.Text != null)
             {
                 level.info.CreatorName = CreatorBox.Text;
-            }
+            }*/
             level.info.VersionNumber = 1;
             level.info.LevelVersionNumber = 1;
             level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
@@ -436,49 +535,7 @@ namespace GDD_Game_Windows
             MessageBox.Show("Level saved.");
         }
 
-
-        /// <summary>
-        /// Handles the click when the Eraser button gets clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Eraser_Click(object sender, EventArgs e)
-        {
-            /*//Creating a temporarly circle
-            GDD_Object circle = new GDD_Object(new GDD_Circle());
-            circle.Shape.Size = 10f;
-            circle.Rotation = new GDD_Vector2F(0f, 0f);
-            circle*/
-        }
-
-        private void Button_Browse_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                backgroundpath = ofd.FileName;
-            }
-            BackgroundBox.Text = backgroundpath;
-        }
-
-        private void RotateBar_Scroll(object sender, EventArgs e)
-        {
-            if (SelectedObj != null)
-            {
-                SelectedObj.Rotation = new GDD_Vector2F(RotateBar.Value, SelectedObj.Rotation.Size);
-            }
-        }
-
-        private void SizeBar_Scroll(object sender, EventArgs e)
-        {
-            if (SelectedObj != null)
-            {
-                SelectedObj.Shape.Size = SizeBar.Value;
-            }
-        }
-
-        private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)
-        
+        private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)      
         {
             GDD_View_LevelDesigner1.Scene.Objects.Remove(EraserSphere);
             EraserSphere = null;
