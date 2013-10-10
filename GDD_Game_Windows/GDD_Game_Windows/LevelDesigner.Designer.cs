@@ -30,7 +30,6 @@ namespace GDD_Game_Windows
         /// </summary>
         private void InitializeComponent()
         {         
-            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
             this.editPanel = new System.Windows.Forms.Panel();
             this.optionPanel = new System.Windows.Forms.Panel();
             this.Button_Play = new GDD_Library.Controls.GDD_Button();
@@ -75,6 +74,7 @@ namespace GDD_Game_Windows
             // Button_Play
             // 
             this.Button_Play.BackColor = System.Drawing.Color.White;
+            this.Button_Play.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Play;
             this.Button_Play.BorderWidth = 2F;
             this.Button_Play.ForeColor = System.Drawing.Color.Black;
             this.Button_Play.IsSelected = false;
@@ -88,6 +88,7 @@ namespace GDD_Game_Windows
             // Button_Reset
             // 
             this.Button_Reset.BackColor = System.Drawing.Color.White;
+            this.Button_Reset.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Reset;
             this.Button_Reset.BorderWidth = 2F;
             this.Button_Reset.ForeColor = System.Drawing.Color.Black;
             this.Button_Reset.IsSelected = false;
@@ -101,6 +102,7 @@ namespace GDD_Game_Windows
             // Button_Save
             // 
             this.Button_Save.BackColor = System.Drawing.Color.White;
+            this.Button_Save.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Save;
             this.Button_Save.BorderWidth = 2F;
             this.Button_Save.ForeColor = System.Drawing.Color.Black;
             this.Button_Save.IsSelected = false;
@@ -114,6 +116,7 @@ namespace GDD_Game_Windows
             // Button_Exit
             // 
             this.Button_Exit.BackColor = System.Drawing.Color.White;
+            this.Button_Exit.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Exit;
             this.Button_Exit.BorderWidth = 2F;
             this.Button_Exit.ForeColor = System.Drawing.Color.Black;
             this.Button_Exit.IsSelected = false;
@@ -126,6 +129,7 @@ namespace GDD_Game_Windows
             // Button_Options
             // 
             this.Button_Options.BackColor = System.Drawing.Color.White;
+            this.Button_Options.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Options;
             this.Button_Options.BorderWidth = 2F;
             this.Button_Options.ForeColor = System.Drawing.Color.Black;
             this.Button_Options.IsSelected = false;
@@ -139,6 +143,7 @@ namespace GDD_Game_Windows
             // Button_Resize
             // 
             this.Button_Resize.BackColor = System.Drawing.Color.White;
+            this.Button_Resize.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Resize;
             this.Button_Resize.BorderWidth = 2F;
             this.Button_Resize.ForeColor = System.Drawing.Color.Black;
             this.Button_Resize.IsSelected = false;
@@ -152,6 +157,7 @@ namespace GDD_Game_Windows
             // Button_Rotate
             // 
             this.Button_Rotate.BackColor = System.Drawing.Color.White;
+            this.Button_Rotate.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Rotate;
             this.Button_Rotate.BorderWidth = 2F;
             this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
             this.Button_Rotate.IsSelected = false;
@@ -165,6 +171,7 @@ namespace GDD_Game_Windows
             // Button_Move
             // 
             this.Button_Move.BackColor = System.Drawing.Color.White;
+            this.Button_Move.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Move;
             this.Button_Move.BorderWidth = 2F;
             this.Button_Move.ForeColor = System.Drawing.Color.Black;
             this.Button_Move.IsSelected = false;
@@ -192,6 +199,7 @@ namespace GDD_Game_Windows
             // Button_Select
             // 
             this.Button_Select.BackColor = System.Drawing.Color.White;
+            this.Button_Select.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Select;
             this.Button_Select.BorderWidth = 2F;
             this.Button_Select.ForeColor = System.Drawing.Color.Black;
             this.Button_Select.IsSelected = false;
