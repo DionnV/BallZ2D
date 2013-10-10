@@ -72,7 +72,6 @@
             this.playzone.Name = "playzone";
             this.playzone.Text = "LevelDesigner";
             this.playzone.Visible = false;
-            this.playzone.Load += new System.EventHandler(this.playzone_Load);
             // 
             // Button_Back_Main
             // 
@@ -101,6 +100,7 @@
             this.Button_Settings.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Settings.TabIndex = 4;
+            this.Button_Settings.Click += new System.EventHandler(this.Button_Settings_Click);
             // 
             // Button_Store
             // 
@@ -129,6 +129,7 @@
             this.Button_LevelDesign.Padding = new System.Windows.Forms.Padding(3);
             this.Button_LevelDesign.Size = new System.Drawing.Size(350, 50);
             this.Button_LevelDesign.TabIndex = 2;
+            this.Button_LevelDesign.Click += new System.EventHandler(this.Button_LevelDesign_Click);
             // 
             // Button_PlayNow
             // 
@@ -143,6 +144,7 @@
             this.Button_PlayNow.Padding = new System.Windows.Forms.Padding(3);
             this.Button_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_PlayNow.TabIndex = 1;
+            this.Button_PlayNow.Click += new System.EventHandler(this.Button_PlayNow_Click);
             // 
             // Button_Back_PlayNow
             // 
@@ -241,6 +243,7 @@
             this.Button_Competitive.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Competitive.Size = new System.Drawing.Size(350, 50);
             this.Button_Competitive.TabIndex = 4;
+            this.Button_Competitive.Click += new System.EventHandler(this.Button_Competitive_Click);
             // 
             // Button_Custom
             // 
@@ -255,6 +258,7 @@
             this.Button_Custom.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Custom.Size = new System.Drawing.Size(350, 50);
             this.Button_Custom.TabIndex = 4;
+            this.Button_Custom.Click += new System.EventHandler(this.Button_Custom_Click);
             // 
             // Button_Chapter1
             // 
@@ -268,64 +272,12 @@
             this.Button_Chapter1.Note = "";
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
-            this.Button_Chapter1.TabIndex = 4;
-            // 
-            // Button_Line
-            // 
-            this.Button_Line.BackColor = System.Drawing.Color.White;
-            this.Button_Line.BorderWidth = 2F;
-            this.Button_Line.ForeColor = System.Drawing.Color.Black;
-            this.Button_Line.IsSelected = false;
-            this.Button_Line.Location = new System.Drawing.Point(0, 0);
-            this.Button_Line.Name = "Button_Line";
-            this.Button_Line.Note = null;
-            this.Button_Line.Size = new System.Drawing.Size(150, 150);
-            this.Button_Line.TabIndex = 1;
-            // 
-            // Button_Pencil
-            // 
-            this.Button_Pencil.BackColor = System.Drawing.Color.White;
-            this.Button_Pencil.BorderWidth = 2F;
-            this.Button_Pencil.ForeColor = System.Drawing.Color.Black;
-            this.Button_Pencil.IsSelected = false;
-            this.Button_Pencil.Location = new System.Drawing.Point(0, 0);
-            this.Button_Pencil.Name = "Button_Pencil";
-            this.Button_Pencil.Note = null;
-            this.Button_Pencil.Size = new System.Drawing.Size(150, 150);
-            this.Button_Pencil.TabIndex = 0;
-            // 
-            // Button_StartGame
-            // 
-            this.Button_StartGame.BackColor = System.Drawing.Color.White;
-            this.Button_StartGame.BorderWidth = 2F;
-            this.Button_StartGame.ForeColor = System.Drawing.Color.Black;
-            this.Button_StartGame.IsSelected = false;
-            this.Button_StartGame.Location = new System.Drawing.Point(0, 0);
-            this.Button_StartGame.Name = "Button_StartGame";
-            this.Button_StartGame.Note = null;
-            this.Button_StartGame.Size = new System.Drawing.Size(150, 150);
-            this.Button_StartGame.TabIndex = 3;
-            // 
-            // Button_Eraser
-            // 
-            this.Button_Eraser.BackColor = System.Drawing.Color.White;
-            this.Button_Eraser.BorderWidth = 2F;
-            this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
-            this.Button_Eraser.IsSelected = false;
-            this.Button_Eraser.Location = new System.Drawing.Point(0, 0);
-            this.Button_Eraser.Name = "Button_Eraser";
-            this.Button_Eraser.Note = null;
-            this.Button_Eraser.Size = new System.Drawing.Size(150, 150);
-            this.Button_Eraser.TabIndex = 2;
+            this.Button_Chapter1.TabIndex = 4;          
             // 
             // GDD_View1
             // 
             this.GDD_View1.BackColor = System.Drawing.Color.White;
             this.GDD_View1.Dock = System.Windows.Forms.DockStyle.Fill;
-            gdD_Timer1.DesiredTickTime = 16.66667F;
-            gdD_Timer1.TickCap = 60;
-            gdD_Timer1.TickTime = 0;
-            this.GDD_View1.graphicsTimer = gdD_Timer1;
             this.GDD_View1.Location = new System.Drawing.Point(0, 0);
             this.GDD_View1.Name = "GDD_View1";
             this.GDD_View1.ShowFPS = false;
@@ -429,18 +381,11 @@
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
-
-        }
-
-        private void playzone_Load(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion
 
         private GDD_Library.GDD_View GDD_View1;
-        private LevelDesigner playzone;
         private GDD_Library.Controls.GDD_Button Button_PlayNow;
         private GDD_Library.Controls.GDD_Button Button_LevelDesign;
         private GDD_Library.Controls.GDD_Button Button_Store;

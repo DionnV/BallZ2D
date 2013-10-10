@@ -30,6 +30,7 @@ namespace GDD_Game_Windows
         /// </summary>
         private void InitializeComponent()
         {         
+            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
             this.editPanel = new System.Windows.Forms.Panel();
             this.optionPanel = new System.Windows.Forms.Panel();
             this.Button_Play = new GDD_Library.Controls.GDD_Button();
@@ -82,6 +83,7 @@ namespace GDD_Game_Windows
             this.Button_Play.Note = null;
             this.Button_Play.Size = new System.Drawing.Size(76, 76);
             this.Button_Play.TabIndex = 28;
+            this.Button_Play.Click += new System.EventHandler(this.Button_Play_Click);
             // 
             // Button_Reset
             // 
@@ -94,6 +96,7 @@ namespace GDD_Game_Windows
             this.Button_Reset.Note = null;
             this.Button_Reset.Size = new System.Drawing.Size(76, 76);
             this.Button_Reset.TabIndex = 27;
+            this.Button_Reset.Click += new System.EventHandler(this.Button_Reset_Click);
             // 
             // Button_Save
             // 
@@ -104,9 +107,9 @@ namespace GDD_Game_Windows
             this.Button_Save.Location = new System.Drawing.Point(0, 0);
             this.Button_Save.Name = "Button_Save";
             this.Button_Save.Note = null;
-            this.Button_Save.Click += new System.EventHandler(this.Button_Save_Click);         
             this.Button_Save.Size = new System.Drawing.Size(76, 76);
             this.Button_Save.TabIndex = 29;
+            this.Button_Save.Click += new System.EventHandler(this.Button_Save_Click);
             // 
             // Button_Exit
             // 
@@ -220,7 +223,7 @@ namespace GDD_Game_Windows
             this.Button_Line.BorderWidth = 2F;
             this.Button_Line.ForeColor = System.Drawing.Color.Black;
             this.Button_Line.IsSelected = false;
-            this.Button_Line.Location = new System.Drawing.Point(10, 96);
+            this.Button_Line.Location = new System.Drawing.Point(10, 92);
             this.Button_Line.Name = "Button_Line";
             this.Button_Line.Note = null;
             this.Button_Line.Size = new System.Drawing.Size(76, 76);
@@ -272,7 +275,6 @@ namespace GDD_Game_Windows
             this.Controls.Add(this.GDD_View_LevelDesigner1);
             this.Name = "LevelDesigner";
             this.Text = "LevelDesigner";
-            this.Load += new System.EventHandler(this.LevelDesigner_Load);
             this.Resize += new System.EventHandler(this.LevelDesigner_Resize);
             this.editPanel.ResumeLayout(false);
             this.optionPanel.ResumeLayout(false);

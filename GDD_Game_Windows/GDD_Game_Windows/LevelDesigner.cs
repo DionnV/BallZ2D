@@ -104,13 +104,8 @@ namespace GDD_Game_Windows
             //GDD_View_LevelDesigner1
             GDD_View_LevelDesigner1.graphicsTimer.Start();
 
+            //Normallhy we're designing
             this.isDesigner = true;
-        }
-
-        private void LevelDesigner_Load(object sender, EventArgs e)
-        {
-            
-
         }
 
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
@@ -322,8 +317,12 @@ namespace GDD_Game_Windows
                         GDD_CollisionInfo CI = GDD_Shape.Collides(EraserSphere.Shape, obj.Shape);
                         if (CI != null)
                         {
-                            //We need to delete this
-                            toDelete.Add(obj);
+                            if (isDesigner || ((!isDesigner) && (CI.obj2.Shape is GDD_Line)))
+                            {
+                                //We need to delete this
+                                toDelete.Add(obj);
+                                Lines.Remove(obj);
+                            }  
                         }
                     }
 
@@ -546,6 +545,8 @@ namespace GDD_Game_Windows
             {
                 level.info.CreatorName = CreatorBox.Text;
             }*/
+            level.info.LevelName = "TODO";
+            level.info.CreatorName = "TODO";
             level.info.VersionNumber = 1;
             level.info.LevelVersionNumber = 1;
             level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
@@ -566,7 +567,7 @@ namespace GDD_Game_Windows
 
             level.WriteToZipFile();
 
-            MessageBox.Show("Level saved.");
+            MessageBox.Show("Level Saved.");
         }
 
         private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)      
@@ -662,8 +663,11 @@ namespace GDD_Game_Windows
         }
 
         public void Start()
-        {          
-            this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Normal;
+        {
+            if (level != null)
+            {
+                this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Normal;
+            }
         }
 
         private void Bucket_OnCollision(object sender, EventArgs e)
@@ -686,19 +690,39 @@ namespace GDD_Game_Windows
             }       
         }
 
+        private void Button_Reset_Click(object sender, EventArgs e)
+        {
+            Reset();
+        }
+
         public void Reset()
         {
-            this.GDD_View_LevelDesigner1.Scene.Objects.Clear();
-            this.GDD_View_LevelDesigner1.Scene.Objects = level.Objects;
-            this.GDD_View_LevelDesigner1.Scene.Objects.AddRange(Lines);
-            this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Static;
-            this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Bucket].OnCollision += Bucket_OnCollision;
+            if (level != null)
+            {
+                this.GDD_View_LevelDesigner1.Scene.Objects.Clear();
+
+                foreach (GDD_Object obj in level.Objects)
+                {
+                    GDD_View_LevelDesigner1.Scene.Objects.Add((GDD_Object)obj.Clone());
+                }
+                //this.GDD_View_LevelDesigner1.Scene.Objects.AddRange(level.Objects);
+                this.GDD_View_LevelDesigner1.Scene.Objects.AddRange(Lines);
+
+                this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Static;
+                this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Bucket].OnCollision += Bucket_OnCollision;
+            }
         }
 
         public void LoadLevel(GDD_Level level)
         {
             this.level = level;
             Reset();
+        }
+
+        private void Button_Play_Click(object sender, EventArgs e)
+        {
+            Reset();
+            Start();
         }
     }
 }
