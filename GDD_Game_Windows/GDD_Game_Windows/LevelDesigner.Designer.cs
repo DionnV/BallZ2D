@@ -28,32 +28,161 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.GDD_View_LevelDesigner1 = new GDD_Library.GDD_View();
+            GDD_Library.GDD_Timer gdD_Timer1 = new GDD_Library.GDD_Timer();
+            this.editPanel = new System.Windows.Forms.Panel();
+            this.optionPanel = new System.Windows.Forms.Panel();
+            this.Button_Play = new GDD_Library.Controls.GDD_Button();
+            this.Button_Reset = new GDD_Library.Controls.GDD_Button();
+            this.Button_Save = new GDD_Library.Controls.GDD_Button();
+            this.Button_Exit = new GDD_Library.Controls.GDD_Button();
+            this.Button_Options = new GDD_Library.Controls.GDD_Button();
+            this.Button_Resize = new GDD_Library.Controls.GDD_Button();
+            this.Button_Rotate = new GDD_Library.Controls.GDD_Button();
+            this.Button_Move = new GDD_Library.Controls.GDD_Button();
+            this.Button_Eraser = new GDD_Library.Controls.GDD_Button();
             this.Button_Select = new GDD_Library.Controls.GDD_Button();
             this.Button_Shapes = new GDD_Library.Controls.GDD_Button();
             this.Button_Line = new GDD_Library.Controls.GDD_Button();
             this.Button_Pencil = new GDD_Library.Controls.GDD_Button();
-            this.Button_Eraser = new GDD_Library.Controls.GDD_Button();
-            this.Button_Move = new GDD_Library.Controls.GDD_Button();
-            this.Button_Resize = new GDD_Library.Controls.GDD_Button();
-            this.Button_Rotate = new GDD_Library.Controls.GDD_Button();
-            this.editPanel = new System.Windows.Forms.Panel();
+            this.GDD_View_LevelDesigner1 = new GDD_Library.GDD_View();
             this.editPanel.SuspendLayout();
+            this.optionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // GDD_View_LevelDesigner1
+            // editPanel
             // 
-            this.GDD_View_LevelDesigner1.BackColor = System.Drawing.Color.White;
-            this.GDD_View_LevelDesigner1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GDD_View_LevelDesigner1.Location = new System.Drawing.Point(0, 0);
-            this.GDD_View_LevelDesigner1.Name = "GDD_View_LevelDesigner1";
-            this.GDD_View_LevelDesigner1.Size = new System.Drawing.Size(784, 442);
-            this.GDD_View_LevelDesigner1.TabIndex = 0;
-            this.GDD_View_LevelDesigner1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.GDD_View_LevelDesigner1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseDown);
-            this.GDD_View_LevelDesigner1.MouseLeave += new System.EventHandler(this.GDD_View_LevelDesigner1_MouseLeave);
-            this.GDD_View_LevelDesigner1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseMove);
-            this.GDD_View_LevelDesigner1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseUp);
+            this.editPanel.Controls.Add(this.Button_Resize);
+            this.editPanel.Controls.Add(this.Button_Rotate);
+            this.editPanel.Controls.Add(this.Button_Move);
+            this.editPanel.Location = new System.Drawing.Point(96, 354);
+            this.editPanel.Name = "editPanel";
+            this.editPanel.Size = new System.Drawing.Size(248, 76);
+            this.editPanel.TabIndex = 24;
+            // 
+            // optionPanel
+            // 
+            this.optionPanel.Controls.Add(this.Button_Play);
+            this.optionPanel.Controls.Add(this.Button_Reset);
+            this.optionPanel.Controls.Add(this.Button_Save);
+            this.optionPanel.Controls.Add(this.Button_Exit);
+            this.optionPanel.Location = new System.Drawing.Point(694, 18);
+            this.optionPanel.Name = "optionPanel";
+            this.optionPanel.Size = new System.Drawing.Size(78, 332);
+            this.optionPanel.TabIndex = 30;
+            // 
+            // Button_Play
+            // 
+            this.Button_Play.BackColor = System.Drawing.Color.White;
+            this.Button_Play.BorderWidth = 2F;
+            this.Button_Play.ForeColor = System.Drawing.Color.Black;
+            this.Button_Play.IsSelected = false;
+            this.Button_Play.Location = new System.Drawing.Point(0, 86);
+            this.Button_Play.Name = "Button_Play";
+            this.Button_Play.Note = null;
+            this.Button_Play.Size = new System.Drawing.Size(76, 76);
+            this.Button_Play.TabIndex = 28;
+            // 
+            // Button_Reset
+            // 
+            this.Button_Reset.BackColor = System.Drawing.Color.White;
+            this.Button_Reset.BorderWidth = 2F;
+            this.Button_Reset.ForeColor = System.Drawing.Color.Black;
+            this.Button_Reset.IsSelected = false;
+            this.Button_Reset.Location = new System.Drawing.Point(0, 172);
+            this.Button_Reset.Name = "Button_Reset";
+            this.Button_Reset.Note = null;
+            this.Button_Reset.Size = new System.Drawing.Size(76, 76);
+            this.Button_Reset.TabIndex = 27;
+            // 
+            // Button_Save
+            // 
+            this.Button_Save.BackColor = System.Drawing.Color.White;
+            this.Button_Save.BorderWidth = 2F;
+            this.Button_Save.ForeColor = System.Drawing.Color.Black;
+            this.Button_Save.IsSelected = false;
+            this.Button_Save.Location = new System.Drawing.Point(0, 0);
+            this.Button_Save.Name = "Button_Save";
+            this.Button_Save.Note = null;
+            this.Button_Save.Size = new System.Drawing.Size(76, 76);
+            this.Button_Save.TabIndex = 29;
+            // 
+            // Button_Exit
+            // 
+            this.Button_Exit.BackColor = System.Drawing.Color.White;
+            this.Button_Exit.BorderWidth = 2F;
+            this.Button_Exit.ForeColor = System.Drawing.Color.Black;
+            this.Button_Exit.IsSelected = false;
+            this.Button_Exit.Location = new System.Drawing.Point(0, 258);
+            this.Button_Exit.Name = "Button_Exit";
+            this.Button_Exit.Note = null;
+            this.Button_Exit.Size = new System.Drawing.Size(76, 76);
+            this.Button_Exit.TabIndex = 26;
+            // 
+            // Button_Options
+            // 
+            this.Button_Options.BackColor = System.Drawing.Color.White;
+            this.Button_Options.BorderWidth = 2F;
+            this.Button_Options.ForeColor = System.Drawing.Color.Black;
+            this.Button_Options.IsSelected = false;
+            this.Button_Options.Location = new System.Drawing.Point(698, 356);
+            this.Button_Options.Name = "Button_Options";
+            this.Button_Options.Note = null;
+            this.Button_Options.Size = new System.Drawing.Size(76, 76);
+            this.Button_Options.TabIndex = 25;
+            this.Button_Options.Click += new System.EventHandler(this.Button_Options_Click);
+            // 
+            // Button_Resize
+            // 
+            this.Button_Resize.BackColor = System.Drawing.Color.White;
+            this.Button_Resize.BorderWidth = 2F;
+            this.Button_Resize.ForeColor = System.Drawing.Color.Black;
+            this.Button_Resize.IsSelected = false;
+            this.Button_Resize.Location = new System.Drawing.Point(84, 0);
+            this.Button_Resize.Name = "Button_Resize";
+            this.Button_Resize.Note = null;
+            this.Button_Resize.Size = new System.Drawing.Size(76, 76);
+            this.Button_Resize.TabIndex = 22;
+            this.Button_Resize.Click += new System.EventHandler(this.HighLightButton);
+            // 
+            // Button_Rotate
+            // 
+            this.Button_Rotate.BackColor = System.Drawing.Color.White;
+            this.Button_Rotate.BorderWidth = 2F;
+            this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
+            this.Button_Rotate.IsSelected = false;
+            this.Button_Rotate.Location = new System.Drawing.Point(170, 0);
+            this.Button_Rotate.Name = "Button_Rotate";
+            this.Button_Rotate.Note = null;
+            this.Button_Rotate.Size = new System.Drawing.Size(76, 76);
+            this.Button_Rotate.TabIndex = 23;
+            this.Button_Rotate.Click += new System.EventHandler(this.HighLightButton);
+            // 
+            // Button_Move
+            // 
+            this.Button_Move.BackColor = System.Drawing.Color.White;
+            this.Button_Move.BorderWidth = 2F;
+            this.Button_Move.ForeColor = System.Drawing.Color.Black;
+            this.Button_Move.IsSelected = false;
+            this.Button_Move.Location = new System.Drawing.Point(0, 0);
+            this.Button_Move.Name = "Button_Move";
+            this.Button_Move.Note = null;
+            this.Button_Move.Size = new System.Drawing.Size(76, 76);
+            this.Button_Move.TabIndex = 21;
+            this.Button_Move.Click += new System.EventHandler(this.HighLightButton);
+            // 
+            // Button_Eraser
+            // 
+            this.Button_Eraser.BackColor = System.Drawing.Color.White;
+            this.Button_Eraser.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Eraser;
+            this.Button_Eraser.BorderWidth = 2F;
+            this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
+            this.Button_Eraser.IsSelected = false;
+            this.Button_Eraser.Location = new System.Drawing.Point(10, 182);
+            this.Button_Eraser.Name = "Button_Eraser";
+            this.Button_Eraser.Note = null;
+            this.Button_Eraser.Size = new System.Drawing.Size(76, 76);
+            this.Button_Eraser.TabIndex = 20;
+            this.Button_Eraser.Click += new System.EventHandler(this.HighLightButton);
             // 
             // Button_Select
             // 
@@ -110,74 +239,28 @@
             this.Button_Pencil.TabIndex = 0;
             this.Button_Pencil.Click += new System.EventHandler(this.HighLightButton);
             // 
-            // Button_Eraser
+            // GDD_View_LevelDesigner1
             // 
-            this.Button_Eraser.BackColor = System.Drawing.Color.White;
-            this.Button_Eraser.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Eraser;
-            this.Button_Eraser.BorderWidth = 2F;
-            this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
-            this.Button_Eraser.IsSelected = false;
-            this.Button_Eraser.Location = new System.Drawing.Point(10, 182);
-            this.Button_Eraser.Name = "Button_Eraser";
-            this.Button_Eraser.Note = null;
-            this.Button_Eraser.Size = new System.Drawing.Size(76, 76);
-            this.Button_Eraser.TabIndex = 20;
-            this.Button_Eraser.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // Button_Move
-            // 
-            this.Button_Move.BackColor = System.Drawing.Color.White;
-            this.Button_Move.BorderWidth = 2F;
-            this.Button_Move.ForeColor = System.Drawing.Color.Black;
-            this.Button_Move.IsSelected = false;
-            this.Button_Move.Location = new System.Drawing.Point(0, 0);
-            this.Button_Move.Name = "Button_Move";
-            this.Button_Move.Note = null;
-            this.Button_Move.Size = new System.Drawing.Size(76, 76);
-            this.Button_Move.TabIndex = 21;
-            this.Button_Move.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // Button_Resize
-            // 
-            this.Button_Resize.BackColor = System.Drawing.Color.White;
-            this.Button_Resize.BorderWidth = 2F;
-            this.Button_Resize.ForeColor = System.Drawing.Color.Black;
-            this.Button_Resize.IsSelected = false;
-            this.Button_Resize.Location = new System.Drawing.Point(84, 0);
-            this.Button_Resize.Name = "Button_Resize";
-            this.Button_Resize.Note = null;
-            this.Button_Resize.Size = new System.Drawing.Size(76, 76);
-            this.Button_Resize.TabIndex = 22;
-            this.Button_Resize.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // Button_Rotate
-            // 
-            this.Button_Rotate.BackColor = System.Drawing.Color.White;
-            this.Button_Rotate.BorderWidth = 2F;
-            this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
-            this.Button_Rotate.IsSelected = false;
-            this.Button_Rotate.Location = new System.Drawing.Point(170, 0);
-            this.Button_Rotate.Name = "Button_Rotate";
-            this.Button_Rotate.Note = null;
-            this.Button_Rotate.Size = new System.Drawing.Size(76, 76);
-            this.Button_Rotate.TabIndex = 23;
-            this.Button_Rotate.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // editPanel
-            // 
-            this.editPanel.Controls.Add(this.Button_Resize);
-            this.editPanel.Controls.Add(this.Button_Rotate);
-            this.editPanel.Controls.Add(this.Button_Move);
-            this.editPanel.Location = new System.Drawing.Point(96, 354);
-            this.editPanel.Name = "editPanel";
-            this.editPanel.Size = new System.Drawing.Size(248, 76);
-            this.editPanel.TabIndex = 24;
+            this.GDD_View_LevelDesigner1.BackColor = System.Drawing.Color.White;
+            this.GDD_View_LevelDesigner1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GDD_View_LevelDesigner1.Location = new System.Drawing.Point(0, 0);
+            this.GDD_View_LevelDesigner1.Name = "GDD_View_LevelDesigner1";
+            this.GDD_View_LevelDesigner1.ShowFPS = false;
+            this.GDD_View_LevelDesigner1.Size = new System.Drawing.Size(784, 442);
+            this.GDD_View_LevelDesigner1.TabIndex = 0;
+            this.GDD_View_LevelDesigner1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.GDD_View_LevelDesigner1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseDown);
+            this.GDD_View_LevelDesigner1.MouseLeave += new System.EventHandler(this.GDD_View_LevelDesigner1_MouseLeave);
+            this.GDD_View_LevelDesigner1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseMove);
+            this.GDD_View_LevelDesigner1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseUp);
             // 
             // LevelDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.optionPanel);
+            this.Controls.Add(this.Button_Options);
             this.Controls.Add(this.editPanel);
             this.Controls.Add(this.Button_Eraser);
             this.Controls.Add(this.Button_Select);
@@ -188,7 +271,9 @@
             this.Name = "LevelDesigner";
             this.Text = "LevelDesigner";
             this.Load += new System.EventHandler(this.LevelDesigner_Load);
+            this.Resize += new System.EventHandler(this.LevelDesigner_Resize);
             this.editPanel.ResumeLayout(false);
+            this.optionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -206,5 +291,11 @@
         private GDD_Library.Controls.GDD_Button Button_Resize;
         private GDD_Library.Controls.GDD_Button Button_Rotate;
         private System.Windows.Forms.Panel editPanel;
+        private GDD_Library.Controls.GDD_Button Button_Exit;
+        private GDD_Library.Controls.GDD_Button Button_Reset;
+        private GDD_Library.Controls.GDD_Button Button_Options;
+        private GDD_Library.Controls.GDD_Button Button_Play;
+        private GDD_Library.Controls.GDD_Button Button_Save;
+        private System.Windows.Forms.Panel optionPanel;
     }
 }

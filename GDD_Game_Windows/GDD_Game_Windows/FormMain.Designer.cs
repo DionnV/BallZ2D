@@ -69,6 +69,7 @@
             this.Button_Back_Main.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_Main.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_Main.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_Main.IsSelected = false;
             this.Button_Back_Main.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_Main.Name = "Button_Back_Main";
             this.Button_Back_Main.Note = "";
@@ -81,13 +82,13 @@
             this.Button_Settings.BorderWidth = 2F;
             this.Button_Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Settings.ForeColor = System.Drawing.Color.Black;
+            this.Button_Settings.IsSelected = false;
             this.Button_Settings.Location = new System.Drawing.Point(50, 320);
             this.Button_Settings.Name = "Button_Settings";
             this.Button_Settings.Note = "";
             this.Button_Settings.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Settings.TabIndex = 4;
-            this.Button_Settings.Click +=Button_Settings_Click;
             // 
             // Button_Store
             // 
@@ -95,6 +96,7 @@
             this.Button_Store.BorderWidth = 2F;
             this.Button_Store.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Store.ForeColor = System.Drawing.Color.Black;
+            this.Button_Store.IsSelected = false;
             this.Button_Store.Location = new System.Drawing.Point(50, 250);
             this.Button_Store.Name = "Button_Store";
             this.Button_Store.Note = "Soon";
@@ -108,13 +110,13 @@
             this.Button_LevelDesign.BorderWidth = 2F;
             this.Button_LevelDesign.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_LevelDesign.ForeColor = System.Drawing.Color.Black;
+            this.Button_LevelDesign.IsSelected = false;
             this.Button_LevelDesign.Location = new System.Drawing.Point(50, 180);
             this.Button_LevelDesign.Name = "Button_LevelDesign";
             this.Button_LevelDesign.Note = "Beta";
             this.Button_LevelDesign.Padding = new System.Windows.Forms.Padding(3);
             this.Button_LevelDesign.Size = new System.Drawing.Size(350, 50);
             this.Button_LevelDesign.TabIndex = 2;
-            this.Button_LevelDesign.Click +=Button_LevelDesign_Click;
             // 
             // Button_PlayNow
             // 
@@ -122,13 +124,13 @@
             this.Button_PlayNow.BorderWidth = 2F;
             this.Button_PlayNow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_PlayNow.ForeColor = System.Drawing.Color.Black;
+            this.Button_PlayNow.IsSelected = false;
             this.Button_PlayNow.Location = new System.Drawing.Point(50, 110);
             this.Button_PlayNow.Name = "Button_PlayNow";
             this.Button_PlayNow.Note = "";
             this.Button_PlayNow.Padding = new System.Windows.Forms.Padding(3);
             this.Button_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_PlayNow.TabIndex = 1;
-            this.Button_PlayNow.Click +=Button_PlayNow_Click;
             // 
             // Button_Back_PlayNow
             // 
@@ -137,6 +139,7 @@
             this.Button_Back_PlayNow.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_PlayNow.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_PlayNow.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_PlayNow.IsSelected = false;
             this.Button_Back_PlayNow.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_PlayNow.Name = "Button_Back_PlayNow";
             this.Button_Back_PlayNow.Note = "";
@@ -150,6 +153,7 @@
             this.Button_Back_Settings.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_Settings.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_Settings.IsSelected = false;
             this.Button_Back_Settings.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_Settings.Name = "Button_Back_Settings";
             this.Button_Back_Settings.Note = "";
@@ -163,6 +167,7 @@
             this.Button_Back_ChapterSelect.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_ChapterSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_ChapterSelect.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_ChapterSelect.IsSelected = false;
             this.Button_Back_ChapterSelect.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_ChapterSelect.Name = "Button_Back_ChapterSelect";
             this.Button_Back_ChapterSelect.Note = "";
@@ -176,6 +181,7 @@
             this.Button_Back_LevelSelect.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_LevelSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_LevelSelect.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_LevelSelect.IsSelected = false;
             this.Button_Back_LevelSelect.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_LevelSelect.Name = "Button_Back_LevelSelect";
             this.Button_Back_LevelSelect.Note = "";
@@ -189,6 +195,7 @@
             this.Button_Back_CustomLevels.Cursor = System.Windows.Forms.Cursors.Default;
             this.Button_Back_CustomLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Back_CustomLevels.ForeColor = System.Drawing.Color.Black;
+            this.Button_Back_CustomLevels.IsSelected = false;
             this.Button_Back_CustomLevels.Location = new System.Drawing.Point(50, 40);
             this.Button_Back_CustomLevels.Name = "Button_Back_CustomLevels";
             this.Button_Back_CustomLevels.Note = "";
@@ -201,13 +208,13 @@
             this.Button_Sound.BorderWidth = 2F;
             this.Button_Sound.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Sound.ForeColor = System.Drawing.Color.Black;
+            this.Button_Sound.IsSelected = false;
             this.Button_Sound.Location = new System.Drawing.Point(50, 110);
             this.Button_Sound.Name = "Button_Sound";
             this.Button_Sound.Note = "";
             this.Button_Sound.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Sound.Size = new System.Drawing.Size(350, 50);
             this.Button_Sound.TabIndex = 4;
-            this.Button_Sound.Click += Button_Sound_Click;
             // 
             // Button_Competitive
             // 
@@ -215,13 +222,13 @@
             this.Button_Competitive.BorderWidth = 2F;
             this.Button_Competitive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Competitive.ForeColor = System.Drawing.Color.Black;
+            this.Button_Competitive.IsSelected = false;
             this.Button_Competitive.Location = new System.Drawing.Point(50, 110);
             this.Button_Competitive.Name = "Button_Competitive";
             this.Button_Competitive.Note = "";
             this.Button_Competitive.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Competitive.Size = new System.Drawing.Size(350, 50);
             this.Button_Competitive.TabIndex = 4;
-            this.Button_Competitive.Click += Button_Competitive_Click;
             // 
             // Button_Custom
             // 
@@ -229,13 +236,13 @@
             this.Button_Custom.BorderWidth = 2F;
             this.Button_Custom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Custom.ForeColor = System.Drawing.Color.Black;
+            this.Button_Custom.IsSelected = false;
             this.Button_Custom.Location = new System.Drawing.Point(50, 180);
             this.Button_Custom.Name = "Button_Custom";
             this.Button_Custom.Note = "";
             this.Button_Custom.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Custom.Size = new System.Drawing.Size(350, 50);
             this.Button_Custom.TabIndex = 4;
-            this.Button_Custom.Click += Button_Custom_Click;
             // 
             // Button_Chapter1
             // 
@@ -243,69 +250,69 @@
             this.Button_Chapter1.BorderWidth = 2F;
             this.Button_Chapter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Chapter1.ForeColor = System.Drawing.Color.Black;
+            this.Button_Chapter1.IsSelected = false;
             this.Button_Chapter1.Location = new System.Drawing.Point(50, 110);
             this.Button_Chapter1.Name = "Button_Chapter1";
             this.Button_Chapter1.Note = "";
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
             this.Button_Chapter1.TabIndex = 4;
-            this.Button_Chapter1.Click += Button_Chapter1_Click;
-            //
-            // Button_Pencil
-            //
-            this.Button_Pencil.BackColor = System.Drawing.Color.White;
-            this.Button_Pencil.BorderWidth = 2F;
-            this.Button_Pencil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button_Pencil.ForeColor = System.Drawing.Color.Black;
-            this.Button_Pencil.Location = new System.Drawing.Point(10, 40);
-            this.Button_Pencil.Name = "Button_Pencil";
-            this.Button_Pencil.Note = "";
-            this.Button_Pencil.Padding = new System.Windows.Forms.Padding(3);
-            this.Button_Pencil.Size = new System.Drawing.Size(75, 50);
-            this.Button_Pencil.TabIndex = 4;
-            this.Button_Pencil.Click += Button_Pencil_Click;
-            //
+            // 
             // Button_Line
-            //
+            // 
             this.Button_Line.BackColor = System.Drawing.Color.White;
             this.Button_Line.BorderWidth = 2F;
             this.Button_Line.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Line.ForeColor = System.Drawing.Color.Black;
+            this.Button_Line.IsSelected = false;
             this.Button_Line.Location = new System.Drawing.Point(10, 110);
             this.Button_Line.Name = "Button_Line";
             this.Button_Line.Note = "";
             this.Button_Line.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Line.Size = new System.Drawing.Size(75, 50);
             this.Button_Line.TabIndex = 4;
-            this.Button_Line.Click += Button_Line_Click;
-            //
-            // Button_Start
-            //
+            // 
+            // Button_Pencil
+            // 
+            this.Button_Pencil.BackColor = System.Drawing.Color.White;
+            this.Button_Pencil.BorderWidth = 2F;
+            this.Button_Pencil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_Pencil.ForeColor = System.Drawing.Color.Black;
+            this.Button_Pencil.IsSelected = false;
+            this.Button_Pencil.Location = new System.Drawing.Point(10, 40);
+            this.Button_Pencil.Name = "Button_Pencil";
+            this.Button_Pencil.Note = "";
+            this.Button_Pencil.Padding = new System.Windows.Forms.Padding(3);
+            this.Button_Pencil.Size = new System.Drawing.Size(75, 50);
+            this.Button_Pencil.TabIndex = 4;
+            // 
+            // Button_StartGame
+            // 
             this.Button_StartGame.BackColor = System.Drawing.Color.White;
             this.Button_StartGame.BorderWidth = 2F;
             this.Button_StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_StartGame.ForeColor = System.Drawing.Color.Black;
+            this.Button_StartGame.IsSelected = false;
             this.Button_StartGame.Location = new System.Drawing.Point(10, 250);
             this.Button_StartGame.Name = "Button_StartGame";
             this.Button_StartGame.Note = "";
             this.Button_StartGame.Padding = new System.Windows.Forms.Padding(3);
             this.Button_StartGame.Size = new System.Drawing.Size(75, 50);
             this.Button_StartGame.TabIndex = 4;
-            this.Button_StartGame.Click += Button_StartGame_Click;
-            //
-            //Button_Eraser
-            //
+            // 
+            // Button_Eraser
+            // 
             this.Button_Eraser.BackColor = System.Drawing.Color.White;
             this.Button_Eraser.BorderWidth = 2F;
             this.Button_Eraser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
+            this.Button_Eraser.IsSelected = false;
             this.Button_Eraser.Location = new System.Drawing.Point(10, 180);
             this.Button_Eraser.Name = "Button_Eraser";
             this.Button_Eraser.Note = "";
             this.Button_Eraser.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Eraser.Size = new System.Drawing.Size(75, 50);
             this.Button_Eraser.TabIndex = 4;
-            this.Button_Eraser.Click += Button_Eraser_Click;
             // 
             // GDD_View1
             // 
@@ -313,12 +320,10 @@
             this.GDD_View1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GDD_View1.Location = new System.Drawing.Point(0, 0);
             this.GDD_View1.Name = "GDD_View1";
+            this.GDD_View1.ShowFPS = false;
             this.GDD_View1.Size = new System.Drawing.Size(734, 418);
             this.GDD_View1.TabIndex = 0;
             this.GDD_View1.ViewingRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.GDD_View1.MouseDown += GDD_View1_MouseDown;
-            this.GDD_View1.MouseMove += GDD_View1_MouseMove;
-            this.GDD_View1.MouseUp += GDD_View1_MouseUp;
             // 
             // PanelMain
             // 
@@ -408,12 +413,15 @@
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.PanelMain.ResumeLayout(false);
             this.PanelPlayNow.ResumeLayout(false);
+            this.PanelPlaying.ResumeLayout(false);
             this.PanelSettings.ResumeLayout(false);
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }      
         
         #endregion

@@ -31,6 +31,49 @@ namespace GDD_Game_Windows
         private string backgroundpath = "";
         private GDD_Button shapePanel;
 
+        /// <summary>
+        /// The tile size of the buttons
+        /// </summary>
+        private Size tileSize = new Size(76, 76);
+        
+        /// <summary>
+        /// The distance between the buttons
+        /// </summary>
+        Size tileDistance = new Size(10, 10);
+
+        /// <summary>
+        /// Puts it in Designer or Player Mode
+        /// </summary>
+        public Boolean isDesigner 
+        {
+            get
+            {
+                return _isDesigner;
+            }
+            set
+            {
+                this._isDesigner = value;
+
+                if (value == false)
+                {
+                    Button_Shapes.Enabled = false;
+                    Button_Select.Enabled = false;
+                    Button_Shapes.Visible = false;
+                    Button_Select.Visible = false;
+                }
+                else
+                {
+                    Button_Shapes.Enabled = true;
+                    Button_Select.Enabled = true;
+                    Button_Shapes.Visible = true;
+                    Button_Select.Visible = true;
+                }
+
+                PositionComponents();
+            }
+        }
+        private Boolean _isDesigner;
+
         public LevelDesigner()
         {
             InitializeComponent();
@@ -55,9 +98,13 @@ namespace GDD_Game_Windows
             this.Button_Select.Text = "Edit";
             this.editPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
             this.editPanel.Visible = false;
+            this.optionPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
+            this.optionPanel.Visible = false;
      
-
+            //GDD_View_LevelDesigner1
             GDD_View_LevelDesigner1.graphicsTimer.Start();
+
+            this.isDesigner = true;
 
         }
 
@@ -421,10 +468,6 @@ namespace GDD_Game_Windows
                 //Type now holds all the shapes that are derived from polygon; just need to add circle
                 polygonTypes.Add((new GDD_Circle()).GetType());
 
-                //Defining the tile sizes
-                Size tileSize = new Size(76, 76);
-                Size tileDistance = new Size(10, 10);
-
                 //Max size of the panel          
                 shapePanel = new GDD_Button();
                 shapePanel.Location = new Point(Button_Shapes.Right + 10, Button_Shapes.Top);
@@ -488,21 +531,6 @@ namespace GDD_Game_Windows
             
         }
 
-        private void Button_DeleteAll_Click(object sender, EventArgs e)
-        {
-            DialogResult answer = MessageBox.Show("Are you sure you want to delete everything?",
-                                                    "Really?",
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Question);
-            if (answer == System.Windows.Forms.DialogResult.Yes)
-            {
-                //Delete everything in the form
-                GDD_View_LevelDesigner1.Scene.Objects.Clear();
-            }
-
-            //Else do nothing
-        }
-
         private void Button_Save_Click(object sender, EventArgs e)
         {
             //Saves the current built level
@@ -533,6 +561,92 @@ namespace GDD_Game_Windows
         {
             GDD_View_LevelDesigner1.Scene.Objects.Remove(EraserSphere);
             EraserSphere = null;
+        }
+
+        private void LevelDesigner_Resize(object sender, EventArgs e)
+        {
+            PositionComponents();
+        }
+
+        private void PositionComponents()
+        {
+            //We need to position all the buttons; 
+            int i = (this.ClientSize.Height - (6 * tileDistance.Height)) / 5;
+            this.tileSize = new Size(i, i); i = 0;
+
+            //Positioning the pencil
+            Button_Pencil.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Pencil.Size = tileSize; i++;
+
+            //Positioning the lne
+            Button_Line.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Line.Size = tileSize; i++;
+
+            //Positioning the Eraser button
+            Button_Eraser.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Eraser.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Shapes.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Shapes.Size = tileSize; i++;
+
+            //Positioning the Select button
+            Button_Select.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Select.Size = tileSize;
+
+
+            //Positioning the Panel
+            editPanel.Location = new Point(Button_Select.Right + tileDistance.Width, Button_Select.Top);
+            i = 0;
+
+            //Moving the buttons etc
+            Button_Move.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Move.Size = tileSize; i++;
+            Button_Resize.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Resize.Size = tileSize; i++;
+            Button_Rotate.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Rotate.Size = tileSize; i++;
+            editPanel.Height = tileSize.Height;
+            editPanel.Width = Button_Rotate.Right;
+
+            //Moving the options
+            i = 0;
+
+            //Positioning the Save button
+            if (isDesigner)
+            {
+                Button_Save.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+                Button_Save.Size = tileSize; i++;
+            }
+
+            //Positioning the Play Button
+            Button_Play.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Play.Size = tileSize; i++;
+
+            //Positioning the Er button
+            Button_Reset.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Reset.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Exit.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Exit.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Options.Location = new Point(this.ClientRectangle.Width - (tileDistance.Width + tileSize.Width), this.ClientRectangle.Height - (tileDistance.Height + tileSize.Height));
+            Button_Options.Size = tileSize;
+
+            //Positioning the panel
+            optionPanel.Width = tileSize.Width;
+            optionPanel.Height = (i - 1) * tileDistance.Height + tileSize.Height * i;
+            optionPanel.Location = new Point(this.ClientRectangle.Width - (tileDistance.Width + tileSize.Width), this.ClientRectangle.Height - (optionPanel.Height + tileSize.Height + tileDistance.Height * 2));
+
+         
+        }
+
+        private void Button_Options_Click(object sender, EventArgs e)
+        {
+            optionPanel.Show();
+            optionPanel.BringToFront();
         }
     }
 }

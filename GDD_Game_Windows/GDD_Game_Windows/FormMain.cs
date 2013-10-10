@@ -543,6 +543,13 @@ namespace GDD_Game_Windows
                     }
                 }
             }
-        }        
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            //Updating all buttons to the right location
+            
+        }
+        
     }
 }
