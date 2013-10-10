@@ -44,21 +44,16 @@
             this.Button_Competitive = new GDD_Library.Controls.GDD_Button();
             this.Button_Custom = new GDD_Library.Controls.GDD_Button();
             this.Button_Chapter1 = new GDD_Library.Controls.GDD_Button();
-            this.Button_Line = new GDD_Library.Controls.GDD_Button();
-            this.Button_Pencil = new GDD_Library.Controls.GDD_Button();
-            this.Button_StartGame = new GDD_Library.Controls.GDD_Button();
-            this.Button_Eraser = new GDD_Library.Controls.GDD_Button();
+            this.Button_GoBack = new GDD_Library.Controls.GDD_Button();
             this.GDD_View1 = new GDD_Library.GDD_View();
             this.PanelMain = new System.Windows.Forms.Panel();
             this.PanelPlayNow = new System.Windows.Forms.Panel();
-            this.PanelPlaying = new System.Windows.Forms.Panel();
             this.PanelSettings = new System.Windows.Forms.Panel();
             this.PanelLevelSelect = new System.Windows.Forms.Panel();
             this.PanelCustomLevels = new System.Windows.Forms.Panel();
             this.PanelChapterSelect = new System.Windows.Forms.Panel();
             this.PanelMain.SuspendLayout();
             this.PanelPlayNow.SuspendLayout();
-            this.PanelPlaying.SuspendLayout();
             this.PanelSettings.SuspendLayout();
             this.PanelLevelSelect.SuspendLayout();
             this.PanelChapterSelect.SuspendLayout();
@@ -272,7 +267,21 @@
             this.Button_Chapter1.Note = "";
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
-            this.Button_Chapter1.TabIndex = 4;          
+            this.Button_Chapter1.TabIndex = 4;
+            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter1_Click);
+            // 
+            // Button_GoBack
+            // 
+            this.Button_GoBack.BackColor = System.Drawing.Color.White;
+            this.Button_GoBack.BorderWidth = 2F;
+            this.Button_GoBack.ForeColor = System.Drawing.Color.Black;
+            this.Button_GoBack.IsSelected = false;
+            this.Button_GoBack.Location = new System.Drawing.Point(10, 10);
+            this.Button_GoBack.Name = "Button_GoBack";
+            this.Button_GoBack.Note = null;
+            this.Button_GoBack.Size = new System.Drawing.Size(25, 25);
+            this.Button_GoBack.TabIndex = 0;
+            this.Button_GoBack.Click += new System.EventHandler(Button_GoBack_Click);
             // 
             // GDD_View1
             // 
@@ -301,6 +310,7 @@
             // PanelPlayNow
             // 
             this.PanelPlayNow.BackColor = System.Drawing.Color.White;
+            this.PanelPlayNow.Controls.Add(this.Button_GoBack);
             this.PanelPlayNow.Controls.Add(this.Button_Back_PlayNow);
             this.PanelPlayNow.Controls.Add(this.Button_Competitive);
             this.PanelPlayNow.Controls.Add(this.Button_Custom);
@@ -309,21 +319,10 @@
             this.PanelPlayNow.Size = new System.Drawing.Size(400, 480);
             this.PanelPlayNow.TabIndex = 1;
             // 
-            // PanelPlaying
-            // 
-            this.PanelPlaying.BackColor = System.Drawing.Color.White;
-            this.PanelPlaying.Controls.Add(this.Button_Pencil);
-            this.PanelPlaying.Controls.Add(this.Button_Line);
-            this.PanelPlaying.Controls.Add(this.Button_Eraser);
-            this.PanelPlaying.Controls.Add(this.Button_StartGame);
-            this.PanelPlaying.Location = new System.Drawing.Point(600, 0);
-            this.PanelPlaying.Name = "PanelPlaying";
-            this.PanelPlaying.Size = new System.Drawing.Size(134, 418);
-            this.PanelPlaying.TabIndex = 1;
-            // 
             // PanelSettings
             // 
             this.PanelSettings.BackColor = System.Drawing.Color.White;
+            this.PanelSettings.Controls.Add(this.Button_GoBack);
             this.PanelSettings.Controls.Add(this.Button_Back_Settings);
             this.PanelSettings.Controls.Add(this.Button_Sound);
             this.PanelSettings.Location = new System.Drawing.Point(0, 0);
@@ -335,6 +334,7 @@
             // 
             this.PanelLevelSelect.BackColor = System.Drawing.Color.White;
             this.PanelLevelSelect.Controls.Add(this.Button_Back_LevelSelect);
+            this.PanelLevelSelect.Controls.Add(this.Button_GoBack);
             this.PanelLevelSelect.Location = new System.Drawing.Point(0, 0);
             this.PanelLevelSelect.Name = "PanelLevelSelect";
             this.PanelLevelSelect.Size = new System.Drawing.Size(400, 480);
@@ -342,6 +342,7 @@
             // 
             // PanelCustomLevels
             // 
+            this.PanelCustomLevels.Controls.Add(this.Button_GoBack);
             this.PanelCustomLevels.Location = new System.Drawing.Point(0, 0);
             this.PanelCustomLevels.Name = "PanelCustomLevels";
             this.PanelCustomLevels.Size = new System.Drawing.Size(400, 480);
@@ -352,6 +353,7 @@
             this.PanelChapterSelect.BackColor = System.Drawing.Color.White;
             this.PanelChapterSelect.Controls.Add(this.Button_Back_ChapterSelect);
             this.PanelChapterSelect.Controls.Add(this.Button_Chapter1);
+            this.PanelChapterSelect.Controls.Add(this.Button_GoBack);
             this.PanelChapterSelect.Location = new System.Drawing.Point(0, 0);
             this.PanelChapterSelect.Name = "PanelChapterSelect";
             this.PanelChapterSelect.Size = new System.Drawing.Size(400, 480);
@@ -369,19 +371,18 @@
             this.Controls.Add(this.PanelCustomLevels);
             this.Controls.Add(this.PanelSettings);
             this.Controls.Add(this.PanelPlayNow);
-            this.Controls.Add(this.PanelPlaying);
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.PanelMain.ResumeLayout(false);
             this.PanelPlayNow.ResumeLayout(false);
-            this.PanelPlaying.ResumeLayout(false);
             this.PanelSettings.ResumeLayout(false);
             this.PanelLevelSelect.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
-        }
+
+        }       
 
         #endregion
 
@@ -400,16 +401,12 @@
         private GDD_Library.Controls.GDD_Button Button_Competitive;
         private GDD_Library.Controls.GDD_Button Button_Custom;
         private GDD_Library.Controls.GDD_Button Button_Chapter1;
-        private GDD_Library.Controls.GDD_Button Button_Line;
-        private GDD_Library.Controls.GDD_Button Button_Pencil;
-        private GDD_Library.Controls.GDD_Button Button_StartGame;
-        private GDD_Library.Controls.GDD_Button Button_Eraser;
+        private GDD_Library.Controls.GDD_Button Button_GoBack;
         private System.Windows.Forms.Panel PanelMain;
         private System.Windows.Forms.Panel PanelPlayNow;
         private System.Windows.Forms.Panel PanelSettings;
         private System.Windows.Forms.Panel PanelChapterSelect;
         private System.Windows.Forms.Panel PanelCustomLevels;
         private System.Windows.Forms.Panel PanelLevelSelect;
-        private System.Windows.Forms.Panel PanelPlaying;
     }
 }

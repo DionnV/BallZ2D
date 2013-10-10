@@ -102,7 +102,7 @@ namespace GDD_Game_Windows
             this.optionPanel.Visible = false;
 
             //GDD_View_LevelDesigner1
-            GDD_View_LevelDesigner1.graphicsTimer.Start();
+            //GDD_View_LevelDesigner1.graphicsTimer.Start();
 
             //Normallhy we're designing
             this.isDesigner = true;

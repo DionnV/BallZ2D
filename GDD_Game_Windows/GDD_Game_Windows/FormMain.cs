@@ -20,6 +20,7 @@ namespace GDD_Game_Windows
     public partial class FormMain : Form
     {
         private Panel CurrentPanel;
+        private Panel PreviousPanel;
         private bool SoundOn = false;
 
         private LevelDesigner playzone;
@@ -64,6 +65,11 @@ namespace GDD_Game_Windows
             if (CurrentPanel != null)
             {
                 CurrentPanel.SendToBack();
+                PreviousPanel = CurrentPanel;
+            }
+            else
+            {
+                PreviousPanel = PanelMain;
             }
             this.PanelMain.BringToFront();
             CurrentPanel = PanelMain;
@@ -81,6 +87,7 @@ namespace GDD_Game_Windows
         {
             CurrentPanel.SendToBack();
             this.PanelPlayNow.BringToFront();
+            PreviousPanel = CurrentPanel;
             CurrentPanel = PanelPlayNow;
             Button_Back_PlayNow.Text = "Choose a mode.";
             Button_Competitive.Text = "Competitive";
@@ -120,6 +127,7 @@ namespace GDD_Game_Windows
         {
             CurrentPanel.SendToBack();
             this.PanelSettings.BringToFront();
+            PreviousPanel = CurrentPanel;
             CurrentPanel = PanelSettings;
             Button_Back_Settings.Text = "Settings";
             Button_Sound.Text = "Sound: off";
@@ -132,6 +140,7 @@ namespace GDD_Game_Windows
         {
             CurrentPanel.SendToBack();
             this.PanelChapterSelect.BringToFront();
+            PreviousPanel = CurrentPanel;
             CurrentPanel = PanelChapterSelect;
             Button_Back_ChapterSelect.Text = "Choose a chapter.";
             Button_Chapter1.Text = "Chapter 1";
@@ -144,6 +153,7 @@ namespace GDD_Game_Windows
         {
             CurrentPanel.SendToBack();
             this.PanelLevelSelect.BringToFront();
+            PreviousPanel = CurrentPanel;
             CurrentPanel = PanelLevelSelect;
             Button_Back_LevelSelect.Text = "Choose a level.";
         }
@@ -155,6 +165,7 @@ namespace GDD_Game_Windows
         {
             CurrentPanel.SendToBack();
             this.PanelCustomLevels.BringToFront();
+            PreviousPanel = CurrentPanel;
             CurrentPanel = PanelCustomLevels;
             Button_Back_CustomLevels.Text = "Choose a custom level.";
         }
@@ -209,6 +220,13 @@ namespace GDD_Game_Windows
         {
             //Load the settings menu.
             LoadSettings();
+        }
+
+        private void Button_GoBack_Click(object sender, System.EventArgs e)
+        {
+            CurrentPanel.SendToBack();
+            PreviousPanel.BringToFront();
+            CurrentPanel = PreviousPanel;
         }
 
         /// <summary>
@@ -615,6 +633,6 @@ namespace GDD_Game_Windows
         {
             //Updating all buttons to the right location
             
-        }   
+        }
     }
 }
