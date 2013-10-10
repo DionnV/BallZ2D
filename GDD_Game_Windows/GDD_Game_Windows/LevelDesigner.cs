@@ -29,7 +29,54 @@ namespace GDD_Game_Windows
         private System.Diagnostics.Stopwatch bucketCollisionTimer = new System.Diagnostics.Stopwatch();
         private int bucketCollisionCounter = 0;
 
+        private GDD_Point2F MouseStart;
+        private GDD_Point2F StartLocation;
+        private GDD_Vector2F StartRotation;
+        private float StartSize;
         private GDD_Button shapePanel;
+
+        /// <summary>
+        /// The tile size of the buttons
+        /// </summary>
+        private Size tileSize = new Size(76, 76);
+        
+        /// <summary>
+        /// The distance between the buttons
+        /// </summary>
+        Size tileDistance = new Size(10, 10);
+
+        /// <summary>
+        /// Puts it in Designer or Player Mode
+        /// </summary>
+        public Boolean isDesigner 
+        {
+            get
+            {
+                return _isDesigner;
+            }
+            set
+            {
+                this._isDesigner = value;
+
+                if (value == false)
+                {
+                    Button_Shapes.Enabled = false;
+                    Button_Select.Enabled = false;
+                    Button_Shapes.Visible = false;
+                    Button_Select.Visible = false;
+                }
+                else
+                {
+                    Button_Shapes.Enabled = true;
+                    Button_Select.Enabled = true;
+                    Button_Shapes.Visible = true;
+                    Button_Select.Visible = true;
+                }
+
+                PositionComponents();
+            }
+        }
+        private Boolean _isDesigner;
 
         public LevelDesigner()
         {
@@ -38,6 +85,7 @@ namespace GDD_Game_Windows
 
         private void LevelDesigner_Load(object sender, EventArgs e)
         {
+            //Setting the correct size
             this.ClientSize = new System.Drawing.Size(800, 480);
 
             //Add all buttons to the list
@@ -45,31 +93,58 @@ namespace GDD_Game_Windows
             buttons.Add(Button_Line);
             buttons.Add(Button_Eraser);
             buttons.Add(Button_Shapes);
-            buttons.Add(Button_DeleteAll);
+            buttons.Add(Button_Select);
+            buttons.Add(Button_Move);
+            buttons.Add(Button_Rotate);
+            buttons.Add(Button_Resize);
 
             //Set the text of the GDD_Buttons.
-            this.Button_DeleteAll.Text = "Delete All";
-
-            Button_Browse.Text = "Browse...";
-            Button_Save.Text = "Save";
-
-
+            this.Button_Select.Text = "Edit";
+            this.editPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
+            this.editPanel.Visible = false;
+            this.optionPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
+            this.optionPanel.Visible = false;
+     
+            //GDD_View_LevelDesigner1
             GDD_View_LevelDesigner1.graphicsTimer.Start();
+
+            this.isDesigner = true;
 
         }
 
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
         {
             //First off; checking if we clicked on a polygon object
-            foreach (GDD_Object obj in this.GDD_View_LevelDesigner1.Scene.Objects)
+            if (Button_Select.IsSelected)
             {
-                //Are we clicking on it?
-                if (obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
+                if (e.Button == MouseButtons.Left)
                 {
-                    SelectedObj = obj;
+                    foreach (GDD_Object obj in this.GDD_View_LevelDesigner1.Scene.Objects)
+                    {
+                        //Are we clicking on it?
+                        if (obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
+                        {
+                            //De-Highlighting the shape
+                            if (SelectedObj != null)
+                            {
+                                SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                            }
+
+                            //We are clicking on it
+                            SelectedObj = obj;
+                            SelectedObj.Shape.DrawingColor = new SolidBrush(Color.LightGray);
+
+                            //Now we should transform the select button to the edit button
+                            editPanel.Show();
+                            editPanel.BringToFront();
+
+
+                            return;
+                        }
+                    }
+
                     return;
                 }
-                
             }
 
             //Are we using a pencil?
@@ -115,6 +190,23 @@ namespace GDD_Game_Windows
                 return;
             }
 
+            //Are we Editing the object
+            if (Button_Move.IsSelected || Button_Rotate.IsSelected || Button_Resize.IsSelected)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        MouseStart = new GDD_Point2F(e.X, e.Y);
+                        StartRotation = SelectedObj.Rotation;
+                        StartSize = SelectedObj.Shape.Size;
+                        StartLocation = SelectedObj.Location;
+                    }
+                }
+                return;
+
+            }
+
             //This leaves us with a shape to add, getting the name we should add from the name of the sender
             if (e.Button == MouseButtons.Left)
             {
@@ -130,12 +222,18 @@ namespace GDD_Game_Windows
                         SelectedObj.Rotation = new GDD_Vector2F(0f, 0f);
                         SelectedObj.Velocity = new GDD_Point2F(0f, 0f);
                         SelectedObj.GravityType = GDD_GravityType.Static;
+                        SelectedObj.Shape.DrawingColor = new SolidBrush(Color.LightGray);
                         GDD_View_LevelDesigner1.Scene.Objects.Add(SelectedObj);
+                        StartLocation = SelectedObj.Location;
+                        MouseStart = new GDD_Point2F(e.X, e.Y);
 
                         //Deselecting the button and hiding the menu
                         button.IsSelected = false;
                         button.BackColor = Color.White;
                         shapePanel.Visible = false;
+                        Button_Move.IsSelected = true;
+                        Button_Move.BackColor = Color.LightGray;
+                        editPanel.Visible = true;
                     }
                 }   
             }         
@@ -144,10 +242,8 @@ namespace GDD_Game_Windows
         private void GDD_View_LevelDesigner1_MouseMove(object sender, MouseEventArgs e)
         {
             //Checking if we have a selected object now
-            if ((SelectedObj != null) && (SelectedObj != EraserSphere))
+            if (Button_Select.IsSelected)
             {
-                //This leaves us with the other option; moving the just added object
-                SelectedObj.Location = new GDD_Point2F(e.X, e.Y);
                 return;
             }
 
@@ -197,7 +293,6 @@ namespace GDD_Game_Windows
             //Are we erasing stuff?
             if (Button_Eraser.IsSelected)
             {
-                
                 //Creating a sphere with width 10px
                 if (EraserSphere == null)
                 {
@@ -247,31 +342,80 @@ namespace GDD_Game_Windows
             {
                 //Do nothing
                 return;
+            }
+
+            //Are we moving the object?
+            if (Button_Move.IsSelected)
+            {
+                //Are we pressing the mouse?
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        SelectedObj.Location = new GDD_Point2F(
+                            StartLocation.x + (e.X - MouseStart.x), 
+                            StartLocation.y + (e.Y - MouseStart.y));
+                    }
+                }
+                return;
+            }
+
+            //Are we moving the object?
+            if (Button_Resize.IsSelected)
+            {
+                //Are we pressing the mouse?
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        //Calculating the distances
+                        float oldEud = (float)GDD_Math.EuclidianDistance(new GDD_Point2F(MouseStart.x, MouseStart.y), SelectedObj.Location);
+                        float newEud = (float)GDD_Math.EuclidianDistance(new GDD_Point2F(e.X, e.Y), SelectedObj.Location);
+
+                        //Insuring a big enough size
+                        float s = StartSize + (newEud - oldEud);
+                        s = s < 3 ? 3 : s;
+
+                        //resizing the object
+                        SelectedObj.Shape.Size = s;
+                    }
+                }
+                return;
+            }
+
+            //Are we moving the object?
+            if (Button_Rotate.IsSelected)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (SelectedObj != null)
+                    {
+                        //Creating a vector
+                        GDD_Point2F p1 = new GDD_Point2F(MouseStart.x - SelectedObj.Location.x, MouseStart.y - SelectedObj.Location.y);
+                        GDD_Vector2F v1 = p1.ToVector();
+
+                        GDD_Point2F p2 = new GDD_Point2F(e.X - SelectedObj.Location.x, e.Y - SelectedObj.Location.y);
+                        GDD_Vector2F v2 = p2.ToVector();
+
+
+                        //resizing the object
+                        SelectedObj.Rotation = new GDD_Vector2F((StartRotation.Direction + (v2.Direction - v1.Direction)) % 360, SelectedObj.Rotation.Size);
+
+                    }
+                }
+                return;
             }           
-        }
-            
-    
+        }       
 
         private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
             //Making sure we stop pointing at the just added or selected object
-            SelectedObj = new GDD_Object(new GDD_Square());
-            SelectedObj = null;
-        }
-
-        private void GDD_View_LevelDesigner1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
+            /*if (SelectedObj != null)
             {
-                foreach (GDD_Object obj in GDD_View_LevelDesigner1.Scene.Objects)
-                {
-                    if(obj.Shape.ContainsPoint(new GDD_Point2F(e.X, e.Y)))
-                    {
-                        GDD_View_LevelDesigner1.Scene.Objects.Remove(obj);
-                        break;
-                    }
-                }
+                SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
             }
+            SelectedObj = new GDD_Object(new GDD_Square());
+            SelectedObj = null;*/
         }
 
         private void HighLightButton(object sender, EventArgs e)
@@ -286,6 +430,18 @@ namespace GDD_Game_Windows
             //Highlighting ourself
             ((GDD_Button)sender).BackColor = Color.LightGray;
             ((GDD_Button)sender).IsSelected = true;
+
+            //Do we need to hide the options?
+            if (sender != Button_Select && sender != Button_Move && sender != Button_Rotate && sender != Button_Resize)
+            {
+                editPanel.Visible = false;
+
+                if (SelectedObj != null)
+                {
+                    SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                    SelectedObj = null;
+                }
+            }
         }
 
 
@@ -296,13 +452,11 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         void Button_Shapes_Click(object sender, System.EventArgs e)
         {
-
             if (shapePanel == null)
             {
                 //Getting a list of all types known right now
                 Type[] allTypes = Assembly.GetExecutingAssembly().GetTypes();
                 List<Type> polygonTypes = new List<Type>();
-
 
                 //Looping each type we can find
                 foreach (Type type in allTypes)
@@ -318,10 +472,6 @@ namespace GDD_Game_Windows
                 //Type now holds all the shapes that are derived from polygon; just need to add circle
                 polygonTypes.Add((new GDD_Circle()).GetType());
 
-                //Defining the tile sizes
-                Size tileSize = new Size(50, 50);
-                Size tileDistance = new Size(10, 10);
-
                 //Max size of the panel          
                 shapePanel = new GDD_Button();
                 shapePanel.Location = new Point(Button_Shapes.Right + 10, Button_Shapes.Top);
@@ -334,8 +484,8 @@ namespace GDD_Game_Windows
                 shapePanel.Text = "";
                 shapePanel.TabIndex = 0;
                 shapePanel.BorderWidth = 0f;
-                int x = (polygonTypes.Count) * (tileSize.Width + tileDistance.Width) + tileDistance.Width ;
-                int y = ((x / shapePanel.MaximumSize.Width) + 1) * (tileSize.Width + tileDistance.Width) + tileDistance.Width;
+                int x = polygonTypes.Count * (tileSize.Width + tileDistance.Width) - tileDistance.Width ;
+                int y = ((x / shapePanel.MaximumSize.Width) + 1) * tileSize.Height;
                 shapePanel.Size = new Size(x, y);
                 shapePanel.Visible = false;
 
@@ -381,34 +531,20 @@ namespace GDD_Game_Windows
             shapePanel.BringToFront();          
         }
 
-        private void Button_DeleteAll_Click(object sender, EventArgs e)
-        {
-            DialogResult answer = MessageBox.Show("Are you sure you want to delete everything?",
-                                                    "Really?",
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Question);
-            if (answer == System.Windows.Forms.DialogResult.Yes)
-            {
-                //Delete everything in the form
-                GDD_View_LevelDesigner1.Scene.Objects.Clear();
-            }
-            //Else do nothing
-        }
-
         private void Button_Save_Click(object sender, EventArgs e)
         {
             //Saves the current built level
             GDD_Level level = new GDD_Level();
             level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
             level.info = new GDD_HeaderInfo();
-            if (LevelName.Text != null)
+            /*if (LevelName.Text != null)
             {
                 level.info.LevelName = LevelName.Text;
             }
             if (CreatorBox.Text != null)
             {
                 level.info.CreatorName = CreatorBox.Text;
-            }
+            }*/
             level.info.VersionNumber = 1;
             level.info.LevelVersionNumber = 1;
             level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
@@ -432,42 +568,96 @@ namespace GDD_Game_Windows
             MessageBox.Show("Level saved.");
         }
 
-
-        /// <summary>
-        /// Handles the click when the Eraser button gets clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Eraser_Click(object sender, EventArgs e)
-        {
-            /*//Creating a temporarly circle
-            GDD_Object circle = new GDD_Object(new GDD_Circle());
-            circle.Shape.Size = 10f;
-            circle.Rotation = new GDD_Vector2F(0f, 0f);
-            circle*/
-        }
-
-        private void RotateBar_Scroll(object sender, EventArgs e)
-        {
-            if (SelectedObj != null)
-            {
-                SelectedObj.Rotation = new GDD_Vector2F(RotateBar.Value, SelectedObj.Rotation.Size);
-            }
-        }
-
-        private void SizeBar_Scroll(object sender, EventArgs e)
-        {
-            if (SelectedObj != null)
-            {
-                SelectedObj.Shape.Size = SizeBar.Value;
-            }
-        }
-
-        private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)
-        
+        private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)      
         {
             GDD_View_LevelDesigner1.Scene.Objects.Remove(EraserSphere);
             EraserSphere = null;
+        }
+
+        private void LevelDesigner_Resize(object sender, EventArgs e)
+        {
+            PositionComponents();
+        }
+
+        private void PositionComponents()
+        {
+            //We need to position all the buttons; 
+            int i = (this.ClientSize.Height - (6 * tileDistance.Height)) / 5;
+            this.tileSize = new Size(i, i); i = 0;
+
+            //Positioning the pencil
+            Button_Pencil.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Pencil.Size = tileSize; i++;
+
+            //Positioning the lne
+            Button_Line.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Line.Size = tileSize; i++;
+
+            //Positioning the Eraser button
+            Button_Eraser.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Eraser.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Shapes.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Shapes.Size = tileSize; i++;
+
+            //Positioning the Select button
+            Button_Select.Location = new Point(tileDistance.Width, tileDistance.Height * (i + 1) + tileSize.Height * i);
+            Button_Select.Size = tileSize;
+
+
+            //Positioning the Panel
+            editPanel.Location = new Point(Button_Select.Right + tileDistance.Width, Button_Select.Top);
+            i = 0;
+
+            //Moving the buttons etc
+            Button_Move.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Move.Size = tileSize; i++;
+            Button_Resize.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Resize.Size = tileSize; i++;
+            Button_Rotate.Location = new Point(tileDistance.Width * (i) + tileSize.Width * i, 0);
+            Button_Rotate.Size = tileSize; i++;
+            editPanel.Height = tileSize.Height;
+            editPanel.Width = Button_Rotate.Right;
+
+            //Moving the options
+            i = 0;
+
+            //Positioning the Save button
+            if (isDesigner)
+            {
+                Button_Save.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+                Button_Save.Size = tileSize; i++;
+            }
+
+            //Positioning the Play Button
+            Button_Play.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Play.Size = tileSize; i++;
+
+            //Positioning the Er button
+            Button_Reset.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Reset.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Exit.Location = new Point(0, tileDistance.Height * i + tileSize.Height * i);
+            Button_Exit.Size = tileSize; i++;
+
+            //Positioning the Shapes button
+            Button_Options.Location = new Point(this.ClientRectangle.Width - (tileDistance.Width + tileSize.Width), this.ClientRectangle.Height - (tileDistance.Height + tileSize.Height));
+            Button_Options.Size = tileSize;
+
+            //Positioning the panel
+            optionPanel.Width = tileSize.Width;
+            optionPanel.Height = (i - 1) * tileDistance.Height + tileSize.Height * i;
+            optionPanel.Location = new Point(this.ClientRectangle.Width - (tileDistance.Width + tileSize.Width), this.ClientRectangle.Height - (optionPanel.Height + tileSize.Height + tileDistance.Height * 2));
+
+         
+        }
+
+        private void Button_Options_Click(object sender, EventArgs e)
+        {
+            optionPanel.Show();
+            optionPanel.BringToFront();
         }
 
         public void Start()

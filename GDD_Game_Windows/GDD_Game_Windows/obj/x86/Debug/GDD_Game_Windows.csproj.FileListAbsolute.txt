@@ -68,6 +68,7 @@ I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigne
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 I:\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
 C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+<<<<<<< HEAD
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
@@ -79,3 +80,12 @@ C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+=======
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
+>>>>>>> 6287029059de1339458d914747f37f8290ed3bc6
+>>>>>>> dcc1d40053d0645a83b0522a24f25e4e310f068b
+>>>>>>> 5abb76058b0b8d056000eb43633c1a283a536287
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache

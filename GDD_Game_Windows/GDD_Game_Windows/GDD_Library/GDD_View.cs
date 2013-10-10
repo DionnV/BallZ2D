@@ -37,12 +37,18 @@ namespace GDD_Library
         /// <summary>
         /// An acurate timer that ticks regularly
         /// </summary>
+        [Browsable(false)]
         public GDD_Timer graphicsTimer { get; set; }
 
         /// <summary>
         /// The GDD_Scene on which we are viewing
         /// </summary>
         public GDD_Scene Scene { get; set; }
+
+        /// <summary>
+        /// Wether GDD_View should draw the fps
+        /// </summary>
+        public Boolean ShowFPS { get; set; }
 
         /// <summary>
         /// The Rectangle we are viewing
@@ -113,9 +119,11 @@ namespace GDD_Library
                 zone.Shape.Draw(g);
             }
 
-           
-            //Drawing FPS
-            g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
+
+            if (this.ShowFPS)
+            {
+                g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
+            }
 
             //Calculating some constatns
             //float Deg2Rad = 0.0174532925f;
@@ -263,7 +271,9 @@ namespace GDD_Library
                 //Drawing
                 obj.Shape.Draw(g);
             }
-            if (this != null)
+
+            //Only continue if we're not disposed in the mean time
+            if (!this.IsDisposed)
             {
 
                 //Creating own graphics
