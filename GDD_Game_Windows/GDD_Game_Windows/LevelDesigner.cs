@@ -81,10 +81,6 @@ namespace GDD_Game_Windows
         public LevelDesigner()
         {
             InitializeComponent();
-        }
-
-        private void LevelDesigner_Load(object sender, EventArgs e)
-        {
             //Setting the correct size
             this.ClientSize = new System.Drawing.Size(800, 480);
 
@@ -104,11 +100,16 @@ namespace GDD_Game_Windows
             this.editPanel.Visible = false;
             this.optionPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
             this.optionPanel.Visible = false;
-     
+
             //GDD_View_LevelDesigner1
             GDD_View_LevelDesigner1.graphicsTimer.Start();
 
             this.isDesigner = true;
+        }
+
+        private void LevelDesigner_Load(object sender, EventArgs e)
+        {
+            
 
         }
 
@@ -699,7 +700,5 @@ namespace GDD_Game_Windows
             this.level = level;
             Reset();
         }
-
-        public bool IsDesigner { get; set; }
     }
 }

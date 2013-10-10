@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GDD_Library.Shapes;
+using GDD_Library.Obstacles;
 
 namespace GDD_Library
 {
@@ -105,6 +106,12 @@ namespace GDD_Library
         /// <returns>A GDD_CollisionInfo object containing all collision data.</returns>
         public static GDD_CollisionInfo get(GDD_Circle circle, GDD_Polygon polygon)
         {
+
+            if (polygon is GDD_Spikes)
+            {
+                //GAME OVER
+            }
+           
             //A list of collisions
             List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
             
@@ -156,6 +163,10 @@ namespace GDD_Library
             {
                 //TODO: check if the collision is actually occuring
                 Collisions[Closest_i].obj2 = polygon.Owner;
+                if (polygon is GDD_GravityLift)
+                {
+                    Collisions[Closest_i].obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(Collisions[Closest_i].obj1_AfterCollision.Velocity_Vector.Direction, 800f);
+                }
 
                 return Collisions[Closest_i];
             }

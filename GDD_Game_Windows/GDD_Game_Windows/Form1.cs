@@ -267,7 +267,7 @@ namespace GDD_Game_Windows
             circle1.Rotation = new GDD_Vector2F(0f, 0f);
             circle1.Velocity = new GDD_Point2F(0f, 0f);
 
-            GDD_Object grav = new GDD_Object(new GDD_Spikes());
+            GDD_Object grav = new GDD_Object(new GDD_GravityLift());
             grav.Location = new GDD_Point2F(400f, 400f);
             grav.Shape.Size = 110f;
             grav.Mass = 100f;
@@ -275,7 +275,7 @@ namespace GDD_Game_Windows
             grav.Velocity = new GDD_Point2F(0f, 0f);
             grav.GravityType = GDD_GravityType.Static;
             //grav.OnCollision += new EventHandler(grav_OnCollision);
-
+            /*
             //Placing a few boxes
             for (int i = 0; i < 4; i++)
             {
@@ -307,7 +307,7 @@ namespace GDD_Game_Windows
                 GDD_View1.Scene.Objects.Add(square1);
 
             }
-
+            */
             //Adding a no-draw zone
 
             /*GDD_Zone zone = new GDD_Zone();

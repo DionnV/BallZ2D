@@ -117,7 +117,7 @@ namespace GDD_Game_Windows
             }
 
             //We have designer rights.
-            this.playzone.IsDesigner = true;
+            this.playzone.isDesigner = true;
 
             //Set location and show the form.
             this.playzone.Location = this.Location;
@@ -322,7 +322,7 @@ namespace GDD_Game_Windows
                 this.playzone.FormClosed += playzone_FormClosed;
 
             }
-            this.playzone.IsDesigner = false;
+            this.playzone.isDesigner = false;
             this.playzone.Location = this.Location;          
 
             //Load the level.          
@@ -636,6 +636,6 @@ namespace GDD_Game_Windows
         {
             //Updating all buttons to the right location
             
-        }       
+        }   
     }
 }
