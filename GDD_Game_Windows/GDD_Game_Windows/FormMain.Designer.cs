@@ -343,6 +343,7 @@
             // 
             // PanelCustomLevels
             // 
+            this.PanelCustomLevels.BackColor = System.Drawing.Color.White;
             this.PanelCustomLevels.Controls.Add((GDD_Library.Controls.GDD_Button)this.Button_GoBack.Clone());
             this.PanelCustomLevels.Location = new System.Drawing.Point(0, 0);
             this.PanelCustomLevels.Name = "PanelCustomLevels";
