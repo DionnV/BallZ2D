@@ -102,12 +102,6 @@ namespace GDD_Game_Windows
             //Hide this form.
             this.Hide();
             
-            if (this.playzone != null)
-            {
-                this.playzone.Dispose();
-                this.playzone = null;          
-            }
-
             //Create a new one if the current one is null
             this.playzone = new LevelDesigner();
 
@@ -120,6 +114,9 @@ namespace GDD_Game_Windows
             //Set location and show the form.
             this.playzone.Location = this.Location;
             this.playzone.Show();
+
+            //Stopping the graphics timer
+            this.GDD_View1.graphicsTimer.Stop();
         }
 
         /// <summary>
@@ -308,19 +305,12 @@ namespace GDD_Game_Windows
         {
             //Who pressed me?
             GDD_Button button = (GDD_Button)sender;
-            
-            //Hide the FormMain.
-            this.Hide();
 
-            //Make a new playzone with no designer rights
-            if (this.playzone == null)
-            {
-                this.playzone = new LevelDesigner();
-                this.playzone.FormClosed += playzone_FormClosed;
-
-            }
+            //Loading level designer
+            LoadLevelDesigner();   
+  
+            //Setting the leveldesigner to not a designer
             this.playzone.isDesigner = false;
-            this.playzone.Location = this.Location;          
 
             //Load the level.          
             GDD_Level level = GDD_IO.LoadFromZipFile("./Competitive/Chapter1/" + button.Name + ".zip");
@@ -328,7 +318,7 @@ namespace GDD_Game_Windows
             //Put the levels in a new list, because serializing gives errors with the Owners.
             List<GDD_Object> newlist = new List<GDD_Object>();
             
-            
+            //Adding all the objects
             foreach (GDD_Object obj in level.Objects)
             {
                 GDD_Object temp = new GDD_Object(obj.Shape);
@@ -348,11 +338,7 @@ namespace GDD_Game_Windows
             this.playzone.LoadLevel(level);
 
             //Show the playzone
-            playzone.Show();
-
-            //LoadPlayingScreen();
-            //GDD_View1.graphicsTimer.Start();
-            //DrawingEnabled = true;
+            this.playzone.Show();
         }
 
         /// <summary>
@@ -377,58 +363,6 @@ namespace GDD_Game_Windows
             LoadChapterSelect();
         }
 
-/*        void Button_Line_Click(object sender, System.EventArgs e)
-        {
-            Button_Pencil.IsSelected = false;
-            Button_Eraser.IsSelected = false;
-            if (Button_Line.IsSelected)
-            {
-                Button_Line.IsSelected = false;
-            }
-            else
-            {
-                Button_Line.IsSelected = true;
-            }
-        }
-
-        void Button_StartGame_Click(object sender, System.EventArgs e)
-        {
-            //DrawingEnabled = false;
-            //ball.GravityType = GDD_GravityType.Normal;
-        }
-
-        void Button_Eraser_Click(object sender, System.EventArgs e)
-        {
-            //this.Cursor = eraser;
-
-            Button_Line.IsSelected = false;
-            Button_Pencil.IsSelected = false;
-            if (Button_Eraser.IsSelected)
-            {
-                Button_Eraser.IsSelected = false;
-            }
-            else
-            {
-                Button_Eraser.IsSelected = true;
-            }
-        }
-
-        void Button_Pencil_Click(object sender, System.EventArgs e)
-        {
-            Button_Line.IsSelected = false;
-            Button_Eraser.IsSelected = false;
-            if (Button_Pencil.IsSelected)
-            {
-                Button_Pencil.IsSelected = false;
-            }
-            else
-            {
-                Button_Pencil.IsSelected = true;
-            }
-        }
-
- */
-
         /// <summary>
         /// This will handle the closing of the playzone form.
         /// </summary>
@@ -437,10 +371,10 @@ namespace GDD_Game_Windows
         private void playzone_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             //Dispose and set to null.
-            this.playzone.Dispose();
-            this.playzone = null;
+            this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
 
             //Show the main form.
+            this.GDD_View1.graphicsTimer.Start();
             this.Show();          
         }
 
@@ -509,138 +443,6 @@ namespace GDD_Game_Windows
             //Or not
             //Scene.Objects.Add(obj);           
         }
-/*
-        private void GDD_View1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (DrawingEnabled)
-            {
-                if (!GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw))
-                {
-                    {
-                        //Recording the start of the Line
-                        Line_Start = new GDD_Point2F(e.X, e.Y);
-
-                        //Creating a new line
-                        if (Button_Line.IsSelected)
-                        {
-                            Line_Preview = GDD_Line.Create(Line_Start, Line_Start);
-                            Line_Preview.GravityType = GDD_GravityType.Static;
-
-                            GDD_View1.Scene.Objects.Add(Line_Preview);
-                            Lines.Add(Line_Preview);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void GDD_View1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (DrawingEnabled)
-            {
-                //Only proceding if the mousebutton is down
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
-                    /*if (Button_Eraser.IsSelected)
-                    {
-                        foreach (GDD_Object line in Lines)
-                        {
-                            if (Eraser.Shape.Contains(line.Location))
-                            {
-                                Lines.Remove(line);
-                                GDD_View1.Scene.Objects.Remove(line);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //Making the right frontcolor depending on the current end of the line
-                        Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
-
-                        GDD_View1.Scene.LineThroughObject(Line_Preview);
-
-                        //Redording the end of the line
-                        Line_End = new GDD_Point2F(e.X, e.Y);
-
-                        //Using the Start and End to add a new line to ther scene
-                        GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
-
-                        //Determining what to do with the start and end
-                        if (Button_Pencil.IsSelected)
-                        {
-                            //Adding the line
-                            GDD_View1.Scene.Objects.Add(obj);
-                            Lines.Add(obj);
-
-                            //Updating the start
-                            Line_Start = Line_End;
-                        }
-
-                        //
-                        if (Button_Line.IsSelected)
-                        {
-                            //if (!nodraw.Contains(new Point(e.X, e.Y)))
-                            //{
-                            //Only proceding if the mousebutton is down
-                            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                            {
-                                //Modifying line_preview
-                                Line_Preview.Rotation = obj.Rotation;
-                                Line_Preview.Shape.Size = obj.Shape.Size;
-                            }
-                        }
-                    }
-                }
-            }
-        }      
-
-        private void GDD_View1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (DrawingEnabled)
-            {
-                //Only proceding if the mousebutton is down
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
-                    //Making the right frontcolor depending on the current end of the line
-                    Line_Preview.FrontColor = GDD_View1.Scene.PointInZone(new GDD_Point2F(e.X, e.Y), GDD_ZoneType.NoDraw) ? Color.Red : Color.Black;
-
-                    GDD_View1.Scene.LineThroughObject(Line_Preview);
-
-                    //Redording the end of the line
-                    Line_End = new GDD_Point2F(e.X, e.Y);
-
-                    //Using the Start and End to add a new line to ther scene
-                    GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
-
-                    //Determining what to do with the start and end
-                    if (Button_Pencil.IsSelected)
-                    {
-                        //Adding the line
-                        GDD_View1.Scene.Objects.Add(obj);
-                        Lines.Add(obj);
-
-                        //Updating the start
-                        Line_Start = Line_End;
-                    }
-
-                    //
-                    if (Button_Line.IsSelected)
-                    {
-                        //if (!nodraw.Contains(new Point(e.X, e.Y)))
-                        //{
-                        //Only proceding if the mousebutton is down
-                        if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                        {
-                            //Modifying line_preview
-                            Line_Preview.Rotation = obj.Rotation;
-                            Line_Preview.Shape.Size = obj.Shape.Size;
-                        }
-                    }
-                }
-            }
-        }
- */
 
         private void FormMain_Resize(object sender, EventArgs e)
         {

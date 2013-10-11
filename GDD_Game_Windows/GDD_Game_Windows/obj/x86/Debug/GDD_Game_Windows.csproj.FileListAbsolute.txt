@@ -89,3 +89,4 @@ C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Wi
 >>>>>>> dcc1d40053d0645a83b0522a24f25e4e310f068b
 >>>>>>> 5abb76058b0b8d056000eb43633c1a283a536287
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelInfo.resources

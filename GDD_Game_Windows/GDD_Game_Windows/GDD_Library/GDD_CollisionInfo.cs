@@ -122,12 +122,6 @@ namespace GDD_Library
                 //Adding a collision!
                 if (Collision != null)
                 {
-                    if (polygon is GDD_Spikes)
-                    {
-                        //Set circle gravityType to static so it wont move anymore.
-                        circle.Owner.GravityType = GDD_GravityType.Static;
-                        circle.Owner.FrontColor = System.Drawing.Color.Red;
-                    }
                     Collisions.Add(Collision);
                 }
             }

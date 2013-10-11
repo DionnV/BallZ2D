@@ -185,14 +185,14 @@ namespace GDD_Library
         /// <summary>
         /// Will be raised whenever this objects collides
         /// </summary>
-        public event EventHandler OnCollision;
+        public event CollisionHandler OnCollision;
 
         /// <summary>
         /// Will raise the OnCollision event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void RaiseOnCollision(object sender, EventArgs e)
+        public void RaiseOnCollision(object sender, CollisionEventArgs e)
         {
             if (OnCollision != null)
             {
@@ -223,5 +223,12 @@ namespace GDD_Library
         Static,
         Normal,
         Still
+    }
+
+    public delegate void CollisionHandler(object sender, CollisionEventArgs e);
+
+    public class CollisionEventArgs : EventArgs
+    {
+        public GDD_CollisionInfo CollsionInfo;
     }
 }

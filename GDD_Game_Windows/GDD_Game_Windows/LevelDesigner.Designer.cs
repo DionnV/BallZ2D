@@ -294,7 +294,7 @@ namespace GDD_Game_Windows
 
         #endregion
 
-        private GDD_Library.GDD_View GDD_View_LevelDesigner1;
+        public GDD_Library.GDD_View GDD_View_LevelDesigner1;
         private GDD_Library.Controls.GDD_Button Button_Pencil;
         private GDD_Library.Controls.GDD_Button Button_Line;
         private GDD_Library.Controls.GDD_Button Button_Shapes;

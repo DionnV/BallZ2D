@@ -251,9 +251,12 @@ namespace GDD_Library
                             collision.obj1.GravityType = GDD_GravityType.Still;
                         }
 
+                        CollisionEventArgs cea = new CollisionEventArgs();
+                        cea.CollsionInfo = collision;
+
                         //We've collided, raising the event
-                        collision.obj1.RaiseOnCollision(collision.obj1, EventArgs.Empty);
-                        collision.obj2.RaiseOnCollision(collision.obj2, EventArgs.Empty);
+                        collision.obj1.RaiseOnCollision(collision.obj1, cea);
+                        collision.obj2.RaiseOnCollision(collision.obj2, cea);
 
                         //We haven't bounced yet
                         collision.obj1.MaxVelocitySinceLastBounce = 0;

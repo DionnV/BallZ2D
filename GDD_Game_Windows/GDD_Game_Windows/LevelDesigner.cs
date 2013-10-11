@@ -12,6 +12,7 @@ using GDD_Library.Shapes;
 using GDD_Library.LevelDesign;
 using GDD_Library.Controls;
 using System.Reflection;
+using GDD_Library.Obstacles;
 
 namespace GDD_Game_Windows
 {
@@ -101,7 +102,7 @@ namespace GDD_Game_Windows
             this.optionPanel.Visible = false;
 
             //GDD_View_LevelDesigner1
-            //GDD_View_LevelDesigner1.graphicsTimer.Start();
+            GDD_View_LevelDesigner1.graphicsTimer.Start();
 
             //Normallhy we're designing
             this.isDesigner = true;
@@ -532,20 +533,31 @@ namespace GDD_Game_Windows
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
+            
             //Saves the current built level
             GDD_Level level = new GDD_Level();
             level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
             level.info = new GDD_HeaderInfo();
-            /*if (LevelName.Text != null)
+            LevelInfo info = new LevelInfo();
+            //this.IsMdiContainer = true;
+            //info.MdiParent = this;
+            DialogResult res = info.ShowDialog();
+            if (res == DialogResult.OK)
             {
-                level.info.LevelName = LevelName.Text;
+                level.info.LevelName = info.LevelNameBox.Text;
+                level.info.CreatorName = info.CreatorNameBox.Text;
+                info.Dispose();
+                info = null;
+                GC.Collect();
             }
-            if (CreatorBox.Text != null)
+            else
             {
-                level.info.CreatorName = CreatorBox.Text;
-            }*/
-            level.info.LevelName = "TODO";
-            level.info.CreatorName = "TODO";
+                info.Dispose();
+                info = null;
+                GC.Collect();
+                return;
+            }
+            
             level.info.VersionNumber = 1;
             level.info.LevelVersionNumber = 1;
             level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
@@ -691,6 +703,7 @@ namespace GDD_Game_Windows
                 bucketCollisionCounter = 0;
                 //We have to go to the next level now...
                 //Or create a finish screen?
+                MessageBox.Show("You won!");
             }       
         }
 
@@ -714,9 +727,19 @@ namespace GDD_Game_Windows
 
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Static;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Bucket].OnCollision += Bucket_OnCollision;
+                this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].OnCollision += Ball_OnCollision;
                 this.GDD_View_LevelDesigner1.graphicsTimer.Start();
             }
 
+        }
+
+        private void Ball_OnCollision(object sender, CollisionEventArgs e)
+        {
+            if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
+            {
+                MessageBox.Show("Game over!");
+                Reset();
+            }
         }
 
         public void LoadLevel(GDD_Level level)
