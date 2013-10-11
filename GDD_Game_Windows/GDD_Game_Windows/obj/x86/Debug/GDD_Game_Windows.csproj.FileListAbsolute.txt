@@ -90,3 +90,16 @@ C:\Users\Koen\Documents\Visual Studio 2010\Projects\GDD_Game_Windows\GDD_Game_Wi
 >>>>>>> 5abb76058b0b8d056000eb43633c1a283a536287
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
 C:\Users\Dion\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelInfo.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe.config
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.exe
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.pdb
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.exe
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\bin\Debug\GDD_Game_Windows.pdb
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csprojResolveAssemblyReference.cache
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form1.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormMain.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Library.GDD_View.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelDesigner.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelInfo.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
+C:\Users\Koen\Documents\Visual Studio 2010\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
