@@ -540,7 +540,7 @@ namespace GDD_Game_Windows
             level.info = new GDD_HeaderInfo();
             LevelInfo info = new LevelInfo();
             //this.IsMdiContainer = true;
-            //info.MdiParent = this;
+            //info.MdiParent = this;f
             DialogResult res = info.ShowDialog();
             if (res == DialogResult.OK)
             {
@@ -595,6 +595,7 @@ namespace GDD_Game_Windows
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
             //Add exit here
+            this.Close();
         }
 
         private void PositionComponents()
@@ -704,6 +705,7 @@ namespace GDD_Game_Windows
                 //We have to go to the next level now...
                 //Or create a finish screen?
                 MessageBox.Show("You won!");
+                Reset();
             }       
         }
 

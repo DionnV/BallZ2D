@@ -221,13 +221,6 @@ namespace GDD_Game_Windows
             LoadSettings();
         }
 
-        private void Button_GoBack_Click(object sender, System.EventArgs e)
-        {
-            CurrentPanel.SendToBack();
-            PreviousPanel.BringToFront();
-            CurrentPanel = PreviousPanel;
-        }
-
         /// <summary>
         /// This will handle the clicking on the Sound button.
         /// </summary>
@@ -235,17 +228,10 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void Button_Sound_Click(object sender, System.EventArgs e)
         {
-            //Sound is not implemented yet
-            if (!SoundOn)
-            {
-                Button_Sound.Text = "Sound: on";
-                SoundOn = true;              
-            }
-            else
-            {
-                Button_Sound.Text = "Sound: off";
-            }
-
+            //Sound is not implemented yet            
+            Button_Sound.Text = SoundOn ? "Sound: off" : "Sound: on";                            
+            SoundOn = !SoundOn;
+            Button_Sound.Refresh();
         }
 
         /// <summary>
@@ -509,5 +495,31 @@ namespace GDD_Game_Windows
             //Updating all buttons to the right location
             
         }
+
+        private void Button_Back_PlayNow_Click(object sender, System.EventArgs e)
+        {
+            LoadMainMenu();
+        }
+
+        private void Button_Back_Settings_Click(object sender, System.EventArgs e)
+        {
+            LoadMainMenu();
+        }
+
+        private void Button_Back_ChapterSelect_Click(object sender, System.EventArgs e)
+        {
+            LoadPlayMenu();
+        }
+
+        private void Button_Back_Custom_Click(object sender, System.EventArgs e)
+        {
+            LoadPlayMenu();
+        }
+
+        private void Button_Back_LevelSelect_Click(object sender, System.EventArgs e)
+        {
+            LoadChapterSelect();
+        }
+
     }
 }

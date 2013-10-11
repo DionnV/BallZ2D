@@ -283,7 +283,7 @@ namespace GDD_Game_Windows
             this.Controls.Add(this.Button_Pencil);
             this.Controls.Add(this.GDD_View_LevelDesigner1);
             this.Name = "LevelDesigner";
-            this.Text = "LevelDesigner";
+            this.Text = "Get it in, bro! - Level Designer";
             this.Resize += new System.EventHandler(this.LevelDesigner_Resize);
             this.editPanel.ResumeLayout(false);
             this.optionPanel.ResumeLayout(false);

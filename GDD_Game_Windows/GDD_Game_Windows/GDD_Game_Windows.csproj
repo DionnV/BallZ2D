@@ -157,9 +157,6 @@
     <None Include="Resources\Line.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Pencil.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Shapes.png" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +185,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Pencil.png" />
+    <Content Include="Resources\Back.png" />
+    <Content Include="Resources\Pencil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

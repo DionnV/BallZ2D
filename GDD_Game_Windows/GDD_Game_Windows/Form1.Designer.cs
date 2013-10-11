@@ -37,7 +37,7 @@
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pencilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GDD_View1 = new GDD_Library.GDD_View();
             this.menuStrip1.SuspendLayout();
@@ -117,18 +117,18 @@
             // drawToolToolStripMenuItem
             // 
             this.drawToolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pencilToolStripMenuItem,
+            this.BackToolStripMenuItem,
             this.lineToolStripMenuItem});
             this.drawToolToolStripMenuItem.Name = "drawToolToolStripMenuItem";
             this.drawToolToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.drawToolToolStripMenuItem.Text = "Draw Tool";
             // 
-            // pencilToolStripMenuItem
+            // BackToolStripMenuItem
             // 
-            this.pencilToolStripMenuItem.Name = "pencilToolStripMenuItem";
-            this.pencilToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.pencilToolStripMenuItem.Text = "Pencil";
-            this.pencilToolStripMenuItem.Click += new System.EventHandler(this.pencilToolStripMenuItem_Click);
+            this.BackToolStripMenuItem.Name = "BackToolStripMenuItem";
+            this.BackToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.BackToolStripMenuItem.Text = "Back";
+            //this.BackToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // lineToolStripMenuItem
             // 
@@ -182,7 +182,7 @@
         private System.Windows.Forms.ToolStripMenuItem levelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem drawToolToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pencilToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
