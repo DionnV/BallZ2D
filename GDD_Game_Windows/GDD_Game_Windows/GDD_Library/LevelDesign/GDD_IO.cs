@@ -24,6 +24,11 @@ namespace GDD_Library.LevelDesign
         /// <param name="loo">The list of objects to serialize.</param>
         public static void Serialize(string fileName, List<GDD_Object> loo)
         {
+            if (!Directory.Exists("./Progress"))
+            {
+                Directory.CreateDirectory("./Progress/");
+            }
+
 
             //Create a filesteam to write to.
             FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -81,6 +86,12 @@ namespace GDD_Library.LevelDesign
         /// <param name="to">The destination of the .zip file.</param>
         public static void Compress(string from, string to)
         {
+
+            if (!Directory.Exists("./Saved levels/Custom/"))
+            {
+                Directory.CreateDirectory("./Saved levels/Custom/");
+            }
+
             //Using the ZipFile class given in the .NET 4.5 framework.
             ZipFile.CreateFromDirectory(from, to);           
         }
