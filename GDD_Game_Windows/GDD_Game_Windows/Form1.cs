@@ -169,7 +169,7 @@ namespace GDD_Game_Windows
                 GDD_Object obj = GDD_Line.Create(Line_Start, Line_End);
 
                 //Determining what to do with the start and end
-                if (pencilToolStripMenuItem.Checked == true)
+                if (/*pencilToolStripMenuItem.Checked == */true)
                 {
                     //Adding the line
                     GDD_View1.Scene.Objects.Add(obj);
@@ -493,14 +493,14 @@ namespace GDD_Game_Windows
 
         private void pencilToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.pencilToolStripMenuItem.Checked = true;
+            //this.pencilToolStripMenuItem.Checked = true;
             lineToolStripMenuItem.Checked = false;
         }
 
         private void lineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lineToolStripMenuItem.Checked = true;
-            pencilToolStripMenuItem.Checked = false;
+            //pencilToolStripMenuItem.Checked = false;
         }
 
 

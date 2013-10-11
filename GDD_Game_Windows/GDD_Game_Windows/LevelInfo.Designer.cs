@@ -116,7 +116,7 @@
             this.Controls.Add(this.LevelNameBox);
             this.Controls.Add(this.LevelName);
             this.Name = "LevelInfo";
-            this.Text = "LevelInfo";
+            this.Text = "Get it in, bro! - Level info";
             this.ResumeLayout(false);
             this.PerformLayout();
 
