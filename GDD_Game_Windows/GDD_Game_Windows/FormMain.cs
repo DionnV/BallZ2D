@@ -263,7 +263,9 @@ namespace GDD_Game_Windows
             int y = 20;
 
             //Add tiles to the panel
-            for (int i = 0; i < 7; i++)
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Competitive/Chapter1/");
+            int files_amount = dirinfo.GetFiles().Length;
+            for (int i = 0; i < files_amount; i++)
             {
                 //Add a new row after 3 tiles
                 if ((i % col) == 0)
@@ -271,15 +273,18 @@ namespace GDD_Game_Windows
                     y += 85;
                     x = 50;
                 }
+
+                string name = System.IO.Path.GetFileNameWithoutExtension(dirinfo.GetFiles()[i].Name);
+                string levelno = name.Substring(6);
               
                 //Add the button
                 GDD_Button b = new GDD_Button();
                 b.Note = "";
-                b.Text = "" + (i+1);
+                b.Text = levelno;
                 b.Location = new Point(x, y);
                 b.BackColor = System.Drawing.Color.White;
                 b.BorderWidth = 2F;
-                b.Name = "ch1lev" + (i+1);
+                b.Name = "ch1lev" + levelno;
                 b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 b.ForeColor = System.Drawing.Color.Black;
                 b.Padding = new System.Windows.Forms.Padding(3);
@@ -312,8 +317,23 @@ namespace GDD_Game_Windows
             //Setting the leveldesigner to not a designer
             this.playzone.isDesigner = false;
 
+            string filename = "";
+            //Run a check if the level is custom or from a chapter
+            if(GDD_IO.FileExists("./Competitive/Chapter1/" + button.Name + ".zip"))
+            {
+                filename = "./Competitive/Chapter1/" + button.Name + ".zip";
+            }
+            else if (GDD_IO.FileExists("./Saved levels/Custom/" + button.Name + ".zip"))
+            {
+                filename = "./Saved levels/Custom/" + button.Name + ".zip";
+            }
+            else
+            {
+                MessageBox.Show("No such level.");
+                return;
+            }
             //Load the level.          
-            GDD_Level level = GDD_IO.LoadFromZipFile("./Competitive/Chapter1/" + button.Name + ".zip");
+            GDD_Level level = GDD_IO.LoadFromZipFile(filename);
 
             //Put the levels in a new list, because serializing gives errors with the Owners.
             List<GDD_Object> newlist = new List<GDD_Object>();
@@ -348,6 +368,46 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void Button_Custom_Click(object sender, System.EventArgs e)
         {
+            //We will make 3 columns
+            int col = 3;
+
+            //Tile size
+            int x = 50;
+            int y = 20;
+
+            //Add tiles to the panel
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Saved levels/Custom/");
+            int files_amount = dirinfo.GetFiles().Length;
+            for (int i = 0; i < files_amount; i++)
+            {
+                //Add a new row after 3 tiles
+                if ((i % col) == 0)
+                {
+                    y += 85;
+                    x = 50;
+                }
+
+                string name = System.IO.Path.GetFileNameWithoutExtension(dirinfo.GetFiles()[i].Name);
+
+                //Add the button
+                GDD_Button b = new GDD_Button();
+                b.Note = "";
+                b.Text = name;
+                b.Location = new Point(x, y);
+                b.BackColor = System.Drawing.Color.White;
+                b.BorderWidth = 2F;
+                b.Name = name;
+                b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                b.ForeColor = System.Drawing.Color.Black;
+                b.Padding = new System.Windows.Forms.Padding(3);
+                b.Size = new System.Drawing.Size(100, 75);
+                b.TabIndex = 4;
+                b.Click += new EventHandler(Button_LoadLevel);
+                PanelCustomLevels.Controls.Add(b);
+
+                //Increase x for the next button
+                x += 113;
+            }
             //Load the custom levels menu.
             LoadCustomLevels();
         }

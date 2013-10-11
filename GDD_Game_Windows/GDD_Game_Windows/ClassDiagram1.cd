@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GDD_Game_Windows.FormMain" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACQEAQAQCBEBcMAkgKEAAACBAAFBFgaIAQIJOAIJwA=</HashCode>
+      <FileName>FormMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Game_Windows.LevelDesigner" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAZAGQUGISQCBBgJIYCBEABGJAcEICACAAGwAKBAqIQ=</HashCode>
+      <FileName>LevelDesigner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Game_Windows.LevelInfo">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACIAAAAQAAKAAAACQAAAAAAAAEQAAAEAAAA=</HashCode>
+      <FileName>LevelInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.Controls.GDD_Button" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAACAAEAAAAACQAAACAABAAAAAAAAACAGAABA=</HashCode>
+      <FileName>GDD_Library\Controls\GDD_Button.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GDD_Library.GDD_CollisionInfo">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAEAAAAAAAAAQAAAAAQAAgTIAAABAAGAAAI=</HashCode>
+      <FileName>GDD_Library\GDD_CollisionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_Math">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIABAAAAAAAAAEAAJAAAAAAIAAAEAAAAAgAAA=</HashCode>
+      <FileName>GDD_Library\GDD_Math.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_Object" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAKEAAAgAAQwAIAEAAIBAIAgAAIEAAAAIAAAAIKsABE=</HashCode>
+      <FileName>GDD_Library\GDD_Object.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GDD_Library.CollisionEventArgs">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\GDD_Object.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_Scene">
+    <Position X="16.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAABAAAAAAAAUACAQADBAEAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\GDD_Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_Timer">
+    <Position X="25.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAQCACAQAAAQAQAAAQAACAAIAQAQQAAQAA=</HashCode>
+      <FileName>GDD_Library\GDD_Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_View">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAJIAgACAAAACAgAAAAAAAAAQAACAAAA=</HashCode>
+      <FileName>GDD_Library\GDD_View.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.GDD_Shape">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAKAAAAAggAAgAAAgAIAAAAAAAAAAAIAAAAAABA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Shape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.LevelDesign.GDD_HeaderInfo">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAACAAEAAAAAAgAAAAgAAAQAAAEACAAEAAAA=</HashCode>
+      <FileName>GDD_Library\LevelDesign\GDD_HeaderInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.LevelDesign.GDD_IO">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAEAABAAAQEAFACAAAAAACBAAAAEAAAIAAgAAAA=</HashCode>
+      <FileName>GDD_Library\LevelDesign\GDD_IO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.LevelDesign.GDD_Level">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAEAQAAAAAAQAAA=</HashCode>
+      <FileName>GDD_Library\LevelDesign\GDD_Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDD_Library.Obstacles.GDD_GravityLift">
+    <Position X="13" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Obstacles\GDD_GravityLift.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Obstacles.GDD_Spikes">
+    <Position X="13" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Obstacles\GDD_Spikes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Bucket">
+    <Position X="11.25" Y="6.5" Width="1.5" />
+    <InheritanceLine Type="GDD_Library.Shapes.GDD_Polygon" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="6.188" />
+        <Point X="8.625" Y="6.188" />
+        <Point X="8.625" Y="6.625" />
+        <Point X="11.25" Y="6.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Bucket.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Circle">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAgAAAAAAAAIAAAACAAABA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Circle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Line">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAgAAAAAAAAAgAAAAAECAAAAAAAAAABA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Line.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Polygon">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <InheritanceLine Type="GDD_Library.GDD_Shape" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="4.75" />
+        <Point X="2.374" Y="4.75" />
+        <Point X="6.75" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAEAAAAgAAAAAAAAAgAAAEAAAAAAAAAAAAABA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Polygon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Square" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="GDD_Library.Shapes.GDD_Polygon" FixedFromPoint="true">
+      <Path>
+        <Point X="7.875" Y="4.5" />
+        <Point X="7.875" Y="4.316" />
+        <Point X="10.25" Y="4.316" />
+        <Point X="10.25" Y="3.941" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Square.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GDD_Library.Shapes.GDD_Zone">
+    <Position X="9.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Zone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="GDD_Library.GDD_Point2F" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAgAACEAAAAAABgAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Types\GDD_Point2F.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="GDD_Library.GDD_Vector2F" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAgAAEACAIAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Types\GDD_Vector2F.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Enum Name="GDD_Library.GDD_GravityType">
+    <Position X="20" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAEAAgAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\GDD_Object.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GDD_Library.Shapes.GDD_ZoneType">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAQAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GDD_Library\Shapes\GDD_Zone.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
