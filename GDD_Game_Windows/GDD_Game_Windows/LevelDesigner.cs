@@ -705,6 +705,7 @@ namespace GDD_Game_Windows
                 //We have to go to the next level now...
                 //Or create a finish screen?
                 MessageBox.Show("You won!");
+                Reset();
             }       
         }
 
