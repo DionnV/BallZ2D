@@ -11,6 +11,7 @@ using GDD_Library;
 using GDD_Library.Shapes;
 using GDD_Library.Controls;
 using GDD_Library.LevelDesign;
+using System.IO;
 
 namespace GDD_Game_Windows
 {
@@ -363,8 +364,11 @@ namespace GDD_Game_Windows
 
             //Add tiles to the panel
             System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Saved levels/Custom/");
-            int files_amount = dirinfo.GetFiles().Length;
-            for (int i = 0; i < files_amount; i++)
+
+            //Getting all the files in the directory
+            FileInfo[] files = dirinfo.GetFiles();
+
+            for (int i = 0; i < files.Length; i++)
             {
                 //Add a new row after 3 tiles
                 if ((i % col) == 0)
@@ -373,7 +377,7 @@ namespace GDD_Game_Windows
                     x = 50;
                 }
 
-                string name = System.IO.Path.GetFileNameWithoutExtension(dirinfo.GetFiles()[i].Name);
+                string name = System.IO.Path.GetFileNameWithoutExtension(files[i].Name);
 
                 //Add the button
                 GDD_Button b = new GDD_Button();
