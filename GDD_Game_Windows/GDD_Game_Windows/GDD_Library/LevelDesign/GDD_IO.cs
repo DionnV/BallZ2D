@@ -24,12 +24,6 @@ namespace GDD_Library.LevelDesign
         /// <param name="loo">The list of objects to serialize.</param>
         public static void Serialize(string fileName, List<GDD_Object> loo)
         {
-            if (!Directory.Exists("./Progress"))
-            {
-                Directory.CreateDirectory("./Progress/");
-            }
-
-
             //Create a filesteam to write to.
             FileStream fs = new FileStream(fileName, FileMode.Create);
 
@@ -78,35 +72,6 @@ namespace GDD_Library.LevelDesign
             return loo;
         }
 
-
-        /// <summary>
-        /// This method will compress a folder to a .zip-file to be used for level design.
-        /// </summary>
-        /// <param name="from">The folder that has to be zipped.</param>
-        /// <param name="to">The destination of the .zip file.</param>
-        public static void Compress(string from, string to)
-        {
-
-            if (!Directory.Exists("./Saved levels/Custom/"))
-            {
-                Directory.CreateDirectory("./Saved levels/Custom/");
-            }
-
-            //Using the ZipFile class given in the .NET 4.5 framework.
-            ZipFile.CreateFromDirectory(from, to);           
-        }
-
-        /// <summary>
-        /// This method will decompress a .zip-file to a folder to be used for level design.
-        /// </summary>
-        /// <param name="from">The .zip-file to be unzipped.</param>
-        /// <param name="to">The folder where the .zip-file has to be unzipped to.</param>
-        public static void Decompress(string from, string to)
-        {       
-            //Using the ZipFile class given in the .NET 4.5 framework.
-            ZipFile.ExtractToDirectory(from, to);
-        }
-
         /// <summary>
         /// This method will read data from a deserialized file.
         /// </summary>
@@ -134,12 +99,12 @@ namespace GDD_Library.LevelDesign
             info.Index_Ball = Reader.ReadInt32();
             info.Index_Bucket = Reader.ReadInt32();
             info.LevelName = Reader.ReadString();
-            info.CreatorName = Reader.ReadString();
+            info.CreatorName = Reader.ReadString();           
 
             //Higher versions might contain more info
             if (info.VersionNumber > 1)
             {
-                //We don't have a higher version yet
+                info.Highscore = Reader.ReadInt32();
             }
             
             //Close and dispose the reader
@@ -171,6 +136,7 @@ namespace GDD_Library.LevelDesign
             Writer.Write(info.Index_Bucket);
             Writer.Write(info.LevelName);
             Writer.Write(info.CreatorName);
+            Writer.Write(info.Highscore);
 
             //Converting memory stream
             using (FileStream file = new FileStream(url, FileMode.Create, System.IO.FileAccess.Write))
@@ -216,73 +182,7 @@ namespace GDD_Library.LevelDesign
         {
             File.Delete(filename);
         }
-
-        /// <summary>
-        /// This method will create a GDD_Level from a given .zip-file. This .zip-file should contain
-        /// at least two files called Objects.bin and LevelData.bin. It may also contain a .jpeg-file
-        /// called background.jpeg.
-        /// </summary>
-        /// <param name="zipfile">The used .zip-file</param>
-        /// <returns>A GDD_Level object.</returns>
-        public static GDD_Level LoadFromZipFile(string zipfile)
-        {
-            //Run a check if the file exists.
-            if (!File.Exists(zipfile))
-            {
-                throw new IncorrectFileException();
-            }
-            //Create an empty level.
-            GDD_Level lev = new GDD_Level();
-
-            //Create a path to unpack the levels to.
-            string progpath = "./Progress";
-            string objectfile = progpath + "/Objects.bin";
-            string datafile = progpath + "/LevelData.bin";
-
-            //Run a check if the Progressmap is empty for use.
-            //Delete the files if they happen to exist.
-            if (File.Exists(objectfile))
-            {
-                File.Delete(objectfile);
-            }
-
-            if (File.Exists(datafile))
-            {
-                File.Delete(datafile);
-            }
-
-            //Unzip the zip file
-            GDD_IO.Decompress(zipfile, progpath);            
-
-            //Fill the leveldata using deserialization and reading the binary file.
-            //Read the serialized file.
-            lev.Objects = GDD_IO.Deserialize(objectfile);
-
-            //Read the binary file.
-            lev.info = GDD_IO.ReadFromFile(datafile);
-
-            //Create a directory for the level
-            string lev_path = "./Saved levels/Custom/" + lev.info.LevelName;
-
-            //Run a check if it doesn't exist already. If it does, the .zip-file we
-            //wanted to unzip had already be unzipped, and we can go on reading the files
-            //using the CreateFromFolder()-method.
-            if (Directory.Exists(lev_path))
-            {
-                return LoadFromFolder(lev_path);
-            }
-
-            //Create the directory.
-            Directory.CreateDirectory(lev_path);         
-
-            //Moving the files to their own level path.
-            FileMove(objectfile, lev_path + "/Objects.bin");
-            FileMove(datafile, lev_path + "/LevelData.bin");
-
-            //Return the result.
-            return lev;
-        }
-
+      
         /// <summary>
         /// This method will create a GDD_Level given a folder. This folder should contain
         /// at least two files called Objects.bin and LevelData.bin. It may also contain a .jpeg-file
@@ -309,25 +209,6 @@ namespace GDD_Library.LevelDesign
 
             //Return the result.
             return lev;
-        }
-
-        /// <summary>
-        /// This method will load a level from a given chapter.
-        /// </summary>
-        /// <param name="chapter">The chapter.</param>
-        /// <param name="level">The level.</param>
-        /// <returns></returns>
-        public static GDD_Level Load(int chapter, int level)
-        {
-            //Run a check if the directory already exists. If it does, we don't need to unzip anymore.
-            if(Directory.Exists("./Competitive/Chapter" + chapter + "/level" + level))
-            {
-                //Return the level.
-                return LoadFromFolder("./Competitive/Chapter" + chapter + "/level" + level);
-            }
-
-            //Return the level.
-            return LoadFromZipFile("./Competitive/Chapter" + chapter + "/level" + level + ".zip");
         }
     }
 }

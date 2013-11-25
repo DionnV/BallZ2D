@@ -66,5 +66,10 @@ namespace GDD_Library.LevelDesign
         /// The name of the creator.
         /// </summary>
         public String CreatorName { get; set; }
+
+        /// <summary>
+        /// The highscore
+        /// </summary>
+        public int Highscore { get; set; }
     }
 }

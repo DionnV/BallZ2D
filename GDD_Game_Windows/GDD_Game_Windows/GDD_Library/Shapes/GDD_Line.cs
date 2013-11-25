@@ -14,6 +14,17 @@ namespace GDD_Library.Shapes
     public class GDD_Line : GDD_Shape, ISerializable
     {
         /// <summary>
+        /// The length of the line.
+        /// </summary>
+        public int Length
+        {
+            get
+            {
+                return (int) GDD_Math.EuclidianDistance(this.Owner.Location, end);
+            }
+        }
+
+        /// <summary>
         /// The end of the line
         /// </summary>
         public GDD_Point2F end
@@ -60,7 +71,7 @@ namespace GDD_Library.Shapes
             obj.Velocity_Vector = new GDD_Vector2F(0f, 0f);
             obj.Rotation = new GDD_Vector2F(vector.Direction + 180f, 0f);
             obj.Shape.Size = vector.Size;
-
+           
             //Returning the object.
             return obj;
         }

@@ -36,6 +36,8 @@ namespace GDD_Game_Windows
         private float StartSize;
         private GDD_Button shapePanel;
 
+        public int Score;
+
         /// <summary>
         /// The tile size of the buttons
         /// </summary>
@@ -61,6 +63,7 @@ namespace GDD_Game_Windows
 
                 if (value == false)
                 {
+                    ScoreLabel.Visible = true;
                     Button_Shapes.Enabled = false;
                     Button_Select.Enabled = false;
                     Button_Shapes.Visible = false;
@@ -68,6 +71,7 @@ namespace GDD_Game_Windows
                 }
                 else
                 {
+                    ScoreLabel.Visible = false;
                     Button_Shapes.Enabled = true;
                     Button_Select.Enabled = true;
                     Button_Shapes.Visible = true;
@@ -108,6 +112,10 @@ namespace GDD_Game_Windows
             this.isDesigner = true;
         }
 
+        ~LevelDesigner()
+        {
+
+        }
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
         {
             //First off; checking if we clicked on a polygon object
@@ -409,13 +417,16 @@ namespace GDD_Game_Windows
 
         private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
-            //Making sure we stop pointing at the just added or selected object
-            /*if (SelectedObj != null)
+            Score = 0;
+            //We can now calculate the score
+            foreach (GDD_Object line in Lines)
             {
-                SelectedObj.Shape.DrawingColor = new SolidBrush(Color.White);
+                if (line.Shape is GDD_Line)
+                {
+                    Score += ((GDD_Line)line.Shape).Length;
+                }
             }
-            SelectedObj = new GDD_Object(new GDD_Square());
-            SelectedObj = null;*/
+            ScoreLabel.Text = "" + Score;
         }
 
         private void HighLightButton(object sender, EventArgs e)
@@ -558,11 +569,12 @@ namespace GDD_Game_Windows
                 return;
             }
             
-            level.info.VersionNumber = 1;
+            level.info.VersionNumber = 2;
             level.info.LevelVersionNumber = 1;
             level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
             level.info.Level_Height = GDD_View_LevelDesigner1.Scene.Height;
             level.info.MaxLineLenght = 200;
+            level.info.Highscore = 0;
 
             for (int i = 0; i < GDD_View_LevelDesigner1.Scene.Objects.Count; i++)
             {
@@ -576,7 +588,10 @@ namespace GDD_Game_Windows
                 }
             }
 
-            level.WriteToZipFile();
+            string dirname = "./Levels/Custom/" + level.info.LevelName;
+            System.IO.Directory.CreateDirectory(dirname);
+            GDD_IO.Serialize(dirname + "/Objects.bin", level.Objects);
+            GDD_IO.WriteToFile(dirname + "/LevelData.bin", level.info); 
 
             MessageBox.Show("Level Saved.");
         }

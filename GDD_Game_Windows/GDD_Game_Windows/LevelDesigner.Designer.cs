@@ -31,21 +31,22 @@ namespace GDD_Game_Windows
         private void InitializeComponent()
         {         
             this.editPanel = new System.Windows.Forms.Panel();
+            this.Button_Resize = new GDD_Library.Controls.GDD_Button();
+            this.Button_Rotate = new GDD_Library.Controls.GDD_Button();
+            this.Button_Move = new GDD_Library.Controls.GDD_Button();
             this.optionPanel = new System.Windows.Forms.Panel();
             this.Button_Play = new GDD_Library.Controls.GDD_Button();
             this.Button_Reset = new GDD_Library.Controls.GDD_Button();
             this.Button_Save = new GDD_Library.Controls.GDD_Button();
             this.Button_Exit = new GDD_Library.Controls.GDD_Button();
             this.Button_Options = new GDD_Library.Controls.GDD_Button();
-            this.Button_Resize = new GDD_Library.Controls.GDD_Button();
-            this.Button_Rotate = new GDD_Library.Controls.GDD_Button();
-            this.Button_Move = new GDD_Library.Controls.GDD_Button();
             this.Button_Eraser = new GDD_Library.Controls.GDD_Button();
             this.Button_Select = new GDD_Library.Controls.GDD_Button();
             this.Button_Shapes = new GDD_Library.Controls.GDD_Button();
             this.Button_Line = new GDD_Library.Controls.GDD_Button();
             this.Button_Pencil = new GDD_Library.Controls.GDD_Button();
             this.GDD_View_LevelDesigner1 = new GDD_Library.GDD_View();
+            this.ScoreLabel = new System.Windows.Forms.Label();
             this.editPanel.SuspendLayout();
             this.optionPanel.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +60,48 @@ namespace GDD_Game_Windows
             this.editPanel.Name = "editPanel";
             this.editPanel.Size = new System.Drawing.Size(248, 76);
             this.editPanel.TabIndex = 24;
+            // 
+            // Button_Resize
+            // 
+            this.Button_Resize.BackColor = System.Drawing.Color.White;
+            this.Button_Resize.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Resize;
+            this.Button_Resize.BorderWidth = 2F;
+            this.Button_Resize.ForeColor = System.Drawing.Color.Black;
+            this.Button_Resize.IsSelected = false;
+            this.Button_Resize.Location = new System.Drawing.Point(84, 0);
+            this.Button_Resize.Name = "Button_Resize";
+            this.Button_Resize.Note = null;
+            this.Button_Resize.Size = new System.Drawing.Size(76, 76);
+            this.Button_Resize.TabIndex = 22;
+            this.Button_Resize.Click += new System.EventHandler(this.HighLightButton);
+            // 
+            // Button_Rotate
+            // 
+            this.Button_Rotate.BackColor = System.Drawing.Color.White;
+            this.Button_Rotate.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Rotate;
+            this.Button_Rotate.BorderWidth = 2F;
+            this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
+            this.Button_Rotate.IsSelected = false;
+            this.Button_Rotate.Location = new System.Drawing.Point(170, 0);
+            this.Button_Rotate.Name = "Button_Rotate";
+            this.Button_Rotate.Note = null;
+            this.Button_Rotate.Size = new System.Drawing.Size(76, 76);
+            this.Button_Rotate.TabIndex = 23;
+            this.Button_Rotate.Click += new System.EventHandler(this.HighLightButton);
+            // 
+            // Button_Move
+            // 
+            this.Button_Move.BackColor = System.Drawing.Color.White;
+            this.Button_Move.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Move;
+            this.Button_Move.BorderWidth = 2F;
+            this.Button_Move.ForeColor = System.Drawing.Color.Black;
+            this.Button_Move.IsSelected = false;
+            this.Button_Move.Location = new System.Drawing.Point(0, 0);
+            this.Button_Move.Name = "Button_Move";
+            this.Button_Move.Note = null;
+            this.Button_Move.Size = new System.Drawing.Size(76, 76);
+            this.Button_Move.TabIndex = 21;
+            this.Button_Move.Click += new System.EventHandler(this.HighLightButton);
             // 
             // optionPanel
             // 
@@ -125,7 +168,7 @@ namespace GDD_Game_Windows
             this.Button_Exit.Note = null;
             this.Button_Exit.Size = new System.Drawing.Size(76, 76);
             this.Button_Exit.TabIndex = 26;
-            this.Button_Exit.Click += new System.EventHandler(Button_Exit_Click);
+            this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
             // 
             // Button_Options
             // 
@@ -140,48 +183,6 @@ namespace GDD_Game_Windows
             this.Button_Options.Size = new System.Drawing.Size(76, 76);
             this.Button_Options.TabIndex = 25;
             this.Button_Options.Click += new System.EventHandler(this.Button_Options_Click);
-            // 
-            // Button_Resize
-            // 
-            this.Button_Resize.BackColor = System.Drawing.Color.White;
-            this.Button_Resize.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Resize;
-            this.Button_Resize.BorderWidth = 2F;
-            this.Button_Resize.ForeColor = System.Drawing.Color.Black;
-            this.Button_Resize.IsSelected = false;
-            this.Button_Resize.Location = new System.Drawing.Point(84, 0);
-            this.Button_Resize.Name = "Button_Resize";
-            this.Button_Resize.Note = null;
-            this.Button_Resize.Size = new System.Drawing.Size(76, 76);
-            this.Button_Resize.TabIndex = 22;
-            this.Button_Resize.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // Button_Rotate
-            // 
-            this.Button_Rotate.BackColor = System.Drawing.Color.White;
-            this.Button_Rotate.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Rotate;
-            this.Button_Rotate.BorderWidth = 2F;
-            this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
-            this.Button_Rotate.IsSelected = false;
-            this.Button_Rotate.Location = new System.Drawing.Point(170, 0);
-            this.Button_Rotate.Name = "Button_Rotate";
-            this.Button_Rotate.Note = null;
-            this.Button_Rotate.Size = new System.Drawing.Size(76, 76);
-            this.Button_Rotate.TabIndex = 23;
-            this.Button_Rotate.Click += new System.EventHandler(this.HighLightButton);
-            // 
-            // Button_Move
-            // 
-            this.Button_Move.BackColor = System.Drawing.Color.White;
-            this.Button_Move.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Move;
-            this.Button_Move.BorderWidth = 2F;
-            this.Button_Move.ForeColor = System.Drawing.Color.Black;
-            this.Button_Move.IsSelected = false;
-            this.Button_Move.Location = new System.Drawing.Point(0, 0);
-            this.Button_Move.Name = "Button_Move";
-            this.Button_Move.Note = null;
-            this.Button_Move.Size = new System.Drawing.Size(76, 76);
-            this.Button_Move.TabIndex = 21;
-            this.Button_Move.Click += new System.EventHandler(this.HighLightButton);
             // 
             // Button_Eraser
             // 
@@ -268,11 +269,21 @@ namespace GDD_Game_Windows
             this.GDD_View_LevelDesigner1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseMove);
             this.GDD_View_LevelDesigner1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GDD_View_LevelDesigner1_MouseUp);
             // 
+            // ScoreLabel
+            // 
+            this.ScoreLabel.AutoSize = true;
+            this.ScoreLabel.Location = new System.Drawing.Point(610, 18);
+            this.ScoreLabel.Name = "ScoreLabel";
+            this.ScoreLabel.Size = new System.Drawing.Size(61, 13);
+            this.ScoreLabel.TabIndex = 31;
+            this.ScoreLabel.Text = "ScoreLabel";
+            // 
             // LevelDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.optionPanel);
             this.Controls.Add(this.Button_Options);
             this.Controls.Add(this.editPanel);
@@ -288,6 +299,7 @@ namespace GDD_Game_Windows
             this.editPanel.ResumeLayout(false);
             this.optionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }       
 
@@ -310,5 +322,6 @@ namespace GDD_Game_Windows
         private GDD_Library.Controls.GDD_Button Button_Play;
         private GDD_Library.Controls.GDD_Button Button_Save;
         private System.Windows.Forms.Panel optionPanel;
+        private System.Windows.Forms.Label ScoreLabel;
     }
 }

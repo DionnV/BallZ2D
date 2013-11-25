@@ -68,22 +68,20 @@ namespace GDD_Library
         {
             get
             {
-                //Letting math do all the hard work
-                GDD_Vector2F result = this.Velocity.ToVector();
-                if (MaxVelocitySinceLastBounce < result.Size)
+                /*if (MaxVelocitySinceLastBounce < _Velocity_Vector.Size)
                 {
-                    MaxVelocitySinceLastBounce = result.Size;
-                }
-                return result;
+                    MaxVelocitySinceLastBounce = _Velocity_Vector.Size;
+                }*/
+                return _Velocity_Vector;
             }
             set
             {          
                 //Getting a DXDY from the vector
-                this.Velocity = value.ToDXDY();
-                
-                
+                this._Velocity = value.ToDXDY();
+                this._Velocity_Vector = value;                
             }
         }
+        private GDD_Vector2F _Velocity_Vector;
 
         /// <summary>
         /// 
@@ -100,12 +98,7 @@ namespace GDD_Library
             set 
             {
                 this._Velocity = value;
-
-                if (this.Velocity_Vector.Size < 0.001f)
-                {
-                    this._Velocity = new GDD_Point2F(0f, 0f);
-                    //this.GravityType = GDD_GravityType.Still;
-                }               
+                this._Velocity_Vector = value.ToVector();             
             }
         }
 
