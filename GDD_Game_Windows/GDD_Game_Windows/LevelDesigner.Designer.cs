@@ -54,6 +54,7 @@ namespace GDD_Game_Windows
             // 
             // editPanel
             // 
+            this.editPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.editPanel.Controls.Add(this.Button_Resize);
             this.editPanel.Controls.Add(this.Button_Rotate);
             this.editPanel.Controls.Add(this.Button_Move);
@@ -173,6 +174,7 @@ namespace GDD_Game_Windows
             // 
             // Button_Options
             // 
+            this.Button_Options.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Options.BackColor = System.Drawing.Color.White;
             this.Button_Options.BackgroundImage = global::GDD_Game_Windows.Properties.Resources.Options;
             this.Button_Options.BorderWidth = 2F;
@@ -257,8 +259,10 @@ namespace GDD_Game_Windows
             // 
             // GDD_View_LevelDesigner1
             // 
+            this.GDD_View_LevelDesigner1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GDD_View_LevelDesigner1.BackColor = System.Drawing.Color.White;
-            this.GDD_View_LevelDesigner1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GDD_View_LevelDesigner1.Location = new System.Drawing.Point(0, 0);
             this.GDD_View_LevelDesigner1.Name = "GDD_View_LevelDesigner1";
             this.GDD_View_LevelDesigner1.ShowFPS = false;
@@ -272,13 +276,13 @@ namespace GDD_Game_Windows
             // 
             // ScoreLabel
             // 
-            this.ScoreLabel.Text = "Score: ";
             this.ScoreLabel.AutoSize = true;
             this.ScoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.ScoreLabel.Location = new System.Drawing.Point(93, 23);
             this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(0, 13);
+            this.ScoreLabel.Size = new System.Drawing.Size(41, 13);
             this.ScoreLabel.TabIndex = 31;
+            this.ScoreLabel.Text = "Score: ";
             // 
             // HighscoreLabel
             // 
@@ -306,6 +310,7 @@ namespace GDD_Game_Windows
             this.Controls.Add(this.Button_Line);
             this.Controls.Add(this.Button_Pencil);
             this.Controls.Add(this.GDD_View_LevelDesigner1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LevelDesigner";
             this.Text = "Get it in, bro! - Level Designer";
             this.Resize += new System.EventHandler(this.LevelDesigner_Resize);

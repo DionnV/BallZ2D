@@ -105,7 +105,7 @@ namespace GDD_Game_Windows
             this.Hide();
             
             //Create a new one if the current one is null
-            if (this.playzone == null)
+            if (this.playzone == null )
             {
                 this.playzone = new LevelDesigner();
             }
@@ -417,7 +417,7 @@ namespace GDD_Game_Windows
             //If the highsore is 0, it means it's not set yet.
             if (!this.playzone.isDesigner)
             {
-                if (this.playzone.Score < level.info.Highscore || level.info.Highscore == 0)
+                if ((this.playzone.Score < level.info.Highscore || level.info.Highscore == 0) && this.playzone.Score != 0)
                 {
                     //Now we have to write the new highscore to the file
                     level.info.Highscore = this.playzone.Score;
@@ -426,6 +426,8 @@ namespace GDD_Game_Windows
             }
             //Dispose and set to null.
             this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
+
+            this.playzone = null;
 
             //Show the main form.
             this.GDD_View1.graphicsTimer.Start();

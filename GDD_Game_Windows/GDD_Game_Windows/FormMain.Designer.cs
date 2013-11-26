@@ -53,6 +53,7 @@
             this.PanelPlayNow.SuspendLayout();
             this.PanelSettings.SuspendLayout();
             this.PanelLevelSelect.SuspendLayout();
+            this.PanelCustomLevels.SuspendLayout();
             this.PanelChapterSelect.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,7 +144,7 @@
             this.Button_Back_PlayNow.Note = "";
             this.Button_Back_PlayNow.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_PlayNow.TabIndex = 5;
-            this.Button_Back_PlayNow.Click += new System.EventHandler(Button_Back_PlayNow_Click);
+            this.Button_Back_PlayNow.Click += new System.EventHandler(this.Button_Back_PlayNow_Click);
             // 
             // Button_Back_Settings
             // 
@@ -159,7 +160,7 @@
             this.Button_Back_Settings.Note = "";
             this.Button_Back_Settings.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_Settings.TabIndex = 5;
-            this.Button_Back_Settings.Click += new System.EventHandler(Button_Back_Settings_Click);
+            this.Button_Back_Settings.Click += new System.EventHandler(this.Button_Back_Settings_Click);
             // 
             // Button_Back_ChapterSelect
             // 
@@ -175,7 +176,7 @@
             this.Button_Back_ChapterSelect.Note = "";
             this.Button_Back_ChapterSelect.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_ChapterSelect.TabIndex = 5;
-            this.Button_Back_ChapterSelect.Click += new System.EventHandler(Button_Back_ChapterSelect_Click);
+            this.Button_Back_ChapterSelect.Click += new System.EventHandler(this.Button_Back_ChapterSelect_Click);
             // 
             // Button_Back_LevelSelect
             // 
@@ -191,7 +192,7 @@
             this.Button_Back_LevelSelect.Note = "";
             this.Button_Back_LevelSelect.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_LevelSelect.TabIndex = 5;
-            this.Button_Back_LevelSelect.Click += new System.EventHandler(Button_Back_LevelSelect_Click);
+            this.Button_Back_LevelSelect.Click += new System.EventHandler(this.Button_Back_LevelSelect_Click);
             // 
             // Button_Back_CustomLevels
             // 
@@ -207,7 +208,7 @@
             this.Button_Back_CustomLevels.Note = "";
             this.Button_Back_CustomLevels.Size = new System.Drawing.Size(350, 50);
             this.Button_Back_CustomLevels.TabIndex = 5;
-            this.Button_Back_CustomLevels.Click += new System.EventHandler(Button_Back_Custom_Click);
+            this.Button_Back_CustomLevels.Click += new System.EventHandler(this.Button_Back_Custom_Click);
             // 
             // Button_Sound
             // 
@@ -222,7 +223,7 @@
             this.Button_Sound.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Sound.Size = new System.Drawing.Size(350, 50);
             this.Button_Sound.TabIndex = 4;
-            this.Button_Sound.Click += new System.EventHandler(Button_Sound_Click);
+            this.Button_Sound.Click += new System.EventHandler(this.Button_Sound_Click);
             // 
             // Button_Competitive
             // 
@@ -267,7 +268,7 @@
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
             this.Button_Chapter1.TabIndex = 4;
-            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter1_Click);           
+            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter1_Click);
             // 
             // GDD_View1
             // 
@@ -354,6 +355,7 @@
             this.Controls.Add(this.PanelCustomLevels);
             this.Controls.Add(this.PanelSettings);
             this.Controls.Add(this.PanelPlayNow);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormMain";
             this.Text = "Get it in, bro!";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -362,8 +364,10 @@
             this.PanelPlayNow.ResumeLayout(false);
             this.PanelSettings.ResumeLayout(false);
             this.PanelLevelSelect.ResumeLayout(false);
+            this.PanelCustomLevels.ResumeLayout(false);
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }                      
 
         #endregion

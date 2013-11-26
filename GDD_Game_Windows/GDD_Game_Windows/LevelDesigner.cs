@@ -37,6 +37,7 @@ namespace GDD_Game_Windows
         private GDD_Vector2F StartRotation;
         private float StartSize;
         private GDD_Button shapePanel;
+        private bool won = false;
 
         public int Score;
 
@@ -629,7 +630,12 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
+            if (!won)
+            {
+                Score = 0;
+            }
             this.Close();
+            //this.Dispose();         
         }
 
         private void PositionComponents()
@@ -739,6 +745,7 @@ namespace GDD_Game_Windows
                 //We have to go to the next level now...
                 //Or create a finish screen?
                 MessageBox.Show("You won!");
+                won = true;
                 Reset();
             }       
         }
