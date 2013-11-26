@@ -51,12 +51,12 @@ namespace GDD_Library
         /// The angle relative to the bounce angle
         /// </summary>
         public float obj1_CollisionAngle { get; set; }
-         
+
         /// <summary>
         /// The angle relative to the bounce angle
         /// </summary>
         public float obj2_CollisionAngle { get; set; }
-         
+
         /// <summary>
         /// The line the objects will collide with
         /// </summary>
@@ -85,12 +85,12 @@ namespace GDD_Library
                 result.GetBounceAngle();
 
                 //Letting obj1 collide
-                result.obj1VSBounceAngle();              
+                result.obj1VSBounceAngle();
 
                 //Colliding obj2
                 result.obj2VSBounceAngle();
 
-                 //Returning the Collision Info
+                //Returning the Collision Info
                 return result;
             }
 
@@ -105,11 +105,11 @@ namespace GDD_Library
         /// <param name="circle2">The polygon.</param>
         /// <returns>A GDD_CollisionInfo object containing all collision data.</returns>
         public static GDD_CollisionInfo get(GDD_Circle circle, GDD_Polygon polygon)
-        {            
-           
+        {
+
             //A list of collisions
             List<GDD_CollisionInfo> Collisions = new List<GDD_CollisionInfo>();
-            
+
             //A list of lines
             GDD_Object[] Lines = polygon.TranslatePolygon_ToLines();
 
@@ -177,14 +177,14 @@ namespace GDD_Library
         /// <param name="circle2">The line.</param>
         /// <returns>A GDD_CollisionInfo object containing all collision data.</returns>
         public static GDD_CollisionInfo get(GDD_Circle circle, GDD_Line line)
-        {            
+        {
             GDD_Point2F line_end = line.end;
             float start_to_circle = (float)GDD_Math.EuclidianDistance(line.Owner.Location, circle.Owner.Desired_Location);
             float end_to_circle = (float)GDD_Math.EuclidianDistance(line_end, circle.Owner.Desired_Location);
-                        
+
             float dx;
             float dy;
-            
+
             if (line.Owner.Rotation.Direction > 180f)
             {
                 dx = line.Owner.Location.x - line_end.x;
@@ -212,7 +212,7 @@ namespace GDD_Library
             else if (rot == 270f)
             {
                 func1 = GDD_Math.DXDYToFunc(0, line.Owner.Location);
-                func2 = GDD_Math.DXDYToFunc(-1000, circle.Owner.Desired_Location);             
+                func2 = GDD_Math.DXDYToFunc(-1000, circle.Owner.Desired_Location);
             }
             else if (rot == 180f)
             {
@@ -235,7 +235,7 @@ namespace GDD_Library
 
             //Calculating the euclidian Distance to the collision
             float eud = (float)GDD_Math.EuclidianDistance(intersection, circle.Owner.Desired_Location);
-            
+
             //If the distance to the collision closer than half of the cirlce
             if (eud < (circle.Size / 2F))
             {
@@ -246,31 +246,31 @@ namespace GDD_Library
                         (
                             (
                                 (rot == 0f) || (rot == 180f)
-                            ) 
-                            && 
+                            )
+                            &&
                             (
                                 (intersection.y > Math.Min(line.Owner.Location.y, line_end.y)) &&
-                                (intersection.y < Math.Max(line.Owner.Location.y, line_end.y)) 
+                                (intersection.y < Math.Max(line.Owner.Location.y, line_end.y))
                             )
                         )
-                    || 
-                        (                       
-                            (intersection.x > Math.Min(line.Owner.Location.x, line_end.x)) && 
+                    ||
+                        (
+                            (intersection.x > Math.Min(line.Owner.Location.x, line_end.x)) &&
                             (intersection.x < Math.Max(line.Owner.Location.x, line_end.x))
-                            
+
                         )
                     )
                 {
 
-                //Colliding with the point or a line?
-                //if ((intersection.x > Math.Min(line.Owner.Location.x, line_end.x)) && (intersection.x < Math.Max(line.Owner.Location.x, line_end.x)))
-                //{
+                    //Colliding with the point or a line?
+                    //if ((intersection.x > Math.Min(line.Owner.Location.x, line_end.x)) && (intersection.x < Math.Max(line.Owner.Location.x, line_end.x)))
+                    //{
                     //We're colliding with the line
                     result = new GDD_CollisionInfo(circle.Owner, line.Owner);
 
                     //Rotation remains the same
                     result.obj1_AfterCollision.Rotation = circle.Owner.Rotation;
-                    
+
                     //Calculatint the a new bounceangle
                     result.BounceAngle = line.Owner.Rotation.Direction % 360f;
 
@@ -280,7 +280,7 @@ namespace GDD_Library
 
                     //Calculating the distance to a the point of collision
                     result.DistanceToCollision = eud;
-                      
+
                 }
                 else
                 {
@@ -308,15 +308,15 @@ namespace GDD_Library
 
                         //Calculating the distance to a the point of collision
                         result.DistanceToCollision = (float)GDD_Math.EuclidianDistance(result.obj1.Desired_Location, collisionPoint);
-                      
+
                     }
                 }
 
                 if (result != null)
-                {                  
+                {
                     //Bouncing to the oppisite direction
-                    result.obj1VSBounceAngle();         
-                } 
+                    result.obj1VSBounceAngle();
+                }
                 return result;
             }
 
@@ -371,7 +371,7 @@ namespace GDD_Library
         /// </summary>
         private void obj1VSBounceAngle()
         {
-            
+
             //The ratio of force from obj1
             float force1Ratio = obj1.Force / (obj1.Force + obj2.Force);
 
@@ -387,75 +387,20 @@ namespace GDD_Library
                 //Checking for static and null objects
                 if ((obj2 == null) || (obj2.GravityType == GDD_GravityType.Static))
                 {
-                    //Normalizing the angles to 0..180;
-                    /*float BA = BounceAngle % 180f;
-                    float VA = obj1.Velocity_Vector.Direction % 90f;
-                    float CA = 90f - VA;                  
-                    obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(BA + 180f - CA, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
-                    */
+                    float dAngle = BounceAngle - obj1.Velocity_Vector.Direction;
 
-                    if (obj1.Velocity_Vector.Direction < 90 || (obj1.Velocity_Vector.Direction > 270))
+                    if (dAngle > 90f)
                     {
-                        //Applying a simple rule:)
-                        float a = GDD_Math.Angle(BounceAngle + d) ;
+                        dAngle -= 180f;
+                    }
 
-                        //Swapping if nessecairy
-                        if (BounceAngle > 270) 
-                        {
-                            a = 360 - a;
-                        }
-
-                        //Another exception
-                        if (BounceAngle == 180f)
-                        {
-                            a = d - 90f;
-                        }
-
-                        if (BounceAngle == 0f)
-                        {
-                            a = 360 - d;
-                        }
-
-                        //New velocity
-                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
-                   }
-                   else
-                   {
-                       //Applying a simple rule:)
-                       float a = BounceAngle - d;
-
-                      /* //Swapping if nessecairy
-                       if (BounceAngle == 270)
-                       {
-                           a = a - 180;
-                       }
-
-                       //Another exception
-                       if (BounceAngle == 180f)
-                       {
-                           a = BounceAngle + d;
-                       }
-
-                       if (BounceAngle == 0f)
-                       {
-                           a = 360 - d;
-                       }
-
-                       if (BounceAngle == 90f)
-                       {
-
-                       }
-                     * 8
-                     */
-                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(a, obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
-                                          
-                   }
-                    //Checking if obj1 has enough speed
-                   /* if (Math.Abs(obj1_AfterCollision.Velocity_Vector.Size) < 50d)
+                    if (dAngle < -90F)
                     {
-                        obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(obj1_AfterCollision.Velocity_Vector.Direction, 0f);
-                    }*/
+                        dAngle += 180f;
+                    }
 
+                    //Applying 
+                    obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(obj1.Velocity_Vector.Direction + (2 * dAngle), obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
                 }
                 else
                 {
