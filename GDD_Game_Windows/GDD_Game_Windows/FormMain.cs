@@ -20,6 +20,7 @@ namespace GDD_Game_Windows
     /// </summary>
     public partial class FormMain : Form
     {
+        
         private Panel CurrentPanel;
         private Panel PreviousPanel;
         private bool SoundOn = false;
@@ -54,10 +55,13 @@ namespace GDD_Game_Windows
             //Loading the background scene
             LoadBGScene();
             LoadMainMenu();
-
-            //Starting the timer
-            this.GDD_View1.graphicsTimer.Start();
         }
+
+        private void FormMain_Shown(object sender, System.EventArgs e)
+        {
+            this.GDD_View1.graphicsTimer.Start();
+        }                      
+
 
         /// <summary>
         /// This will load the main menu screen.
@@ -118,7 +122,10 @@ namespace GDD_Game_Windows
 
             //Set location and show the form.
             this.playzone.Location = this.Location;
-            this.playzone.Show();
+            this.playzone.Invoke(new Action(delegate() 
+                {
+                    this.playzone.Show();
+                }));
 
             //Stopping the graphics timer
             this.GDD_View1.graphicsTimer.Stop();
@@ -424,14 +431,15 @@ namespace GDD_Game_Windows
                     GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
                 }
             }
-            //Dispose and set to null.
-            this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
 
-            this.playzone = null;
+            //Disposes and set to true
+            this.playzone.Dispose();
+            this.playzone = null;          
 
-            //Show the main form.
-            this.GDD_View1.graphicsTimer.Start();
-            this.Show();          
+            //
+            this.Show();
+            FormMain_Shown(new object(), new EventArgs());
+            
         }       
 
         /// <summary>

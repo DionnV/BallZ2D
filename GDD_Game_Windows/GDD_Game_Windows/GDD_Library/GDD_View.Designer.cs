@@ -16,6 +16,9 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                graphicsTimer.Stop();
+                graphicsTimer.Dispose();
+                graphicsTimer = null;
             }
             base.Dispose(disposing);
         }
