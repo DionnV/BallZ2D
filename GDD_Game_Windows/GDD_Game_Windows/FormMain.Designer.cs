@@ -56,19 +56,6 @@
             this.PanelChapterSelect.SuspendLayout();
             this.SuspendLayout();
             // 
-            // playzone
-            // 
-            /*
-            this.playzone.ClientSize = new System.Drawing.Size(800, 480);
-            this.playzone.isDesigner = true;
-            this.playzone.Location = new System.Drawing.Point(100, 100);
-            this.playzone.Name = "playzone";
-            this.playzone.Text = "LevelDesigner";
-            this.playzone.Visible = false;
-            this.playzone.Button_Exit.Click += new System.EventHandler(Button_Exit_Click);
-            this.playzone.FormClosed += new System.Windows.Forms.FormClosedEventHandler(playzone_FormClosed);
-             */
-            // 
             // Button_Back_Main
             // 
             this.Button_Back_Main.BackColor = System.Drawing.Color.White;
