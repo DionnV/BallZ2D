@@ -47,6 +47,7 @@ namespace GDD_Game_Windows
             this.Button_Pencil = new GDD_Library.Controls.GDD_Button();
             this.GDD_View_LevelDesigner1 = new GDD_Library.GDD_View();
             this.ScoreLabel = new System.Windows.Forms.Label();
+            this.HighscoreLabel = new System.Windows.Forms.Label();
             this.editPanel.SuspendLayout();
             this.optionPanel.SuspendLayout();
             this.SuspendLayout();
@@ -271,18 +272,30 @@ namespace GDD_Game_Windows
             // 
             // ScoreLabel
             // 
+            this.ScoreLabel.Text = "Score: ";
             this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Location = new System.Drawing.Point(610, 18);
+            this.ScoreLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ScoreLabel.Location = new System.Drawing.Point(93, 23);
             this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(61, 13);
+            this.ScoreLabel.Size = new System.Drawing.Size(0, 13);
             this.ScoreLabel.TabIndex = 31;
-            this.ScoreLabel.Text = "ScoreLabel";
+            // 
+            // HighscoreLabel
+            // 
+            this.HighscoreLabel.AutoSize = true;
+            this.HighscoreLabel.BackColor = System.Drawing.Color.Transparent;
+            this.HighscoreLabel.Location = new System.Drawing.Point(93, 36);
+            this.HighscoreLabel.Name = "HighscoreLabel";
+            this.HighscoreLabel.Size = new System.Drawing.Size(61, 13);
+            this.HighscoreLabel.TabIndex = 32;
+            this.HighscoreLabel.Text = "Highscore: ";
             // 
             // LevelDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.HighscoreLabel);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.optionPanel);
             this.Controls.Add(this.Button_Options);
@@ -323,5 +336,6 @@ namespace GDD_Game_Windows
         private GDD_Library.Controls.GDD_Button Button_Save;
         private System.Windows.Forms.Panel optionPanel;
         private System.Windows.Forms.Label ScoreLabel;
+        private System.Windows.Forms.Label HighscoreLabel;
     }
 }

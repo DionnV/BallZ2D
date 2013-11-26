@@ -105,6 +105,7 @@ namespace GDD_Library.LevelDesign
             if (info.VersionNumber > 1)
             {
                 info.Highscore = Reader.ReadInt32();
+                info.FileLocation = Reader.ReadString();
             }
             
             //Close and dispose the reader
@@ -137,6 +138,7 @@ namespace GDD_Library.LevelDesign
             Writer.Write(info.LevelName);
             Writer.Write(info.CreatorName);
             Writer.Write(info.Highscore);
+            Writer.Write(info.FileLocation);
 
             //Converting memory stream
             using (FileStream file = new FileStream(url, FileMode.Create, System.IO.FileAccess.Write))
@@ -149,38 +151,6 @@ namespace GDD_Library.LevelDesign
             MS.Dispose();
             Writer.Close();
             Writer.Dispose();
-        }
-
-        /// <summary>
-        /// This method will use the System.Windows.File class to check whether a file exists.
-        /// </summary>
-        /// <see cref="System.Windows.File.Exists(System.String)"/>
-        /// <param name="filename">The filename that has to be checked.</param>
-        /// <returns></returns>
-        public static bool FileExists(string filename)
-        {
-            return File.Exists(filename);
-        }
-
-        /// <summary>
-        /// This method will use the System.Windows.File class to move a file.
-        /// <see cref="System.Windows.File.Move(System.String)"/>
-        /// </summary>
-        /// <param name="src">The source of the file.</param>
-        /// <param name="dest">The destination of the file.</param>
-        public static void FileMove(string src, string dest)
-        {
-            File.Move(src, dest);
-        }
-
-        /// <summary>
-        /// This method will use the System.Windows.File class to delete a file.
-        /// <see cref="System.Windows.File.Delete(System.String)"/>
-        /// </summary>
-        /// <param name="filename">The file to be deleted.</param>
-        public static void FileDelete(string filename)
-        {
-            File.Delete(filename);
         }
       
         /// <summary>

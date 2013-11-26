@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using GDD_Library;
 using GDD_Library.Shapes;
@@ -18,6 +19,7 @@ namespace GDD_Game_Windows
 {
     public partial class LevelDesigner : Form
     {
+        delegate void SetTextCallback(string text);
         public List<GDD_Button> buttons = new List<GDD_Button>();
         private GDD_Point2F Line_Start;
         private GDD_Point2F Line_End;
@@ -25,7 +27,7 @@ namespace GDD_Game_Windows
         private GDD_Object Line_Preview = new GDD_Object(new GDD_Line());
         private GDD_Object SelectedObj;
         private GDD_Object EraserSphere;
-        private GDD_Level level;
+        public GDD_Level level;
 
         private System.Diagnostics.Stopwatch bucketCollisionTimer = new System.Diagnostics.Stopwatch();
         private int bucketCollisionCounter = 0;
@@ -64,6 +66,7 @@ namespace GDD_Game_Windows
                 if (value == false)
                 {
                     ScoreLabel.Visible = true;
+                    HighscoreLabel.Visible = true;
                     Button_Shapes.Enabled = false;
                     Button_Select.Enabled = false;
                     Button_Shapes.Visible = false;
@@ -72,6 +75,7 @@ namespace GDD_Game_Windows
                 else
                 {
                     ScoreLabel.Visible = false;
+                    HighscoreLabel.Visible = false;
                     Button_Shapes.Enabled = true;
                     Button_Select.Enabled = true;
                     Button_Shapes.Visible = true;
@@ -114,8 +118,9 @@ namespace GDD_Game_Windows
 
         ~LevelDesigner()
         {
-
+            this.Dispose();
         }
+
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
         {
             //First off; checking if we clicked on a polygon object
@@ -426,7 +431,21 @@ namespace GDD_Game_Windows
                     Score += ((GDD_Line)line.Shape).Length;
                 }
             }
-            ScoreLabel.Text = "" + Score;
+            SetScore("Score: " + Score);
+            
+        }
+
+        private void SetScore(string text)
+        {
+            if (ScoreLabel.InvokeRequired)
+            {
+                SetTextCallback cb = new SetTextCallback(SetScore);
+                this.Invoke(cb, new object[] { text });
+            }
+            else
+            {
+                ScoreLabel.Text = text;
+            }
         }
 
         private void HighLightButton(object sender, EventArgs e)
@@ -588,8 +607,9 @@ namespace GDD_Game_Windows
                 }
             }
 
-            string dirname = "./Levels/Custom/" + level.info.LevelName;
+            string dirname = "./Levels/Chapter1/" + level.info.LevelName;
             System.IO.Directory.CreateDirectory(dirname);
+            level.info.FileLocation = dirname;
             GDD_IO.Serialize(dirname + "/Objects.bin", level.Objects);
             GDD_IO.WriteToFile(dirname + "/LevelData.bin", level.info); 
 
@@ -609,7 +629,6 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
-            //Add exit here
             this.Close();
         }
 
@@ -762,6 +781,7 @@ namespace GDD_Game_Windows
         public void LoadLevel(GDD_Level level)
         {
             this.level = level;
+            this.HighscoreLabel.Text = "Highscore: " + level.info.Highscore;
             Reset();
         }
 

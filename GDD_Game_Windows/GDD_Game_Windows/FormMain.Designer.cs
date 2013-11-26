@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.playzone = new GDD_Game_Windows.LevelDesigner();
             this.Button_Back_Main = new GDD_Library.Controls.GDD_Button();
             this.Button_Settings = new GDD_Library.Controls.GDD_Button();
             this.Button_Store = new GDD_Library.Controls.GDD_Button();
@@ -59,6 +58,7 @@
             // 
             // playzone
             // 
+            /*
             this.playzone.ClientSize = new System.Drawing.Size(800, 480);
             this.playzone.isDesigner = true;
             this.playzone.Location = new System.Drawing.Point(100, 100);
@@ -67,6 +67,7 @@
             this.playzone.Visible = false;
             this.playzone.Button_Exit.Click += new System.EventHandler(Button_Exit_Click);
             this.playzone.FormClosed += new System.Windows.Forms.FormClosedEventHandler(playzone_FormClosed);
+             */
             // 
             // Button_Back_Main
             // 

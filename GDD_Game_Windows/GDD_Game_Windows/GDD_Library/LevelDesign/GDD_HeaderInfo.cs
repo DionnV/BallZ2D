@@ -71,5 +71,10 @@ namespace GDD_Library.LevelDesign
         /// The highscore
         /// </summary>
         public int Highscore { get; set; }
+
+        /// <summary>
+        /// The location of the level.
+        /// </summary>
+        public String FileLocation { get; set; }
     }
 }

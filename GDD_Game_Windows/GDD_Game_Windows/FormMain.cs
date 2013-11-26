@@ -23,6 +23,7 @@ namespace GDD_Game_Windows
         private Panel CurrentPanel;
         private Panel PreviousPanel;
         private bool SoundOn = false;
+        private GDD_Level level;
 
         private LevelDesigner playzone;
 
@@ -98,19 +99,22 @@ namespace GDD_Game_Windows
         /// <summary>
         /// This will load the level designer.
         /// </summary>
-        private void LoadLevelDesigner()
+        private void LoadLevelDesigner(bool _isDesigner)
         {
             //Hide this form.
             this.Hide();
             
             //Create a new one if the current one is null
-            this.playzone = new LevelDesigner();
+            if (this.playzone == null)
+            {
+                this.playzone = new LevelDesigner();
+            }
 
             //Add the FormClosed Event
-            this.playzone.FormClosed += playzone_FormClosed;
+            this.playzone.FormClosed += playzone_FormClosed;           
 
             //We have designer rights.
-            this.playzone.isDesigner = true;
+            this.playzone.isDesigner = _isDesigner;
 
             //Set location and show the form.
             this.playzone.Location = this.Location;
@@ -208,7 +212,7 @@ namespace GDD_Game_Windows
         private void Button_LevelDesign_Click(object sender, System.EventArgs e)
         {
             //Load the level designer.
-            LoadLevelDesigner();            
+            LoadLevelDesigner(true);            
         }
 
         /// <summary>
@@ -296,15 +300,8 @@ namespace GDD_Game_Windows
         private void Button_LoadLevel(object sender, EventArgs e)
         {
             //Who pressed me?
-            GDD_Button button = (GDD_Button)sender;
-
-            //Loading level designer
-            LoadLevelDesigner();   
-  
-            //Setting the leveldesigner to not a designer
-            this.playzone.isDesigner = false;
-
-            GDD_Level level;
+            GDD_Button button = (GDD_Button)sender;           
+            
             //Run a check if the level is custom or from a chapter
             if(System.IO.Directory.Exists("./Levels" + button.Name))
             {
@@ -334,11 +331,14 @@ namespace GDD_Game_Windows
             //This works fine though.
             level.Objects = newlist;
             
+            //Loading level designer
+            LoadLevelDesigner(false);  
+
             //Load the level
-            this.playzone.LoadLevel(level);
+            this.playzone.LoadLevel(level);         
 
             //Show the playzone
-            this.playzone.Show();
+            //this.playzone.Show();
         }
 
         /// <summary>
@@ -413,23 +413,24 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void playzone_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
+            //Check if the score is the highscore
+            //If the highsore is 0, it means it's not set yet.
+            if (!this.playzone.isDesigner)
+            {
+                if (this.playzone.Score < level.info.Highscore || level.info.Highscore == 0)
+                {
+                    //Now we have to write the new highscore to the file
+                    level.info.Highscore = this.playzone.Score;
+                    GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
+                }
+            }
             //Dispose and set to null.
             this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
 
             //Show the main form.
             this.GDD_View1.graphicsTimer.Start();
             this.Show();          
-        }
-
-        private void Button_Exit_Click(object sender, System.EventArgs e)
-        {
-            //Dispose and set to null.
-            this.playzone.Dispose();
-            this.playzone = null;
-
-            //Show the main form.
-            this.Show();
-        }  
+        }       
 
         /// <summary>
         /// This will load the default background.
