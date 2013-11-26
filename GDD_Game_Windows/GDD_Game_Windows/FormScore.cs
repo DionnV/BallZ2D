@@ -16,5 +16,16 @@ namespace GDD_Game_Windows
         {
             InitializeComponent();
         }
+
+        private void FormScore_Load(object sender, EventArgs e)
+        {
+            Button_Back.Text = "Back";
+        }
+
+        public void SetScores(int score, int highscore)
+        {
+            label_Highscore.Text = "Highscore: " + highscore.ToString();
+            label_Score.Text = "Score: " + score.ToString();
+        }
     }
 }

@@ -415,15 +415,7 @@ namespace GDD_Game_Windows
         {
             //Check if the score is the highscore
             //If the highsore is 0, it means it's not set yet.
-            if (!this.playzone.isDesigner)
-            {
-                if ((this.playzone.Score < level.info.Highscore || level.info.Highscore == 0) && this.playzone.Score != 0)
-                {
-                    //Now we have to write the new highscore to the file
-                    level.info.Highscore = this.playzone.Score;
-                    GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
-                }
-            }
+            
             //Dispose and set to null.
             this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
 

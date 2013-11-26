@@ -37,7 +37,6 @@ namespace GDD_Game_Windows
         private GDD_Vector2F StartRotation;
         private float StartSize;
         private GDD_Button shapePanel;
-        private bool won = false;
 
         public int Score;
 
@@ -630,10 +629,6 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
-            if (!won)
-            {
-                Score = 0;
-            }
             this.Close();
             //this.Dispose();         
         }
@@ -741,11 +736,24 @@ namespace GDD_Game_Windows
             //Have we finished?
             if (bucketCollisionCounter >= 20)
             {
+                //
                 bucketCollisionCounter = 0;
-                //We have to go to the next level now...
-                //Or create a finish screen?
-                MessageBox.Show("You won!");
-                won = true;
+
+                //Saving highscore
+                if (this.isDesigner)
+                {
+                    if ((this.Score < level.info.Highscore || level.info.Highscore == 0) && this.Score != 0)
+                    {
+                        //Now we have to write the new highscore to the file
+                        level.info.Highscore = this.Score;
+                        GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
+                    }
+                }
+
+                //Displaying win message
+                MessagePlayerWon(Score, level.info.Highscore);
+
+
                 Reset();
             }       
         }
@@ -783,6 +791,17 @@ namespace GDD_Game_Windows
                 MessageBox.Show("Game over!");
                 Reset();
             }
+        }
+
+        public void MessagePlayerWon(int score, int highscore)
+        {
+            FormScore dialog = new FormScore();
+            dialog.SetScores(score, highscore);
+            dialog.Show();
+        }
+
+        public void MessagePlayerLost()
+        {
         }
 
         public void LoadLevel(GDD_Level level)

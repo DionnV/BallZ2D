@@ -106,4 +106,4 @@ C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\
 C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.LevelInfo.resources
 C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Properties.Resources.resources
 C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.csproj.GenerateResource.Cache
-C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.Form_Score.resources
+C:\Users\Koen\Documents\Visual Studio 2012\Projects\Getitinbro\GDD_Game_Windows\GDD_Game_Windows\obj\x86\Debug\GDD_Game_Windows.FormScore.resources
