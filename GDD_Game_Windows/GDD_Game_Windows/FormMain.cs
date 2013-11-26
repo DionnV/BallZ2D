@@ -445,7 +445,7 @@ namespace GDD_Game_Windows
             //Add a circle
             GDD_Object obj = new GDD_Object(new GDD_Circle());
             obj.Shape.Size = 50f;
-            obj.Location = new GDD_Point2F(600f, 10f);
+            obj.Location = new GDD_Point2F(600f, 200f);
             obj.Rotation = new GDD_Vector2F(10f, 0);
             obj.GravityType = GDD_GravityType.Normal;
             obj.Velocity_Vector = new GDD_Vector2F(80f, 200f);
