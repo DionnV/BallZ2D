@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace GDD_Library
 {
-    public class GDD_Timer
+    public class GDD_Timer: IDisposable
     {
         public GDD_Timer()
         {
@@ -18,9 +18,17 @@ namespace GDD_Library
             this.worker.DoWork += new DoWorkEventHandler(loop);  
         }
 
+        public void Dispose()
+        {
+            this.Stop();
+            this.worker.CancelAsync();
+
+            worker.Dispose();
+        }
+
         ~GDD_Timer()
         {
-            worker.CancelAsync();
+            this.Dispose();
         }
 
         /// <summary>
@@ -36,17 +44,20 @@ namespace GDD_Library
         /// </summary>
         public void Start()
         {
-            if (!worker.IsBusy)
+            if (!IsRunning)
             {
-                worker.RunWorkerAsync();
+                if (!worker.IsBusy)
+                {
+                    worker.RunWorkerAsync();
+                }           
+                IsRunning = true;
             }
-            IsRunning = true;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private Boolean IsRunning {get;set;}
+        private Boolean IsRunning {get; set;}
 
         /// <summary>
         /// The tick event that gets called x times per second
@@ -112,6 +123,7 @@ namespace GDD_Library
                 this._TPS = (int)Math.Round(1000f / (float)value);
             }
         }
+
         private Int32 _TickTime;
         private Int32 _TicksThisSecond;
 

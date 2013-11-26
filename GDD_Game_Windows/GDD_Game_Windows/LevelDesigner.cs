@@ -18,7 +18,7 @@ using GDD_Library.Obstacles;
 namespace GDD_Game_Windows
 {
     public partial class LevelDesigner : Form
-    {
+    {      
         delegate void SetTextCallback(string text);
         public List<GDD_Button> buttons = new List<GDD_Button>();
         private GDD_Point2F Line_Start;
@@ -108,6 +108,11 @@ namespace GDD_Game_Windows
             this.editPanel.Visible = false;
             this.optionPanel.BackColor = GDD_View_LevelDesigner1.BackColor;
             this.optionPanel.Visible = false;
+
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
 
             //GDD_View_LevelDesigner1
             GDD_View_LevelDesigner1.graphicsTimer.Start();
@@ -629,7 +634,18 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
+<<<<<<< HEAD
             this.Close();
+=======
+            if (!won)
+            {
+                Score = 0;
+            }
+            this.Invoke(new Action(delegate() 
+            {
+                this.Close();       
+            }));
+>>>>>>> c4e80ca828fb10c5403d5f8f41ce6398963b676c
             //this.Dispose();         
         }
 

@@ -20,6 +20,7 @@ namespace GDD_Game_Windows
     /// </summary>
     public partial class FormMain : Form
     {
+        
         private Panel CurrentPanel;
         private Panel PreviousPanel;
         private bool SoundOn = false;
@@ -54,10 +55,13 @@ namespace GDD_Game_Windows
             //Loading the background scene
             LoadBGScene();
             LoadMainMenu();
-
-            //Starting the timer
-            this.GDD_View1.graphicsTimer.Start();
         }
+
+        private void FormMain_Shown(object sender, System.EventArgs e)
+        {
+            this.GDD_View1.graphicsTimer.Start();
+        }                      
+
 
         /// <summary>
         /// This will load the main menu screen.
@@ -118,7 +122,10 @@ namespace GDD_Game_Windows
 
             //Set location and show the form.
             this.playzone.Location = this.Location;
-            this.playzone.Show();
+            this.playzone.Invoke(new Action(delegate() 
+                {
+                    this.playzone.Show();
+                }));
 
             //Stopping the graphics timer
             this.GDD_View1.graphicsTimer.Stop();
@@ -415,15 +422,30 @@ namespace GDD_Game_Windows
         {
             //Check if the score is the highscore
             //If the highsore is 0, it means it's not set yet.
+<<<<<<< HEAD
             
             //Dispose and set to null.
             this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
+=======
+            if (!this.playzone.isDesigner)
+            {
+                if ((this.playzone.Score < level.info.Highscore || level.info.Highscore == 0) && this.playzone.Score != 0)
+                {
+                    //Now we have to write the new highscore to the file
+                    level.info.Highscore = this.playzone.Score;
+                    GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
+                }
+            }
+>>>>>>> c4e80ca828fb10c5403d5f8f41ce6398963b676c
 
-            this.playzone = null;
+            //Disposes and set to true
+            this.playzone.Dispose();
+            this.playzone = null;          
 
-            //Show the main form.
-            this.GDD_View1.graphicsTimer.Start();
-            this.Show();          
+            //
+            this.Show();
+            FormMain_Shown(new object(), new EventArgs());
+            
         }       
 
         /// <summary>

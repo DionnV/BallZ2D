@@ -118,23 +118,5 @@ namespace GDD_Library
         /// The height of the scene
         /// </summary>
         public int Height { get; set; }
-
-        /// <summary>
-        /// The background worker that handles all the physics related computing
-        /// </summary>
-        public GDD_Timer physicsTimer { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void physicsTimer_Tick(object sender, EventArgs e)
-        {
-            /*foreach (GDD_Object obj in Objects)
-            {
-                obj.Location = new GDD_Point2F(obj.Location.x - 1f, obj.Location.y) ;
-            }*/
-        }
-
     }
 }

@@ -359,6 +359,7 @@
             this.Name = "FormMain";
             this.Text = "Get it in, bro!";
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.PanelMain.ResumeLayout(false);
             this.PanelPlayNow.ResumeLayout(false);
@@ -368,8 +369,8 @@
             this.PanelChapterSelect.ResumeLayout(false);
             this.ResumeLayout(false);
 
-        }                      
-
+        }
+      
         #endregion
 
         private GDD_Library.GDD_View GDD_View1;
