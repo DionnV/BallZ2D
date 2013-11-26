@@ -634,19 +634,15 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
-<<<<<<< HEAD
-            this.Close();
-=======
-            if (!won)
+            CloseWithInvoke();     
+        }
+
+        private void CloseWithInvoke()
+        {
+            this.Invoke(new Action(delegate()
             {
-                Score = 0;
-            }
-            this.Invoke(new Action(delegate() 
-            {
-                this.Close();       
-            }));
->>>>>>> c4e80ca828fb10c5403d5f8f41ce6398963b676c
-            //this.Dispose();         
+                this.Close();
+            }));  
         }
 
         private void PositionComponents()
@@ -804,8 +800,7 @@ namespace GDD_Game_Windows
         {
             if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
             {
-                MessageBox.Show("Game over!");
-                Reset();
+                MessagePlayerLost();
             }
         }
 
@@ -813,11 +808,32 @@ namespace GDD_Game_Windows
         {
             FormScore dialog = new FormScore();
             dialog.SetScores(score, highscore);
-            dialog.Show();
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
+            dialog.TopMost = true;
+
+            //Showing 
+            DialogResult result = dialog.ShowDialog();
+
+            //Closing when won
+            this.CloseWithInvoke();
         }
 
         public void MessagePlayerLost()
         {
+            FormFail dialog = new FormFail();
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
+            dialog.TopMost = true;
+
+            //Showing 
+            this.Invoke(new Action(delegate()
+            {
+                DialogResult result = dialog.ShowDialog();
+            }));  
+
+            //Closing when lost
+            this.Reset();
         }
 
         public void LoadLevel(GDD_Level level)

@@ -72,6 +72,7 @@
             this.Button_Back.Note = null;
             this.Button_Back.Size = new System.Drawing.Size(335, 66);
             this.Button_Back.TabIndex = 2;
+            this.Button_Back.Click += new System.EventHandler(this.Button_Back_Click);
             // 
             // label_Score
             // 
@@ -108,7 +109,6 @@
             this.Name = "FormScore";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form_Score";
-            this.Load += new System.EventHandler(this.FormScore_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,10 +116,10 @@
 
         #endregion
 
-        private GDD_Library.Controls.GDD_Button Button_Background;
-        private System.Windows.Forms.Label label_Status;
-        private GDD_Library.Controls.GDD_Button Button_Back;
-        private System.Windows.Forms.Label label_Score;
-        private System.Windows.Forms.Label label_Highscore;
+        protected GDD_Library.Controls.GDD_Button Button_Background;
+        protected System.Windows.Forms.Label label_Status;
+        protected GDD_Library.Controls.GDD_Button Button_Back;
+        protected System.Windows.Forms.Label label_Score;
+        protected System.Windows.Forms.Label label_Highscore;
     }
 }

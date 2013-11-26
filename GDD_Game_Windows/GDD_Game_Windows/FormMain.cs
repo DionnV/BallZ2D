@@ -420,29 +420,11 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void playzone_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            //Check if the score is the highscore
-            //If the highsore is 0, it means it's not set yet.
-<<<<<<< HEAD
-            
-            //Dispose and set to null.
-            this.playzone.GDD_View_LevelDesigner1.graphicsTimer.Stop();
-=======
-            if (!this.playzone.isDesigner)
-            {
-                if ((this.playzone.Score < level.info.Highscore || level.info.Highscore == 0) && this.playzone.Score != 0)
-                {
-                    //Now we have to write the new highscore to the file
-                    level.info.Highscore = this.playzone.Score;
-                    GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
-                }
-            }
->>>>>>> c4e80ca828fb10c5403d5f8f41ce6398963b676c
-
             //Disposes and set to true
             this.playzone.Dispose();
             this.playzone = null;          
 
-            //
+            //Showing ourself
             this.Show();
             FormMain_Shown(new object(), new EventArgs());
             
