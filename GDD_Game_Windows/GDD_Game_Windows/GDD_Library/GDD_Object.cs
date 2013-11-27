@@ -152,7 +152,7 @@ namespace GDD_Library
         /// The frontpen used for drawing
         /// </summary>
         public Pen FrontPen { get { return _FrontPen; } set { this._FrontPen = value; } }
-        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black));
+        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black), 10);
 
         /// <summary>
         /// The gravity Type
