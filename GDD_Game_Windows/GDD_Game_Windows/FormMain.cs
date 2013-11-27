@@ -355,7 +355,7 @@ namespace GDD_Game_Windows
             //Run a check if the level is custom or from a chapter
             if(System.IO.Directory.Exists("./Levels" + button.Name))
             {
-                level = GDD_IO.LoadFromFolder("./Levels" + button.Name);
+                level = GDD_Level.LoadFromFolder("./Levels" + button.Name);
             }
             else
             {

@@ -804,7 +804,7 @@ namespace GDD_Game_Windows
         {
             if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
             {
-                //MessagePlayerLost();
+                MessagePlayerLost();
             }
         }
 
@@ -830,7 +830,7 @@ namespace GDD_Game_Windows
             }));          
         }
 
-        /*public void MessagePlayerLost()
+        public void MessagePlayerLost()
         {
             FormFail dialog = new FormFail();
             dialog.StartPosition = FormStartPosition.Manual;
@@ -845,7 +845,7 @@ namespace GDD_Game_Windows
 
             //Closing when lost
             this.Reset();
-        }*/
+        }
 
         public void LoadLevel(GDD_Level level)
         {
