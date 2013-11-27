@@ -25,6 +25,7 @@ namespace GDD_Game_Windows
         private Panel PreviousPanel;
         private bool SoundOn = false;
         private GDD_Level level;
+        private string currentChapter = null;
 
         private LevelDesigner playzone;
 
@@ -60,6 +61,10 @@ namespace GDD_Game_Windows
         private void FormMain_Shown(object sender, System.EventArgs e)
         {
             this.GDD_View1.graphicsTimer.Start();
+            if (CurrentPanel == PanelLevelSelect)
+            {
+                LoadLevelSelect(null);
+            }          
         }                      
 
 
@@ -196,8 +201,65 @@ namespace GDD_Game_Windows
         /// <summary>
         /// This will load the level select menu.
         /// </summary>
-        private void LoadLevelSelect()
+        private void LoadLevelSelect(string chapterno)
         {
+            if (chapterno != null)
+            {
+                currentChapter = chapterno;
+            }
+            else if (currentChapter == null)
+            {
+                return;
+            }
+            
+            //First clear the PanelLevelSelect
+            PanelLevelSelect.Controls.Clear();
+
+            //And add the back button
+            PanelLevelSelect.Controls.Add(Button_Back_LevelSelect);
+            //We will make 3 columns
+            int col = 3;
+
+            //Tile size
+            int x = 50;
+            int y = 20;
+
+            //Add tiles to the panel
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/Chapter" + currentChapter + "/");
+            DirectoryInfo[] dirs = dirinfo.GetDirectories();
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                //Add a new row after 3 tiles
+                if ((i % col) == 0)
+                {
+                    y += 85;
+                    x = 50;
+                }
+
+                string name = dirs[i].Name;
+                string levelno = name.Substring(6);
+
+                //Add the button
+                GDD_Button b = new GDD_Button();
+                b.Note = "";
+                b.Text = levelno;
+                b.Location = new Point(x, y);
+                b.BackColor = System.Drawing.Color.White;
+                b.BorderWidth = 2F;
+                b.Name = "/Chapter1/ch1lev" + levelno;
+                b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                b.ForeColor = System.Drawing.Color.Black;
+                b.Padding = new System.Windows.Forms.Padding(3);
+                b.Size = new System.Drawing.Size(100, 75);
+                b.TabIndex = 4;
+                b.Click += new EventHandler(Button_LoadLevel);
+                b.Medals = GetMedalAmount("./Levels" + b.Name);
+                PanelLevelSelect.Controls.Add(b);
+
+                //Increase x for the next button
+                x += 113;
+            }
+
             CurrentPanel.SendToBack();
             this.PanelLevelSelect.BringToFront();
             PreviousPanel = CurrentPanel;
@@ -289,57 +351,9 @@ namespace GDD_Game_Windows
         /// <param name="e"></param>
         private void Button_Chapter_Click(object sender, System.EventArgs e)
         {
-            GDD_Button button = (GDD_Button)sender;
-
-            //First clear the PanelLevelSelect
-            PanelLevelSelect.Controls.Clear();
-
-            //And add the back button
-            PanelLevelSelect.Controls.Add(Button_Back_LevelSelect);
-            //We will make 3 columns
-            int col = 3;
-
-            //Tile size
-            int x = 50;
-            int y = 20;
-
-            //Add tiles to the panel
-            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/Chapter" + button.Name + "/");
-            DirectoryInfo[] dirs = dirinfo.GetDirectories();
-            for (int i = 0; i < dirs.Length; i++)
-            {
-                //Add a new row after 3 tiles
-                if ((i % col) == 0)
-                {
-                    y += 85;
-                    x = 50;
-                }
-
-                string name = dirs[i].Name;
-                string levelno = name.Substring(6);
-              
-                //Add the button
-                GDD_Button b = new GDD_Button();
-                b.Note = "";
-                b.Text = levelno;
-                b.Location = new Point(x, y);
-                b.BackColor = System.Drawing.Color.White;
-                b.BorderWidth = 2F;
-                b.Name = "/Chapter1/ch1lev" + levelno;
-                b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                b.ForeColor = System.Drawing.Color.Black;
-                b.Padding = new System.Windows.Forms.Padding(3);
-                b.Size = new System.Drawing.Size(100, 75);
-                b.TabIndex = 4;
-                b.Click += new EventHandler(Button_LoadLevel);
-                PanelLevelSelect.Controls.Add(b);
-
-                //Increase x for the next button
-                x += 113;
-            }
-
+            GDD_Button button = (GDD_Button)sender;          
             //Load the levelselect.
-            LoadLevelSelect();
+            LoadLevelSelect(button.Name);
         }
 
         /// <summary>
@@ -359,7 +373,6 @@ namespace GDD_Game_Windows
             }
             else
             {
-                MessageBox.Show("No such level.");
                 return;
             }
             //Put the levels in a new list, because serializing gives errors with the Owners.
@@ -469,8 +482,7 @@ namespace GDD_Game_Windows
 
             //Showing ourself
             this.Show();
-            FormMain_Shown(new object(), new EventArgs());
-            
+            FormMain_Shown(new object(), new EventArgs());                  
         }       
 
         /// <summary>
@@ -559,6 +571,12 @@ namespace GDD_Game_Windows
         {
             LoadChapterSelect();
         }
+
+        private int GetMedalAmount(string levelfolder)
+        {
+            return GDD_Level.LoadFromFolder(levelfolder).info.MedalsAchieved;
+        }
+
 
     }
 }

@@ -67,6 +67,17 @@ namespace GDD_Library.Controls
         private String _Note;
 
         /// <summary>
+        /// The amount of medals earned in the level if this button refers to a level.
+        /// Default value is -1.
+        /// </summary>
+        public int Medals
+        {
+            get { return _Medals; }
+            set { _Medals = value; }
+        }
+        private int _Medals = -1;
+
+        /// <summary>
         /// Returns whether the button is selected.
         /// </summary>
         public bool IsSelected { 
@@ -127,6 +138,26 @@ namespace GDD_Library.Controls
                 //Drawing the note.
                 g.DrawString(this.Note, NoteFont, new SolidBrush(Color.Red), this.Width - (size.Width + 10), 5);
 
+            }
+
+            //Drawing medals
+            if (Medals > -1 && Medals < 4)
+            {
+                //Make sure the size fits the button
+                int ballsize = (this.Width > this.Height ? this.Height / 4 : this.Width / 6);
+
+                //First, draw filled medals
+                for (int i = 0; i < Medals; i++)
+                {
+                    g.FillEllipse(new SolidBrush(Color.Black), ((1 + 4 * i) * this.Width / 12), (int)(this.Height / 10) * 7, ballsize, ballsize);                   
+                }
+
+                //Then draw empty medals
+                for (int i = 3; i > Medals - 1; i--)
+                {
+                    g.FillEllipse(new SolidBrush(Color.White), ((1 + 4 * i) * this.Width / 12), (int)(this.Height / 10) * 7, ballsize, ballsize);
+                    g.DrawEllipse(new Pen(Color.Black, 1f), ((1 + 4 * i) * this.Width / 12), (int)(this.Height / 10) * 7, ballsize, ballsize);              
+                }
             }
 
             //Creating own graphics

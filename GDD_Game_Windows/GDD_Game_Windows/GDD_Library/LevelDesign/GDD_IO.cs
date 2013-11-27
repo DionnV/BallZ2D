@@ -107,6 +107,8 @@ namespace GDD_Library.LevelDesign
                 info.Highscore = Reader.ReadInt32();
                 info.FileLocation = Reader.ReadString();
                 info.MedalsAmount = Reader.ReadInt32();
+                info.MedalsAchieved = Reader.ReadInt32();
+                info.Medals = new int[info.MedalsAmount];
                 for (int i = 0; i < info.MedalsAmount; i++)
                 {
                     info.Medals[i] = Reader.ReadInt32();
@@ -145,6 +147,7 @@ namespace GDD_Library.LevelDesign
             Writer.Write(info.Highscore);
             Writer.Write(info.FileLocation);
             Writer.Write(info.MedalsAmount);
+            Writer.Write(info.MedalsAchieved);
             for (int i = 0; i < info.MedalsAmount; i++)
             {
                 Writer.Write(info.Medals[i]);

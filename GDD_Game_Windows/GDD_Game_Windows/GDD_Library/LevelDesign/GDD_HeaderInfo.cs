@@ -86,5 +86,10 @@ namespace GDD_Library.LevelDesign
         /// The amount of medals in the medal array
         /// </summary>
         public int MedalsAmount { get; set; }
+
+        /// <summary>
+        /// The amount for medals achieved in the level.
+        /// </summary>
+        public int MedalsAchieved { get; set; }
     }
 }

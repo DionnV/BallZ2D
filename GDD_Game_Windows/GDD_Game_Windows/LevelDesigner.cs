@@ -596,7 +596,7 @@ namespace GDD_Game_Windows
                             level.info.Medals[1] > level.info.Medals[2])
                         {
                             //Something is wrong with the medals.
-                            MessageBox.Show("Higher medals can not have lower score settings.");
+                            MessageBox.Show("Higher medals can not have higher score settings.");
                             throw new Exception();
                         }
                     }
@@ -616,7 +616,8 @@ namespace GDD_Game_Windows
                     GC.Collect();
                     return;
                 }
-                               
+
+                level.info.MedalsAchieved = 0;
                 level.info.VersionNumber = 2;
                 level.info.LevelVersionNumber = 1;
                 level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
@@ -783,6 +784,16 @@ namespace GDD_Game_Windows
                     {
                         //Now we have to write the new highscore to the file
                         level.info.Highscore = this.Score;
+                        int temp = level.info.MedalsAchieved;
+                        level.info.MedalsAchieved = 0;
+                        for (int i = 2; i > -1; i--)
+                        {
+                            if (Score < level.info.Medals[i])
+                            {
+                                level.info.MedalsAchieved++;
+                            }
+                        }
+                        if (temp > level.info.MedalsAchieved) { level.info.MedalsAchieved = temp; }
                         GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
                     }
                 }
