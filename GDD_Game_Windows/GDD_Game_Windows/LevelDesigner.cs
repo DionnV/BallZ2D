@@ -576,49 +576,53 @@ namespace GDD_Game_Windows
             LevelInfo info = new LevelInfo();
             //this.IsMdiContainer = true;
             //info.MdiParent = this;f
-            DialogResult res = info.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                level.info.LevelName = info.LevelNameBox.Text;
-                level.info.CreatorName = info.CreatorNameBox.Text;
-                info.Dispose();
-                info = null;
-                GC.Collect();
-            }
-            else
-            {
-                info.Dispose();
-                info = null;
-                GC.Collect();
-                return;
-            }
-            
-            level.info.VersionNumber = 2;
-            level.info.LevelVersionNumber = 1;
-            level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
-            level.info.Level_Height = GDD_View_LevelDesigner1.Scene.Height;
-            level.info.MaxLineLenght = 200;
-            level.info.Highscore = 0;
 
-            for (int i = 0; i < GDD_View_LevelDesigner1.Scene.Objects.Count; i++)
+            this.Invoke(new Action(delegate()
             {
-                if (GDD_View_LevelDesigner1.Scene.Objects[i].Shape is GDD_Circle)
+                DialogResult res = info.ShowDialog();
+                if (res == DialogResult.OK)
                 {
-                    level.info.Index_Ball = i;
+                    level.info.LevelName = info.LevelNameBox.Text;
+                    level.info.CreatorName = info.CreatorNameBox.Text;
+                    info.Dispose();
+                    info = null;
+                    GC.Collect();
                 }
-                if (GDD_View_LevelDesigner1.Scene.Objects[i].Shape is GDD_Bucket)
+                else
                 {
-                    level.info.Index_Bucket = i;
+                    info.Dispose();
+                    info = null;
+                    GC.Collect();
+                    return;
                 }
-            }
+                               
+                level.info.VersionNumber = 2;
+                level.info.LevelVersionNumber = 1;
+                level.info.Level_Width = GDD_View_LevelDesigner1.Scene.Width;
+                level.info.Level_Height = GDD_View_LevelDesigner1.Scene.Height;
+                level.info.MaxLineLenght = 200;
+                level.info.Highscore = 0;
 
-            string dirname = "./Levels/Chapter1/" + level.info.LevelName;
-            System.IO.Directory.CreateDirectory(dirname);
-            level.info.FileLocation = dirname;
-            GDD_IO.Serialize(dirname + "/Objects.bin", level.Objects);
-            GDD_IO.WriteToFile(dirname + "/LevelData.bin", level.info); 
+                for (int i = 0; i < GDD_View_LevelDesigner1.Scene.Objects.Count; i++)
+                {
+                    if (GDD_View_LevelDesigner1.Scene.Objects[i].Shape is GDD_Circle)
+                    {
+                        level.info.Index_Ball = i;
+                    }
+                    if (GDD_View_LevelDesigner1.Scene.Objects[i].Shape is GDD_Bucket)
+                    {
+                        level.info.Index_Bucket = i;
+                    }
+                }
 
-            MessageBox.Show("Level Saved.");
+                string dirname = "./Levels/Chapter1/" + level.info.LevelName;
+                System.IO.Directory.CreateDirectory(dirname);
+                level.info.FileLocation = dirname;
+                GDD_IO.Serialize(dirname + "/Objects.bin", level.Objects);
+                GDD_IO.WriteToFile(dirname + "/LevelData.bin", level.info); 
+
+                MessageBox.Show("Level Saved.");
+            }));
         }
 
         private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)      
@@ -752,7 +756,7 @@ namespace GDD_Game_Windows
                 bucketCollisionCounter = 0;
 
                 //Saving highscore
-                if (this.isDesigner)
+                if (!this.isDesigner)
                 {
                     if ((this.Score < level.info.Highscore || level.info.Highscore == 0) && this.Score != 0)
                     {
@@ -800,7 +804,7 @@ namespace GDD_Game_Windows
         {
             if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
             {
-                MessagePlayerLost();
+                //MessagePlayerLost();
             }
         }
 
@@ -813,13 +817,20 @@ namespace GDD_Game_Windows
             dialog.TopMost = true;
 
             //Showing 
-            DialogResult result = dialog.ShowDialog();
-
-            //Closing when won
-            this.CloseWithInvoke();
+            this.Invoke(new Action(delegate()
+            {
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //Closing when won
+                    dialog.Dispose();
+                    dialog = null;
+                    GC.Collect();
+                }
+            }));          
         }
 
-        public void MessagePlayerLost()
+        /*public void MessagePlayerLost()
         {
             FormFail dialog = new FormFail();
             dialog.StartPosition = FormStartPosition.Manual;
@@ -834,7 +845,7 @@ namespace GDD_Game_Windows
 
             //Closing when lost
             this.Reset();
-        }
+        }*/
 
         public void LoadLevel(GDD_Level level)
         {

@@ -268,7 +268,7 @@
             this.Button_Chapter1.Padding = new System.Windows.Forms.Padding(3);
             this.Button_Chapter1.Size = new System.Drawing.Size(350, 50);
             this.Button_Chapter1.TabIndex = 4;
-            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter1_Click);
+            this.Button_Chapter1.Click += new System.EventHandler(this.Button_Chapter_Click);
             // 
             // GDD_View1
             // 
@@ -318,7 +318,6 @@
             // PanelLevelSelect
             // 
             this.PanelLevelSelect.BackColor = System.Drawing.Color.White;
-            this.PanelLevelSelect.Controls.Add(this.Button_Back_LevelSelect);
             this.PanelLevelSelect.Location = new System.Drawing.Point(0, 0);
             this.PanelLevelSelect.Name = "PanelLevelSelect";
             this.PanelLevelSelect.Size = new System.Drawing.Size(400, 480);
@@ -337,7 +336,6 @@
             // 
             this.PanelChapterSelect.BackColor = System.Drawing.Color.White;
             this.PanelChapterSelect.Controls.Add(this.Button_Back_ChapterSelect);
-            this.PanelChapterSelect.Controls.Add(this.Button_Chapter1);
             this.PanelChapterSelect.Location = new System.Drawing.Point(0, 0);
             this.PanelChapterSelect.Name = "PanelChapterSelect";
             this.PanelChapterSelect.Size = new System.Drawing.Size(400, 480);

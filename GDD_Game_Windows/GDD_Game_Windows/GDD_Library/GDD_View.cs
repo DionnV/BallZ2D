@@ -83,7 +83,20 @@ namespace GDD_Library
         protected void graphicsTimer_Tick(Object sender, EventArgs e)
         {
             Repaint();
-            Application.DoEvents(); 
+            if (this.IsDisposed)
+            {
+                this.graphicsTimer.Stop();
+                this.graphicsTimer.Dispose();
+                this.graphicsTimer = null;
+                return;
+            }
+
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+
+            Application.DoEvents();
         }
 
         /// <summary>
