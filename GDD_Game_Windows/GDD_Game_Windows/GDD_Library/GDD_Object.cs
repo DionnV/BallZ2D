@@ -145,14 +145,14 @@ namespace GDD_Library
         /// <summary>
         /// The font color of the object
         /// </summary>
-        public Color FrontColor { get { return this._FrontColor; } set { this._FrontColor = value; this._FrontPen = new Pen(new SolidBrush(this._FrontColor)); } }
+        public Color FrontColor { get { return this._FrontColor; } set { this._FrontColor = value; this._FrontPen = new Pen(new SolidBrush(this._FrontColor), 3); } }
         private Color _FrontColor = Color.Black;
 
         /// <summary>
         /// The frontpen used for drawing
         /// </summary>
         public Pen FrontPen { get { return _FrontPen; } set { this._FrontPen = value; } }
-        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black), 10);
+        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black),3);
 
         /// <summary>
         /// The gravity Type

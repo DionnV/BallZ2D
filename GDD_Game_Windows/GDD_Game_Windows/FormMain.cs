@@ -149,12 +149,48 @@ namespace GDD_Game_Windows
         /// </summary>
         private void LoadChapterSelect()
         {
+            //We will make 1 column
+            int col = 1;
+
+            //Tile location
+            int x = 50;
+            int y = 50;
+
+            //Add tiles to the panel
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/");
+            DirectoryInfo[] dirs = dirinfo.GetDirectories();
+            for (int i = 0; i < dirs.Length - 1; i++)
+            {
+                //Add a new row after every tile
+                if ((i % col) == 0)
+                {
+                    y += 50;
+                }
+
+                string name = dirs[i].Name;
+                string chapterno = name.Substring(7);
+
+                //Add the button
+                GDD_Button b = new GDD_Button();
+                b.Note = "";
+                b.Text = "Chapter" + chapterno;
+                b.Location = new Point(x, y);
+                b.BackColor = System.Drawing.Color.White;
+                b.BorderWidth = 2F;
+                b.Name = chapterno;
+                b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                b.ForeColor = System.Drawing.Color.Black;
+                b.Padding = new System.Windows.Forms.Padding(3);
+                b.Size = new System.Drawing.Size(350, 50);
+                b.TabIndex = 4;
+                b.Click += new EventHandler(Button_Chapter_Click);
+                PanelChapterSelect.Controls.Add(b);
+            }
             CurrentPanel.SendToBack();
             this.PanelChapterSelect.BringToFront();
             PreviousPanel = CurrentPanel;
             CurrentPanel = PanelChapterSelect;
             Button_Back_ChapterSelect.Text = "Choose a chapter.";
-            Button_Chapter1.Text = "Chapter 1";
         }
 
         /// <summary>
@@ -251,8 +287,15 @@ namespace GDD_Game_Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Chapter1_Click(object sender, System.EventArgs e)
+        private void Button_Chapter_Click(object sender, System.EventArgs e)
         {
+            GDD_Button button = (GDD_Button)sender;
+
+            //First clear the PanelLevelSelect
+            PanelLevelSelect.Controls.Clear();
+
+            //And add the back button
+            PanelLevelSelect.Controls.Add(Button_Back_LevelSelect);
             //We will make 3 columns
             int col = 3;
 
@@ -261,7 +304,7 @@ namespace GDD_Game_Windows
             int y = 20;
 
             //Add tiles to the panel
-            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/Chapter1/");
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/Chapter" + button.Name + "/");
             DirectoryInfo[] dirs = dirinfo.GetDirectories();
             for (int i = 0; i < dirs.Length; i++)
             {

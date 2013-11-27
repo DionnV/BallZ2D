@@ -26,7 +26,7 @@ namespace GDD_Game_Windows
 
         private void Button_Back_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
     }
 }
