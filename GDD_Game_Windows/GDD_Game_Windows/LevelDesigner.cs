@@ -37,7 +37,6 @@ namespace GDD_Game_Windows
         private GDD_Vector2F StartRotation;
         private float StartSize;
         private GDD_Button shapePanel;
-        private bool won = false;
 
         public int Score;
 
@@ -635,15 +634,15 @@ namespace GDD_Game_Windows
 
         private void Button_Exit_Click(object sender, System.EventArgs e)
         {
-            if (!won)
+            CloseWithInvoke();     
+        }
+
+        private void CloseWithInvoke()
+        {
+            this.Invoke(new Action(delegate()
             {
-                Score = 0;
-            }
-            this.Invoke(new Action(delegate() 
-            {
-                this.Close();       
-            }));
-            //this.Dispose();         
+                this.Close();
+            }));  
         }
 
         private void PositionComponents()
@@ -749,11 +748,24 @@ namespace GDD_Game_Windows
             //Have we finished?
             if (bucketCollisionCounter >= 20)
             {
+                //
                 bucketCollisionCounter = 0;
-                //We have to go to the next level now...
-                //Or create a finish screen?
-                MessageBox.Show("You won!");
-                won = true;
+
+                //Saving highscore
+                if (this.isDesigner)
+                {
+                    if ((this.Score < level.info.Highscore || level.info.Highscore == 0) && this.Score != 0)
+                    {
+                        //Now we have to write the new highscore to the file
+                        level.info.Highscore = this.Score;
+                        GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
+                    }
+                }
+
+                //Displaying win message
+                MessagePlayerWon(Score, level.info.Highscore);
+
+
                 Reset();
             }       
         }
@@ -788,9 +800,40 @@ namespace GDD_Game_Windows
         {
             if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
             {
-                MessageBox.Show("Game over!");
-                Reset();
+                MessagePlayerLost();
             }
+        }
+
+        public void MessagePlayerWon(int score, int highscore)
+        {
+            FormScore dialog = new FormScore();
+            dialog.SetScores(score, highscore);
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
+            dialog.TopMost = true;
+
+            //Showing 
+            DialogResult result = dialog.ShowDialog();
+
+            //Closing when won
+            this.CloseWithInvoke();
+        }
+
+        public void MessagePlayerLost()
+        {
+            FormFail dialog = new FormFail();
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
+            dialog.TopMost = true;
+
+            //Showing 
+            this.Invoke(new Action(delegate()
+            {
+                DialogResult result = dialog.ShowDialog();
+            }));  
+
+            //Closing when lost
+            this.Reset();
         }
 
         public void LoadLevel(GDD_Level level)
