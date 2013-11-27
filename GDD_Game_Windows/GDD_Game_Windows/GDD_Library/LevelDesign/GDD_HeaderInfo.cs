@@ -76,5 +76,15 @@ namespace GDD_Library.LevelDesign
         /// The location of the level.
         /// </summary>
         public String FileLocation { get; set; }
+
+        /// <summary>
+        /// And int array to indicate which medal is won
+        /// </summary>
+        public int[] Medals { get; set; }
+
+        /// <summary>
+        /// The amount of medals in the medal array
+        /// </summary>
+        public int MedalsAmount { get; set; }
     }
 }

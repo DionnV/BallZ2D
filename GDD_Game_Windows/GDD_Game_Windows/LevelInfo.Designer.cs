@@ -34,6 +34,12 @@
             this.CreatorNameBox = new System.Windows.Forms.TextBox();
             this.Button_OK = new GDD_Library.Controls.GDD_Button();
             this.Button_Cancel = new GDD_Library.Controls.GDD_Button();
+            this.GoldScoreLabel = new System.Windows.Forms.Label();
+            this.SilverScoreLabel = new System.Windows.Forms.Label();
+            this.BronzeScoreLabel = new System.Windows.Forms.Label();
+            this.GoldScoreTextBox = new System.Windows.Forms.TextBox();
+            this.SilverScoreTextBox = new System.Windows.Forms.TextBox();
+            this.BronzeScoreTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // LevelName
@@ -103,12 +109,66 @@
             this.Button_Cancel.TabIndex = 5;
             this.Button_Cancel.Click += new System.EventHandler(this.Button_Cancel_Click);
             // 
+            // GoldScoreLabel
+            // 
+            this.GoldScoreLabel.AutoSize = true;
+            this.GoldScoreLabel.Location = new System.Drawing.Point(13, 165);
+            this.GoldScoreLabel.Name = "GoldScoreLabel";
+            this.GoldScoreLabel.Size = new System.Drawing.Size(61, 13);
+            this.GoldScoreLabel.TabIndex = 6;
+            this.GoldScoreLabel.Text = "Gold score:";
+            // 
+            // SilverScoreLabel
+            // 
+            this.SilverScoreLabel.AutoSize = true;
+            this.SilverScoreLabel.Location = new System.Drawing.Point(13, 188);
+            this.SilverScoreLabel.Name = "SilverScoreLabel";
+            this.SilverScoreLabel.Size = new System.Drawing.Size(65, 13);
+            this.SilverScoreLabel.TabIndex = 7;
+            this.SilverScoreLabel.Text = "Silver score:";
+            // 
+            // BronzeScoreLabel
+            // 
+            this.BronzeScoreLabel.AutoSize = true;
+            this.BronzeScoreLabel.Location = new System.Drawing.Point(13, 211);
+            this.BronzeScoreLabel.Name = "BronzeScoreLabel";
+            this.BronzeScoreLabel.Size = new System.Drawing.Size(72, 13);
+            this.BronzeScoreLabel.TabIndex = 8;
+            this.BronzeScoreLabel.Text = "Bronze score:";
+            // 
+            // GoldScoreTextBox
+            // 
+            this.GoldScoreTextBox.Location = new System.Drawing.Point(98, 162);
+            this.GoldScoreTextBox.Name = "GoldScoreTextBox";
+            this.GoldScoreTextBox.Size = new System.Drawing.Size(57, 20);
+            this.GoldScoreTextBox.TabIndex = 9;
+            // 
+            // SilverScoreTextBox
+            // 
+            this.SilverScoreTextBox.Location = new System.Drawing.Point(98, 185);
+            this.SilverScoreTextBox.Name = "SilverScoreTextBox";
+            this.SilverScoreTextBox.Size = new System.Drawing.Size(57, 20);
+            this.SilverScoreTextBox.TabIndex = 10;
+            // 
+            // BronzeScoreTextBox
+            // 
+            this.BronzeScoreTextBox.Location = new System.Drawing.Point(98, 208);
+            this.BronzeScoreTextBox.Name = "BronzeScoreTextBox";
+            this.BronzeScoreTextBox.Size = new System.Drawing.Size(57, 20);
+            this.BronzeScoreTextBox.TabIndex = 11;
+            // 
             // LevelInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.BronzeScoreTextBox);
+            this.Controls.Add(this.SilverScoreTextBox);
+            this.Controls.Add(this.GoldScoreTextBox);
+            this.Controls.Add(this.BronzeScoreLabel);
+            this.Controls.Add(this.SilverScoreLabel);
+            this.Controls.Add(this.GoldScoreLabel);
             this.Controls.Add(this.Button_Cancel);
             this.Controls.Add(this.Button_OK);
             this.Controls.Add(this.CreatorNameBox);
@@ -130,5 +190,11 @@
         public System.Windows.Forms.TextBox CreatorNameBox;
         private GDD_Library.Controls.GDD_Button Button_OK;
         private GDD_Library.Controls.GDD_Button Button_Cancel;
+        private System.Windows.Forms.Label GoldScoreLabel;
+        private System.Windows.Forms.Label SilverScoreLabel;
+        private System.Windows.Forms.Label BronzeScoreLabel;
+        public System.Windows.Forms.TextBox GoldScoreTextBox;
+        public System.Windows.Forms.TextBox SilverScoreTextBox;
+        public System.Windows.Forms.TextBox BronzeScoreTextBox;
     }
 }

@@ -106,6 +106,11 @@ namespace GDD_Library.LevelDesign
             {
                 info.Highscore = Reader.ReadInt32();
                 info.FileLocation = Reader.ReadString();
+                info.MedalsAmount = Reader.ReadInt32();
+                for (int i = 0; i < info.MedalsAmount; i++)
+                {
+                    info.Medals[i] = Reader.ReadInt32();
+                }
             }
             
             //Close and dispose the reader
@@ -139,6 +144,12 @@ namespace GDD_Library.LevelDesign
             Writer.Write(info.CreatorName);
             Writer.Write(info.Highscore);
             Writer.Write(info.FileLocation);
+            Writer.Write(info.MedalsAmount);
+            for (int i = 0; i < info.MedalsAmount; i++)
+            {
+                Writer.Write(info.Medals[i]);
+            }
+
 
             //Converting memory stream
             using (FileStream file = new FileStream(url, FileMode.Create, System.IO.FileAccess.Write))

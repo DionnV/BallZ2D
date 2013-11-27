@@ -584,6 +584,27 @@ namespace GDD_Game_Windows
                 {
                     level.info.LevelName = info.LevelNameBox.Text;
                     level.info.CreatorName = info.CreatorNameBox.Text;
+                    level.info.MedalsAmount = 3;
+                    try
+                    {
+                        level.info.Medals = new int[level.info.MedalsAmount];
+                        level.info.Medals[0] = Convert.ToInt32(info.GoldScoreTextBox.Text);
+                        level.info.Medals[1] = Convert.ToInt32(info.SilverScoreTextBox.Text);
+                        level.info.Medals[2] = Convert.ToInt32(info.BronzeScoreTextBox.Text);
+
+                        if (level.info.Medals[0] > level.info.Medals[1] ||
+                            level.info.Medals[1] > level.info.Medals[2])
+                        {
+                            //Something is wrong with the medals.
+                            MessageBox.Show("Higher medals can not have lower score settings.");
+                            throw new Exception();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Wrong input, just stop
+                        return;
+                    }
                     info.Dispose();
                     info = null;
                     GC.Collect();
