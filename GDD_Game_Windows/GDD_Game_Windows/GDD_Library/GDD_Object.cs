@@ -145,14 +145,14 @@ namespace GDD_Library
         /// <summary>
         /// The font color of the object
         /// </summary>
-        public Color FrontColor { get { return this._FrontColor; } set { this._FrontColor = value; this._FrontPen = new Pen(new SolidBrush(this._FrontColor), 3); } }
+        public Color FrontColor { get { return this._FrontColor; } set { this._FrontColor = value; this._FrontPen = new Pen(new SolidBrush(this._FrontColor), 2); } }
         private Color _FrontColor = Color.Black;
 
         /// <summary>
         /// The frontpen used for drawing
         /// </summary>
         public Pen FrontPen { get { return _FrontPen; } set { this._FrontPen = value; } }
-        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black),3);
+        private Pen _FrontPen = new Pen(new SolidBrush(Color.Black),2);
 
         /// <summary>
         /// The gravity Type
@@ -180,6 +180,8 @@ namespace GDD_Library
         /// </summary>
         public event CollisionHandler OnCollision;
 
+        public event OutOfSceneHandler outOfSceneEvent;
+
         /// <summary>
         /// Will raise the OnCollision event
         /// </summary>
@@ -190,6 +192,14 @@ namespace GDD_Library
             if (OnCollision != null)
             {
                 OnCollision(sender, e);
+            }
+        }
+
+        public void RaiseOnOutOfScene(object sender)
+        {
+            if (outOfSceneEvent != null)
+            {
+                outOfSceneEvent(sender);
             }
         }
 
@@ -219,6 +229,7 @@ namespace GDD_Library
     }
 
     public delegate void CollisionHandler(object sender, CollisionEventArgs e);
+    public delegate void OutOfSceneHandler(object sender);
 
     public class CollisionEventArgs : EventArgs
     {

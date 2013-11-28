@@ -40,6 +40,7 @@
             this.GoldScoreTextBox = new System.Windows.Forms.TextBox();
             this.SilverScoreTextBox = new System.Windows.Forms.TextBox();
             this.BronzeScoreTextBox = new System.Windows.Forms.TextBox();
+            this.WarningLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LevelName
@@ -90,6 +91,7 @@
             this.Button_OK.ForeColor = System.Drawing.Color.Black;
             this.Button_OK.IsSelected = false;
             this.Button_OK.Location = new System.Drawing.Point(463, 380);
+            this.Button_OK.Medals = -1;
             this.Button_OK.Name = "Button_OK";
             this.Button_OK.Note = null;
             this.Button_OK.Size = new System.Drawing.Size(150, 50);
@@ -103,6 +105,7 @@
             this.Button_Cancel.ForeColor = System.Drawing.Color.Black;
             this.Button_Cancel.IsSelected = false;
             this.Button_Cancel.Location = new System.Drawing.Point(622, 380);
+            this.Button_Cancel.Medals = -1;
             this.Button_Cancel.Name = "Button_Cancel";
             this.Button_Cancel.Note = null;
             this.Button_Cancel.Size = new System.Drawing.Size(150, 50);
@@ -157,12 +160,24 @@
             this.BronzeScoreTextBox.Size = new System.Drawing.Size(57, 20);
             this.BronzeScoreTextBox.TabIndex = 11;
             // 
+            // WarningLabel
+            // 
+            this.WarningLabel.AutoSize = true;
+            this.WarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.WarningLabel.Location = new System.Drawing.Point(96, 146);
+            this.WarningLabel.Name = "WarningLabel";
+            this.WarningLabel.Size = new System.Drawing.Size(243, 13);
+            this.WarningLabel.TabIndex = 12;
+            this.WarningLabel.Text = "Higher medals can not have higher score settings.";
+            this.WarningLabel.Visible = false;
+            // 
             // LevelInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.WarningLabel);
             this.Controls.Add(this.BronzeScoreTextBox);
             this.Controls.Add(this.SilverScoreTextBox);
             this.Controls.Add(this.GoldScoreTextBox);
@@ -196,5 +211,6 @@
         public System.Windows.Forms.TextBox GoldScoreTextBox;
         public System.Windows.Forms.TextBox SilverScoreTextBox;
         public System.Windows.Forms.TextBox BronzeScoreTextBox;
+        public System.Windows.Forms.Label WarningLabel;
     }
 }

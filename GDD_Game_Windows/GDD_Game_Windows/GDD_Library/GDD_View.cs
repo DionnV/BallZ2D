@@ -157,6 +157,10 @@ namespace GDD_Library
                 //We only apply gravity when its gravity type is normal
                 if (obj.GravityType == GDD_GravityType.Normal)
                 {
+                    if (!ContainsObjectWithinBounds(obj))
+                    {
+                        obj.RaiseOnOutOfScene(obj);
+                    }
                     //Doing a calculation for when to 
                     float t = graphicsTimer.TickTime;
                     if (t == 0) { t = graphicsTimer.DesiredTickTime; }
@@ -309,6 +313,11 @@ namespace GDD_Library
                 }                
             }
 
+        }
+
+        public Boolean ContainsObjectWithinBounds(GDD_Object obj)
+        {
+            return (obj.Location.x > 0 && obj.Location.x < this.Width && obj.Location.y > 0 && obj.Location.y < this.Height);
         }
     }
 }

@@ -253,8 +253,13 @@ namespace GDD_Game_Windows
                 b.Size = new System.Drawing.Size(100, 75);
                 b.TabIndex = 4;
                 b.Click += new EventHandler(Button_LoadLevel);
-                b.Medals = GetMedalAmount("./Levels" + b.Name);
+                b.Medals = GetMedalAmount("./Levels" + b.Name);                
                 PanelLevelSelect.Controls.Add(b);
+
+                if (b.Medals == 0)
+                {
+                    break;
+                }
 
                 //Increase x for the next button
                 x += 113;
@@ -537,8 +542,28 @@ namespace GDD_Game_Windows
             obj.GravityType = GDD_GravityType.Static;
             obj.FrontColor = Color.Black;
 
+            GDD_Button exit = new GDD_Button();
+            exit.Click += new EventHandler(exit_Click);
+            exit.Note = "";
+            exit.Text = "X";
+            exit.Location = new Point(10, 10);
+            exit.BackColor = System.Drawing.Color.White;
+            exit.BorderWidth = 2F;
+            exit.Name = "Exit_Button";
+            exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            exit.ForeColor = System.Drawing.Color.Black;
+            exit.Padding = new System.Windows.Forms.Padding(3);
+            exit.Size = new System.Drawing.Size(30, 30);
+            exit.TabIndex = 4;
+            PanelMain.Controls.Add(exit);
+
             //Or not
             //Scene.Objects.Add(obj);           
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void FormMain_Resize(object sender, EventArgs e)

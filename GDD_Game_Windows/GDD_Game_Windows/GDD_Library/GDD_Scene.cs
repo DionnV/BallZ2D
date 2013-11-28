@@ -103,7 +103,7 @@ namespace GDD_Library
 
             return false;
         }
-
+     
         /// <summary>
         /// The width of the scene
         /// </summary>

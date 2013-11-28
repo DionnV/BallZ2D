@@ -71,6 +71,7 @@ namespace GDD_Game_Windows
             this.Button_Resize.ForeColor = System.Drawing.Color.Black;
             this.Button_Resize.IsSelected = false;
             this.Button_Resize.Location = new System.Drawing.Point(84, 0);
+            this.Button_Resize.Medals = -1;
             this.Button_Resize.Name = "Button_Resize";
             this.Button_Resize.Note = null;
             this.Button_Resize.Size = new System.Drawing.Size(76, 76);
@@ -85,6 +86,7 @@ namespace GDD_Game_Windows
             this.Button_Rotate.ForeColor = System.Drawing.Color.Black;
             this.Button_Rotate.IsSelected = false;
             this.Button_Rotate.Location = new System.Drawing.Point(170, 0);
+            this.Button_Rotate.Medals = -1;
             this.Button_Rotate.Name = "Button_Rotate";
             this.Button_Rotate.Note = null;
             this.Button_Rotate.Size = new System.Drawing.Size(76, 76);
@@ -99,6 +101,7 @@ namespace GDD_Game_Windows
             this.Button_Move.ForeColor = System.Drawing.Color.Black;
             this.Button_Move.IsSelected = false;
             this.Button_Move.Location = new System.Drawing.Point(0, 0);
+            this.Button_Move.Medals = -1;
             this.Button_Move.Name = "Button_Move";
             this.Button_Move.Note = null;
             this.Button_Move.Size = new System.Drawing.Size(76, 76);
@@ -124,6 +127,7 @@ namespace GDD_Game_Windows
             this.Button_Play.ForeColor = System.Drawing.Color.Black;
             this.Button_Play.IsSelected = false;
             this.Button_Play.Location = new System.Drawing.Point(0, 86);
+            this.Button_Play.Medals = -1;
             this.Button_Play.Name = "Button_Play";
             this.Button_Play.Note = null;
             this.Button_Play.Size = new System.Drawing.Size(76, 76);
@@ -138,6 +142,7 @@ namespace GDD_Game_Windows
             this.Button_Reset.ForeColor = System.Drawing.Color.Black;
             this.Button_Reset.IsSelected = false;
             this.Button_Reset.Location = new System.Drawing.Point(0, 172);
+            this.Button_Reset.Medals = -1;
             this.Button_Reset.Name = "Button_Reset";
             this.Button_Reset.Note = null;
             this.Button_Reset.Size = new System.Drawing.Size(76, 76);
@@ -152,6 +157,7 @@ namespace GDD_Game_Windows
             this.Button_Save.ForeColor = System.Drawing.Color.Black;
             this.Button_Save.IsSelected = false;
             this.Button_Save.Location = new System.Drawing.Point(0, 0);
+            this.Button_Save.Medals = -1;
             this.Button_Save.Name = "Button_Save";
             this.Button_Save.Note = null;
             this.Button_Save.Size = new System.Drawing.Size(76, 76);
@@ -166,6 +172,7 @@ namespace GDD_Game_Windows
             this.Button_Exit.ForeColor = System.Drawing.Color.Black;
             this.Button_Exit.IsSelected = false;
             this.Button_Exit.Location = new System.Drawing.Point(0, 258);
+            this.Button_Exit.Medals = -1;
             this.Button_Exit.Name = "Button_Exit";
             this.Button_Exit.Note = null;
             this.Button_Exit.Size = new System.Drawing.Size(76, 76);
@@ -181,6 +188,7 @@ namespace GDD_Game_Windows
             this.Button_Options.ForeColor = System.Drawing.Color.Black;
             this.Button_Options.IsSelected = false;
             this.Button_Options.Location = new System.Drawing.Point(698, 356);
+            this.Button_Options.Medals = -1;
             this.Button_Options.Name = "Button_Options";
             this.Button_Options.Note = null;
             this.Button_Options.Size = new System.Drawing.Size(76, 76);
@@ -195,6 +203,7 @@ namespace GDD_Game_Windows
             this.Button_Eraser.ForeColor = System.Drawing.Color.Black;
             this.Button_Eraser.IsSelected = false;
             this.Button_Eraser.Location = new System.Drawing.Point(10, 182);
+            this.Button_Eraser.Medals = -1;
             this.Button_Eraser.Name = "Button_Eraser";
             this.Button_Eraser.Note = null;
             this.Button_Eraser.Size = new System.Drawing.Size(76, 76);
@@ -209,6 +218,7 @@ namespace GDD_Game_Windows
             this.Button_Select.ForeColor = System.Drawing.Color.Black;
             this.Button_Select.IsSelected = false;
             this.Button_Select.Location = new System.Drawing.Point(10, 354);
+            this.Button_Select.Medals = -1;
             this.Button_Select.Name = "Button_Select";
             this.Button_Select.Note = null;
             this.Button_Select.Size = new System.Drawing.Size(76, 76);
@@ -223,6 +233,7 @@ namespace GDD_Game_Windows
             this.Button_Shapes.ForeColor = System.Drawing.Color.Black;
             this.Button_Shapes.IsSelected = false;
             this.Button_Shapes.Location = new System.Drawing.Point(10, 268);
+            this.Button_Shapes.Medals = -1;
             this.Button_Shapes.Name = "Button_Shapes";
             this.Button_Shapes.Note = null;
             this.Button_Shapes.Size = new System.Drawing.Size(76, 76);
@@ -237,6 +248,7 @@ namespace GDD_Game_Windows
             this.Button_Line.ForeColor = System.Drawing.Color.Black;
             this.Button_Line.IsSelected = false;
             this.Button_Line.Location = new System.Drawing.Point(10, 92);
+            this.Button_Line.Medals = -1;
             this.Button_Line.Name = "Button_Line";
             this.Button_Line.Note = null;
             this.Button_Line.Size = new System.Drawing.Size(76, 76);
@@ -251,6 +263,7 @@ namespace GDD_Game_Windows
             this.Button_Pencil.ForeColor = System.Drawing.Color.Black;
             this.Button_Pencil.IsSelected = false;
             this.Button_Pencil.Location = new System.Drawing.Point(10, 10);
+            this.Button_Pencil.Medals = -1;
             this.Button_Pencil.Name = "Button_Pencil";
             this.Button_Pencil.Note = null;
             this.Button_Pencil.Size = new System.Drawing.Size(76, 76);
@@ -277,8 +290,8 @@ namespace GDD_Game_Windows
             // ScoreLabel
             // 
             this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.BackColor = System.Drawing.Color.Transparent;
-            this.ScoreLabel.Location = new System.Drawing.Point(93, 23);
+            this.ScoreLabel.BackColor = System.Drawing.Color.White;
+            this.ScoreLabel.Location = new System.Drawing.Point(131, 18);
             this.ScoreLabel.Name = "ScoreLabel";
             this.ScoreLabel.Size = new System.Drawing.Size(41, 13);
             this.ScoreLabel.TabIndex = 31;
@@ -286,9 +299,10 @@ namespace GDD_Game_Windows
             // 
             // HighscoreLabel
             // 
+            this.HighscoreLabel.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.HighscoreLabel.AutoSize = true;
-            this.HighscoreLabel.BackColor = System.Drawing.Color.Transparent;
-            this.HighscoreLabel.Location = new System.Drawing.Point(93, 36);
+            this.HighscoreLabel.BackColor = System.Drawing.Color.White;
+            this.HighscoreLabel.Location = new System.Drawing.Point(131, 31);
             this.HighscoreLabel.Name = "HighscoreLabel";
             this.HighscoreLabel.Size = new System.Drawing.Size(61, 13);
             this.HighscoreLabel.TabIndex = 32;

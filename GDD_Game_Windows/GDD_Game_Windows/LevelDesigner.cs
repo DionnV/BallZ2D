@@ -38,6 +38,8 @@ namespace GDD_Game_Windows
         private float StartSize;
         private GDD_Button shapePanel;
 
+        private bool IsPlaying = false;
+
         public int Score;
 
         /// <summary>
@@ -128,6 +130,12 @@ namespace GDD_Game_Windows
 
         private void GDD_View_LevelDesigner1_MouseDown(object sender, MouseEventArgs e)
         {
+            //Only proceed if we are not playing
+            if (IsPlaying)
+            {
+                return;
+            }
+
             //First off; checking if we clicked on a polygon object
             if (Button_Select.IsSelected)
             {
@@ -257,6 +265,12 @@ namespace GDD_Game_Windows
         {
             //Checking if we have a selected object now
             if (Button_Select.IsSelected)
+            {
+                return;
+            }
+
+            //Only proceed if we are not playing
+            if (IsPlaying)
             {
                 return;
             }
@@ -427,6 +441,12 @@ namespace GDD_Game_Windows
 
         private void GDD_View_LevelDesigner1_MouseUp(object sender, MouseEventArgs e)
         {
+            //Only proceed if we are not playing
+            if (IsPlaying)
+            {
+                return;
+            }
+
             Score = 0;
             //We can now calculate the score
             foreach (GDD_Object line in Lines)
@@ -596,7 +616,8 @@ namespace GDD_Game_Windows
                             level.info.Medals[1] > level.info.Medals[2])
                         {
                             //Something is wrong with the medals.
-                            MessageBox.Show("Higher medals can not have higher score settings.");
+                            info.WarningLabel.Visible = true;
+                            info.WarningLabel.Refresh();
                             throw new Exception();
                         }
                     }
@@ -637,7 +658,7 @@ namespace GDD_Game_Windows
                     }
                 }
 
-                string dirname = "./Levels/Chapter1/" + level.info.LevelName;
+                string dirname = "./Levels/Custom/" + level.info.LevelName;
                 System.IO.Directory.CreateDirectory(dirname);
                 level.info.FileLocation = dirname;
                 GDD_IO.Serialize(dirname + "/Objects.bin", level.Objects);
@@ -756,6 +777,7 @@ namespace GDD_Game_Windows
         {
             if (level != null)
             {
+                this.IsPlaying = true;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Normal;
             }
         }
@@ -827,9 +849,16 @@ namespace GDD_Game_Windows
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].GravityType = GDD_GravityType.Static;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Bucket].OnCollision += Bucket_OnCollision;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].OnCollision += Ball_OnCollision;
+                this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].outOfSceneEvent += Ball_outOfSceneEvent;
                 this.GDD_View_LevelDesigner1.graphicsTimer.Start();
+                this.IsPlaying = false;
             }
 
+        }
+
+        private void Ball_outOfSceneEvent(object sender)
+        {
+            MessagePlayerLost();
         }
 
         private void Ball_OnCollision(object sender, CollisionEventArgs e)
