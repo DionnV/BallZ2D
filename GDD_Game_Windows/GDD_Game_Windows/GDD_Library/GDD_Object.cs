@@ -19,11 +19,11 @@ namespace GDD_Library
         {
             //Setting it's shape
             this.Shape = Shape;
-        }
+       }
 
         public GDD_Object(SerializationInfo info, StreamingContext context)
         {
-            
+
             Mass = (float) info.GetValue("Mass", typeof(float));
             Shape = (GDD_Shape) info.GetValue("Shape", typeof(GDD_Shape));
             Location = (GDD_Point2F) info.GetValue("Location", typeof(GDD_Point2F));
@@ -151,7 +151,10 @@ namespace GDD_Library
         /// <summary>
         /// The frontpen used for drawing
         /// </summary>
-        public Pen FrontPen { get { return _FrontPen; } set { this._FrontPen = value; } }
+        public Pen FrontPen { get { return _FrontPen; } 
+            set {
+                this._FrontPen = value; 
+               } }
         private Pen _FrontPen = new Pen(new SolidBrush(Color.Black),2);
 
         /// <summary>

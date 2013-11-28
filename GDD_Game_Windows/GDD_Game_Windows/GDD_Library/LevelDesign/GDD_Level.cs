@@ -24,8 +24,7 @@ namespace GDD_Library.LevelDesign
 
         /// <summary>
         /// This method will create a GDD_Level given a folder. This folder should contain
-        /// at least two files called Objects.bin and LevelData.bin. It may also contain a .jpeg-file
-        /// called background.jpeg.
+        /// at least two files called Objects.bin and LevelData.bin.
         /// </summary>
         /// <param name="folder">The folder.</param>
         /// <returns>A GDD_Level object.</returns>

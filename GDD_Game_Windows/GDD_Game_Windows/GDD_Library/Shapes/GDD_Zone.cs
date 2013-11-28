@@ -50,7 +50,9 @@ namespace GDD_Library.Shapes
 
             //The Edgesize is normally 5
             EdgeSize = 5;
+            Size = (float)info.GetValue("Size", typeof(float));
         }
+
 
         /// <summary>
         /// Creates a new instance of zone

@@ -300,15 +300,25 @@ namespace GDD_Library
                         if (eud_end < eud_start)
                         {
                             collisionPoint = line_end;
+
                         }
-
-                        //We're Colliding with the start
-                        GDD_Vector2F vec = new GDD_Point2F(collisionPoint.x - circle.Owner.Desired_Location.x, collisionPoint.y - circle.Owner.Desired_Location.y).ToVector();
-                        result.BounceAngle = vec.Direction - 90f;
-
-                        //Calculating the distance to a the point of collision
-                        result.DistanceToCollision = (float)GDD_Math.EuclidianDistance(result.obj1.Desired_Location, collisionPoint);
-
+                            //We're Colliding with the start
+                            GDD_Vector2F vec = new GDD_Point2F(collisionPoint.x - circle.Owner.Desired_Location.x, collisionPoint.y - circle.Owner.Desired_Location.y).ToVector();
+                            result.BounceAngle = vec.Direction - 90f;
+                            int correction;
+                            if (result.BounceAngle > 90)
+                            {
+                                correction = result.BounceAngle - 180 < 0 ? -3 : 0;
+                            }
+                            else
+                            {
+                                correction = result.BounceAngle - 30 < 0 ? 3 : 0;
+                            }
+                            result.BounceAngle += correction;
+                          
+                            //Calculating the distance to a the point of collision
+                            result.DistanceToCollision = (float)GDD_Math.EuclidianDistance(result.obj1.Desired_Location, collisionPoint);
+                        
                     }
                 }
 

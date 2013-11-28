@@ -317,7 +317,7 @@ namespace GDD_Library
 
         public Boolean ContainsObjectWithinBounds(GDD_Object obj)
         {
-            return (obj.Location.x > 0 && obj.Location.x < this.Width && obj.Location.y > 0 && obj.Location.y < this.Height);
+            return (obj.Location.x > 0 && obj.Location.x < this.Width && obj.Location.y < this.Height);
         }
     }
 }

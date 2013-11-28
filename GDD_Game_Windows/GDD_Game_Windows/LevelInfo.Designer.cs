@@ -40,7 +40,6 @@
             this.GoldScoreTextBox = new System.Windows.Forms.TextBox();
             this.SilverScoreTextBox = new System.Windows.Forms.TextBox();
             this.BronzeScoreTextBox = new System.Windows.Forms.TextBox();
-            this.WarningLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LevelName
@@ -50,7 +49,6 @@
             this.LevelName.Location = new System.Drawing.Point(12, 19);
             this.LevelName.Name = "LevelName";
             this.LevelName.Size = new System.Drawing.Size(105, 20);
-            this.LevelName.TabIndex = 0;
             this.LevelName.Text = "Level name:";
             // 
             // LevelNameBox
@@ -62,7 +60,7 @@
             this.LevelNameBox.Location = new System.Drawing.Point(12, 42);
             this.LevelNameBox.Name = "LevelNameBox";
             this.LevelNameBox.Size = new System.Drawing.Size(760, 26);
-            this.LevelNameBox.TabIndex = 1;
+            this.LevelNameBox.TabIndex = 0;
             // 
             // CreatorName
             // 
@@ -71,7 +69,6 @@
             this.CreatorName.Location = new System.Drawing.Point(8, 75);
             this.CreatorName.Name = "CreatorName";
             this.CreatorName.Size = new System.Drawing.Size(123, 20);
-            this.CreatorName.TabIndex = 2;
             this.CreatorName.Text = "Creator name:";
             // 
             // CreatorNameBox
@@ -82,7 +79,7 @@
             this.CreatorNameBox.Location = new System.Drawing.Point(12, 98);
             this.CreatorNameBox.Name = "CreatorNameBox";
             this.CreatorNameBox.Size = new System.Drawing.Size(760, 26);
-            this.CreatorNameBox.TabIndex = 3;
+            this.CreatorNameBox.TabIndex = 1;
             // 
             // Button_OK
             // 
@@ -95,7 +92,6 @@
             this.Button_OK.Name = "Button_OK";
             this.Button_OK.Note = null;
             this.Button_OK.Size = new System.Drawing.Size(150, 50);
-            this.Button_OK.TabIndex = 4;
             this.Button_OK.Click += new System.EventHandler(this.Button_OK_Click);
             // 
             // Button_Cancel
@@ -109,7 +105,6 @@
             this.Button_Cancel.Name = "Button_Cancel";
             this.Button_Cancel.Note = null;
             this.Button_Cancel.Size = new System.Drawing.Size(150, 50);
-            this.Button_Cancel.TabIndex = 5;
             this.Button_Cancel.Click += new System.EventHandler(this.Button_Cancel_Click);
             // 
             // GoldScoreLabel
@@ -118,7 +113,6 @@
             this.GoldScoreLabel.Location = new System.Drawing.Point(13, 165);
             this.GoldScoreLabel.Name = "GoldScoreLabel";
             this.GoldScoreLabel.Size = new System.Drawing.Size(61, 13);
-            this.GoldScoreLabel.TabIndex = 6;
             this.GoldScoreLabel.Text = "Gold score:";
             // 
             // SilverScoreLabel
@@ -127,7 +121,6 @@
             this.SilverScoreLabel.Location = new System.Drawing.Point(13, 188);
             this.SilverScoreLabel.Name = "SilverScoreLabel";
             this.SilverScoreLabel.Size = new System.Drawing.Size(65, 13);
-            this.SilverScoreLabel.TabIndex = 7;
             this.SilverScoreLabel.Text = "Silver score:";
             // 
             // BronzeScoreLabel
@@ -136,7 +129,6 @@
             this.BronzeScoreLabel.Location = new System.Drawing.Point(13, 211);
             this.BronzeScoreLabel.Name = "BronzeScoreLabel";
             this.BronzeScoreLabel.Size = new System.Drawing.Size(72, 13);
-            this.BronzeScoreLabel.TabIndex = 8;
             this.BronzeScoreLabel.Text = "Bronze score:";
             // 
             // GoldScoreTextBox
@@ -144,32 +136,21 @@
             this.GoldScoreTextBox.Location = new System.Drawing.Point(98, 162);
             this.GoldScoreTextBox.Name = "GoldScoreTextBox";
             this.GoldScoreTextBox.Size = new System.Drawing.Size(57, 20);
-            this.GoldScoreTextBox.TabIndex = 9;
+            this.GoldScoreTextBox.TabIndex = 2;
             // 
             // SilverScoreTextBox
             // 
             this.SilverScoreTextBox.Location = new System.Drawing.Point(98, 185);
             this.SilverScoreTextBox.Name = "SilverScoreTextBox";
             this.SilverScoreTextBox.Size = new System.Drawing.Size(57, 20);
-            this.SilverScoreTextBox.TabIndex = 10;
+            this.SilverScoreTextBox.TabIndex = 3;
             // 
             // BronzeScoreTextBox
             // 
             this.BronzeScoreTextBox.Location = new System.Drawing.Point(98, 208);
             this.BronzeScoreTextBox.Name = "BronzeScoreTextBox";
             this.BronzeScoreTextBox.Size = new System.Drawing.Size(57, 20);
-            this.BronzeScoreTextBox.TabIndex = 11;
-            // 
-            // WarningLabel
-            // 
-            this.WarningLabel.AutoSize = true;
-            this.WarningLabel.ForeColor = System.Drawing.Color.Red;
-            this.WarningLabel.Location = new System.Drawing.Point(96, 146);
-            this.WarningLabel.Name = "WarningLabel";
-            this.WarningLabel.Size = new System.Drawing.Size(243, 13);
-            this.WarningLabel.TabIndex = 12;
-            this.WarningLabel.Text = "Higher medals can not have higher score settings.";
-            this.WarningLabel.Visible = false;
+            this.BronzeScoreTextBox.TabIndex = 4;
             // 
             // LevelInfo
             // 
@@ -177,7 +158,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 442);
-            this.Controls.Add(this.WarningLabel);
             this.Controls.Add(this.BronzeScoreTextBox);
             this.Controls.Add(this.SilverScoreTextBox);
             this.Controls.Add(this.GoldScoreTextBox);
@@ -211,6 +191,5 @@
         public System.Windows.Forms.TextBox GoldScoreTextBox;
         public System.Windows.Forms.TextBox SilverScoreTextBox;
         public System.Windows.Forms.TextBox BronzeScoreTextBox;
-        public System.Windows.Forms.Label WarningLabel;
     }
 }

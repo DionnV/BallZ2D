@@ -611,15 +611,7 @@ namespace GDD_Game_Windows
                         level.info.Medals[0] = Convert.ToInt32(info.GoldScoreTextBox.Text);
                         level.info.Medals[1] = Convert.ToInt32(info.SilverScoreTextBox.Text);
                         level.info.Medals[2] = Convert.ToInt32(info.BronzeScoreTextBox.Text);
-
-                        if (level.info.Medals[0] > level.info.Medals[1] ||
-                            level.info.Medals[1] > level.info.Medals[2])
-                        {
-                            //Something is wrong with the medals.
-                            info.WarningLabel.Visible = true;
-                            info.WarningLabel.Refresh();
-                            throw new Exception();
-                        }
+                        Array.Sort(level.info.Medals);
                     }
                     catch (Exception ex)
                     {
