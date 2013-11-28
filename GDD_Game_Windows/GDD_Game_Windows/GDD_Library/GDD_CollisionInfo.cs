@@ -400,6 +400,9 @@ namespace GDD_Library
                     }
 
                     //Applying 
+                    
+
+                    //obj1_AfterCollision.Desired_Location = new GDD_Point2F(
                     obj1_AfterCollision.Velocity_Vector = new GDD_Vector2F(obj1.Velocity_Vector.Direction + (2 * dAngle), obj1.Velocity_Vector.Size * ((GDD_Circle)obj1.Shape).RestitutionRate);
                 }
                 else

@@ -157,8 +157,23 @@ namespace GDD_Game_Windows
                             SelectedObj.Shape.DrawingColor = new SolidBrush(Color.LightGray);
 
                             //Now we should transform the select button to the edit button
-                            editPanel.Show();
-                            editPanel.BringToFront();
+                            if (InvokeRequired)
+                            {
+                                this.Invoke(new Action(
+                                    delegate()
+                                    {
+                                        editPanel.Show();
+                                        editPanel.BringToFront();
+                                    }
+                                ));
+                            }
+                            else
+                            {
+                                editPanel.Show();
+                                editPanel.BringToFront();
+                            }
+
+                            
 
 
                             return;
@@ -861,6 +876,8 @@ namespace GDD_Game_Windows
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].OnCollision += Ball_OnCollision;
                 this.GDD_View_LevelDesigner1.Scene.Objects[level.info.Index_Ball].outOfSceneEvent += Ball_outOfSceneEvent;
                 this.GDD_View_LevelDesigner1.graphicsTimer.Start();
+                this.GDD_View_LevelDesigner1.sw = new System.Diagnostics.Stopwatch();
+                this.GDD_View_LevelDesigner1.sw.Start();
                 this.IsPlaying = false;
             }
 
@@ -888,7 +905,7 @@ namespace GDD_Game_Windows
             dialog.TopMost = true;
 
             //Showing 
-            if (InvokeRequired)
+            /*if (InvokeRequired)
             {
                 this.Invoke(new Action(delegate()
                 {
@@ -903,9 +920,11 @@ namespace GDD_Game_Windows
                 }));
             }
             else
-            {
+            {*/
+                GDD_View_LevelDesigner1.graphicsTimer.Stop();
                 DialogResult result = dialog.ShowDialog();
-            }
+                Reset();
+            //}
         }
 
         public void MessagePlayerDied()
@@ -917,7 +936,7 @@ namespace GDD_Game_Windows
             dialog.TopMost = true;
 
             //Showing 
-            if (InvokeRequired)
+            /* if (InvokeRequired)
             {
                 this.Invoke(new Action(delegate()
                 {
@@ -925,11 +944,14 @@ namespace GDD_Game_Windows
                 }));
             }
             else
-            {
-                DialogResult result = dialog.ShowDialog();
-            }
+            {*/
+                
+            //}
 
             //Closing when lost
+            
+            GDD_View_LevelDesigner1.graphicsTimer.Stop();
+            DialogResult result = dialog.ShowDialog();
             this.Reset();
         }
 
@@ -942,19 +964,8 @@ namespace GDD_Game_Windows
             dialog.TopMost = true;
 
             //Showing 
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action(delegate()
-                {
-                    DialogResult result = dialog.ShowDialog();
-                }));
-            }
-            else
-            {
-                DialogResult result = dialog.ShowDialog();
-            }
-
-            //Closing when lost
+            this.GDD_View_LevelDesigner1.graphicsTimer.Stop();
+            DialogResult result = dialog.ShowDialog();
             this.Reset();
         }
 
@@ -967,6 +978,11 @@ namespace GDD_Game_Windows
 
         private void Button_Play_Click(object sender, EventArgs e)
         {
+            if (isDesigner)
+            {
+                Button_Save_Click(sender, e);
+            }
+
             Reset();
             Start();
         }

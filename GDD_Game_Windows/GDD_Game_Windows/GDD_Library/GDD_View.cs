@@ -23,9 +23,11 @@ namespace GDD_Library
             this.Scene = new GDD_Scene(this.Width, this.Height);
 
             //Create a new graphics timer
-            graphicsTimer = new GDD_Timer();
-            graphicsTimer.TickCap = 60;
-            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);           
+            graphicsTimer = new System.Windows.Forms.Timer();
+            graphicsTimer.Interval = 10;
+            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick);
+           /* graphicsTimer.TickCap = 60;
+            graphicsTimer.Tick += new EventHandler(graphicsTimer_Tick); */          
         }
 
         ~GDD_View()
@@ -38,7 +40,7 @@ namespace GDD_Library
         /// An acurate timer that ticks regularly
         /// </summary>
         [Browsable(false)]
-        public GDD_Timer graphicsTimer { get; set; }
+        public System.Windows.Forms.Timer graphicsTimer { get; set; }
 
         /// <summary>
         /// The GDD_Scene on which we are viewing
@@ -99,6 +101,8 @@ namespace GDD_Library
             Application.DoEvents();
         }
 
+        public Stopwatch sw;
+
         /// <summary>
         /// Repainting the scene on this view
         /// </summary>
@@ -133,10 +137,10 @@ namespace GDD_Library
             }
 
 
-            if (this.ShowFPS)
+           /*( if (this.ShowFPS)
             {
                 g.DrawString("FPS: " + this.graphicsTimer.TPS, new Font("Ariel", 10), new SolidBrush(Color.Black), new PointF(0, 0));
-            }
+            }*/
 
             //Calculating some constatns
             //float Deg2Rad = 0.0174532925f;
@@ -147,10 +151,10 @@ namespace GDD_Library
             for (int i = 0; i < this.Scene.Objects.Count; i++)
             {
 
-                if (graphicsTimer.CancellationPending)
+                /*if (graphicsTimer.CancellationPending)
                 {
                     return;
-                }
+                }*/
 
                 GDD_Object obj = this.Scene.Objects[i];
 
@@ -162,9 +166,24 @@ namespace GDD_Library
                         obj.RaiseOnOutOfScene(obj);
                     }
                     //Doing a calculation for when to 
-                    float t = graphicsTimer.TickTime;
-                    if (t == 0) { t = graphicsTimer.DesiredTickTime; }
-                    float d = t / 1000;
+                    /*float t = graphicsTimer.TickTime;
+                    if (t == 0) { t = graphicsTimer.DesiredTickTime; }*/
+                    
+                    float d = 20f / 1000f;
+                    if (sw != null)
+                    {
+                        float t = sw.ElapsedMilliseconds;
+                        d = t / 1000f;
+
+                        sw.Restart();
+                    }
+                    else
+                    {
+                        sw = new Stopwatch();
+                        sw.Start();
+                    }
+     
+                    
 
                     //Applying angulair momentum
                     obj.Rotation = new GDD_Vector2F(obj.Rotation.Direction + (obj.Rotation.Size * 360f) * d, obj.Rotation.Size);

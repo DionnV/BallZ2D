@@ -89,6 +89,7 @@ namespace GDD_Game_Windows
             Button_Settings.Text = "Settings";
             Button_Store.Text = "Store";
             Button_LevelDesign.Text = "Level Designer";
+            Button_Designer_Back.Text = "Level Designer";
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace GDD_Game_Windows
         /// <summary>
         /// This will load the level designer.
         /// </summary>
-        private void LoadLevelDesigner(bool _isDesigner)
+        private void OpenDesigner(bool _isDesigner)
         {
             //Hide this form.
             this.Hide();
@@ -322,7 +323,81 @@ namespace GDD_Game_Windows
         private void Button_LevelDesign_Click(object sender, System.EventArgs e)
         {
             //Load the level designer.
-            LoadLevelDesigner(true);            
+            CurrentPanel.SendToBack();
+            this.panelDesigner.BringToFront();
+            PreviousPanel = CurrentPanel;
+            CurrentPanel = panelDesigner;
+            Button_Designer_New.Text = "New game";
+            Button_Designer_Load.Text = "Load game";
+
+            Button_Designer_Load.Visible = true;
+            Button_Designer_Load.Enabled = false;
+            Button_Designer_Load.Note = "Soon";
+            Button_Designer_Load.Refresh();
+            
+        }
+
+        private void Button_Designer_New_Click(object sender, System.EventArgs e)
+        {
+            //Load the level designer.
+            OpenDesigner(true);
+        }
+
+        private void Button_EditCustomLevel_Click(object sender, System.EventArgs e)
+        {
+            panelEditCustomLevels_Levels.Controls.Clear();
+
+            //We will make 3 columns
+            int col = 3;
+
+            //Tile size
+            int x = 50;
+            int y = 0;
+
+            //Add tiles to the panel
+            System.IO.DirectoryInfo dirinfo = new System.IO.DirectoryInfo("./Levels/Custom/");
+
+            //Getting all the files in the directory
+            DirectoryInfo[] dirs = dirinfo.GetDirectories();
+
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                //Add a new row after 3 tiles
+                if ((i % col) == 0)
+                {
+                    y += 85;
+                    x = 50;
+                }
+
+                string name = dirs[i].Name;
+
+                //Add the button
+                GDD_Button b = new GDD_Button();
+                b.Note = "";
+                b.Text = name;
+                b.Location = new Point(x, y);
+                b.BackColor = System.Drawing.Color.White;
+                b.BorderWidth = 2F;
+                b.Name = "./Custom/" + name;
+                b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                b.ForeColor = System.Drawing.Color.Black;
+                b.Padding = new System.Windows.Forms.Padding(3);
+                b.Size = new System.Drawing.Size(100, 75);
+                b.TabIndex = 4;
+                b.Click += new EventHandler(Button_EditCustomLevel);
+                panelEditCustomLevels_Levels.Controls.Add(b);
+
+                //Increase x for the next button
+                x += 113;
+            }
+
+            //Load the level designer.
+            CurrentPanel.SendToBack();
+            this.panelEditCustomLevel.BringToFront();
+            PreviousPanel = CurrentPanel;
+            CurrentPanel = PanelCustomLevels;
+            Button_EditCustomLevels_Back.Text = "Edit a custom level";
+
         }
 
         /// <summary>
@@ -369,20 +444,53 @@ namespace GDD_Game_Windows
         private void Button_LoadLevel(object sender, EventArgs e)
         {
             //Who pressed me?
-            GDD_Button button = (GDD_Button)sender;           
-            
+            GDD_Button button = (GDD_Button)sender;
+
+            LoadLevel(@".\Levels\Chapter" + currentChapter + @"\ch" + currentChapter + "lev" + button.Text, false);
+        }
+
+
+        /// <summary>
+        /// This will load the selected level.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_PlayCustomLevel(object sender, EventArgs e)
+        {
+            //Who pressed me?
+            GDD_Button button = (GDD_Button)sender;
+
+            LoadLevel(@".\Levels\Custom\" + button.Text, false);
+        }
+
+        /// <summary>
+        /// This will load the selected level.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_EditCustomLevel(object sender, EventArgs e)
+        {
+            //Who pressed me?
+            GDD_Button button = (GDD_Button)sender;
+
+            LoadLevel(@".\Levels\Custom\" + button.Text, true); 
+        }
+
+        public void LoadLevel(string name, bool Designer)
+        {
             //Run a check if the level is custom or from a chapter
-            if(System.IO.Directory.Exists("./Levels" + button.Name))
+            if (System.IO.Directory.Exists(name))
             {
-                level = GDD_Level.LoadFromFolder("./Levels" + button.Name);
+                level = GDD_Level.LoadFromFolder(name);
             }
             else
             {
                 return;
             }
+
             //Put the levels in a new list, because serializing gives errors with the Owners.
             List<GDD_Object> newlist = new List<GDD_Object>();
-            
+
             //Adding all the objects
             foreach (GDD_Object obj in level.Objects)
             {
@@ -398,15 +506,16 @@ namespace GDD_Game_Windows
 
             //This works fine though.
             level.Objects = newlist;
-            
+
             //Loading level designer
-            LoadLevelDesigner(false);  
+            OpenDesigner(Designer);
 
             //Load the level
-            this.playzone.LoadLevel(level);         
+            this.playzone.LoadLevel(level);
 
             //Show the playzone
-            //this.playzone.Show();
+            this.playzone.Show();
+            this.Hide();
         }
 
         /// <summary>
@@ -414,8 +523,10 @@ namespace GDD_Game_Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Custom_Click(object sender, System.EventArgs e)
+        private void Button_PlayCustom_Click(object sender, System.EventArgs e)
         {
+            PanelCustomLevels_Levels.Controls.Clear();
+
             //We will make 3 columns
             int col = 3;
 
@@ -435,7 +546,7 @@ namespace GDD_Game_Windows
                 if ((i % col) == 0)
                 {
                     y += 85;
-                    x = 50;
+                    x = 0;
                 }
 
                 string name = dirs[i].Name;
@@ -453,8 +564,8 @@ namespace GDD_Game_Windows
                 b.Padding = new System.Windows.Forms.Padding(3);
                 b.Size = new System.Drawing.Size(100, 75);
                 b.TabIndex = 4;
-                b.Click += new EventHandler(Button_LoadLevel);
-                PanelCustomLevels.Controls.Add(b);
+                b.Click += new EventHandler(Button_PlayCustomLevel);
+                PanelCustomLevels_Levels.Controls.Add(b);
 
                 //Increase x for the next button
                 x += 113;
@@ -602,6 +713,15 @@ namespace GDD_Game_Windows
             return GDD_Level.LoadFromFolder(levelfolder).info.MedalsAchieved;
         }
 
+        private void Button_Designer_Back_Click(object sender, EventArgs e)
+        {
+            LoadMainMenu();
+        }
+
+        private void Button_Designer_Load_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }
