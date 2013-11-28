@@ -603,7 +603,9 @@ namespace GDD_Game_Windows
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
-            
+            GDD_View_LevelDesigner1.graphicsTimer.Stop();
+
+
             //Saves the current built level
             GDD_Level level = new GDD_Level();
             level.Objects = GDD_View_LevelDesigner1.Scene.Objects;
@@ -681,6 +683,8 @@ namespace GDD_Game_Windows
 
                 MessageBox.Show("Level Saved.");
             }));
+
+            GDD_View_LevelDesigner1.graphicsTimer.Start();
         }
 
         private void GDD_View_LevelDesigner1_MouseLeave(object sender, EventArgs e)      
