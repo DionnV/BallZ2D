@@ -48,10 +48,6 @@ namespace GDD_Library.Shapes
         /// <param name="G"></param>
         public override void Draw(Graphics G)
         {
-            if (Owner.FrontPen.Color == Color.Empty)
-            {
-                Owner.FrontPen = new Pen(new SolidBrush(Color.Black));
-            }
             //Drawing a line given two points
             G.DrawLine(Owner.FrontPen, Owner.Location.x, Owner.Location.y, end.x, end.y);
         }

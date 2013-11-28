@@ -50,7 +50,7 @@ namespace GDD_Library
         /// <param name="p"></param>
         /// <param name="zoneType"></param>
         /// <returns></returns>
-        public Boolean PointInZone(GDD_Point2F p, GDD_ZoneType zoneType)
+        /*public Boolean PointInZone(GDD_Point2F p, GDD_ZoneType zoneType)
         {
             foreach (GDD_Object obj in Zones)
             {
@@ -73,7 +73,7 @@ namespace GDD_Library
 
             //If we reach this line we know the point is not in one of the zones
             return false;
-        }
+        }*/
 
         /// <summary>
         /// Returns true if the line goes through one of the Scene's objects
