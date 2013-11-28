@@ -802,28 +802,38 @@ namespace GDD_Game_Windows
                 //Saving highscore
                 if (!this.isDesigner)
                 {
-                    if ((this.Score < level.info.Highscore || level.info.Highscore == 0) && this.Score != 0)
+                    if (this.Score > 0)
                     {
                         //Now we have to write the new highscore to the file
-                        level.info.Highscore = this.Score;
-                        int temp = level.info.MedalsAchieved;
-                        level.info.MedalsAchieved = 0;
+                        int currentMedals = 0;
+
+                        //Calculatin the medals
                         for (int i = 2; i > -1; i--)
                         {
                             if (Score < level.info.Medals[i])
                             {
-                                level.info.MedalsAchieved++;
+                                currentMedals++;
                             }
                         }
-                        if (temp > level.info.MedalsAchieved) { level.info.MedalsAchieved = temp; }
-                        GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);
-                    }
-                }
 
-                //Displaying win message
-                MessagePlayerWon(Score, level.info.Highscore);
+                        //Checking if bigger than last time
+                        if (Score < (level.info.Highscore==0?level.info.Medals[level.info.MedalsAmount - 1]:level.info.Highscore))
+                        {
+                            level.info.MedalsAchieved = currentMedals;
+                            level.info.Highscore = this.Score;
+                            GDD_IO.WriteToFile(level.info.FileLocation + "/LevelData.bin", level.info);   
+                        }
 
+                        if (Score > level.info.Medals[level.info.MedalsAmount - 1])
+                        {
+                            MessagePlayerScoreTooHigh();
+                            return;
+                        }
 
+                        //Displaying win message
+                        MessagePlayerWon(Score, level.info.Highscore);
+                    }                                        
+                }             
                 Reset();
             }       
         }
@@ -858,14 +868,14 @@ namespace GDD_Game_Windows
 
         private void Ball_outOfSceneEvent(object sender)
         {
-            MessagePlayerLost();
+            MessagePlayerDied();
         }
 
         private void Ball_OnCollision(object sender, CollisionEventArgs e)
         {
             if (e.CollsionInfo.obj2.Shape is GDD_Spikes)
             {
-                MessagePlayerLost();
+                MessagePlayerDied();
             }
         }
 
@@ -878,31 +888,71 @@ namespace GDD_Game_Windows
             dialog.TopMost = true;
 
             //Showing 
-            this.Invoke(new Action(delegate()
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(delegate()
+                {
+                    DialogResult result = dialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        //Closing when won
+                        dialog.Dispose();
+                        dialog = null;
+                        GC.Collect();
+                    }
+                }));
+            }
+            else
             {
                 DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    //Closing when won
-                    dialog.Dispose();
-                    dialog = null;
-                    GC.Collect();
-                }
-            }));          
+            }
         }
 
-        public void MessagePlayerLost()
+        public void MessagePlayerDied()
         {
             FormFail dialog = new FormFail();
+            dialog.SetDiedText();
             dialog.StartPosition = FormStartPosition.Manual;
             dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
             dialog.TopMost = true;
 
             //Showing 
-            this.Invoke(new Action(delegate()
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(delegate()
+                {
+                    DialogResult result = dialog.ShowDialog();
+                }));
+            }
+            else
             {
                 DialogResult result = dialog.ShowDialog();
-            }));  
+            }
+
+            //Closing when lost
+            this.Reset();
+        }
+
+        public void MessagePlayerScoreTooHigh()
+        {
+            FormFail dialog = new FormFail();
+            dialog.SetScoreTooHighText();
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = new Point(this.Location.X + (int)((this.Width - dialog.Width) / 2f), this.Location.Y + (int)((this.Height - dialog.Height) / 2f));
+            dialog.TopMost = true;
+
+            //Showing 
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(delegate()
+                {
+                    DialogResult result = dialog.ShowDialog();
+                }));
+            }
+            else
+            {
+                DialogResult result = dialog.ShowDialog();
+            }
 
             //Closing when lost
             this.Reset();

@@ -45,6 +45,7 @@
             this.Button_Background.ForeColor = System.Drawing.Color.Black;
             this.Button_Background.IsSelected = false;
             this.Button_Background.Location = new System.Drawing.Point(0, 0);
+            this.Button_Background.Medals = -1;
             this.Button_Background.Name = "Button_Background";
             this.Button_Background.Note = null;
             this.Button_Background.Size = new System.Drawing.Size(360, 212);
@@ -55,11 +56,13 @@
             this.label_Status.AutoSize = true;
             this.label_Status.BackColor = System.Drawing.Color.Transparent;
             this.label_Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Status.Location = new System.Drawing.Point(111, 9);
+            this.label_Status.Location = new System.Drawing.Point(5, 9);
+            this.label_Status.MinimumSize = new System.Drawing.Size(350, 0);
             this.label_Status.Name = "label_Status";
-            this.label_Status.Size = new System.Drawing.Size(135, 31);
+            this.label_Status.Size = new System.Drawing.Size(350, 31);
             this.label_Status.TabIndex = 1;
             this.label_Status.Text = "You won!";
+            this.label_Status.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Button_Back
             // 
@@ -68,6 +71,7 @@
             this.Button_Back.ForeColor = System.Drawing.Color.Black;
             this.Button_Back.IsSelected = false;
             this.Button_Back.Location = new System.Drawing.Point(13, 134);
+            this.Button_Back.Medals = -1;
             this.Button_Back.Name = "Button_Back";
             this.Button_Back.Note = null;
             this.Button_Back.Size = new System.Drawing.Size(335, 66);

@@ -24,6 +24,15 @@ namespace GDD_Game_Windows
             this.Button_Back.Click += Button_Back_Click;
         }
 
+        public void SetDiedText()
+        {
+            this.label_Status.Text = "You died";
+        }
+
+        public void SetScoreTooHighText()
+        {
+            this.label_Status.Text = "Score too high";
+        }
 
         void Button_Back_Click(object sender, EventArgs e)
         {
